@@ -41,7 +41,7 @@
                             <groupId>com.carl.integration</groupId>
                             <artifactId>framework</artifactId>
                             <excludes>
-                                <exclude>WEB-INF/web.xml</exclude>
+                                <!--<exclude>WEB-INF/web.xml</exclude>-->
                             </excludes>
                         </overlay>
                     </overlays>
