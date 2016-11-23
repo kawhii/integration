@@ -51,6 +51,12 @@
                 <prop key="template_exception_handler">ignore</prop>
             </props>
         </property>
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="base" value-ref="baseTemplateDirectiveModel">
+                </entry>
+            </map>
+        </property>
     </bean>
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
