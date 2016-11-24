@@ -11,6 +11,7 @@
     <modules>
         <module>framework</module>
         <module>breakfast-web</module>
+        <module>framework-core</module>
     </modules>
 
     <properties>
