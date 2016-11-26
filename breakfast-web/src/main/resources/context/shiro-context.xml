@@ -27,8 +27,12 @@
         <property name="filters">
             <map>
                 <entry key="rememberRequest">
-                    <bean
-                            class="org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter"/>
+                    <bean class="org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter"/>
+                </entry>
+                <entry key="logout">
+                    <bean class="org.apache.shiro.web.filter.authc.LogoutFilter">
+                        <property name="redirectUrl" value="${url.index}"></property>
+                    </bean>
                 </entry>
             </map>
         </property>
@@ -38,6 +42,7 @@
                 /admin/** = authc, roles[admin]
                 /u/test = rememberRequest
                 /u/login = authc
+                /u/logout = logout
                 /docs/** = authc, perms[document:read]
                 /** = anon
                 # more URL-to-FilterChain definitions here
@@ -62,9 +67,9 @@
 
     <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
     <!-- security datasource: -->
-    <bean id="myRealm" class="org.apache.shiro.realm.text.IniRealm">
-        <constructor-arg index="0" type="java.lang.String"
-                         value="classpath:shiro/user-context.ini"></constructor-arg>
+    <bean id="myRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
+       <property name="dataSource" ref="dataSource"></property>
+
     </bean>
 
     <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->

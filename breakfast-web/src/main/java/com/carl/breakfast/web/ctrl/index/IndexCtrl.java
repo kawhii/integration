@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @date 2016/11/19
  */
 @Controller
-@RequestMapping("/idx")
+@RequestMapping("/")
 public class IndexCtrl extends BaseCtrl {
     @Override
     protected String getModuleName() {
@@ -21,8 +21,8 @@ public class IndexCtrl extends BaseCtrl {
      * 主要转发freemarker
      * @return
      */
-    @RequestMapping(value = "/index2.html", method = {RequestMethod.GET})
+    @RequestMapping(value = "/index.html", method = {RequestMethod.GET})
     public String mainContent() {
-        return freemarker("index2");
+        return freemarker("index");
     }
 }
