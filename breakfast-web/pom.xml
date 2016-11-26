@@ -29,13 +29,19 @@
         <!--webjars-->
         <dependency>
             <groupId>org.webjars.bower</groupId>
-            <artifactId>angularjs</artifactId>
-            <version>1.5.8</version>
+            <artifactId>angular-material</artifactId>
+            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.webjars.bower</groupId>
-            <artifactId>angular-material</artifactId>
-            <version>1.1.1</version>
+            <artifactId>angular-material-icons</artifactId>
+            <version>0.7.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -58,6 +64,12 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
+                    <packagingExcludes>
+                        WEB-INF/node_modules/**
+                    </packagingExcludes>
+                    <warSourceExcludes>
+                        WEB-INF/node_modules/**
+                    </warSourceExcludes>
                     <overlays>
                         <overlay>
                             <groupId>com.carl.integration</groupId>

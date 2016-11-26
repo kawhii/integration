@@ -4,3 +4,4 @@
 <script src="/webjars/angular-aria/angular-aria.min.js"></script>
 <script src="/webjars/angular-messages/angular-messages.min.js"></script>
 <script src="/webjars/angular-material/angular-material.min.js"></script>
+<script src="/webjars/angular-material-icons/angular-material-icons.js"></script>

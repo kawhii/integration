@@ -1,10 +1,16 @@
 var gulp = require('gulp'),
     watch = require('gulp-watch');;
 // 语法检查
-gulp.task('watch', function () {
+gulp.task('watch-view', function () {
     return watch('views/**/*.ftl', { ignoreInitial: false })
         .pipe(gulp.dest('../../../../target/breakfast-web/WEB-INF/views/'));
 
 });
 
-gulp.task('default', ['watch']);
+gulp.task('watch-js', function () {
+    return watch('resource/**/*.js', { ignoreInitial: false })
+        .pipe(gulp.dest('../../../../target/breakfast-web/WEB-INF/resource/'));
+
+});
+
+gulp.task('default', ['watch-view', 'watch-js']);
