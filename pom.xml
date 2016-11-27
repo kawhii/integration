@@ -12,6 +12,7 @@
         <module>framework</module>
         <module>breakfast-web</module>
         <module>framework-core</module>
+        <module>breakfast-dao</module>
     </modules>
 
     <properties>

@@ -2,7 +2,6 @@ package com.carl.breakfast.web.ctrl.user;
 
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +15,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/u")
 public class LoginCtrl extends BaseCtrl {
-    @Autowired
-    private UserDao userDao;
 
     @Override
     protected String getModuleName() {
@@ -31,8 +28,6 @@ public class LoginCtrl extends BaseCtrl {
     @RequestMapping(value = "/login")
     public Object login(@Value("${url.index}") String indexUrl) {
         if(SecurityUtils.getSubject().isAuthenticated()) {
-            User user = userDao.findByName("carl");
-            System.out.println(user.getPassword());
             return new ModelAndView(new RedirectView(indexUrl));
         }
         return freemarker("login");
