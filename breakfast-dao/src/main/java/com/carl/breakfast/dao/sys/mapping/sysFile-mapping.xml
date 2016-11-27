@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.sys.SysFileDao">
+    <!--表明-->
+    <sql id="table_name">
+        SYS_FILE
+    </sql>
+
+    <!--保存方法-->
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.carl.breakfast.dao.sys.pojo.SysFile">
+        INSERT INTO <include refid="table_name"/>
+                (ID, BIZ_CODE, VISIT_PATH, FILE_SIZE, UPLOAD_USER, UPLOAD_NAME, UPLOAD_IP, TYPE, REMARK)
+        VALUES (#{id}, #{bizCode}, #{visitPath}, #{fileSize}, #{uploadUser}, #{uploadName}, #{uploadIp}, #{type}, #{remark})
+    </insert>
+    <!--根据id查询-->
+    <select id="findById" resultType="com.carl.breakfast.dao.sys.pojo.SysFile" parameterType="int" >
+        SELECT * FROM <include refid="table_name"/> WHERE ID = #{id}
+    </select>
+</mapper>

@@ -2,6 +2,8 @@ package com.carl.breakfast.dao.sys;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.sys.pojo.SysFile;
+import org.apache.ibatis.annotations.Mapper;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
  * @date 2016/11/27
  * © 2016 - 2020 , all rights reserved .卡尔工作室
  */
+@Repository
 public interface SysFileDao {
     /**
      * 保存文件
@@ -18,7 +21,7 @@ public interface SysFileDao {
      * @return
      * @throws DaoException
      */
-    SysFile save(SysFile file) throws DaoException;
+    int save(SysFile file) throws DaoException;
 
 
     /**

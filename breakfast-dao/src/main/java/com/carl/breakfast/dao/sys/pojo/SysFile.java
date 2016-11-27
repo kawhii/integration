@@ -21,6 +21,8 @@ public class SysFile implements Serializable {
     private Date uploadTime;
     //上传用户
     private String uploadUser;
+    /*上传原文件名*/
+    private String uploadName;
     //上传ip
     private String uploadIp;
     //是否有效
@@ -117,6 +119,14 @@ public class SysFile implements Serializable {
 
     public String getRemark() {
         return remark;
+    }
+
+    public String getUploadName() {
+        return uploadName;
+    }
+
+    public void setUploadName(String uploadName) {
+        this.uploadName = uploadName;
     }
 
     public void setRemark(String remark) {
