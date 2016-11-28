@@ -10,7 +10,7 @@
         .controller('GoodsManagerCtrl', ['$scope', 'FileUploader', function($scope, FileUploader) {
             console.info(123);
             var uploader = $scope.uploader = new FileUploader({
-                url: 'upload.php'
+                url: '/sys/file/upload'
             });
 
             // FILTERS

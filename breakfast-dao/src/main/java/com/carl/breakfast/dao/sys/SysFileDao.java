@@ -1,10 +1,7 @@
 package com.carl.breakfast.dao.sys;
 
 import com.carl.breakfast.dao.DaoException;
-import com.carl.breakfast.dao.IDao;
 import com.carl.breakfast.dao.sys.pojo.SysFile;
-import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * © 2016 - 2020 , all rights reserved .卡尔工作室
  */
 @Repository
-public interface SysFileDao extends IDao<SysFile> {
+public interface SysFileDao {
     /**
      * 保存文件
      *
