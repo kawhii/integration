@@ -12,13 +12,14 @@
 
     function AppCtrl($scope) {
         $scope.currentNavItem = 'page1';
-        $scope.page = 'http://www.baidu.com'
-        $scope.test = function () {
-            $scope.page = '/u/test'
-        }
+        var Item = function (url, name) {
+            this.url = url;
+            this.name = name;
+        };
 
-        $scope.test2 = function () {
-            $scope.page = '/index.html'
-        }
+        $scope.items = [
+            new Item("goods/index", "发布商品"),
+            new Item("goods/index2", "发布商品2"),
+        ];
     }
 })();
