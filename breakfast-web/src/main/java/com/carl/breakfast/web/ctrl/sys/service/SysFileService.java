@@ -1,24 +1,17 @@
-package com.carl.breakfast.dao.sys;
+package com.carl.breakfast.web.ctrl.sys.service;
 
 import com.carl.breakfast.dao.DaoException;
-import com.carl.breakfast.dao.IDao;
+import com.carl.breakfast.dao.sys.SysFileDao;
 import com.carl.breakfast.dao.sys.pojo.SysFile;
-import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.stereotype.Repository;
 
 /**
- * 文件操作类
- *
  * @author Carl
- * @date 2016/11/27
+ * @date 2016/11/28
  * © 2016 - 2020 , all rights reserved .卡尔工作室
  */
-@Repository
-public interface SysFileDao extends IDao<SysFile> {
+public interface SysFileService extends IService<SysFileDao> {
     /**
      * 保存文件
-     *
      * @param file
      * @return
      * @throws DaoException
@@ -28,7 +21,6 @@ public interface SysFileDao extends IDao<SysFile> {
 
     /**
      * 根据id来查询
-     *
      * @param id
      * @return
      * @throws DaoException
