@@ -6,40 +6,7 @@
  */
 (function () {
     'use strict';
-    angular.module('Goods', ['ngMaterial', 'angularFileUpload'])
-        .service('$toast', function ($mdToast) {
-            var data = {
-                bottom: false,
-                top: true,
-                left: false,
-                right: true
-            };
-
-            //展示位置
-            function getToastPosition() {
-                return Object.keys(data)
-                    .filter(function (pos) {
-                        return data[pos];
-                    })
-                    .join(' ');
-            };
-
-            //展示吐丝
-            function showActionToast(content) {
-                var pinTo = getToastPosition();
-                $mdToast.show(
-                    $mdToast.simple()
-                        .textContent(content)
-                        .position(pinTo)
-                        .hideDelay(3000)
-                );
-            };
-
-            return {
-                showActionToast: showActionToast
-            }
-
-        })
+    angular.module('Goods', ['App', 'ngMaterial', 'angularFileUpload'])
         .controller('GoodsManagerCtrl', ['$scope', 'FileUploader', '$toast', function ($scope, FileUploader, $toast) {
 
             var uploader = $scope.uploader = new FileUploader({

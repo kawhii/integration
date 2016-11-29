@@ -8,6 +8,39 @@
     'use strict';
 
     angular.module('App', ['ngMaterial'])
+        .service('$toast', function ($mdToast) {
+            var data = {
+                bottom: false,
+                top: true,
+                left: false,
+                right: true
+            };
+
+            //展示位置
+            function getToastPosition() {
+                return Object.keys(data)
+                    .filter(function (pos) {
+                        return data[pos];
+                    })
+                    .join(' ');
+            };
+
+            //展示吐丝
+            function showActionToast(content) {
+                var pinTo = getToastPosition();
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent(content)
+                        .position(pinTo)
+                        .hideDelay(3000)
+                );
+            };
+
+            return {
+                showActionToast: showActionToast
+            }
+
+        })
         .controller('AppCtrl', AppCtrl);
 
     function AppCtrl($scope) {
