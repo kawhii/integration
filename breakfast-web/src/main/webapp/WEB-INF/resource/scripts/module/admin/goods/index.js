@@ -8,7 +8,7 @@
     'use strict';
     var module = angular.module('Goods', ['ngMaterial', 'angularFileUpload'])
         .controller('GoodsManagerCtrl', ['$scope', 'FileUploader', function($scope, FileUploader) {
-            console.info(123);
+
             var uploader = $scope.uploader = new FileUploader({
                 url: '/sys/file/upload'
             });
@@ -58,7 +58,6 @@
                 console.info('onCompleteAll');
             };
 
-            console.info('uploader', uploader);
         }]);
 
     angular.bootstrap(document.getElementById("ID_goods"),

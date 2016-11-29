@@ -10,66 +10,35 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="https://github.com/nervgh/angular-file-upload">Angular File Upload</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Demos <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li class="active"><a href="#">Simple example</a></li>
-                            <li><a href="../image-preview">Uploads only images (with canvas preview)</a></li>
-                            <li><a href="../without-bootstrap">Without bootstrap example</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="https://github.com/nervgh/angular-file-upload">View on Github</a></li>
-                    <li>
-                        <a href="https://raw.githubusercontent.com/nervgh/angular-file-upload/master/dist/angular-file-upload.min.js">Download</a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
-
         <div class="row">
-
             <div class="col-md-3">
-
-                <h3>Select files</h3>
-
+                <h3>请选择图片</h3>
                 <div ng-show="uploader.isHTML5">
-                    <!-- 3. nv-file-over uploader="link" over-class="className" -->
-                    <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-                        Base drop zone
-                    </div>
-
-                    <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                    <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-                        <div nv-file-over="" uploader="uploader" over-class="another-file-over-class"
-                             class="well my-drop-zone">
-                            Another drop zone with its own settings
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                Multiple
+                选择详情展示图片
                 <input type="file" nv-file-select="" uploader="uploader" multiple/><br/>
 
-                Single
+                选择主页展示图片
                 <input type="file" nv-file-select="" uploader="uploader"/>
             </div>
 
             <div class="col-md-9" style="margin-bottom: 40px">
 
-                <h3>Upload queue</h3>
-                <p>Queue length: {{ uploader.queue.length }}</p>
+                <h3>上传队列</h3>
+                <p>待上传数: {{ uploader.queue.length }}</p>
 
                 <table class="table">
                     <thead>
                     <tr>
-                        <th width="50%">Name</th>
-                        <th ng-show="uploader.isHTML5">Size</th>
-                        <th ng-show="uploader.isHTML5">Progress</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th width="40%">文件名</th>
+                        <th ng-show="uploader.isHTML5">文件大小</th>
+                        <th ng-show="uploader.isHTML5">上传进度</th>
+                        <th>状态</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -90,14 +59,14 @@
                         <td nowrap>
                             <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()"
                                     ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                <span class="glyphicon glyphicon-upload"></span> Upload
+                                <span class="glyphicon glyphicon-upload"></span> 上传
                             </button>
                             <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()"
                                     ng-disabled="!item.isUploading">
-                                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                <span class="glyphicon glyphicon-ban-circle"></span> 取消
                             </button>
                             <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                <span class="glyphicon glyphicon-trash"></span> Remove
+                                <span class="glyphicon glyphicon-trash"></span> 删除
                             </button>
                         </td>
                     </tr>
@@ -106,7 +75,7 @@
 
                 <div>
                     <div>
-                        Queue progress:
+                        上传进度:
                         <div class="progress" style="">
                             <div class="progress-bar" role="progressbar"
                                  ng-style="{ 'width': uploader.progress + '%' }"></div>

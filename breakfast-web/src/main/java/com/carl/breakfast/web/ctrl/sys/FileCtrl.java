@@ -1,12 +1,13 @@
 package com.carl.breakfast.web.ctrl.sys;
 
-import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.sys.pojo.SysFile;
 import com.carl.breakfast.web.ctrl.sys.service.SysFileService;
 import com.carl.framework.core.file.DefaultFileSaveStrategy;
 import com.carl.framework.core.file.FileSaveException;
 import com.carl.framework.core.file.FileSaveStrategy;
 import com.carl.framework.ui.ctrl.BaseCtrl;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/sys/file")
 public class FileCtrl extends BaseCtrl {
+    protected static final Log logger = LogFactory.getLog(FileCtrl.class);
     @Autowired
     @Qualifier("sysFileService") //注释指定注入 Bean
     private SysFileService sysFileService;
@@ -58,16 +60,11 @@ public class FileCtrl extends BaseCtrl {
         try {
             FileSaveStrategy.FileInfo info = defaultFileSaveStrategy.save(request.getRealPath("/"), file);
             sysFile.setVisitPath(info.getFilePath());
-        } catch (FileSaveException e) {
-            //TODO 异常捕捉
-            e.printStackTrace();
-        }
-        try {
             sysFileService.save(sysFile);
-        } catch (DaoException e) {
-            //TODO 异常处理
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error(e);
+            return fail(e.getMessage());
         }
-        return new HashMap<String, String>();
+        return success(sysFile);
     }
 }

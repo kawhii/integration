@@ -1,6 +1,8 @@
 package com.carl.framework.ui.ctrl;
 
 
+import com.carl.framework.util.MapBuilder;
+
 /**
  * 基础控制器
  *
@@ -47,5 +49,28 @@ public abstract class BaseCtrl {
 
     protected String freemarker(String templateUrl) {
         return FREEMARKER + getWarpModuleName() + templateUrl;
+    }
+
+    /**
+     * 成功时返回
+     * @param body
+     * @return
+     */
+    protected MapBuilder<String, Object> success(Object... body) {
+        MapBuilder<String, Object> data = MapBuilder.build();
+        data.put("header", MapBuilder.build().p("code", 0));
+        data.put("body", body);
+        return data;
+    }
+
+    /**
+     * 失败时返回
+     * @param message
+     * @return
+     */
+    protected MapBuilder<String, Object> fail(String message) {
+        MapBuilder<String, Object> data = MapBuilder.build();
+        data.put("header", MapBuilder.build().p("code", -1).p("message", message));
+        return data;
     }
 }
