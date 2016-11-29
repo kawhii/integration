@@ -53,18 +53,20 @@ public abstract class BaseCtrl {
 
     /**
      * 成功时返回
+     *
      * @param body
      * @return
      */
     protected MapBuilder<String, Object> success(Object... body) {
         MapBuilder<String, Object> data = MapBuilder.build();
         data.put("header", MapBuilder.build().p("code", 0));
-        data.put("body", body);
+        data.put("body", body != null && body.length == 1 ? body[0] : body);
         return data;
     }
 
     /**
      * 失败时返回
+     *
      * @param message
      * @return
      */

@@ -8,7 +8,7 @@
 
         <div class="navbar navbar-default">
             <div class="navbar-header">
-                <a class="navbar-brand" href="https://github.com/nervgh/angular-file-upload">Angular File Upload</a>
+                <a class="navbar-brand" href="https://github.com/nervgh/angular-file-upload">文件上传区</a>
             </div>
 
         </div>
@@ -19,11 +19,9 @@
                 </div>
 
                 <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                选择详情展示图片
-                <input type="file" nv-file-select="" uploader="uploader" multiple/><br/>
+                选择图片
+                <input type="file" accept="image/gif, image/jpeg" nv-file-select="" uploader="uploader" multiple/><br/>
 
-                选择主页展示图片
-                <input type="file" nv-file-select="" uploader="uploader"/>
             </div>
 
             <div class="col-md-9" style="margin-bottom: 40px">
@@ -43,7 +41,7 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="item in uploader.queue">
-                        <td><strong>{{ item.file.name }}</strong></td>
+                        <td><strong>{{ item.file.name }}<span ng-if="$index==0" style="color: red">（主展示图）</span></strong></td>
                         <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
                         <td ng-show="uploader.isHTML5">
                             <div class="progress" style="margin-bottom: 0;">
@@ -83,15 +81,15 @@
                     </div>
                     <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()"
                             ng-disabled="!uploader.getNotUploadedItems().length">
-                        <span class="glyphicon glyphicon-upload"></span> Upload all
+                        <span class="glyphicon glyphicon-upload"></span> 全部上传
                     </button>
                     <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()"
                             ng-disabled="!uploader.isUploading">
-                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                        <span class="glyphicon glyphicon-ban-circle"></span> 全部取消
                     </button>
                     <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()"
                             ng-disabled="!uploader.queue.length">
-                        <span class="glyphicon glyphicon-trash"></span> Remove all
+                        <span class="glyphicon glyphicon-trash"></span> 全部移除
                     </button>
                 </div>
 
