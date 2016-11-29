@@ -22,6 +22,16 @@ public class DefaultFileSaveStrategy implements FileSaveStrategy {
         }
     };
 
+    public DefaultFileSaveStrategy setBasePath(String basePath) {
+        this.basePath = basePath;
+        return this;
+    }
+
+    public DefaultFileSaveStrategy setBusiCode(String busiCode) {
+        this.busiCode = busiCode;
+        return this;
+    }
+
     @Override
     public String getBasePath() {
         return basePath;
@@ -45,7 +55,7 @@ public class DefaultFileSaveStrategy implements FileSaveStrategy {
         String filePath = getBasePath()+ File.separator + getBusiCode() + File.separator;
         FileInfo fileInfo = new FileInfo()
                 .setFileName(fileName)
-                .setFilePath(filePath)
+                .setFilePath(filePath + fileName)
                 .setSource(file);
         try {
             File base = new File(basePath, filePath);

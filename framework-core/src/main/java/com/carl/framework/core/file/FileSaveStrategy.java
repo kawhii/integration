@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2016/11/29
  * © 2016 - 2020 , all rights reserved .卡尔工作室
  */
+//TODO 接口策略不能把业务修改上来
 public interface FileSaveStrategy {
     /**
      * 获取基础路径

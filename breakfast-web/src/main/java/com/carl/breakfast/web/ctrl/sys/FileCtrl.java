@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 系统文件
@@ -44,6 +43,7 @@ public class FileCtrl extends BaseCtrl {
     @ResponseBody
     public Object upload(@RequestParam("file") MultipartFile file,
                          @RequestParam(value = "remark", required = false, defaultValue = "") String remark,
+                         @RequestParam(value = "busiCode", required = false, defaultValue = "base") String busiCode,
                          HttpServletRequest request
     ) {
         SysFile sysFile = new SysFile();
@@ -51,6 +51,8 @@ public class FileCtrl extends BaseCtrl {
         sysFile.setUploadName(file.getOriginalFilename());
         sysFile.setUploadIp(request.getRemoteAddr());
         sysFile.setRemark(remark);
+        defaultFileSaveStrategy.setBusiCode(busiCode);
+        sysFile.setBizCode(busiCode);
         Object obj = SecurityUtils.getSubject().getPrincipal();
         sysFile.setUploadUser((String) obj);
         try {
