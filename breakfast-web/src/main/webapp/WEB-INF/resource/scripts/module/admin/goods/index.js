@@ -7,7 +7,40 @@
 (function () {
     'use strict';
     angular.module('Goods', ['ngMaterial', 'angularFileUpload'])
-        .controller('GoodsManagerCtrl', ['$scope', 'FileUploader', function ($scope, FileUploader) {
+        .service('$toast', function ($mdToast) {
+            var data = {
+                bottom: false,
+                top: true,
+                left: false,
+                right: true
+            };
+
+            //展示位置
+            function getToastPosition() {
+                return Object.keys(data)
+                    .filter(function (pos) {
+                        return data[pos];
+                    })
+                    .join(' ');
+            };
+
+            //展示吐丝
+            function showActionToast(content) {
+                var pinTo = getToastPosition();
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent(content)
+                        .position(pinTo)
+                        .hideDelay(3000)
+                );
+            };
+
+            return {
+                showActionToast: showActionToast
+            }
+
+        })
+        .controller('GoodsManagerCtrl', ['$scope', 'FileUploader', '$toast', function ($scope, FileUploader, $toast) {
 
             var uploader = $scope.uploader = new FileUploader({
                 url: '/sys/file/upload'
@@ -28,8 +61,8 @@
                 console.info('onWhenAddingFileFailed', item, filter, options);
             };
             uploader.onAfterAddingFile = function (fileItem) {
-                //todo 提示文件过大
-                if(fileItem.file.size >= 200*1024) {
+                if (fileItem.file.size >= 800 * 1024) {
+                    $toast.showActionToast("文件过大");
                     fileItem.remove();
                 }
                 console.info('onAfterAddingFile', fileItem);
@@ -63,15 +96,18 @@
             uploader.onCompleteAll = function () {
                 console.info('onCompleteAll');
             };
+
+            //保存商品发布信息
+            $scope.save = function () {
+                //如果文件全部上传完才能发布
+                if (uploader.progress == 100) {
+                    $toast.showActionToast("请把文件上传完再进行保存");
+                    return;
+                }
+                //todo 筛选商品保存
+            };
         }]);
 
-    //保存商品发布信息
-    $scope.save = function() {
-        //如果文件全部上传完才能发布
-        if(uploader.progress == 100) {
-            // TODO 从所有文件中的data中获取文件id以及路径进行处理
-        }
-    };
 
     angular.bootstrap(document.getElementById("ID_goods"),
         ['Goods']);
