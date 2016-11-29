@@ -15,12 +15,7 @@ import java.io.IOException;
 public class DefaultFileSaveStrategy implements FileSaveStrategy {
     private String basePath = "upload-files";
     private String busiCode = "base";
-    private NameGenerator nameGenerator = new NameGenerator() {
-        @Override
-        public String generator(Object... params) {
-            return UUID.get().toString();
-        }
-    };
+    private NameGenerator nameGenerator = params -> UUID.get().toString();
 
     public DefaultFileSaveStrategy setBasePath(String basePath) {
         this.basePath = basePath;
@@ -32,23 +27,19 @@ public class DefaultFileSaveStrategy implements FileSaveStrategy {
         return this;
     }
 
-    @Override
     public String getBasePath() {
         return basePath;
     }
 
 
-    @Override
     public String getBusiCode() {
         return busiCode;
     }
 
-    @Override
     public NameGenerator getGenerator() {
         return nameGenerator;
     }
 
-    @Override
     public FileInfo save(String basePath, MultipartFile file) throws FileSaveException {
         String fileName = nameGenerator.generator()
                 + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));

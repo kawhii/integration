@@ -9,29 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2016/11/29
  * © 2016 - 2020 , all rights reserved .卡尔工作室
  */
-//TODO 接口策略不能把业务修改上来
 public interface FileSaveStrategy {
-    /**
-     * 获取基础路径
-     *
-     * @return
-     */
-    String getBasePath();
-
-    /**
-     * 获取文件编码
-     *
-     * @return
-     */
-    String getBusiCode();
-
-    /**
-     * 获取生成器
-     *
-     * @return
-     */
-    NameGenerator getGenerator();
-
     /**
      * 真正保存文件逻辑
      * @param basePath 基础路径
