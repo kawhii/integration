@@ -9,10 +9,10 @@
     </sql>
 
     <!--保存方法-->
-    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo">
+    <insert id="saveBase" useGeneratedKeys="true" keyProperty="id" parameterType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo">
         INSERT INTO <include refid="table_name"/>
-                (ID, NAME, TITLE, SUBTITLE, STOCK, CREATE_USER, PRICE, GOODS_TYPE, mainImgId, REMARK, NOTE)
-        VALUES (#{id}, #{name}, #{title}, #{subTitle},#{stock}, #{createUser}, #{price}, #{goodsType}, #{mainImgId}, #{mainImgPath})
+                (ID, NAME, TITLE, SUB_TITLE, STOCK, CREATE_USER, PRICE, GOODS_TYPE, MAIN_IMG_ID, REMARK, NOTE)
+        VALUES (#{id}, #{name}, #{title}, #{subTitle},#{stock}, #{createUser}, #{price}, #{goodsType}, #{mainImgId}, #{mainImgPath}, #{note})
     </insert>
 
     <!--保存方法-->
