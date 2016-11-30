@@ -3,12 +3,15 @@
 
 <div id="ID_goods" ng-app="Goods" ng-controller="GoodsManagerCtrl" nv-file-drop="" uploader="uploader"
      filters="queueLimit, customFilter" ng-cloak>
+<#--基本信息 start-->
+    <#include "freemarker/admin/goods/baseInfo.ftl">
+<#--基本信息 end-->
 
+<#--上传表单 start-->
     <div class="container">
-
         <div class="navbar navbar-default">
             <div class="navbar-header">
-                <a class="navbar-brand" href="https://github.com/nervgh/angular-file-upload">文件上传区</a>
+                <a class="navbar-brand" href="javascript:void(0)">文件上传区</a>
             </div>
 
         </div>
@@ -20,7 +23,8 @@
 
                 <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
                 选择图片
-                <input type="file" accept="image/gif, image/jpeg" nv-file-select="" uploader="uploader" multiple/><br/>
+                <input type="file" accept="image/gif, image/jpeg" nv-file-select="" uploader="uploader"
+                       multiple/><br/>
 
             </div>
 
@@ -41,7 +45,8 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="item in uploader.queue">
-                        <td><strong>{{ item.file.name }}<span ng-if="$index==0" style="color: red">（主展示图）</span></strong></td>
+                        <td><strong>{{ item.file.name }}<span ng-if="$index==0"
+                                                              style="color: red">（主展示图）</span></strong></td>
                         <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
                         <td ng-show="uploader.isHTML5">
                             <div class="progress" style="margin-bottom: 0;">
@@ -96,8 +101,8 @@
             </div>
 
         </div>
-
     </div>
+<#--上传表单 end-->
 </div>
 <script src="/js/~/admin/goods/index.js"></script>
 

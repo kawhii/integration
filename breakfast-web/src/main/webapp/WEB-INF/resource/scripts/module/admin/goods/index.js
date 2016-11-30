@@ -6,8 +6,37 @@
  */
 (function () {
     'use strict';
-    angular.module('Goods', ['App', 'ngMaterial', 'angularFileUpload'])
+    angular.module('Goods', ['App', 'ngMaterial', 'angularFileUpload', 'ngMessages'])
         .controller('GoodsManagerCtrl', ['$scope', 'FileUploader', '$toast', function ($scope, FileUploader, $toast) {
+            $scope.project = {};
+            $scope.project.rate = 0;
+
+            $scope.goodsInfo = {
+                name: {
+                    title: '商品名字',
+                    val: null
+                },
+                title: {
+                    title: '商品标题',
+                    val: ''
+                },
+                stock: {
+                    title: '库存',
+                    val: ''
+                },
+                price: {
+                    title: '单价',
+                    val: ''
+                },
+                subTitle: {
+                    title: '子标题',
+                    val: ''
+                },
+                note: {
+                    title: '描述',
+                    val: ''
+                }
+            };
 
             var uploader = $scope.uploader = new FileUploader({
                 url: '/sys/file/upload'
