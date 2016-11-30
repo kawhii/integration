@@ -1,4 +1,4 @@
-package com.carl.breakfast.web.ctrl.sys.service;
+package com.carl.breakfast.web.service;
 
 /**
  * 获取dao类

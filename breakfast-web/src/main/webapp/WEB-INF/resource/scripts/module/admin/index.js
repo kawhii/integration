@@ -10,8 +10,8 @@
     angular.module('App', ['ngMaterial'])
         .service('$toast', function ($mdToast) {
             var data = {
-                bottom: false,
-                top: true,
+                bottom: true,
+                top: false,
                 left: false,
                 right: true
             };

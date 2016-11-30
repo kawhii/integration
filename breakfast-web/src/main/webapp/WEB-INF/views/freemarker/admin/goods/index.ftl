@@ -11,7 +11,7 @@
     <div class="container">
         <div class="navbar navbar-default">
             <div class="navbar-header">
-                <a class="navbar-brand" href="javascript:void(0)">文件上传区</a>
+                <a class="navbar-brand" href="javascript:void(0)" ng-click="save()">文件上传区</a>
             </div>
 
         </div>

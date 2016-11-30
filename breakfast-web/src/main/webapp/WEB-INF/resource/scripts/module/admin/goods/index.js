@@ -7,7 +7,7 @@
 (function () {
     'use strict';
     angular.module('Goods', ['App', 'ngMaterial', 'angularFileUpload', 'ngMessages'])
-        .controller('GoodsManagerCtrl', ['$scope', 'FileUploader', '$toast', function ($scope, FileUploader, $toast) {
+        .controller('GoodsManagerCtrl', ['$scope', 'FileUploader', '$toast', '$http', function ($scope, FileUploader, $toast, $http) {
             $scope.project = {};
             $scope.project.rate = 0;
 
@@ -96,12 +96,22 @@
             //保存商品发布信息
             $scope.save = function () {
                 //如果文件全部上传完才能发布
-                if (uploader.progress == 100) {
+                if (uploader.progress != 100) {
                     $toast.showActionToast("请把文件上传完再进行保存");
                     return;
                 }
                 //todo 筛选商品保存
+                saveGoods({name:'你好'})
             };
+
+            function saveGoods(data) {
+                $http.post("/admin/goods/addGoods", data)
+                    .then(function (response) {
+                        console.info(response);
+                    }, function (response) {
+                        console.info(response);
+                    });
+            }
         }]);
 
 

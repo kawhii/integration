@@ -1,9 +1,9 @@
-package com.carl.breakfast.web.ctrl.sys.service.impl;
+package com.carl.breakfast.web.service.impl;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.GoodsDao;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
-import com.carl.breakfast.web.ctrl.sys.service.IGoodsService;
+import com.carl.breakfast.web.service.IGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
