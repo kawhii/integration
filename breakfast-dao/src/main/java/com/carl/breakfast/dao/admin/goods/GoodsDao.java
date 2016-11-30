@@ -2,6 +2,7 @@ package com.carl.breakfast.dao.admin.goods;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Repository;
 public interface GoodsDao {
     /**
      * 保存基本信息
+     *
      * @param goods
      * @return
      */
@@ -24,6 +26,7 @@ public interface GoodsDao {
 
     /**
      * 保存实际信息
+     *
      * @param goods
      * @return
      */
@@ -31,11 +34,12 @@ public interface GoodsDao {
 
     /**
      * 保存扩展信息
+     *
      * @param goodsId
      * @param keyName
      * @param keyAs
      * @param val
      * @return
      */
-    int saveExt(int goodsId, String keyName, String keyAs, String val);
+    int saveExt(@Param("goodsId") int goodsId, @Param("keyName") String keyName, @Param("keyAs") String keyAs, @Param("val") String val);
 }

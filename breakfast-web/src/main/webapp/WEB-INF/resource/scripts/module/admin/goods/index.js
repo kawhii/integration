@@ -115,8 +115,8 @@
 
                 //文件信息集成
                 if (files.length > 0) {
-                    info.id = files[0].data.id;
-                    info.visitPath = files[0].data.visitPath;
+                    info.mainImgId = files[0].data.id;
+                    info.mainImgPath = files[0].data.visitPath;
                     if(files.length >= 1) {
                         for(var i = 1; i < files.length; i ++) {
                             var f = files[i].data;

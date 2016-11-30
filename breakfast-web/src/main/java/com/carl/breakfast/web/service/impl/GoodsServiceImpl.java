@@ -3,6 +3,7 @@ package com.carl.breakfast.web.service.impl;
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.GoodsDao;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import com.carl.breakfast.web.ctrl.admin.GoodsImage;
 import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 import com.carl.breakfast.web.service.IGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,15 @@ public class GoodsServiceImpl implements IGoodsService {
 
         int answer = goodsDao.saveBase(pojo);
         goodsDao.saveActual(pojo);
+
+        if(goods.getGoodsDetail() != null && goods.getGoodsDetail().getImages() != null) {
+            int i = 1;
+            //保存详情图片到扩展信息
+            for(GoodsImage image : goods.getGoodsDetail().getImages()) {
+                goodsDao.saveExt(pojo.getId(), "img_" + i, "图片", image.getPath());
+                i++;
+            }
+        }
         return answer;
     }
 }

@@ -18,12 +18,12 @@
     <!--保存方法-->
     <insert id="saveActual" parameterType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo">
         INSERT INTO MALL_GOODS_ACTUAL
-        (GOODS_ID, STOCK, PRICE)
-        VALUES (#{id}, #{stock}, #{price})
+        (GOODS_ID, STOCK, PRICE, USE_DATE)
+        VALUES (#{id}, #{stock}, #{price}, CurDate())
     </insert>
 
     <!--保存扩展信息-->
-    <insert id="saveExt" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="saveExt">
         INSERT INTO MALL_GOODS_EXT
         (GOODS_ID, KEY_NAME, KEY_AS, VAL)
         VALUES (#{goodsId}, #{keyName}, #{keyAs}, #{val})
