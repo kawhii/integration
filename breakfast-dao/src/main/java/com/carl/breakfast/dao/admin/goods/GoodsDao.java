@@ -23,9 +23,19 @@ public interface GoodsDao {
     int saveBase(GoodsPojo goods) throws DaoException;
 
     /**
-     * 保存实际心思
+     * 保存实际信息
      * @param goods
      * @return
      */
     int saveActual(GoodsPojo goods) throws DaoException;
+
+    /**
+     * 保存扩展信息
+     * @param goodsId
+     * @param keyName
+     * @param keyAs
+     * @param val
+     * @return
+     */
+    int saveExt(int goodsId, String keyName, String keyAs, String val);
 }

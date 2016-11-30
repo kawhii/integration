@@ -2,7 +2,7 @@ package com.carl.breakfast.web.service;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.GoodsDao;
-import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 
 /**
  * 商品信息保存
@@ -18,5 +18,5 @@ public interface IGoodsService extends IService<GoodsDao>{
      * @param goods
      * @return
      */
-    int saveGoods(GoodsPojo goods) throws DaoException;
+    int saveGoods(GoodsModel goods) throws DaoException;
 }

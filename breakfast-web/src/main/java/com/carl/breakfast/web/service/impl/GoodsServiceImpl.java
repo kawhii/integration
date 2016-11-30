@@ -3,6 +3,7 @@ package com.carl.breakfast.web.service.impl;
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.GoodsDao;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 import com.carl.breakfast.web.service.IGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,21 @@ public class GoodsServiceImpl implements IGoodsService {
     }
 
     @Override
-    public int saveGoods(GoodsPojo goods) throws DaoException {
-        int answer = goodsDao.saveBase(goods);
-        goodsDao.saveActual(goods);
+    public int saveGoods(GoodsModel goods) throws DaoException {
+        GoodsPojo pojo = new GoodsPojo();
+        pojo.setName(goods.getName());
+        pojo.setTitle(goods.getTitle());
+        pojo.setSubTitle(goods.getSubTitle());
+        pojo.setCreateUser(goods.getCreateUser());
+        pojo.setStock(goods.getStock());
+        pojo.setPrice(goods.getPrice());
+        pojo.setRecommend(goods.isRecommend());
+        pojo.setMainImgId(goods.getMainImgId());
+        pojo.setMainImgPath(goods.getMainImgPath());
+        pojo.setNote(goods.getNote());
+
+        int answer = goodsDao.saveBase(pojo);
+        goodsDao.saveActual(pojo);
         return answer;
     }
 }

@@ -2,9 +2,7 @@ package com.carl.breakfast.web.ctrl.admin;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
-import com.carl.breakfast.web.ctrl.sys.FileCtrl;
 import com.carl.breakfast.web.service.IGoodsService;
-import com.carl.breakfast.web.service.impl.GoodsServiceImpl;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,9 +39,10 @@ public class GoodsManagerCtrl extends BaseCtrl {
 
     @RequestMapping(value = "/addGoods", method = RequestMethod.POST)
     @ResponseBody
-    public Object addGoods(@RequestBody GoodsPojo goods) {
+    public Object addGoods(@RequestBody GoodsModel goods) {
         try {
             goodsService.saveGoods(goods);
+            //TODO 校验
         } catch (DaoException e) {
             logger.error(e);
         }
