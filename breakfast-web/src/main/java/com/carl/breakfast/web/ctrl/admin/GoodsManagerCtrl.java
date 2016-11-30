@@ -47,6 +47,7 @@ public class GoodsManagerCtrl extends BaseCtrl {
             //TODO 校验
         } catch (DaoException e) {
             logger.error(e);
+            return fail(e.getMessage());
         }
         return success(goods);
     }

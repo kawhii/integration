@@ -137,9 +137,14 @@
             function saveGoods(data) {
                 $http.post("/admin/goods/addGoods", data)
                     .then(function (response) {
-                        console.info(response);
+                        if(response.status == 200 && response.data.header.code == 0) {
+                            alert("商品保存成功");
+                            location.reload()
+                        } else {
+                            $toast.showActionToast(response.data.header.message);
+                        }
                     }, function (response) {
-                        console.info(response);
+                        $toast.showActionToast(response.data);
                     });
             }
         }]);
