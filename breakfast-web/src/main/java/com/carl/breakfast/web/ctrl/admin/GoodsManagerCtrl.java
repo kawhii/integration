@@ -1,9 +1,18 @@
 package com.carl.breakfast.web.ctrl.admin;
 
+import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import com.carl.breakfast.web.ctrl.sys.FileCtrl;
+import com.carl.breakfast.web.service.IGoodsService;
+import com.carl.breakfast.web.service.impl.GoodsServiceImpl;
 import com.carl.framework.ui.ctrl.BaseCtrl;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -16,6 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/admin/goods")
 public class GoodsManagerCtrl extends BaseCtrl {
+    protected static final Log logger = LogFactory.getLog(GoodsManagerCtrl.class);
+    @Autowired
+    private IGoodsService goodsService;
 
     protected String getModuleName() {
         return "admin/goods";
@@ -27,10 +39,14 @@ public class GoodsManagerCtrl extends BaseCtrl {
         return freemarker("index");
     }
 
-    @RequestMapping("/addGoods")
+    @RequestMapping(value = "/addGoods", method = RequestMethod.POST)
     @ResponseBody
-    public Object addGoods(GoodsPojo goods) {
-        System.out.println(goods);
+    public Object addGoods(@RequestBody GoodsPojo goods) {
+        try {
+            goodsService.saveGoods(goods);
+        } catch (DaoException e) {
+            logger.error(e);
+        }
         return success(goods);
     }
 }
