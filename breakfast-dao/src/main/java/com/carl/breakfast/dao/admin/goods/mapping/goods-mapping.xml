@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.admin.goods.GoodsDao">
+    <!--表明-->
+    <sql id="table_name">
+        MALL_GOODS
+    </sql>
+
+    <!--保存方法-->
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo">
+        INSERT INTO <include refid="table_name"/>
+                (ID, NAME, TITLE, SUBTITLE, STOCK, CREATE_USER, PRICE, GOODS_TYPE, mainImgId, REMARK, NOTE)
+        VALUES (#{id}, #{name}, #{title}, #{subTitle},#{stock}, #{createUser}, #{price}, #{goodsType}, #{mainImgId}, #{mainImgPath})
+    </insert>
+
+    <!--保存方法-->
+    <insert id="saveActual" parameterType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo">
+        INSERT INTO MALL_GOODS_ACTUAL
+        (GOODS_ID, STOCK, PRICE)
+        VALUES (#{id}, #{stock}, #{price})
+    </insert>
+</mapper>

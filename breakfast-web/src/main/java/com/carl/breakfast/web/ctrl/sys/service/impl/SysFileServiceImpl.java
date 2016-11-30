@@ -6,6 +6,7 @@ import com.carl.breakfast.dao.sys.pojo.SysFile;
 import com.carl.breakfast.web.ctrl.sys.service.SysFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 系统文件服务
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
  * © 2016 - 2020 , all rights reserved .卡尔工作室
  */
 @Service("sysFileService")
+@Transactional
 public class SysFileServiceImpl implements SysFileService {
     @Autowired
     private SysFileDao sysFileDao;

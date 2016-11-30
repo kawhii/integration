@@ -1,8 +1,10 @@
 package com.carl.breakfast.web.ctrl.admin;
 
+import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 商品管理
@@ -23,5 +25,12 @@ public class GoodsManagerCtrl extends BaseCtrl {
     @RequestMapping("/index.html")
     public String index() {
         return freemarker("index");
+    }
+
+    @RequestMapping("/addGoods")
+    @ResponseBody
+    public Object addGoods(GoodsPojo goods) {
+        System.out.println(goods);
+        return success(goods);
     }
 }
