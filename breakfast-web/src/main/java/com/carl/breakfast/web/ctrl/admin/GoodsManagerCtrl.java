@@ -6,6 +6,7 @@ import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +42,7 @@ public class GoodsManagerCtrl extends BaseCtrl {
     @ResponseBody
     public Object addGoods(@RequestBody GoodsModel goods) {
         try {
+            goods.setCreateUser((String) SecurityUtils.getSubject().getPrincipal());
             goodsService.saveGoods(goods);
             //TODO 校验
         } catch (DaoException e) {

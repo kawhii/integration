@@ -101,8 +101,38 @@
                     return;
                 }
                 //todo 筛选商品保存
-                saveGoods({name:'你好'})
+                saveGoods(extractParams());
             };
+
+            function extractParams() {
+                //基础信息
+                var info = {};
+                angular.forEach($scope.goodsInfo, function (v, k) {
+                    info[k] = v.val;
+                });
+                var files = uploader.queue;
+                var goodsDetail = {images : []};
+
+                //文件信息集成
+                if (files.length > 0) {
+                    info.id = files[0].data.id;
+                    info.visitPath = files[0].data.visitPath;
+                    if(files.length >= 1) {
+                        for(var i = 1; i < files.length; i ++) {
+                            var f = files[i].data;
+                            goodsDetail.images.push({id:f.id, path : f.visitPath});
+                        }
+                    }
+                    info.goodsDetail = goodsDetail;
+                }
+
+
+
+                //文件信息
+
+                return info;
+            }
+
 
             function saveGoods(data) {
                 $http.post("/admin/goods/addGoods", data)
