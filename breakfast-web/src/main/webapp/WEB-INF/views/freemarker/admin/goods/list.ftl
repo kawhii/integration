@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/styles/common/bootstrap.min.css"/>
-
 <div id="ID_goodsList" ng-app="GoodsList" ng-controller="GoodsListCtrl" ng-cloak>
     <div class="container">
     <md-content flex layout-padding>
@@ -15,6 +14,7 @@
                 <tr>
                     <th>序号</th>
                     <th>名称</th>
+                    <th>主图</th>
                     <th>标题</th>
                     <th>子标题</th>
                     <th>库存</th>
@@ -27,9 +27,10 @@
                 <tr ng-repeat="item in data.recordList">
                     <td>{{$index+1}}</td>
                     <td>{{item.name}}</td>
+                    <td><img ng-src="/file/img/~/{{item.mainImgPath}}" style="width: 60px;height: 60px"/></td>
                     <td>{{item.title}}</td>
                     <td>{{item.subTitle}}</td>
-                    <td>{{item.stocks}}</td>
+                    <td>{{item.stock}}</td>
                     <td>{{item.sales}}</td>
                     <td>{{item.price}}</td>
                     <td>{{item.onSaleTime}}</td>

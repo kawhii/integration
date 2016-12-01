@@ -13,4 +13,10 @@ gulp.task('watch-js', function () {
 
 });
 
-gulp.task('default', ['watch-view', 'watch-js']);
+gulp.task('watch-css', function () {
+    return watch('resource/**/*.css', { ignoreInitial: false })
+        .pipe(gulp.dest('../../../../target/breakfast-web/WEB-INF/resource/'));
+
+});
+
+gulp.task('default', ['watch-view', 'watch-js', 'watch-css']);
