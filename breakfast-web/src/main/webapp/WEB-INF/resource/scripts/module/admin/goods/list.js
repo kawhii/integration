@@ -64,9 +64,9 @@
             };
 
             //下架
-            $scope.down = function (id) {
-                $request.get("/admin/goods/updateState?state=0&goodsId=" + id, function (d) {
-                    $toast.showActionToast("下架成功");
+            $scope.updateStatus = function (id, status) {
+                $request.get("/admin/goods/updateState?state=" + status + "&goodsId=" + id, function (d) {
+                    $toast.showActionToast((status == 0 ? '下' : '上') + '架成功');
                     $scope.search();
                 });
             };
