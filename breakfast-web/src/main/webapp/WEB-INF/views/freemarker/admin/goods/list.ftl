@@ -26,6 +26,7 @@
                         <th>销售量</th>
                         <th>单价</th>
                         <th>上架时间</th>
+                        <th>状态</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,7 @@
                         <td>{{item.sales}}</td>
                         <td>{{item.price}}</td>
                         <td>{{item.onSaleTime}}</td>
+                        <td>{{item.status==0?'已下架':'正在销售'}}</td>
                     </tr>
                     </tbody>
                 </table>

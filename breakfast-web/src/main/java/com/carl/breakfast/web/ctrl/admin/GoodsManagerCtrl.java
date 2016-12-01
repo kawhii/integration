@@ -70,6 +70,7 @@ public class GoodsManagerCtrl extends BaseCtrl {
     @RequestMapping(value = "/updateState")
     public Object updateState( @RequestParam(value = "state") int state,
                                @RequestParam(value = "goodsId") int goodsId) {
-        return success(goodsService.updateState(goodsId, state));
+        boolean isSuccess = goodsService.updateState(goodsId, state) == 1;
+        return isSuccess? success():fail("修改失败");
     }
 }

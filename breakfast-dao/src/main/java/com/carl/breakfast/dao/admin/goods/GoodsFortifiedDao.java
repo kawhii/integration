@@ -49,5 +49,5 @@ public interface GoodsFortifiedDao extends BaseDao<GoodsPojo> {
      * @param operateUser 操作用户
      * @return
      */
-    int insertModify(int goodsId, String columnName, String newVal, String operateUser);
+    int insertModify(int goodsId, String columnName,String oldVal, String newVal, String operateUser);
 }

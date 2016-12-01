@@ -44,7 +44,7 @@
         .service('$request',function($http, $toast){
             function request(url, method, data, callback) {
                 $http({
-                    method : 'method',
+                    method : method,
                     url : url,
                     data : data
                 })

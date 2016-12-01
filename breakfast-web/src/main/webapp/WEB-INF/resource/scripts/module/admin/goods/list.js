@@ -66,7 +66,8 @@
             //下架
             $scope.down = function (id) {
                 $request.get("/admin/goods/updateState?state=0&goodsId=" + id, function (d) {
-                    console.info(d);
+                    $toast.showActionToast("下架成功");
+                    $scope.search();
                 });
             };
 
