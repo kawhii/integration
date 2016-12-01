@@ -2,8 +2,11 @@ package com.carl.breakfast.dao.admin.goods;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 产品操作
@@ -42,4 +45,22 @@ public interface GoodsDao {
      * @return
      */
     int saveExt(@Param("goodsId") int goodsId, @Param("keyName") String keyName, @Param("keyAs") String keyAs, @Param("val") String val);
+
+
+    /**
+     * 根据名字查询商品
+     * @param page 页码
+     * @param pageSize 条数
+     * @param name 商品名称
+     * @return
+     */
+    List<GoodsPojo> selectGoodsByName(PageBounds pageBounds, @Param("name") String name);
+
+
+    /**
+     * 根据商品名称查询有多少商品
+     * @param name
+     * @return
+     */
+    Integer selectGoodsCountByName(@Param("name") String name);
 }

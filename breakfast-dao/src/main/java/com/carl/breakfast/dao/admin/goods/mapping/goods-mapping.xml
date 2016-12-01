@@ -28,4 +28,37 @@
         (GOODS_ID, KEY_NAME, KEY_AS, VAL)
         VALUES (#{goodsId}, #{keyName}, #{keyAs}, #{val})
     </insert>
+
+    <!--查询总数-->
+    <select id="selectGoodsCountByName" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM <include refid="table_name"/>
+        <where>
+            <if test="name != null">
+                NAME LIKE CONCAT('%','${name}','%' )
+            </if>
+        </where>
+    </select>
+
+    <!--查询总数-->
+    <select id="selectGoodsByName" parameterType="java.util.List">
+        SELECT
+          ID AS id,
+          NAME AS name,
+          TITLE AS title,
+          SUB_TITLE AS subTitle,
+          SALES AS sales,
+          STOCK AS stock,
+          STATUS AS status,
+          HOT_RANK AS hotRank,
+          PRICE AS price,
+          MAIN_IMG_ID AS mainImgId,
+          MAIN_IMG_PATH AS mainImgPath,
+          NOTE AS NOTE
+        FROM <include refid="table_name"/>
+        <where>
+            <if test="name != null">
+                NAME LIKE CONCAT('%','${name}','%' )
+            </if>
+        </where>
+    </select>
 </mapper>

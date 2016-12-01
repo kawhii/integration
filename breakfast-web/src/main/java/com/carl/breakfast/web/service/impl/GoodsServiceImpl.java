@@ -6,9 +6,13 @@ import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.ctrl.admin.GoodsImage;
 import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 import com.carl.breakfast.web.service.IGoodsService;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  *
@@ -55,5 +59,10 @@ public class GoodsServiceImpl implements IGoodsService {
             }
         }
         return answer;
+    }
+
+    @Override
+    public List<GoodsPojo> selectGoodsByName(PageBounds pageBounds, String name) throws DaoException {
+        return goodsDao.selectGoodsByName(pageBounds, name);
     }
 }

@@ -1,18 +1,17 @@
 package com.carl.breakfast.web.ctrl.admin;
 
 import com.carl.breakfast.dao.DaoException;
-import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.framework.ui.ctrl.BaseCtrl;
+import com.github.miemiedev.mybatis.paginator.domain.Order;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 
 /**
  * 商品管理
@@ -50,5 +49,20 @@ public class GoodsManagerCtrl extends BaseCtrl {
             return fail(e.getMessage());
         }
         return success(goods);
+    }
+
+    @ResponseBody
+    @RequestMapping(value ="/goodsList.json")
+    public Object findByCity(@RequestParam String name,
+                                      @RequestParam(required =false,defaultValue ="1") int page,
+                                      @RequestParam(required =false,defaultValue ="30")int limit,
+                                      @RequestParam(required =false) String sort,
+                                      @RequestParam(required =false) String dir) {
+
+        try {
+            return goodsService.selectGoodsByName(new PageBounds(page, limit, Order.create(sort,dir)), name);
+        } catch (DaoException e) {
+            return fail(e.getMessage());
+        }
     }
 }
