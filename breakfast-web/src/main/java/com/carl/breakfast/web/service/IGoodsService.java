@@ -34,4 +34,11 @@ public interface IGoodsService extends IService<GoodsFortifiedDao> {
      */
     PageBean listPage(PageParam pageParam, GoodsPojo goodsPojo);
 
+    /**
+     * 修改商品状态
+     * @param goodsId
+     * @param state
+     * @return
+     */
+    int updateState(int goodsId, int state);
 }

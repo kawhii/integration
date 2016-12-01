@@ -68,4 +68,9 @@ public class GoodsServiceImpl implements IGoodsService {
         return goodsFortifiedDao.listPage(pageParam, MapBuilder.<String, Object>build()
                 .p("name", goodsPojo.getName()));
     }
+
+    @Override
+    public int updateState(int goodsId, int state) {
+        return goodsFortifiedDao.updateState(goodsId, state);
+    }
 }

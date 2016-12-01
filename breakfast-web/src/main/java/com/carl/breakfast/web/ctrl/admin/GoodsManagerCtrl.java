@@ -65,4 +65,11 @@ public class GoodsManagerCtrl extends BaseCtrl {
         Object obj = goodsService.listPage(new PageParam(page, limit), goodsPojo);
         return success(obj);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateState")
+    public Object updateState( @RequestParam(value = "state") int state,
+                               @RequestParam(value = "goodsId") int goodsId) {
+        return success(goodsService.updateState(goodsId, state));
+    }
 }

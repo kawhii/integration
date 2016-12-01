@@ -33,4 +33,21 @@ public interface GoodsFortifiedDao extends BaseDao<GoodsPojo> {
      */
     int saveExt(int goodsId,String keyName, String keyAs, String val);
 
+    /**
+     * 修改商品状态
+     * @param goodsId
+     * @param state
+     * @return
+     */
+    int updateState(int goodsId, int state);
+
+    /**
+     * 修改历史表
+     * @param goodsId 产品id
+     * @param columnName 列名
+     * @param newVal 新值
+     * @param operateUser 操作用户
+     * @return
+     */
+    int insertModify(int goodsId, String columnName, String newVal, String operateUser);
 }

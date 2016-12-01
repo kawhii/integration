@@ -41,6 +41,34 @@
             }
 
         })
+        .service('$request',function($http, $toast){
+            function request(url, method, data, callback) {
+                $http({
+                    method : 'method',
+                    url : url,
+                    data : data
+                })
+                    .then(function (response) {
+                        if (response.status == 200 && response.data.header.code == 0) {
+                            if(callback) {
+                                callback(response.data, response);
+                            }
+                        } else {
+                            $toast.showActionToast(response.data.header.message);
+                        }
+                    }, function (response) {
+                        $toast.showActionToast(response.data);
+                    });
+            }
+            return {
+                get: function(url, callback) {
+                    request(url, "GET", null, callback);
+                },
+                post: function(url, params, callback) {
+                    request(url, "POST", params, callback);
+                }
+            }
+        })
         .controller('AppCtrl', AppCtrl);
 
     function AppCtrl($scope) {

@@ -4,7 +4,9 @@ import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.framework.core.dao.BaseDaoImpl;
 import com.carl.framework.util.MapBuilder;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 加强版商品数据库操作类加强版本
@@ -31,5 +33,22 @@ public class GoodsFortifiedDaoImpl  extends BaseDaoImpl<GoodsPojo> implements Go
                     .p("keyAs", keyAs)
                     .p("val", val)
                 );
+    }
+
+    @Override
+    @Transactional
+    public int updateState(int goodsId, int state) {
+        int res = getSessionTemplate().update(getStatement("updateState"),
+                MapBuilder.build().p("goodsId", goodsId).p("status", state));
+        if(res == 1) {
+            insertModify(goodsId, "STATUS", Integer.toString(state), (String)SecurityUtils.getSubject().getPrincipal());
+        }
+        return res;
+    }
+
+    @Override
+    public int insertModify(int goodsId, String columnName, String newVal, String operateUser) {
+        return getSessionTemplate().insert(getStatement("insertModify"),
+                MapBuilder.build().p("goodsId", goodsId).p("columnName", columnName).p("newVal", newVal).p("operateUser", operateUser));
     }
 }
