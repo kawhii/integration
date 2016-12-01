@@ -52,7 +52,7 @@
 
         $scope.items = [
             new Item("goods/index", "发布商品"),
-            new Item("goods/index2", "发布商品2"),
+            new Item("goods/list", "当前商品"),
         ];
     }
 })();

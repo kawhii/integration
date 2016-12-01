@@ -14,7 +14,7 @@
         <result column="TITLE" property="title" jdbcType="VARCHAR" />
         <result column="SUB_TITLE" property="subTitle" jdbcType="VARCHAR" />
         <result column="STATUS" property="status" jdbcType="INTEGER" />
-        <result column="hot_rank" property="hotRank" jdbcType="INTEGER" />
+        <result column="HOT_RANK" property="hotRank" jdbcType="INTEGER" />
         <result column="STOCK" property="stock" jdbcType="INTEGER" />
         <result column="SALES" property="sales" jdbcType="INTEGER" />
         <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
@@ -24,6 +24,7 @@
         <result column="MAIN_IMG_PATH" property="mainImgPath" jdbcType="VARCHAR" />
         <result column="NOTE" property="note" jdbcType="VARCHAR" />
         <result column="USE_DATE" property="useDate" jdbcType="TIMESTAMP" />
+        <result column="ON_SALE_TIME" property="onSaleTime" jdbcType="TIMESTAMP" />
     </resultMap>
 
     <!-- 根据搜索条件获取数据 -->
