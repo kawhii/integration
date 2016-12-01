@@ -1,11 +1,10 @@
 package com.carl.breakfast.web.ctrl.admin;
 
 import com.carl.breakfast.dao.DaoException;
+import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.service.IGoodsService;
+import com.carl.framework.core.page.PageParam;
 import com.carl.framework.ui.ctrl.BaseCtrl;
-import com.carl.framework.util.MapBuilder;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
@@ -60,12 +59,10 @@ public class GoodsManagerCtrl extends BaseCtrl {
                             @RequestParam(required = false, value = "sort") String sort,
                             @RequestParam(required = false, value = "dir") String dir) {
 
-        try {
-            PageList result = goodsService.selectGoodsByName(new PageBounds(page, limit), name);
-            return success(MapBuilder.build().p("items", result)
-                    .p("paginator", result.getPaginator()));
-        } catch (DaoException e) {
-            return fail(e.getMessage());
-        }
+//            PageList result = goodsService.selectGoodsByName(new PageBounds(page, limit), name);
+        GoodsPojo goodsPojo = new GoodsPojo();
+        goodsPojo.setName(name);
+        Object obj = goodsService.listPage(new PageParam(page, limit), goodsPojo);
+        return success(obj);
     }
 }

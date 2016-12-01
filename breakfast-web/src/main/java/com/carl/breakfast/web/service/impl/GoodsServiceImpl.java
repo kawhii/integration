@@ -1,43 +1,39 @@
 package com.carl.breakfast.web.service.impl;
 
 import com.carl.breakfast.dao.DaoException;
-import com.carl.breakfast.dao.admin.goods.GoodsDao;
+import com.carl.breakfast.dao.admin.goods.GoodsFortifiedDao;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.ctrl.admin.GoodsImage;
 import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 import com.carl.breakfast.web.service.IGoodsService;
+import com.carl.framework.core.page.PageBean;
+import com.carl.framework.core.page.PageParam;
 import com.carl.framework.util.MapBuilder;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
+ * 加强版服务实现
  *
- * 商品服务
  * @author Carl
- * @date 2016/11/30
+ * @date 2016/12/1
  * @since JDK1.7
  * <p>
  * 版权所有.(c)2008-2016.广州市森锐科技股份有限公司
  */
 @Service("goodsService")
-@Transactional
 public class GoodsServiceImpl implements IGoodsService {
     @Autowired
-    private GoodsDao goodsDao;
-    @Autowired
-    private SqlSessionTemplate sessionTemplate;
+    private GoodsFortifiedDao goodsFortifiedDao;
+
     @Override
-    public GoodsDao getDao() {
-        return goodsDao;
+    public GoodsFortifiedDao getDao() {
+        return goodsFortifiedDao;
     }
 
     @Override
+    @Transactional
     public int saveGoods(GoodsModel goods) throws DaoException {
         GoodsPojo pojo = new GoodsPojo();
         pojo.setName(goods.getName());
@@ -51,14 +47,16 @@ public class GoodsServiceImpl implements IGoodsService {
         pojo.setMainImgPath(goods.getMainImgPath());
         pojo.setNote(goods.getNote());
 
-        int answer = goodsDao.saveBase(pojo);
-        goodsDao.saveActual(pojo);
+        int answer = goodsFortifiedDao.insert(pojo);
+        goodsFortifiedDao.saveActual(pojo);
 
-        if(goods.getGoodsDetail() != null && goods.getGoodsDetail().getImages() != null) {
+        if (goods.getGoodsDetail() != null && goods.getGoodsDetail().getImages() != null) {
             int i = 1;
-            //保存详情图片到扩展信息
-            for(GoodsImage image : goods.getGoodsDetail().getImages()) {
-                goodsDao.saveExt(pojo.getId(), "img_" + i, "图片", image.getPath());
+
+            //保存详情图片到扩展信息数据库
+
+            for (GoodsImage image : goods.getGoodsDetail().getImages()) {
+                goodsFortifiedDao.saveExt(pojo.getId(), "img_" + i, "详情图片", image.getPath());
                 i++;
             }
         }
@@ -66,11 +64,8 @@ public class GoodsServiceImpl implements IGoodsService {
     }
 
     @Override
-    public PageList selectGoodsByName(PageBounds pageBounds, String name) throws DaoException {
-//        return goodsDao.selectGoodsByName(pageBounds, name);
-        List<?> list = sessionTemplate.selectList("com.carl.breakfast.dao.admin.goods.GoodsDao.selectGoodsByName",
-                MapBuilder.build().p("name", name), pageBounds);
-        PageList pl = (PageList) list;
-        return pl;
+    public PageBean listPage(PageParam pageParam, GoodsPojo goodsPojo) {
+        return goodsFortifiedDao.listPage(pageParam, MapBuilder.<String, Object>build()
+                .p("name", goodsPojo.getName()));
     }
 }

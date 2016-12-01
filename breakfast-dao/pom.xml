@@ -11,9 +11,16 @@
 
     <artifactId>breakfast-dao</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.carl.integration</groupId>
+            <artifactId>framework-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>breakfast-dao</finalName>
-
 
         <resources>
             <resource>

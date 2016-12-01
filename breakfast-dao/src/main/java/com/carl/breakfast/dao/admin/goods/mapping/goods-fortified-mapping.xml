@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.admin.goods.GoodsFortifiedDaoImpl">
+    <!--表明-->
+    <sql id="table_name">
+        MALL_GOODS
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo" >
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="TITLE" property="title" jdbcType="VARCHAR" />
+        <result column="SUB_TITLE" property="subTitle" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="INTEGER" />
+        <result column="hot_rank" property="hotRank" jdbcType="INTEGER" />
+        <result column="STOCK" property="stock" jdbcType="INTEGER" />
+        <result column="SALES" property="sales" jdbcType="INTEGER" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="PRICE" property="price" jdbcType="FLOAT" />
+        <result column="GOODS_TYPE" property="goodsType" jdbcType="INTEGER" />
+        <result column="MAIN_IMG_ID" property="goodsType" jdbcType="INTEGER" />
+        <result column="MAIN_IMG_PATH" property="mainImgPath" jdbcType="VARCHAR" />
+        <result column="NOTE" property="note" jdbcType="VARCHAR" />
+        <result column="USE_DATE" property="useDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <!-- 根据搜索条件获取数据 -->
+    <sql id="condition_sql">
+        <if test="id != null"> and ID = #{id,jdbcType=INTEGER}</if>
+        <if test="createUser != null and createUser != ''"> and CREATE_USER = #{createUser,jdbcType=VARCHAR}</if>
+        <if test="name != null and name != ''"> and NAME LIKE CONCAT('%','${name}','%' )</if>
+        <if test="title != null and title != ''"> and TITLE = #{title,jdbcType=VARCHAR}</if>
+        <if test="status != null"> and STATUS = #{status}</if>
+    </sql>
+
+    <!--保存方法-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo">
+        INSERT INTO <include refid="table_name"/>
+                (ID, NAME, TITLE, SUB_TITLE, STOCK, CREATE_USER, PRICE, GOODS_TYPE, MAIN_IMG_ID, MAIN_IMG_PATH, NOTE)
+        VALUES (#{id}, #{name}, #{title}, #{subTitle},#{stock}, #{createUser}, #{price}, #{goodsType}, #{mainImgId}, #{mainImgPath}, #{note})
+    </insert>
+
+    <!--保存方法-->
+    <insert id="saveActual" parameterType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo">
+        INSERT INTO MALL_GOODS_ACTUAL
+        (GOODS_ID, STOCK, PRICE, USE_DATE)
+        VALUES (#{id}, #{stock}, #{price}, CurDate())
+    </insert>
+
+    <!--保存扩展信息-->
+    <insert id="saveExt">
+        INSERT INTO MALL_GOODS_EXT
+        (GOODS_ID, KEY_NAME, KEY_AS, VAL)
+        VALUES (#{goodsId}, #{keyName}, #{keyAs}, #{val})
+    </insert>
+
+    <!-- 分页查询 -->
+    <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from
+        <include refid="table_name" />
+        <where>
+            <include refid="condition_sql" />
+        </where>
+        order by ON_SALE_TIME desc limit #{pageFirst}, #{pageSize}
+    </select>
+
+    <!-- 分页查询时要用到的总数统计 -->
+    <select id="listPageCount" parameterType="java.util.Map"
+            resultType="java.lang.Long">
+        select count(1) from
+        <include refid="table_name" />
+        <where>
+            <include refid="condition_sql" />
+        </where>
+    </select>
+</mapper>

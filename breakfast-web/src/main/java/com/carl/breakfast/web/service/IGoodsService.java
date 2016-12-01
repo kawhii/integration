@@ -1,24 +1,23 @@
 package com.carl.breakfast.web.service;
 
 import com.carl.breakfast.dao.DaoException;
-import com.carl.breakfast.dao.admin.goods.GoodsDao;
+import com.carl.breakfast.dao.admin.goods.GoodsFortifiedDao;
+import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.ctrl.admin.GoodsModel;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
+import com.carl.framework.core.page.PageBean;
+import com.carl.framework.core.page.PageParam;
 
 /**
- * 商品信息保存
- *
+ * 加强版服务类
  * @author Carl
- * @date 2016/11/30
+ * @date 2016/12/1
  * @since JDK1.7
  * <p>
- * 版权所有.(c)2008-2016.广州市森锐科技股份有限公司
+ * 版权所有.(c)2008-2016.卡尔工作室
  */
-public interface IGoodsService extends IService<GoodsDao> {
+public interface IGoodsService extends IService<GoodsFortifiedDao> {
+
+
     /**
      * 保存商品信息
      *
@@ -28,11 +27,11 @@ public interface IGoodsService extends IService<GoodsDao> {
     int saveGoods(GoodsModel goods) throws DaoException;
 
     /**
-     * 根据商品名称来查询商品
-     * @param pageBounds
-     * @param name
+     * 获取分页数据
+     *
+     * @param pageParam
      * @return
-     * @throws DaoException
      */
-    PageList selectGoodsByName(PageBounds pageBounds, @Param("name") String name) throws DaoException;
+    PageBean listPage(PageParam pageParam, GoodsPojo goodsPojo);
+
 }

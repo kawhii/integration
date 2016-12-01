@@ -1,5 +1,7 @@
 package com.carl.breakfast.dao.admin.goods.pojo;
 
+import com.carl.framework.core.entity.BaseEntity;
+
 import java.util.Date;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Date;
  * <p>
  * 版权所有.(c)2008-2016.广州市森锐科技股份有限公司
  */
-public class GoodsPojo {
+public class GoodsPojo extends BaseEntity {
     private int id;
     private String name;
     private String title;

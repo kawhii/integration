@@ -1,0 +1,83 @@
+package com.carl.framework.core.page;
+
+import java.io.Serializable;
+
+/**
+ * 分页参数传递工具类 .
+ *
+ * @author Carl
+ * @date 2016/12/1
+ * @since JDK1.7
+ * <p>
+ * 版权所有.(c)2008-2016.广州市森锐科技股份有限公司
+ */
+public class PageParam implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6297178964005032338L;
+
+    /**
+     * 默认为第一页.
+     */
+    public static final int DEFAULT_PAGE_NUM = 1;
+
+    /**
+     * 默认每页记录数(15).
+     */
+    public static final int DEFAULT_NUM_PER_PAGE = 15;
+
+    /**
+     * 最大每页记录数(100).
+     */
+    public static final int MAX_PAGE_SIZE = 100;
+
+    private int pageNum = DEFAULT_PAGE_NUM; // 当前页数
+
+    private int numPerPage; // 每页记录数
+
+    /**
+     * 默认构造函数
+     */
+    public PageParam() {
+    }
+
+    /**
+     * 带参数的构造函数
+     *
+     * @param pageNum
+     * @param numPerPage
+     */
+    public PageParam(int pageNum, int numPerPage) {
+    }
+
+    /**
+     * 当前页数
+     */
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    /**
+     * 当前页数
+     */
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    /**
+     * 每页记录数
+     */
+    public int getNumPerPage() {
+        return numPerPage > 0 ? numPerPage : DEFAULT_NUM_PER_PAGE;
+    }
+
+    /**
+     * 每页记录数
+     */
+    public void setNumPerPage(int numPerPage) {
+        this.numPerPage = numPerPage;
+    }
+
+}
