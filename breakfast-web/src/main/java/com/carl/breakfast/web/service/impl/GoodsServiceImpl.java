@@ -6,7 +6,10 @@ import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.ctrl.admin.GoodsImage;
 import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 import com.carl.breakfast.web.service.IGoodsService;
+import com.carl.framework.util.MapBuilder;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +30,8 @@ import java.util.List;
 public class GoodsServiceImpl implements IGoodsService {
     @Autowired
     private GoodsDao goodsDao;
+    @Autowired
+    private SqlSessionTemplate sessionTemplate;
     @Override
     public GoodsDao getDao() {
         return goodsDao;
@@ -61,7 +66,11 @@ public class GoodsServiceImpl implements IGoodsService {
     }
 
     @Override
-    public Object selectGoodsByName(PageBounds pageBounds, String name) throws DaoException {
-        return goodsDao.selectGoodsByName(pageBounds, name);
+    public PageList selectGoodsByName(PageBounds pageBounds, String name) throws DaoException {
+//        return goodsDao.selectGoodsByName(pageBounds, name);
+        List<?> list = sessionTemplate.selectList("com.carl.breakfast.dao.admin.goods.GoodsDao.selectGoodsByName",
+                MapBuilder.build().p("name", name), pageBounds);
+        PageList pl = (PageList) list;
+        return pl;
     }
 }

@@ -4,6 +4,7 @@ import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.GoodsDao;
 import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -33,5 +34,5 @@ public interface IGoodsService extends IService<GoodsDao> {
      * @return
      * @throws DaoException
      */
-    Object selectGoodsByName(PageBounds pageBounds, @Param("name") String name) throws DaoException;
+    PageList selectGoodsByName(PageBounds pageBounds, @Param("name") String name) throws DaoException;
 }

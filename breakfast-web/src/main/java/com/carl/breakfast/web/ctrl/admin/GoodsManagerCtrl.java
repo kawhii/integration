@@ -3,7 +3,9 @@ package com.carl.breakfast.web.ctrl.admin;
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.framework.ui.ctrl.BaseCtrl;
+import com.carl.framework.util.MapBuilder;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
@@ -51,15 +53,17 @@ public class GoodsManagerCtrl extends BaseCtrl {
     }
 
     @ResponseBody
-    @RequestMapping(value ="/list.json")
-    public Object listGoods(@RequestParam(required =false, value = "name") String name,
-                                      @RequestParam(required =false,defaultValue ="1" , value = "page") int page,
-                                      @RequestParam(required =false,defaultValue ="30", value = "pageSize")int limit,
-                                      @RequestParam(required =false, value = "sort") String sort,
-                                      @RequestParam(required =false, value = "dir") String dir) {
+    @RequestMapping(value = "/list.json")
+    public Object listGoods(@RequestParam(required = false, value = "name") String name,
+                            @RequestParam(required = false, defaultValue = "1", value = "page") int page,
+                            @RequestParam(required = false, defaultValue = "30", value = "pageSize") int limit,
+                            @RequestParam(required = false, value = "sort") String sort,
+                            @RequestParam(required = false, value = "dir") String dir) {
 
         try {
-            return goodsService.selectGoodsByName(new PageBounds(page, limit), name);
+            PageList result = goodsService.selectGoodsByName(new PageBounds(page, limit), name);
+            return success(MapBuilder.build().p("items", result)
+                    .p("paginator", result.getPaginator()));
         } catch (DaoException e) {
             return fail(e.getMessage());
         }
