@@ -35,7 +35,7 @@ public class PageParam implements Serializable {
 
     private int pageNum = DEFAULT_PAGE_NUM; // 当前页数
 
-    private int numPerPage; // 每页记录数
+    private int numPerPage = DEFAULT_NUM_PER_PAGE; // 每页记录数
 
     /**
      * 默认构造函数
@@ -50,6 +50,8 @@ public class PageParam implements Serializable {
      * @param numPerPage
      */
     public PageParam(int pageNum, int numPerPage) {
+        this.pageNum = pageNum;
+        this.numPerPage = numPerPage;
     }
 
     /**
