@@ -40,25 +40,10 @@
     </select>
 
     <!--查询总数-->
-    <select id="selectGoodsByName" parameterType="java.util.List">
+    <select id="selectGoodsByName" resultType="map">
         SELECT
-          ID AS id,
-          NAME AS name,
-          TITLE AS title,
-          SUB_TITLE AS subTitle,
-          SALES AS sales,
-          STOCK AS stock,
-          STATUS AS status,
-          HOT_RANK AS hotRank,
-          PRICE AS price,
-          MAIN_IMG_ID AS mainImgId,
-          MAIN_IMG_PATH AS mainImgPath,
-          NOTE AS NOTE
+          *
         FROM <include refid="table_name"/>
-        <where>
-            <if test="name != null">
-                NAME LIKE CONCAT('%','${name}','%' )
-            </if>
-        </where>
+
     </select>
 </mapper>

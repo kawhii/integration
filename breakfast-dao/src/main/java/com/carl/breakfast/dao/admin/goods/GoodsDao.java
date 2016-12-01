@@ -3,10 +3,13 @@ package com.carl.breakfast.dao.admin.goods;
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+
 
 /**
  * 产品操作
@@ -49,12 +52,10 @@ public interface GoodsDao {
 
     /**
      * 根据名字查询商品
-     * @param page 页码
-     * @param pageSize 条数
      * @param name 商品名称
      * @return
      */
-    List<GoodsPojo> selectGoodsByName(PageBounds pageBounds, @Param("name") String name);
+    Object selectGoodsByName(PageBounds pageBounds, @Param("name") String name);
 
 
     /**

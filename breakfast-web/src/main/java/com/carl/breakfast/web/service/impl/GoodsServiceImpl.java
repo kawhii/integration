@@ -7,7 +7,6 @@ import com.carl.breakfast.web.ctrl.admin.GoodsImage;
 import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,7 +61,7 @@ public class GoodsServiceImpl implements IGoodsService {
     }
 
     @Override
-    public List<GoodsPojo> selectGoodsByName(PageBounds pageBounds, String name) throws DaoException {
+    public Object selectGoodsByName(PageBounds pageBounds, String name) throws DaoException {
         return goodsDao.selectGoodsByName(pageBounds, name);
     }
 }
