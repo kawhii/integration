@@ -67,12 +67,12 @@
             };
 
             //删除文件
-            $scope.delete = function(item, id) {
+            $scope.delete = function (item, id) {
                 //上传文件以及列表删除公用，上传文件前没有data,上传后有，列表没有item
-                if((item && item.data) || id) {
-                    var recordId = item?item.data.id : id;
-                    $request.get("/sys/file/deleteById?id=" + recordId, function(d) {
-                        if(item) {
+                if ((item && item.data) || id) {
+                    var recordId = item ? item.data.id : id;
+                    $request.get("/sys/file/deleteById?id=" + recordId, function (d) {
+                        if (item) {
                             item.remove();
                         } else {
                             $scope.search();
@@ -84,7 +84,7 @@
             };
 
             $scope.data = {
-                recordList : []
+                recordList: []
             };
             $scope.name = '';
             //分页信息
@@ -96,13 +96,13 @@
 
             //渲染列表
             function renderList() {
-                $request.get("/sys/file/list.json?page=" + $scope.pageInfo.curr +
-                        "&pageSize=" + $scope.pageInfo.pageSize + "&name=" + $scope.name
-                    ,function (data) {
+                $request.get("/sys/file/list.json"
+                    , {page: $scope.pageInfo.curr, pageSize: $scope.pageInfo.pageSize, name: $scope.name}
+                    , function (data) {
                         if (data.header.code == 0) {
                             $scope.data = data.body;
                             //有数据才计算页码
-                            if (data.body.recordList.length > 0) {
+                            if (data.body.recordList.length >= 0) {
                                 countPager(data.body);
                             }
                         } else {

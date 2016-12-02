@@ -17,8 +17,6 @@
                 <h3>请选择图片</h3>
                 <div ng-show="uploader.isHTML5">
                 </div>
-
-                选择图片
                 <input type="file" accept="image/gif, image/jpeg" nv-file-select="" uploader="uploader"
                        multiple/><br/>
             </div>
@@ -86,10 +84,10 @@
                             ng-disabled="!uploader.isUploading">
                         <span class="glyphicon glyphicon-ban-circle"></span> 全部取消
                     </button>
-                    <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()"
+                    <#--<button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()"
                             ng-disabled="!uploader.queue.length">
                         <span class="glyphicon glyphicon-trash"></span> 全部移除
-                    </button>
+                    </button>-->
                 </div>
 
             </div>

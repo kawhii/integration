@@ -6,8 +6,8 @@
  */
 (function () {
     'use strict';
-    angular.module('Goods', ['App', 'ngMaterial', 'angularFileUpload', 'ngMessages'])
-        .controller('GoodsManagerCtrl', ['$scope', 'FileUploader', '$toast', '$http', function ($scope, FileUploader, $toast, $http) {
+    angular.module('Goods', ['App', 'ngMaterial', 'ngMessages'])
+        .controller('GoodsManagerCtrl', ['$scope', '$toast', '$http', function ($scope, $toast, $http) {
             $scope.project = {};
             $scope.project.rate = 0;
 
@@ -38,60 +38,6 @@
                 }
             };
 
-            var uploader = $scope.uploader = new FileUploader({
-                url: '/sys/file/upload'
-            });
-
-            // FILTERS
-
-            uploader.filters.push({
-                name: 'customFilter',
-                fn: function (item /*{File|FileLikeObject}*/, options) {
-                    return this.queue.length < 20;
-                }
-            });
-
-            // CALLBACKS
-
-            uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
-                console.info('onWhenAddingFileFailed', item, filter, options);
-            };
-            uploader.onAfterAddingFile = function (fileItem) {
-                if (fileItem.file.size >= 800 * 1024) {
-                    $toast.showActionToast("文件过大");
-                    fileItem.remove();
-                }
-                console.info('onAfterAddingFile', fileItem);
-            };
-            uploader.onAfterAddingAll = function (addedFileItems) {
-                console.info('onAfterAddingAll', addedFileItems);
-            };
-            uploader.onBeforeUploadItem = function (item) {
-                console.info('onBeforeUploadItem', item);
-            };
-            uploader.onProgressItem = function (fileItem, progress) {
-                console.info('onProgressItem', fileItem, progress);
-            };
-            uploader.onProgressAll = function (progress) {
-                console.info('onProgressAll', progress);
-            };
-            uploader.onSuccessItem = function (fileItem, response, status, headers) {
-                fileItem['data'] = response.body;
-                console.info('onSuccessItem', fileItem, response, status, headers);
-            };
-            uploader.onErrorItem = function (fileItem, response, status, headers) {
-                console.info('onErrorItem', fileItem, response, status, headers);
-            };
-            uploader.onCancelItem = function (fileItem, response, status, headers) {
-                console.info('onCancelItem', fileItem, response, status, headers);
-            };
-            uploader.onCompleteItem = function (fileItem, response, status, headers) {
-                console.info(this.item);
-                console.info('onCompleteItem', fileItem, response, status, headers);
-            };
-            uploader.onCompleteAll = function () {
-                console.info('onCompleteAll');
-            };
 
             //保存商品发布信息
             $scope.save = function () {
@@ -101,43 +47,39 @@
                     return;
                 }
                 //todo 筛选商品保存
-                saveGoods(extractParams());
+                //  saveGoods(extractParams());
             };
 
-            function extractParams() {
-                //基础信息
-                var info = {};
-                angular.forEach($scope.goodsInfo, function (v, k) {
-                    info[k] = v.val;
-                });
-                var files = uploader.queue;
-                var goodsDetail = {images : []};
+            /*function extractParams() {
+             //基础信息
+             var info = {};
+             angular.forEach($scope.goodsInfo, function (v, k) {
+             info[k] = v.val;
+             });
+             var files = uploader.queue;
+             var goodsDetail = {images : []};
 
-                //文件信息集成
-                if (files.length > 0) {
-                    info.mainImgId = files[0].data.id;
-                    info.mainImgPath = files[0].data.visitPath;
-                    if(files.length >= 1) {
-                        for(var i = 1; i < files.length; i ++) {
-                            var f = files[i].data;
-                            goodsDetail.images.push({id:f.id, path : f.visitPath});
-                        }
-                    }
-                    info.goodsDetail = goodsDetail;
-                }
-
-
-
-                //文件信息
-
-                return info;
-            }
+             //文件信息集成
+             if (files.length > 0) {
+             info.mainImgId = files[0].data.id;
+             info.mainImgPath = files[0].data.visitPath;
+             if(files.length >= 1) {
+             for(var i = 1; i < files.length; i ++) {
+             var f = files[i].data;
+             goodsDetail.images.push({id:f.id, path : f.visitPath});
+             }
+             }
+             info.goodsDetail = goodsDetail;
+             }
+             //文件信息
+             return info;
+             }*/
 
 
             function saveGoods(data) {
                 $http.post("/admin/goods/addGoods", data)
                     .then(function (response) {
-                        if(response.status == 200 && response.data.header.code == 0) {
+                        if (response.status == 200 && response.data.header.code == 0) {
                             alert("商品保存成功");
                             location.reload()
                         } else {
@@ -147,7 +89,96 @@
                         $toast.showActionToast(response.data);
                     });
             }
-        }]);
+        }]).controller('ContactChipCtrl', ContactChipCtrl);
+
+    function ContactChipCtrl($q, $timeout, $request) {
+        var self = this;
+        var pendingSearch, cancelSearch = angular.noop;
+        var cachedQuery = '', lastSearch;
+
+        self.allContacts = [];
+        self.asyncContacts = [];
+        self.filterSelected = true;
+
+        self.delayedQuerySearch = delayedQuerySearch;
+
+        /**
+         * Search for contacts; use a random delay to simulate a remote call
+         */
+        function querySearch(criteria) {
+            cachedQuery = cachedQuery || criteria;
+            return cachedQuery ? self.allContacts.filter(createFilterFor(cachedQuery)) : [];
+        }
+
+        /**
+         * Async search for contacts
+         * Also debounce the queries; since the md-contact-chips does not support this
+         */
+        function delayedQuerySearch(criteria) {
+            cachedQuery = criteria;
+            loadContacts();
+            if (!pendingSearch || !debounceSearch()) {
+                cancelSearch();
+
+                return pendingSearch = $q(function (resolve, reject) {
+                    // Simulate async search... (after debouncing)
+                    cancelSearch = reject;
+                    $timeout(function () {
+
+                        resolve(querySearch());
+
+                        refreshDebounce();
+                    }, Math.random() * 200, true)
+                });
+            }
+
+            return pendingSearch;
+        }
+
+        function refreshDebounce() {
+            lastSearch = 0;
+            pendingSearch = null;
+            cancelSearch = angular.noop;
+        }
+
+        /**
+         * Debounce if querying faster than 300ms
+         */
+        function debounceSearch() {
+            var now = new Date().getMilliseconds();
+            lastSearch = lastSearch || now;
+
+            return ((now - lastSearch) < 300);
+        }
+
+        /**
+         * Create filter function for a query string
+         */
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+
+            return function filterFn(contact) {
+                return (contact.uploadName.indexOf(lowercaseQuery) != -1);
+            };
+        }
+
+        function loadContacts() {
+            //渲染列表
+            $request.post("/sys/file/list.json"
+                , {page: 1, pageSize: 15, name: cachedQuery}
+                , function (data) {
+                    if (data.header.code == 0) {
+                        // self.asyncContacts = data.body.recordList;//recordList
+                        self.allContacts = data.body.recordList;
+                        angular.forEach(self.allContacts, function (item, index) {
+                            item.visitPath = '/file/img/~/' + item.visitPath;
+                        });
+                    }
+                });
+        }
+
+        loadContacts();
+    }
 
 
     angular.bootstrap(document.getElementById("ID_goods"),

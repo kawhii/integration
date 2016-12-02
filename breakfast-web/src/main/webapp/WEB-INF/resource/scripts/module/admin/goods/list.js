@@ -27,7 +27,7 @@
                             if (response.status == 200 && response.data.header.code == 0) {
                                 $scope.data = response.data.body;
                                 //有数据才计算页码
-                                if (response.data.body.recordList.length > 0) {
+                                if (response.data.body.recordList.length >= 0) {
                                     countPager(response.data.body);
                                 }
                             } else {
@@ -127,7 +127,6 @@
         self.filterSelected = true;
 
         self.querySearch = querySearch;
-        self.delayedQuerySearch = delayedQuerySearch;
 
         /**
          * Search for contacts; use a random delay to simulate a remote call
@@ -136,47 +135,6 @@
             cachedQuery = cachedQuery || criteria;
             return cachedQuery ? self.allContacts.filter(createFilterFor(cachedQuery)) : [];
         }
-
-        /**
-         * Async search for contacts
-         * Also debounce the queries; since the md-contact-chips does not support this
-         */
-        function delayedQuerySearch(criteria) {
-            cachedQuery = criteria;
-            if (!pendingSearch || !debounceSearch()) {
-                cancelSearch();
-
-                return pendingSearch = $q(function (resolve, reject) {
-                    // Simulate async search... (after debouncing)
-                    cancelSearch = reject;
-                    $timeout(function () {
-
-                        resolve(self.querySearch());
-
-                        refreshDebounce();
-                    }, Math.random() * 500, true)
-                });
-            }
-
-            return pendingSearch;
-        }
-
-        function refreshDebounce() {
-            lastSearch = 0;
-            pendingSearch = null;
-            cancelSearch = angular.noop;
-        }
-
-        /**
-         * Debounce if querying faster than 300ms
-         */
-        function debounceSearch() {
-            var now = new Date().getMilliseconds();
-            lastSearch = lastSearch || now;
-
-            return ((now - lastSearch) < 300);
-        }
-
         /**
          * Create filter function for a query string
          */
@@ -185,7 +143,6 @@
 
             return function filterFn(contact) {
                 return (contact._lowername.indexOf(lowercaseQuery) != -1);
-                ;
             };
 
         }

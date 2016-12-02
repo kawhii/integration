@@ -41,16 +41,17 @@
             }
 
         })
-        .service('$request',function($http, $toast){
+        .service('$request', function ($http, $toast) {
             function request(url, method, data, callback) {
                 $http({
-                    method : method,
-                    url : url,
-                    data : data
+                    method: method,
+                    url: url,
+                    data: method == 'POST' ? data : null,
+                    params: method == 'GET' ? data : null
                 })
                     .then(function (response) {
                         if (response.status == 200 && response.data.header.code == 0) {
-                            if(callback) {
+                            if (callback) {
                                 callback(response.data, response);
                             }
                         } else {
@@ -60,11 +61,12 @@
                         $toast.showActionToast(response.data);
                     });
             }
+
             return {
-                get: function(url, callback) {
-                    request(url, "GET", null, callback);
+                get: function (url, params, callback) {
+                    request(url, "GET", params, callback);
                 },
-                post: function(url, params, callback) {
+                post: function (url, params, callback) {
                     request(url, "POST", params, callback);
                 }
             }
