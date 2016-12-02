@@ -73,4 +73,11 @@ public class GoodsManagerCtrl extends BaseCtrl {
         boolean isSuccess = goodsService.updateState(goodsId, state) == 1;
         return isSuccess? success():fail("修改失败");
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/goodsDetail")
+    public Object goodsDetail(@RequestParam(value = "goodsId") int goodsId) {
+        return success(goodsService.queryDetailById(goodsId));
+    }
 }

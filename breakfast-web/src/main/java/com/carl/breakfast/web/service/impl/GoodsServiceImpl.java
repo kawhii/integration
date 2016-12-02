@@ -2,6 +2,7 @@ package com.carl.breakfast.web.service.impl;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.GoodsFortifiedDao;
+import com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.ctrl.admin.GoodsImage;
 import com.carl.breakfast.web.ctrl.admin.GoodsModel;
@@ -72,5 +73,10 @@ public class GoodsServiceImpl implements IGoodsService {
     @Override
     public int updateState(int goodsId, int state) {
         return goodsFortifiedDao.updateState(goodsId, state);
+    }
+
+    @Override
+    public GoodsDetail queryDetailById(int goodsId) {
+        return goodsFortifiedDao.queryDetail(goodsId);
     }
 }

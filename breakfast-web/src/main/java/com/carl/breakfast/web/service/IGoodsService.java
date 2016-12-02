@@ -2,6 +2,7 @@ package com.carl.breakfast.web.service;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.admin.goods.GoodsFortifiedDao;
+import com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 import com.carl.framework.core.page.PageBean;
@@ -41,4 +42,11 @@ public interface IGoodsService extends IService<GoodsFortifiedDao> {
      * @return
      */
     int updateState(int goodsId, int state);
+
+    /**
+     * 根据id查询详情，包括扩展表数据
+     * @param goodsId
+     * @return
+     */
+    GoodsDetail queryDetailById(int goodsId);
 }

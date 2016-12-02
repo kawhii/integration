@@ -124,7 +124,7 @@
 
     <!--详细查询-->
     <select id="queryDetail" resultMap="queryDetail">
-        SELECT MG.*,mge.ID AS EXT_ID, MGE.GOODS_ID, MGE.KEY_NAME
+        SELECT MG.*,mge.ID AS EXT_ID, MGE.GOODS_ID, MGE.KEY_NAME,
            MGE.KEY_AS, MGE.VAL
            FROM MALL_GOODS MG
         LEFT JOIN MALL_GOODS_EXT MGE ON MG.ID = MGE.GOODS_ID

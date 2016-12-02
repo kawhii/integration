@@ -62,5 +62,11 @@
 
         </md-content>
     </div>
+
+<#--修改弹出框 start-->
+<#include "freemarker/admin/goods/editor.ftl">
+<#--修改弹出框 end-->
 </div>
+
+
 <script src="/js/~/admin/goods/list.js"></script>
