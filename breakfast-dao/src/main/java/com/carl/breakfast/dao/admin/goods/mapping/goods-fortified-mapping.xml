@@ -99,9 +99,35 @@
         <![CDATA[
 
         ]]>
-        SELECT ID AS id, NAME AS name, TITLE AS title , SUB_TITLE AS subTitle, STOCK AS stock, CREATE_USER AS createUser, PRICE AS price,
+        SELECT ID AS id, NAME AS name, TITLE AS title , SUB_TITLE AS subTitle, STOCK AS stock, CREATE_USER AS
+        createUser, PRICE AS price,
         GOODS_TYPE AS goodsType, MAIN_IMG_ID AS mainImgId , MAIN_IMG_PATH AS mainImgPath, NOTE AS note
-          FROM  <include refid="table_name"/>
+        FROM
+        <include refid="table_name"/>
         WHERE ID = #{param1}
+    </select>
+
+    <!--详情查询映射-->
+    <resultMap id="queryDetail" type="com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail">
+        <association column="ID" property="goods" javaType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo"
+                     resultMap="BaseResultMap">
+        </association>
+        <collection property="goodsExtList" javaType="java.util.List"
+                    ofType="com.carl.breakfast.dao.admin.goods.pojo.GoodsExt">
+            <id column="EXT_ID" property="id" jdbcType="INTEGER"/>
+            <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER"/>
+            <result column="KEY_NAME" property="keyName" jdbcType="VARCHAR"/>
+            <result column="KEY_AS" property="keyAs" jdbcType="VARCHAR"/>
+            <result column="VAL" property="val" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <!--详细查询-->
+    <select id="queryDetail" resultMap="queryDetail">
+        SELECT MG.*,mge.ID AS EXT_ID, MGE.GOODS_ID, MGE.KEY_NAME
+           MGE.KEY_AS, MGE.VAL
+           FROM MALL_GOODS MG
+        LEFT JOIN MALL_GOODS_EXT MGE ON MG.ID = MGE.GOODS_ID
+        WHERE MG.ID = #{goodsId}
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.carl.breakfast.dao.admin.goods;
 
 import com.carl.breakfast.dao.DaoException;
+import com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.framework.core.dao.BaseDao;
 
@@ -50,4 +51,11 @@ public interface GoodsFortifiedDao extends BaseDao<GoodsPojo> {
      * @return
      */
     int insertModify(int goodsId, String columnName,String oldVal, String newVal, String operateUser);
+
+    /**
+     * 查询详情
+     * @param goodsId
+     * @return
+     */
+    GoodsDetail queryDetail(int goodsId);
 }

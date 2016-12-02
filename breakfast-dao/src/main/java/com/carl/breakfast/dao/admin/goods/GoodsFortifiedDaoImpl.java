@@ -1,6 +1,7 @@
 package com.carl.breakfast.dao.admin.goods;
 
 import com.carl.breakfast.dao.DaoException;
+import com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.framework.core.dao.BaseDaoImpl;
 import com.carl.framework.util.MapBuilder;
@@ -52,5 +53,10 @@ public class GoodsFortifiedDaoImpl extends BaseDaoImpl<GoodsPojo> implements Goo
     public int insertModify(int goodsId, String columnName, String oldVal, String newVal, String operateUser) {
         return getSessionTemplate().insert(getStatement("insertModify"),
                 MapBuilder.build().p("goodsId", goodsId).p("columnName", columnName).p("newVal", newVal).p("oldVal", oldVal).p("operateUser", operateUser));
+    }
+
+    @Override
+    public GoodsDetail queryDetail(int goodsId) {
+        return getSessionTemplate().selectOne(getStatement("queryDetail"), MapBuilder.build().p("goodsId", goodsId));
     }
 }
