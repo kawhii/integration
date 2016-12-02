@@ -2,6 +2,7 @@ package com.carl.breakfast.dao.sys;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.sys.pojo.SysFile;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -31,4 +32,13 @@ public interface SysFileDao {
      * @throws DaoException
      */
     SysFile findById(int id) throws DaoException;
+
+    /**
+     * 根据id删除
+     *
+     * @param id
+     * @return
+     * @throws DaoException
+     */
+    int deleteById(@Param("id") int id) throws DaoException;
 }

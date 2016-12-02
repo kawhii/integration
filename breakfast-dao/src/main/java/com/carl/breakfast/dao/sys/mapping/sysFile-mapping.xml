@@ -14,8 +14,16 @@
                 (ID, BIZ_CODE, VISIT_PATH, FILE_SIZE, UPLOAD_USER, UPLOAD_NAME, UPLOAD_IP, TYPE, REMARK)
         VALUES (#{id}, #{bizCode}, #{visitPath}, #{fileSize}, #{uploadUser}, #{uploadName}, #{uploadIp}, #{type}, #{remark})
     </insert>
+
+    <!--删除文件-->
+    <update id="deleteById">
+        UPDATE <include refid="table_name"/> SET EFFECTIVE = 0 WHERE ID = #{id}
+    </update>
+
     <!--根据id查询-->
     <select id="findById" resultType="com.carl.breakfast.dao.sys.pojo.SysFile" parameterType="int" >
         SELECT * FROM <include refid="table_name"/> WHERE ID = #{id}
     </select>
+
+
 </mapper>

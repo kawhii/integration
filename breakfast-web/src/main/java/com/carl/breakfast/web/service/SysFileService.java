@@ -26,4 +26,12 @@ public interface SysFileService extends IService<SysFileDao> {
      * @throws DaoException
      */
     SysFile findById(int id) throws DaoException;
+
+    /**
+     * 根据文件id删除
+     * @param id
+     * @return
+     * @throws DaoException
+     */
+    int deleteById(int id) throws DaoException;
 }

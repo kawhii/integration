@@ -65,4 +65,23 @@ public class FileCtrl extends BaseCtrl {
         }
         return success(sysFile);
     }
+
+    /**
+     * 删除文件
+     * @param id 文件id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/deleteById")
+    public Object deleteById(@RequestParam("id") int id) {
+        try {
+            int i = sysFileService.deleteById(id);
+            if(i == 1) {
+                return success();
+            }
+            return fail("该文件不存在");
+        } catch (Exception e) {
+            return fail(e.getMessage());
+        }
+    }
 }

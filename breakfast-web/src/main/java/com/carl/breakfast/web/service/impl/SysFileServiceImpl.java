@@ -31,4 +31,9 @@ public class SysFileServiceImpl implements SysFileService {
     public SysFile findById(int id) throws DaoException {
         return sysFileDao.findById(id);
     }
+
+    @Override
+    public int deleteById(int id) throws DaoException {
+        return sysFileDao.deleteById(id);
+    }
 }
