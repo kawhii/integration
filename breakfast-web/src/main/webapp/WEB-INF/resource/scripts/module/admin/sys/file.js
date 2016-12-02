@@ -8,7 +8,8 @@
     'use strict';
     angular.module('FileApp', ['App', 'ngMaterial', 'angularFileUpload', 'ngMessages'])
         .controller('FileManagerCtrl', ['$scope', 'FileUploader', '$toast', '$request', function ($scope, FileUploader, $toast, $request) {
-
+            //是否上传页面
+            $scope.isUpload = true;
 
             var uploader = $scope.uploader = new FileUploader({
                 url: '/sys/file/upload'
@@ -65,14 +66,74 @@
                 console.info('onCompleteAll');
             };
 
+            //删除文件
             $scope.delete = function(item, id) {
-                if(item.data) {
-                    $request.get("/sys/file/deleteById?id=" + item.data.id, function(d) {
-                        item.remove();
+                //上传文件以及列表删除公用，上传文件前没有data,上传后有，列表没有item
+                if((item && item.data) || id) {
+                    var recordId = item?item.data.id : id;
+                    $request.get("/sys/file/deleteById?id=" + recordId, function(d) {
+                        if(item) {
+                            item.remove();
+                        } else {
+                            $scope.search();
+                        }
                     });
                 } else {
                     item.remove();
                 }
+            };
+
+            $scope.data = {
+                recordList : []
+            };
+            $scope.name = '';
+            //分页信息
+            $scope.pageInfo = {
+                curr: 1,
+                haveNext: true,
+                pageSize: 10
+            };
+
+            //渲染列表
+            function renderList() {
+                $request.get("/sys/file/list.json?page=" + $scope.pageInfo.curr +
+                        "&pageSize=" + $scope.pageInfo.pageSize + "&name=" + $scope.name
+                    ,function (data) {
+                        if (data.header.code == 0) {
+                            $scope.data = data.body;
+                            //有数据才计算页码
+                            if (data.body.recordList.length > 0) {
+                                countPager(data.body);
+                            }
+                        } else {
+                            $toast.showActionToast(data.header.message);
+                        }
+                    });
+            }
+
+            renderList();
+
+            $scope.next = function () {
+                $scope.pageInfo.curr = $scope.pageInfo.curr + 1;
+                renderList();
+            };
+
+            $scope.pre = function () {
+                $scope.pageInfo.curr = $scope.pageInfo.curr - 1;
+                renderList();
+            };
+
+            //计算页码
+            function countPager(data) {
+                $scope.pageInfo.curr = data.currentPage;
+                $scope.pageInfo.haveNext = data.totalPage - $scope.pageInfo.curr > 0;
+                $scope.pageInfo.havePre = $scope.pageInfo.curr - 1 > 0;
+            }
+
+            //重新查询
+            $scope.search = function () {
+                $scope.pageInfo.curr = 1;
+                renderList();
             };
         }]);
 
