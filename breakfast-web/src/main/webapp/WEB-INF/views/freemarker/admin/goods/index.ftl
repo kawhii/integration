@@ -6,6 +6,7 @@
 <#--基本信息 end-->
     <#--选择文件 start-->
     <#include "freemarker/admin/goods/selectFile.ftl">
+    <button type="button" class="btn btn-default" ng-click="save()">保存</button>
 <#--选择文件 end-->
 </div>
 <script src="/js/~/admin/goods/index.js"></script>

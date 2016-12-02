@@ -47,7 +47,7 @@
                 ng-model="ctrl.asyncContacts"
                 md-contacts="ctrl.delayedQuerySearch($query)"
                 md-contact-name="uploadName"
-                md-contact-image="visitPath"
+                md-contact-image="tempVisitPath"
                 md-require-match="true"
                 md-highlight-flags="i"
                 filter-selected="ctrl.filterSelected"

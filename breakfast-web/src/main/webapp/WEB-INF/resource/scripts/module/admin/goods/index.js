@@ -7,7 +7,7 @@
 (function () {
     'use strict';
     angular.module('Goods', ['App', 'ngMaterial', 'ngMessages'])
-        .controller('GoodsManagerCtrl', ['$scope', '$toast', '$http', function ($scope, $toast, $http) {
+        .controller('GoodsManagerCtrl', ['$scope', '$toast', '$http', '$rootScope', function ($scope, $toast, $http, $rootScope) {
             $scope.project = {};
             $scope.project.rate = 0;
 
@@ -41,39 +41,37 @@
 
             //保存商品发布信息
             $scope.save = function () {
-                //如果文件全部上传完才能发布
-                if (uploader.progress != 100) {
-                    $toast.showActionToast("请把文件上传完再进行保存");
-                    return;
-                }
-                //todo 筛选商品保存
-                //  saveGoods(extractParams());
+                var files = $rootScope.getSelectFileData();
+                if (files.length == 0) {
+                     $toast.showActionToast("至少选择一张主图");
+                     return;
+                 }
+                 saveGoods(extractParams(files));
             };
 
-            /*function extractParams() {
-             //基础信息
-             var info = {};
-             angular.forEach($scope.goodsInfo, function (v, k) {
-             info[k] = v.val;
-             });
-             var files = uploader.queue;
-             var goodsDetail = {images : []};
+            function extractParams(files) {
+                //基础信息
+                var info = {};
+                angular.forEach($scope.goodsInfo, function (v, k) {
+                    info[k] = v.val;
+                });
+                var goodsDetail = {images: []};
 
-             //文件信息集成
-             if (files.length > 0) {
-             info.mainImgId = files[0].data.id;
-             info.mainImgPath = files[0].data.visitPath;
-             if(files.length >= 1) {
-             for(var i = 1; i < files.length; i ++) {
-             var f = files[i].data;
-             goodsDetail.images.push({id:f.id, path : f.visitPath});
-             }
-             }
-             info.goodsDetail = goodsDetail;
-             }
-             //文件信息
-             return info;
-             }*/
+                //文件信息集成
+                if (files.length > 0) {
+                    info.mainImgId = files[0].id;
+                    info.mainImgPath = files[0].visitPath;
+                    if (files.length >= 1) {
+                        for (var i = 1; i < files.length; i++) {
+                            var f = files[i];
+                            goodsDetail.images.push({id: f.id, path: f.visitPath});
+                        }
+                    }
+                    info.goodsDetail = goodsDetail;
+                }
+                //文件信息
+                return info;
+            }
 
 
             function saveGoods(data) {
@@ -91,7 +89,7 @@
             }
         }]).controller('ContactChipCtrl', ContactChipCtrl);
 
-    function ContactChipCtrl($q, $timeout, $request) {
+    function ContactChipCtrl($q, $timeout, $request, $rootScope) {
         var self = this;
         var pendingSearch, cancelSearch = angular.noop;
         var cachedQuery = '', lastSearch;
@@ -99,6 +97,10 @@
         self.allContacts = [];
         self.asyncContacts = [];
         self.filterSelected = true;
+        //允许获取图片
+        $rootScope.getSelectFileData = function () {
+            return self.asyncContacts;
+        };
 
         self.delayedQuerySearch = delayedQuerySearch;
 
@@ -164,14 +166,14 @@
 
         function loadContacts() {
             //渲染列表
-            $request.post("/sys/file/list.json"
+            $request.get("/sys/file/list.json"
                 , {page: 1, pageSize: 15, name: cachedQuery}
                 , function (data) {
                     if (data.header.code == 0) {
                         // self.asyncContacts = data.body.recordList;//recordList
                         self.allContacts = data.body.recordList;
                         angular.forEach(self.allContacts, function (item, index) {
-                            item.visitPath = '/file/img/~/' + item.visitPath;
+                            item.tempVisitPath = '/file/img/~/' + item.visitPath;
                         });
                     }
                 });
