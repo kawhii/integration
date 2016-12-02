@@ -2,8 +2,12 @@ package com.carl.breakfast.web.service.impl;
 
 import com.carl.breakfast.dao.DaoException;
 import com.carl.breakfast.dao.sys.SysFileDao;
+import com.carl.breakfast.dao.sys.SysFileSearchDao;
 import com.carl.breakfast.dao.sys.pojo.SysFile;
 import com.carl.breakfast.web.service.SysFileService;
+import com.carl.framework.core.page.PageBean;
+import com.carl.framework.core.page.PageParam;
+import com.carl.framework.util.MapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class SysFileServiceImpl implements SysFileService {
     @Autowired
     private SysFileDao sysFileDao;
+    @Autowired
+    private SysFileSearchDao sysFileSearchDao;
 
     public SysFileDao getDao() {
         return sysFileDao;
@@ -35,5 +41,18 @@ public class SysFileServiceImpl implements SysFileService {
     @Override
     public int deleteById(int id) throws DaoException {
         return sysFileDao.deleteById(id);
+    }
+
+    /**
+     * 列表查询
+     * @param pageSize
+     * @param page
+     * @param fileName
+     * @param effective
+     * @return
+     */
+    public PageBean<SysFile> list(int pageSize, int page, String fileName, int effective) {
+        return sysFileSearchDao.listPage(new PageParam(page, pageSize),
+                MapBuilder.<String, Object>build().p("effective", effective).p("uploadName", fileName));
     }
 }

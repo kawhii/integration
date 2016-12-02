@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.sys.SysFileSearchDaoImpl">
+    <!--表明-->
+    <sql id="table_name">
+        SYS_FILE
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.sys.pojo.SysFile">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="BIZ_CODE" property="bizCode" jdbcType="VARCHAR"/>
+        <result column="VISIT_PATH" property="visitPath" jdbcType="VARCHAR"/>
+        <result column="FILE_SIZE" property="fileSize" jdbcType="Long"/>
+        <result column="UPLOAD_TIME" property="uploadTime" jdbcType="TIMESTAMP"/>
+        <result column="UPLOAD_USER" property="uploadUser" jdbcType="VARCHAR"/>
+        <result column="UPLOAD_NAME" property="uploadName" jdbcType="VARCHAR"/>
+        <result column="UPLOAD_IP" property="uploadIp" jdbcType="VARCHAR"/>
+        <result column="DOWNLOAD_TIMES" property="downloadTimes" jdbcType="INTEGER"/>
+        <result column="TYPE" property="type" jdbcType="INTEGER"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 根据搜索条件获取数据 -->
+    <sql id="condition_sql">
+        <if test="id != null">and ID = #{id,jdbcType=INTEGER}</if>
+        <if test="effective != null">and EFFECTIVE = #{effective}</if>
+        <if test="uploadName != null">and UPLOAD_NAME LIKE CONCAT('%','${uploadName}','%' )</if>
+    </sql>
+
+
+
+    <!-- 分页查询 -->
+    <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from
+        <include refid="table_name"/>
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+        order by upload_time desc limit #{pageFirst}, #{pageSize}
+    </select>
+
+    <!-- 分页查询时要用到的总数统计 -->
+    <select id="listPageCount" parameterType="java.util.Map"
+            resultType="java.lang.Long">
+        select count(1) from
+        <include refid="table_name"/>
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+    </select>
+</mapper>

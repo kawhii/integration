@@ -1,5 +1,7 @@
 package com.carl.breakfast.dao.sys.pojo;
 
+import com.carl.framework.core.entity.BaseEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import java.util.Date;
  * @date 2016/11/27
  * © 2016 - 2020 , all rights reserved .卡尔工作室
  */
-public class SysFile implements Serializable {
+public class SysFile extends BaseEntity implements Serializable {
     private int id;
     //业务编码
     private String bizCode;

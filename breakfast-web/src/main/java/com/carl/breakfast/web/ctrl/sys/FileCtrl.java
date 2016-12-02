@@ -84,4 +84,16 @@ public class FileCtrl extends BaseCtrl {
             return fail(e.getMessage());
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/list.json")
+    public Object listGoods(@RequestParam(required = false, value = "name") String name,
+                            @RequestParam(required = false, defaultValue = "1", value = "page") int page,
+                            @RequestParam(required = false, defaultValue = "15", value = "pageSize") int limit) {
+        try {
+            return success(sysFileService.list(limit, page, name, 1));
+        } catch (Exception e) {
+            return fail(e.getMessage());
+        }
+    }
 }
