@@ -112,7 +112,7 @@
                         });
                     });
                 };
-            }]);
+            }]).controller('FileChipCtrl', FileChipCtrl);;
 
 
     angular.bootstrap(document.getElementById("ID_goodsList"),

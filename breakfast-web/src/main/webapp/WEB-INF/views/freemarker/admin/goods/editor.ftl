@@ -58,10 +58,13 @@
                 </div>
             </md-content>
             </form>
-
+        <#--选择文件 start-->
+        <#include "freemarker/admin/goods/selectFile.ftl">
+        <#--选择文件 end-->
         </md-dialog>
 
     </div>
 </div>
+<script src="/js/~/admin/goods/fileChipCtrl.js"></script>
 
 

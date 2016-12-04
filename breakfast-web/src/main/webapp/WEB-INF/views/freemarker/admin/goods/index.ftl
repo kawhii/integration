@@ -9,5 +9,6 @@
     <button type="button" class="btn btn-default" ng-click="save()">保存</button>
 <#--选择文件 end-->
 </div>
+<script src="/js/~/admin/goods/fileChipCtrl.js"></script>
 <script src="/js/~/admin/goods/index.js"></script>
 

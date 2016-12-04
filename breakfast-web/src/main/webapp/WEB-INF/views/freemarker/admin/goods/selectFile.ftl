@@ -40,7 +40,7 @@
         height: 250px;
         overflow: hidden; }
 </style>
-<div ng-controller="ContactChipCtrl as ctrl" layout="column" ng-cloak>
+<div ng-controller="FileChipCtrl as ctrl" layout="column" ng-cloak>
     <md-content class="md-padding autocomplete" layout="column">
         <h2 class="md-title">查询图片</h2>
         <md-contact-chips
