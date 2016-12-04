@@ -85,6 +85,6 @@ public class GoodsManagerCtrl extends BaseCtrl {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Object update(@RequestBody com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail goodsDetail) {
         boolean isSuccess = goodsService.update(goodsDetail) == 1;
-        return isSuccess? success():fail("修改失败");
+        return isSuccess? success(1):fail("修改失败");
     }
 }

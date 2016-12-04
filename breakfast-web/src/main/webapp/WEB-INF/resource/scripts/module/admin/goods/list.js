@@ -122,7 +122,13 @@
                 //保存更新
                 $scope.saveUpdate = function() {
                     $request.post("/admin/goods/update", $scope.updateData, function (d) {
-                        console.info(d);
+                       if(d.body === 1) {
+                           $scope.search();
+                           $mdDialog.hide();
+                           $toast.showActionToast("修改成功");
+                       } else {
+                           $toast.showActionToast("修改失败");
+                       }
                     });
                 };
 

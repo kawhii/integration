@@ -1,6 +1,8 @@
 package com.carl.breakfast.dao.admin.goods.pojo;
 
 import com.carl.framework.core.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -113,6 +115,8 @@ public class GoodsPojo extends BaseEntity {
         return this;
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getOnSaleTime() {
         return onSaleTime;
     }
@@ -184,7 +188,8 @@ public class GoodsPojo extends BaseEntity {
         this.note = note;
         return this;
     }
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getUseDate() {
         return useDate;
     }
