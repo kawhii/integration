@@ -113,6 +113,7 @@
                     <th>操作</th>
                     <th>名称</th>
                     <th>大小</th>
+                    <th>预览</th>
                     <th>上传用户</th>
                 </tr>
                 </thead>
@@ -123,8 +124,8 @@
                         <button type="button" class="btn btn-link" ng-click="delete(null, item.id)">删除</button>
                     </td>
                     <td>{{item.uploadName}}</td>
-                    <td><img ng-src="/file/img/~/{{item.visitPath}}" style="width: 45px;height: 45px"/></td>
                     <td>{{item.fileSize/1024 | number : 2}}KB</td>
+                    <td><img ng-src="/file/img/~/{{item.visitPath}}" style="width: 45px;height: 45px"/></td>
                     <td>{{item.uploadUser}}</td>
                 </tr>
                 </tbody>
