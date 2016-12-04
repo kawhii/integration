@@ -106,13 +106,27 @@
                     $scope.updateData = {};
                     $request.get("/admin/goods/goodsDetail?goodsId=" + +id, null, function (d) {
                         $scope.updateData = d.body;
+
                         $mdDialog.show({
                             contentElement: '#ID_editDialog',
-                            parent: angular.element(document.body)
+                            parent: angular.element(document.body),
+                            ok : '123'
                         });
                     });
                 };
-            }]).controller('FileChipCtrl', FileChipCtrl);;
+
+                //取消更新
+                $scope.cancelUpdate = function() {
+                    $mdDialog.hide();
+                };
+                //保存更新
+                $scope.saveUpdate = function() {
+                    $request.post("/admin/goods/update", $scope.updateData, function (d) {
+                        console.info(d);
+                    });
+                };
+
+            }]);
 
 
     angular.bootstrap(document.getElementById("ID_goodsList"),

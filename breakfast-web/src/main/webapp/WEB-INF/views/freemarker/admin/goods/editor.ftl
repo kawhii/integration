@@ -58,9 +58,14 @@
                 </div>
             </md-content>
             </form>
-        <#--选择文件 start-->
-        <#include "freemarker/admin/goods/selectFile.ftl">
-        <#--选择文件 end-->
+            <md-dialog-actions layout="row">
+                <md-button ng-click="cancelUpdate()">
+                    取消
+                </md-button>
+                <md-button ng-click="saveUpdate()">
+                    保存
+                </md-button>
+            </md-dialog-actions>
         </md-dialog>
 
     </div>

@@ -1,7 +1,7 @@
 package com.carl.breakfast.web.ctrl.admin;
 
 import com.carl.breakfast.dao.DaoException;
-import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import com.carl.breakfast.dao.admin.goods.pojo.*;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.framework.core.page.PageParam;
 import com.carl.framework.ui.ctrl.BaseCtrl;
@@ -79,5 +79,12 @@ public class GoodsManagerCtrl extends BaseCtrl {
     @RequestMapping(value = "/goodsDetail")
     public Object goodsDetail(@RequestParam(value = "goodsId") int goodsId) {
         return success(goodsService.queryDetailById(goodsId));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Object update(@RequestBody com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail goodsDetail) {
+        boolean isSuccess = goodsService.update(goodsDetail) == 1;
+        return isSuccess? success():fail("修改失败");
     }
 }

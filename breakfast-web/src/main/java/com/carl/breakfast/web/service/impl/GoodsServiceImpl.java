@@ -10,6 +10,7 @@ import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.framework.core.page.PageBean;
 import com.carl.framework.core.page.PageParam;
 import com.carl.framework.util.MapBuilder;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,5 +79,23 @@ public class GoodsServiceImpl implements IGoodsService {
     @Override
     public GoodsDetail queryDetailById(int goodsId) {
         return goodsFortifiedDao.queryDetail(goodsId);
+    }
+
+    @Override
+    @Transactional
+    public int update(GoodsDetail goodsDetail) {
+        GoodsPojo pojo = goodsFortifiedDao.getById(goodsDetail.getGoods().getId() + "");
+        if(pojo != null) {
+            int res = goodsFortifiedDao.update(goodsDetail.getGoods());
+            if(res == 1) {
+                //价格不一样添加修改历史
+                if(pojo.getPrice() - goodsDetail.getGoods().getPrice() != 0) {
+                    goodsFortifiedDao.insertModify(pojo.getId(), "PRICE", Float.toString(pojo.getPrice()),
+                            Float.toString(goodsDetail.getGoods().getPrice()), (String) SecurityUtils.getSubject().getPrincipal());
+                }
+            }
+            return res;
+        }
+        return 0;
     }
 }

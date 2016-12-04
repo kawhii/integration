@@ -49,4 +49,11 @@ public interface IGoodsService extends IService<GoodsFortifiedDao> {
      * @return
      */
     GoodsDetail queryDetailById(int goodsId);
+
+    /**
+     * 更新产品
+     * @param goodsDetail
+     * @return
+     */
+    int update(GoodsDetail goodsDetail);
 }

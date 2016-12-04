@@ -89,19 +89,17 @@
     </update>
 
     <!--修改历史保存数据-->
-    <update id="insertModify">
+    <insert id="insertModify">
         INSERT INTO MALL_GOODS_MODIFY_HIS (
          GOODS_ID, COLUMN_NAME,ORIGINAL_VAL,NEW_VAL,OPERATE_USER,TABLE_NAME
         ) VALUES(#{goodsId}, #{columnName}, #{oldVal}, #{newVal}, #{operateUser}, 'MALL_GOODS')
-    </update>
+    </insert>
 
-    <select id="selectByPrimaryKey">
-        <![CDATA[
-
-        ]]>
-        SELECT ID AS id, NAME AS name, TITLE AS title , SUB_TITLE AS subTitle, STOCK AS stock, CREATE_USER AS
-        createUser, PRICE AS price,
-        GOODS_TYPE AS goodsType, MAIN_IMG_ID AS mainImgId , MAIN_IMG_PATH AS mainImgPath, NOTE AS note
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT ID AS id, NAME AS name, TITLE AS title ,
+        SUB_TITLE AS subTitle, STOCK AS stock, CREATE_USER AS createUser,
+        PRICE AS price, GOODS_TYPE AS goodsType, MAIN_IMG_ID AS mainImgId ,
+        MAIN_IMG_PATH AS mainImgPath, NOTE AS note
         FROM
         <include refid="table_name"/>
         WHERE ID = #{param1}
@@ -130,4 +128,15 @@
         LEFT JOIN MALL_GOODS_EXT MGE ON MG.ID = MGE.GOODS_ID
         WHERE MG.ID = #{goodsId}
     </select>
+
+    <update id="updateByPrimaryKey">
+        UPDATE
+        <include refid="table_name"/>
+        SET TITLE = #{title},
+        SUB_TITLE = #{subTitle},
+        STOCK = #{stock},
+        PRICE = #{price},
+        NOTE = #{note}
+        WHERE ID = #{id}
+    </update>
 </mapper>
