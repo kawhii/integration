@@ -33,8 +33,8 @@
                     <tr ng-repeat="item in data.recordList">
                         <td>{{$index+1}}</td>
                         <td>
-                            <button type="button" class="btn btn-link" ng-if="item.status==1" ng-click="updateStatus(item.id, 0)">下架</button>
-                            <button type="button" class="btn btn-link" ng-if="item.status==0" ng-click="updateStatus(item.id, 1)">上架</button>
+                            <button type="button" class="btn btn-link" ng-if="item.status==1" ng-click="updateStatus(item.id, 2)">下架</button>
+                            <button type="button" class="btn btn-link" ng-if="item.status==2" ng-click="updateStatus(item.id, 1)">上架</button>
                             <button type="button" class="btn btn-link" ng-click="update(item.id)">修改</button>
                         </td>
                         <td>{{item.name}}</td>
@@ -45,7 +45,7 @@
                         <td>{{item.sales}}</td>
                         <td>{{item.price}}</td>
                         <td>{{item.onSaleTime}}</td>
-                        <td>{{item.status==0?'已下架':'正在销售'}}</td>
+                        <td>{{item.status==2?'已下架':'正在销售'}}</td>
                     </tr>
                     </tbody>
                 </table>

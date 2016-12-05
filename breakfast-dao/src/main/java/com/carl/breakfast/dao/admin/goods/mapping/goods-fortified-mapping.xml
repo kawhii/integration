@@ -33,7 +33,7 @@
         <if test="createUser != null and createUser != ''">and CREATE_USER = #{createUser,jdbcType=VARCHAR}</if>
         <if test="name != null and name != ''">and NAME LIKE CONCAT('%','${name}','%' )</if>
         <if test="title != null and title != ''">and TITLE LIKE CONCAT('%','${title}','%' )</if>
-        <if test="status != null">and STATUS = #{status}</if>
+        <if test="status != null and status != 0">and STATUS = #{status}</if>
     </sql>
 
     <!--保存方法-->

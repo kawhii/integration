@@ -66,7 +66,8 @@
 
                 //下架
                 $scope.updateStatus = function (id, status) {
-                    $request.get("/admin/goods/updateState?state=" + status + "&goodsId=" + id, function (d) {
+                    $request.get("/admin/goods/updateState?state=" + status + "&goodsId=" + id,{}, function (d) {
+                        console.info(123);
                         $toast.showActionToast((status == 0 ? '下' : '上') + '架成功');
                         $scope.search();
                     });
