@@ -13,78 +13,30 @@
     angular.module('BuyerGoods', ['App'])
         .controller("BuyerGoodsListCtrl", BuyerGoodsListCtrl);
 
-    function BuyerGoodsListCtrl($scope) {
-        var imagePath = 'img/list/60.jpeg';
+    function BuyerGoodsListCtrl($scope, $request) {
+        var page = 1;
+        $scope.items = [];
+        $scope.haveNextPage = true;
 
-        $scope.phones = [
-            {
-                type: 'Home',
-                number: '(555) 251-1234',
-                options: {
-                    icon: 'communication:phone'
-                }
-            },
-            {
-                type: 'Cell',
-                number: '(555) 786-9841',
-                options: {
-                    icon: 'communication:phone',
-                    avatarIcon: true
-                }
-            },
-            {
-                type: 'Office',
-                number: '(555) 314-1592',
-                options: {
-                    face : imagePath
-                }
-            },
-            {
-                type: 'Offset',
-                number: '(555) 192-2010',
-                options: {
-                    offset: true,
-                    actionIcon: 'communication:phone'
-                }
-            }
-        ];
-        $scope.todos = [
-            {
-                face : imagePath,
-                what: 'Brunch this weekend?',
-                who: 'Min Li Chan',
-                when: '3:08PM',
-                notes: " I'll be in your neighborhood doing errands"
-            },
-            {
-                face : imagePath,
-                what: 'Brunch this weekend?',
-                who: 'Min Li Chan',
-                when: '3:08PM',
-                notes: " I'll be in your neighborhood doing errands"
-            },
-            {
-                face : imagePath,
-                what: 'Brunch this weekend?',
-                who: 'Min Li Chan',
-                when: '3:08PM',
-                notes: " I'll be in your neighborhood doing errands"
-            },
-            {
-                face : imagePath,
-                what: 'Brunch this weekend?',
-                who: 'Min Li Chan',
-                when: '3:08PM',
-                notes: " I'll be in your neighborhood doing errands"
-            },
-            {
-                face : imagePath,
-                what: 'Brunch this weekend?',
-                who: 'Min Li Chan',
-                when: '3:08PM',
-                notes: " I'll be in your neighborhood doing errands"
-            },
-        ];
+        //加载数据
+        function pullData() {
+            $request.get("/goods/list.json", {
+                page: page,
+            }, function (data) {
+                $scope.haveNextPage = data.body.endPageIndex - data.body.currentPage >= 1;
+                $scope.items = $scope.items.concat(data.body.recordList);
+            });
+        }
+
+        //加载更多
+        $scope.loadMore = function () {
+            page++;
+            pullData();
+        };
+
+        pullData();
+
+        var imagePath = 'img/list/60.jpeg';
     }
 
     angular.bootstrap(document.getElementById("ID_BuyerGoods"),

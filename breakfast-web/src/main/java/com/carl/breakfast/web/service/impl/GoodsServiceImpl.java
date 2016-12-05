@@ -68,7 +68,10 @@ public class GoodsServiceImpl implements IGoodsService {
     @Override
     public PageBean listPage(PageParam pageParam, GoodsPojo goodsPojo) {
         return goodsFortifiedDao.listPage(pageParam, MapBuilder.<String, Object>build()
-                .p("name", goodsPojo.getName()));
+                .p("name", goodsPojo.getName())
+                .p("title", goodsPojo.getTitle())
+                .p("status", goodsPojo.getStatus())
+        );
     }
 
     @Override
