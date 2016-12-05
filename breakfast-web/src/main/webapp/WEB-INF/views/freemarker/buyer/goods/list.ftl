@@ -1,5 +1,5 @@
 <script type="text/javascript" src="/js/~/buyer/goods/list.js"></script>
-<div ng-app="BuyerGoods" ng-controller="BuyerGoodsListCtrl" id="ID_BuyerGoods" ng-cloak>
+<div ng-app="BuyerGoods" ng-controller="BuyerGoodsListCtrl" id="ID_BuyerGoods" ng-cloak style="background-color: honeydew">
     <div flex-gt-sm="50" flex>
 
         <md-toolbar layout="row" class="md-hue-3">
@@ -11,7 +11,7 @@
         <md-content>
             <md-list flex>
                 <md-list-item class="md-3-line md-long-text" ng-repeat="item in items" ng-click="null"
-                              style="padding-bottom: 5px">
+                              style="padding-bottom: 5px;background-color:white;border: 1px solid cornsilk">
                     <img ng-src="/file/img/~/{{item.mainImgPath}}" style="width: 125px;height: 125px"/>
                     <div class="md-list-item-text" style="padding-left: 10px" layout="column">
                         <h3>{{ item.title }}</h3>
