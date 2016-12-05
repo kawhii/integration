@@ -14,8 +14,11 @@
         .controller("BuyerGoodsListCtrl", BuyerGoodsListCtrl);
 
     function BuyerGoodsListCtrl($scope, $request) {
+        //当前页码
         var page = 1;
+        //所有数据
         $scope.items = [];
+        //是否还有下一页
         $scope.haveNextPage = true;
 
         //加载数据
@@ -35,8 +38,6 @@
         };
 
         pullData();
-
-        var imagePath = 'img/list/60.jpeg';
     }
 
     angular.bootstrap(document.getElementById("ID_BuyerGoods"),
