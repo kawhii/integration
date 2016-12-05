@@ -11,8 +11,8 @@
         <md-content>
             <md-list flex>
                 <md-list-item class="md-3-line md-long-text" ng-repeat="item in items" ng-click="null"
-                              style="padding-bottom: 5px;background-color:white;border: 1px solid cornsilk">
-                    <img ng-src="/file/img/~/{{item.mainImgPath}}" style="width: 125px;height: 125px"/>
+                              style="background-color:white;border: 1px solid #e5e5e5;margin-left: 10px;margin-right: 10px">
+                    <img ng-src="/file/img/~/{{item.mainImgPath}}" style="width: 125px;height: 125px;padding: 5px"/>
                     <div class="md-list-item-text" style="padding-left: 10px" layout="column">
                         <h3>{{ item.title }}</h3>
                         <h4>{{ item.subTitle }}</h4>
