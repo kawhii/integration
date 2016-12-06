@@ -60,31 +60,8 @@
     </p>
 </#list>
     </div>
-
-    <style>
-        #footer button {
-            border: none;
-            height: 49px;
-            color: whitesmoke;
-            font-size: 15px;
-            text-align: center;
-            width: 185.5px;
-        }
-        #footer .cart {
-            background-color: #FF9500
-        }
-        #footer .buy {
-            background-color: #DD2727
-        }
-    </style>
-    <div id="footer" class="container">
-        <nav class="navbar navbar-default navbar-fixed-bottom">
-            <div id="s-actionbar" class="action-bar mui-flex align-center">
-                <button class="cart cell">加入购物车</button>
-                <button class="buy cell" style="">立即购买</button>
-            </div>
-        </nav>
-    </div>
+<#assign goodsId=data.goods.id>
+<#include "freemarker/buyer/goods/operate.ftl">
 </md-content>
 </body>
 </html>
