@@ -2,7 +2,7 @@
 <div ng-app="BuyerGoods" ng-controller="BuyerGoodsListCtrl" id="ID_BuyerGoods" ng-cloak style="background-color: honeydew">
     <div flex-gt-sm="50" flex>
 
-        <md-toolbar layout="row" class="md-hue-3">
+        <md-toolbar layout="row" class="md-hue-3" style="background-color: coral">
             <div class="md-toolbar-tools">
                 <span>最新商品</span>
             </div>

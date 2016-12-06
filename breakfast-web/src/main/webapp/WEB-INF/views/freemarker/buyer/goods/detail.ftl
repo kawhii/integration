@@ -42,31 +42,46 @@
         </div>
         <h5>${data.goods.title!''} ${data.goods.subTitle!''}</div>
 
-        <div style="color: orangered;font-size: 20px">￥${data.goods.price?string('#.##')}</div>
+    <div style="color: orangered;font-size: 20px">￥${data.goods.price?string('#.##')}</div>
 
-        <small class="baseInfo">
-            <div style="text-align: left">运费:0.00</div>
-            <div>剩余:${data.goods.stock!''}</div>
-            <div style="text-align: right"> 销量:${data.goods.sales!''}</div>
-        </small>
+    <small class="baseInfo">
+        <div style="text-align: left">运费:0.00</div>
+        <div>剩余:${data.goods.stock!''}</div>
+        <div style="text-align: right"> 销量:${data.goods.sales!''}</div>
+    </small>
     <hr>
-        <p class="lead">
-            ${data.goods.note!''}
-        </p>
-    <#list data.goodsExtList as item>
-        <#if item.keyName?contains("img")></#if>
-        <p>
-            <img src="/file/img/~/${item.val!''}" style="width: 100%"/>
-        </p>
-    </#list>
+    <p class="lead">
+    ${data.goods.note!''}
+    </p>
+<#list data.goodsExtList as item>
+    <#if item.keyName?contains("img")></#if>
+    <p>
+        <img src="/file/img/~/${item.val!''}" style="width: 100%"/>
+    </p>
+</#list>
     </div>
 
+    <style>
+        #footer button {
+            border: none;
+            height: 49px;
+            color: whitesmoke;
+            font-size: 15px;
+            text-align: center;
+            width: 185.5px;
+        }
+        #footer .cart {
+            background-color: #FF9500
+        }
+        #footer .buy {
+            background-color: #DD2727
+        }
+    </style>
     <div id="footer" class="container">
         <nav class="navbar navbar-default navbar-fixed-bottom">
-            <div class="navbar-inner navbar-content-center">
-                <p class="text-muted credit" style="padding: 10px;">
-                    ....
-                </p>
+            <div id="s-actionbar" class="action-bar mui-flex align-center">
+                <button class="cart cell">加入购物车</button>
+                <button class="buy cell" style="">立即购买</button>
             </div>
         </nav>
     </div>
