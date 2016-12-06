@@ -1,4 +1,3 @@
-HTMLJSCSSBOTTOM-SHEET-GRID-TEMPLATE.HTMLBOTTOM-SHEET-LIST-TEMPLATE.HTML
 <md-bottom-sheet class="md-list md-has-header">
     <md-subheader ng-cloak>Comment Actions</md-subheader>
     <md-list ng-cloak>
