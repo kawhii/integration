@@ -59,7 +59,7 @@ public class GoodsShowCtrl extends BaseCtrl {
      * @param id
      * @return
      */
-    @RequestMapping("detail/{id}")
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     public ModelAndView goodsDetail(@PathVariable("id") int id) {
         ModelAndView view = new ModelAndView(freemarker("detail"));
         GoodsDetail dg = goodsService.queryDetailById(id);
@@ -68,6 +68,26 @@ public class GoodsShowCtrl extends BaseCtrl {
             view.setViewName(freemarker("notExists"));
         } else {
             view.addObject("data", dg);
+        }
+        return view;
+    }
+
+    /**
+     * 详细信息
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/detailToBuy/{id}/{isCart}", method = RequestMethod.GET)
+    public ModelAndView detailToBuy(@PathVariable("id") int id, @PathVariable("isCart") int isCart) {
+        ModelAndView view = new ModelAndView(freemarker("detailToBuy"));
+        GoodsDetail dg = goodsService.queryDetailById(id);
+        if(dg == null) {
+            // TODO: 2016/12/5 不存在商品页面
+            view.setViewName(freemarker("notExists"));
+        } else {
+            view.addObject("data", dg);
+            view.addObject("isCart", isCart);
         }
         return view;
     }
