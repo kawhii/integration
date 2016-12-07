@@ -8,21 +8,22 @@
 ;(function () {
     angular.module("BuyerApp", ["App"])
         .controller("BuyCtrl", BuyCtrl)
-        .service("$goodsSheetShower", function ($mdBottomSheet, $mdToast) {
+        .service("$goodsSheetShower", function ($mdDialog, $mdToast) {
 
             function show(goodsId, isCart) {
                 console.info('/goods/detailToBuy/' + goodsId + "/" + (isCart ? 1 : 0));
-                $mdBottomSheet.show({
-                    templateUrl: '/goods/detailToBuy/' + goodsId + "/" + (isCart ? 1 : 0),
+                $mdDialog.show({
                     controller: 'BuyCtrl',
-                }).then(function (clickedItem) {
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .textContent(clickedItem['name'] + ' clicked!')
-                            .position('top right')
-                            .hideDelay(1500)
-                    );
-                });
+                    templateUrl: '/goods/detailToBuy/' + goodsId + "/" + (isCart ? 1 : 0),
+                    parent: 'body',
+                    openFrom : 'body',
+                    clickOutsideToClose: true
+                })
+                    .then(function (answer) {
+                        $scope.status = 'You said the information was "' + answer + '".';
+                    }, function () {
+                        $scope.status = 'You cancelled the dialog.';
+                    });
             }
 
             return {
@@ -44,6 +45,6 @@
         });
 
     function BuyCtrl($scope) {
-
+        $scope.name = 123;
     }
 })();
