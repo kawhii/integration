@@ -15,7 +15,6 @@
                 $mdBottomSheet.show({
                     templateUrl: '/goods/detailToBuy/' + goodsId + "/" + (isCart ? 1 : 0),
                     controller: 'BuyCtrl',
-                    clickOutsideToClose: true
                 }).then(function (clickedItem) {
                     $mdToast.show(
                         $mdToast.simple()

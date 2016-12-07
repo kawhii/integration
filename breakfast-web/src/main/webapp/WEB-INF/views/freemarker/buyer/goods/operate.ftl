@@ -5,13 +5,15 @@
         color: whitesmoke;
         font-size: 15px;
         text-align: center;
-        width: 185.5px;
+        width: 49%;
     }
     #footer .cart {
-        background-color: #FF9500
+        background-color: #FF9500;
+        float: left;
     }
     #footer .buy {
-        background-color: #DD2727
+        background-color: #DD2727;
+        float: right;
     }
 </style>
 <div id="footer" class="container" ng-controller="OperateCtrl" ng-init="goodsId=${goodsId}">
