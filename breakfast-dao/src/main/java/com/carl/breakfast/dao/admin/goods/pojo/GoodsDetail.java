@@ -12,6 +12,8 @@ import java.util.List;
  * 版权所有.(c)2008-2016.卡尔工作室
  */
 public class GoodsDetail {
+    //冗余数据
+    private int goodsId;
     //商品原来信息
     private GoodsPojo goods;
     //商品扩展信息
@@ -32,6 +34,15 @@ public class GoodsDetail {
 
     public GoodsDetail setGoodsExtList(List<GoodsExt> goodsExtList) {
         this.goodsExtList = goodsExtList;
+        return this;
+    }
+
+    public int getGoodsId() {
+        return goodsId;
+    }
+
+    public GoodsDetail setGoodsId(int goodsId) {
+        this.goodsId = goodsId;
         return this;
     }
 }
