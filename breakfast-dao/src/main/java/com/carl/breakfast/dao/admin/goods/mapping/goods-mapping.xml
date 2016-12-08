@@ -10,7 +10,7 @@
 
     <!--详情查询映射-->
     <resultMap id="queryDetail" type="com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail">
-        <association column="ID" property="goods" javaType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo"
+        <association property="goods" javaType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo"
                      resultMap="BaseResultMap">
         </association>
         <collection property="goodsExtList" javaType="java.util.List"
