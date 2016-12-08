@@ -6,6 +6,7 @@ import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.framework.core.dao.BaseDaoImpl;
 import com.carl.framework.util.MapBuilder;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,6 +58,6 @@ public class GoodsFortifiedDaoImpl extends BaseDaoImpl<GoodsPojo> implements Goo
 
     @Override
     public GoodsDetail queryDetail(int goodsId) {
-        return getSessionTemplate().selectOne(getStatement("queryDetail"), MapBuilder.build().p("goodsId", goodsId));
+        return getSessionTemplate().getMapper(GoodsDao.class).findDetailById(goodsId);
     }
 }

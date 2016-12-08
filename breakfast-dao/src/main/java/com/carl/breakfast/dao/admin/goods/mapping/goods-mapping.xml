@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.admin.goods.GoodsDao">
+    <!--表明-->
+    <sql id="table_name">
+        MALL_GOODS
+    </sql>
+
+    <!--详情查询映射-->
+    <resultMap id="queryDetail" type="com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail">
+        <association column="ID" property="goods" javaType="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo"
+                     resultMap="BaseResultMap">
+        </association>
+        <collection property="goodsExtList" javaType="java.util.List"
+                    ofType="com.carl.breakfast.dao.admin.goods.pojo.GoodsExt">
+            <id column="EXT_ID" property="id" jdbcType="INTEGER"/>
+            <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER"/>
+            <result column="KEY_NAME" property="keyName" jdbcType="VARCHAR"/>
+            <result column="KEY_AS" property="keyAs" jdbcType="VARCHAR"/>
+            <result column="VAL" property="val" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <select id="findDetailById" resultMap="queryDetail">
+        SELECT MG.*,mge.ID AS EXT_ID, MGE.GOODS_ID, MGE.KEY_NAME,
+           MGE.KEY_AS, MGE.VAL
+           FROM MALL_GOODS MG
+        LEFT JOIN MALL_GOODS_EXT MGE ON MG.ID = MGE.GOODS_ID
+        WHERE MG.ID = #{goodsId}
+    </select>
+
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="TITLE" property="title" jdbcType="VARCHAR"/>
+        <result column="SUB_TITLE" property="subTitle" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="INTEGER"/>
+        <result column="HOT_RANK" property="hotRank" jdbcType="INTEGER"/>
+        <result column="STOCK" property="stock" jdbcType="INTEGER"/>
+        <result column="SALES" property="sales" jdbcType="INTEGER"/>
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR"/>
+        <result column="PRICE" property="price" jdbcType="FLOAT"/>
+        <result column="GOODS_TYPE" property="goodsType" jdbcType="INTEGER"/>
+        <result column="MAIN_IMG_ID" property="goodsType" jdbcType="INTEGER"/>
+        <result column="MAIN_IMG_PATH" property="mainImgPath" jdbcType="VARCHAR"/>
+        <result column="NOTE" property="note" jdbcType="VARCHAR"/>
+        <result column="USE_DATE" property="useDate" jdbcType="TIMESTAMP"/>
+        <result column="ON_SALE_TIME" property="onSaleTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 根据搜索条件获取数据 -->
+    <sql id="condition_sql">
+        <if test="id != null">and ID = #{id,jdbcType=INTEGER}</if>
+        <if test="createUser != null and createUser != ''">and CREATE_USER = #{createUser,jdbcType=VARCHAR}</if>
+        <if test="name != null and name != ''">and NAME LIKE CONCAT('%','${name}','%' )</if>
+        <if test="title != null and title != ''">and TITLE LIKE CONCAT('%','${title}','%' )</if>
+        <if test="status != null and status != 0">and STATUS = #{status}</if>
+    </sql>
+</mapper>
