@@ -1,6 +1,8 @@
 #s-decision-wrapper {
     font-size: .13rem;
     padding: .6rem;
+    width: 100%;
+    height:100%;
 }
 
 #s-decision-wrapper .summary {
@@ -34,71 +36,168 @@
     -ms-flex-align: center;
 }
 
-#s-decision-wrapper .summary .main {
-    overflow: hidden;
-}
+/*#s-decision-wrapper .summary .main {*/
+    /*overflow: hidden;*/
+/*}*/
 
-#s-decision-wrapper .summary .main .priceContainer {
-    font-size: .14rem;
-    line-height: .14rem;
-    display: inline-block;
-    vertical-align: middle;
-}
+/*#s-decision-wrapper .summary .main .priceContainer {*/
+    /*font-size: .14rem;*/
+    /*line-height: .14rem;*/
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+/*}*/
 #s-decision-wrapper .summary .main .priceContainer>span:first-child {
     color: #DD2727;
 }
 #s-decision-wrapper .summary .main .priceContainer .price {
     padding: 0 .1rem 0 0;
 }
-#s-decision-wrapper .summary .main .priceContainer .prePayPrice, #s-decision-wrapper .summary .main .priceContainer .preSellPrice, #s-decision-wrapper .summary .main .priceContainer .price {
-    display: block;
-    vertical-align: middle;
-    height: .18rem;
-    line-height: .18rem;
-    font-size: .16rem;
-}
-#s-decision-wrapper .option {
-    border-top: 1px solid #e5e5e5;
-    text-align: center;
-    width: 100%;
-}
-#s-decision-wrapper .option {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-.mui-flex, .mui-flex *, .mui-flex:after, .mui-flex:before {
-    box-sizing: border-box;
-}
-.mui-flex {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
-#s-decision-wrapper .option .ok {
-    background: #DD2727;
-}
-#s-decision-wrapper .option .cell {
-    height: 35px;
-    border: none;
-    font-size: 15px;
-    color: #fff;
-}
-.mui-flex>.cell {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    width: 0;
-    -webkit-flex-basis: 0;
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    max-width: 100%;
-    display: block;
-    padding: 0!important;
-    position: relative;
-}
+/*#s-decision-wrapper .summary .main .priceContainer .prePayPrice, #s-decision-wrapper .summary .main .priceContainer .preSellPrice, #s-decision-wrapper .summary .main .priceContainer .price {*/
+    /*display: block;*/
+    /*vertical-align: middle;*/
+    /*height: .18rem;*/
+    /*line-height: .18rem;*/
+    /*font-size: .16rem;*/
+/*}*/
+/*#s-decision-wrapper .option {*/
+    /*border-top: 1px solid #e5e5e5;*/
+    /*text-align: center;*/
+    /*width: 100%;*/
+/*}*/
+/*#s-decision-wrapper .option {*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+/*}*/
+/*.mui-flex, .mui-flex *, .mui-flex:after, .mui-flex:before {*/
+    /*box-sizing: border-box;*/
+/*}*/
+/*.mui-flex {*/
+    /*display: -webkit-box;*/
+    /*display: -webkit-flex;*/
+    /*display: -ms-flexbox;*/
+    /*display: flex;*/
+    /*-webkit-flex-wrap: wrap;*/
+    /*-ms-flex-wrap: wrap;*/
+    /*flex-wrap: wrap;*/
+/*}*/
+/*#s-decision-wrapper .option .ok {*/
+    /*background: #DD2727;*/
+/*}*/
+/*#s-decision-wrapper .option .cell {*/
+    /*height: 35px;*/
+    /*border: none;*/
+    /*font-size: 15px;*/
+    /*color: #fff;*/
+/*}*/
+/*.mui-flex>.cell {*/
+    /*-webkit-box-flex: 1;*/
+    /*-webkit-flex: 1;*/
+    /*-ms-flex: 1;*/
+    /*flex: 1;*/
+    /*width: 0;*/
+    /*-webkit-flex-basis: 0;*/
+    /*-ms-flex-preferred-size: 0;*/
+    /*flex-basis: 0;*/
+    /*max-width: 100%;*/
+    /*display: block;*/
+    /*padding: 0!important;*/
+    /*position: relative;*/
+/*}*/
+/*#s-decision-wrapper>.body {*/
+    /*position: absolute;*/
+    /*top: 100px;*/
+    /*bottom: 48px;*/
+    /*left: 0;*/
+    /*right: 0;*/
+/*}*/
+/*.mui-cover>.body {*/
+    /*position: absolute;*/
+    /*top: 44px;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*-webkit-overflow-scrolling: touch;*/
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
+/*}*/
+
+/*#s-decision-wrapper .number {*/
+    /*padding-bottom: 20px;*/
+/*}*/
+
+/*wrapper .number, #s-decision-wrapper .pickup-control, #s-decision-wrapper .progressive-control, #s-decision-wrapper .service-control, #s-decision-wrapper .sku-control {*/
+    /*-webkit-tap-highlight-color: transparent;*/
+    /*margin: 0 .16rem;*/
+/*}*/
+/*#s-decision-wrapper .number .content {*/
+    /*overflow: hidden;*/
+/*}*/
+/*#s-decision-wrapper .number .number-control {*/
+    /*float: left;*/
+/*}*/
+
+/*.mui-number {*/
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+    /*border: 1px solid #b3b3b3;*/
+    /*-webkit-border-radius: 3px;*/
+    /*border-radius: 3px;*/
+    /*letter-spacing: 0;*/
+    /*height: .36rem;*/
+    /*line-height: .36rem;*/
+    /*overflow: hidden;*/
+/*}*/
+
+/*.mui-number .decrease.disabled, .mui-number .increase.disabled {*/
+    /*color: #cfcfcf;*/
+/*}*/
+/*.mui-number .decrease {*/
+    /*border-right: 1px solid #b3b3b3;*/
+/*}*/
+/*.mui-number .decrease, .mui-number .increase {*/
+    /*font-style: normal;*/
+    /*font-size: .24rem;*/
+    /*font-weight: 700;*/
+    /*border: none;*/
+    /*display: inline-block;*/
+    /*width: .32rem;*/
+    /*height: 100%;*/
+    /*-webkit-user-select: none;*/
+    /*-ms-user-select: none;*/
+    /*background-color: #fff;*/
+    /*color: #5f646e;*/
+/*}*/
+/*.mui-number .num {*/
+    /*height: 100%;*/
+    /*min-width: .35rem;*/
+    /*max-width: .55rem;*/
+    /*-webkit-box-sizing: border-box;*/
+    /*box-sizing: border-box;*/
+    /*padding: 0 .02rem;*/
+    /*border: none;*/
+    /*-webkit-border-radius: 0;*/
+    /*border-radius: 0;*/
+    /*font-weight: 700;*/
+    /*color: #3d4245;*/
+/*}*/
+/*.mui-number .decrease, .mui-number .increase, .mui-number .num {*/
+    /*float: left;*/
+    /*text-align: center;*/
+/*}*/
+/*.mui-number .increase {*/
+    /*border-left: 1px solid #b3b3b3;*/
+/*}*/
+/*.mui-number .decrease, .mui-number .increase {*/
+    /*font-style: normal;*/
+    /*font-size: .24rem;*/
+    /*font-weight: 700;*/
+    /*border: none;*/
+    /*display: inline-block;*/
+    /*width: .32rem;*/
+    /*height: 100%;*/
+    /*-webkit-user-select: none;*/
+    /*-ms-user-select: none;*/
+    /*background-color: #fff;*/
+    /*color: #5f646e;*/
+/*}*/
