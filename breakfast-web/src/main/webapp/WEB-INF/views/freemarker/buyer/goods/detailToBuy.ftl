@@ -1,6 +1,13 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
 <link rel="stylesheet" , href="/styles/~/buyer/goods/detailToBuy.css"/>
 
-<div style="max-width:800px;max-height:810px;height: 200px" ng-cloak="">
+<div style="max-width:800px;max-height:810px;height: 200px;width: 300px" ng-cloak="">
     <div class="mui-cover show" id="s-decision-wrapper" style="display: block;">
         <div class="summary">
             <div class="img">
@@ -9,8 +16,9 @@
                      alt="">
             </div>
             <div class="main">
-                <div class="priceContainer"><span class="price">¥469.00</span></div>
-                <div class="stock-control"><span class="stock"><label class="stock_label">库存</label>1656件</span><span
+                <div class="priceContainer"><span class="price">¥${data.goods.price!''}</span></div>
+                <div class="stock-control"><span class="stock"><label
+                        class="stock_label">库存</label>${data.goods.stock!''}件</span><span
                         class="limitTip"></span></div>
             </div>
             <a class="sback"></a>
@@ -37,3 +45,5 @@
         </div>
     </div>
 </div>
+</body>
+</html>
