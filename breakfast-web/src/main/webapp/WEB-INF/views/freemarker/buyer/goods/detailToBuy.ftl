@@ -5,7 +5,7 @@
         <div class="summary">
             <div class="img">
                 <img style="width: 100px;height: 100px;"
-                     src="//img.alicdn.com/bao/uploaded/i4/TB1IReIOFXXXXc8XXXXXXXXXXXX_!!0-item_pic.jpg_200x200Q50s50.jpg_.webp"
+                     src="/file/img/~/${data.goods.mainImgPath!''}"
                      alt="">
             </div>
             <div class="main">
