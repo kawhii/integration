@@ -45,6 +45,17 @@
         });
 
     function BuyCtrl($scope) {
-        $scope.name = 123;
+        //数量
+        $scope.quantity = 1;
+        //减
+        $scope.decrease = function() {
+            if($scope.quantity > 1)
+                $scope.quantity--;
+        }
+
+        //加
+        $scope.increase = function() {
+                $scope.quantity++;
+        }
     }
 })();

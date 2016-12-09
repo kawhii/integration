@@ -31,9 +31,9 @@
                     <div class="content">
                         <div class="number-control">
                             <div class="mui-number">
-                                <button type="button" class="decrease disabled">-</button>
-                                <input type="number" class="num" value="1" min="1" max="405" step="" name="quantity">
-                                <button type="button" class="increase">+</button>
+                                <button type="button"ng-click="decrease()"  class="decrease {{quantity==1?'disabled':''}}">-</button>
+                                <input type="number" class="num" ng-model="quantity" min="1" max="100" step="1" name="quantity">
+                                <button type="button" ng-click="increase()" class="increase">+</button>
                             </div>
                         </div>
                     </div>
