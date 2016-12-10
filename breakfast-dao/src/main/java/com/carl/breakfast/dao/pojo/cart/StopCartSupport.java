@@ -84,4 +84,10 @@ public abstract class StopCartSupport<H> implements StopCart<H> {
         }
         reset();
     }
+
+    @Override
+    public CartGoods getGoodsById(Integer id) {
+        Integer q = goodsListMap.get(id);
+        return q == null ? null : new CartGoods(id, q);
+    }
 }

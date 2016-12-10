@@ -32,6 +32,13 @@ public interface StopCart<H> {
     void clear();
 
     /**
+     * 根据商品id获取商品信息
+     * @param id
+     * @return
+     */
+    CartGoods getGoodsById(Integer id);
+
+    /**
      * 移除购物车
      */
     void remove(CartGoods goods) throws StopCartRemoveException;

@@ -15,7 +15,7 @@ public class CookieStopCartTest {
 
     @Test
     public void addGoods() {
-        CookieStopCart cart = new CookieStopCart("ABC");
+        CookieStopCart cart = new CookieStopCart(null);
         CartGoods cg1 = new CartGoods(1, 2);
         CartGoods cg2 = new CartGoods(1, 3);
         CartGoods cg3 = new CartGoods(2, 3);
@@ -33,7 +33,7 @@ public class CookieStopCartTest {
 
     @Test
     public void setGoods() {
-        CookieStopCart cart = new CookieStopCart("ABC");
+        CookieStopCart cart = new CookieStopCart(null);
         CartGoods cg1 = new CartGoods(1, 2);
         CartGoods cg2 = new CartGoods(1, 3);
         CartGoods cg3 = new CartGoods(2, 3);
@@ -57,14 +57,14 @@ public class CookieStopCartTest {
 
     @Test
     public void remove() {
-        CookieStopCart cart = new CookieStopCart("ABC");
+        CookieStopCart cart = new CookieStopCart(null);
         CartGoods cg1 = new CartGoods(1, 2);
         CartGoods cg2 = new CartGoods(2, 3);
         List<CartGoods> goodsList = new ArrayList<>(2);
         goodsList.add(cg1);
         goodsList.add(cg2);
         cart.setGoods(goodsList);
-        cart.remove(new CartGoods(1, 1));
+        cart.remove(new CartGoods(1, 2));
         cart.remove(new CartGoods(2, 3));
         try {
             cart.remove(new CartGoods(2, 3));
@@ -76,7 +76,7 @@ public class CookieStopCartTest {
         Assert.assertEquals(2, goods.size());
         for(CartGoods g : goods) {
             if(g.getGoodsId() == 1) {
-                Assert.assertEquals(1, g.getQuantity());
+                Assert.assertEquals(0, g.getQuantity());
             } else if(g.getGoodsId() == 2) {
                 Assert.assertEquals(0, g.getQuantity());
             }
