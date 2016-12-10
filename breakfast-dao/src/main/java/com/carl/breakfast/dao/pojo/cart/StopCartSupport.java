@@ -69,7 +69,7 @@ public abstract class StopCartSupport<H> implements StopCart<H> {
     @Override
     public final void remove(@NotNull CartGoods goods) throws StopCartRemoveException {
         Integer q = goodsListMap.get(goods.getGoodsId());
-        if((q == null || q == 0) || goods.getQuantity() != 0) {
+        if((q == null || q == 0) && goods.getQuantity() > 0) {
             throw new StopCartRemoveException(null, goods.getQuantity());
         } else {
             if(goods.getQuantity() > 0) {

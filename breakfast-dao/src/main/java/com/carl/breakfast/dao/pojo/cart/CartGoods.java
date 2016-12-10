@@ -1,5 +1,7 @@
 package com.carl.breakfast.dao.pojo.cart;
 
+import com.carl.framework.core.execption.BizException;
+
 /**
  * 购物车的商品
  *
@@ -27,8 +29,19 @@ public class CartGoods {
     }
 
     public CartGoods setQuantity(int quantity) {
+        if(quantity < 0) {
+            throw new BizException("商品数不能小于0");
+        }
         this.quantity = quantity;
         return this;
+    }
+
+    public CartGoods(int goodsId, int quantity) {
+        setGoodsId(goodsId);
+        setQuantity(quantity);
+    }
+
+    public CartGoods() {
     }
 
     @Override
