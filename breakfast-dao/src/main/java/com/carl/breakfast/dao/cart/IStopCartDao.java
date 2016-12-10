@@ -3,11 +3,16 @@ package com.carl.breakfast.dao.cart;
 import com.carl.breakfast.dao.pojo.cart.StopCart;
 
 /**
+ * /**
  * 购物车处理类
  *
  * @author Carl
  * @date 2016/12/11
  * 版权所有.(c)2016 - 2020. 卡尔工作室
+ *
+ * @param <W> 存储方向
+ * @param <S> 购物车对象
+ * @param <O>购物车持有者
  */
 public interface IStopCartDao<W, S extends StopCart<O>, O> {
     /**
