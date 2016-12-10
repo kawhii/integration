@@ -58,4 +58,11 @@ public abstract class BaseStopCartCookieDao implements IStopCartCookieDao {
             httpServletResponse.addCookie(cookie);
         }
     }
+
+    @Override
+    public void remove(HttpServletResponse response, HttpServletRequest o) {
+        Cookie cookie = new Cookie(STORE_COOKIE_NAME,null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
 }

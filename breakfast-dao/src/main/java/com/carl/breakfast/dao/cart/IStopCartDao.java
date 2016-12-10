@@ -29,4 +29,11 @@ public interface IStopCartDao<W, S extends StopCart<O>, O> {
      * @param s 购物车源
      */
     void saveStopCart(W w, S s);
+
+    /**
+     * 移除购物车
+     * @param w
+     * @param o
+     */
+    void remove(W w, O o);
 }
