@@ -1,5 +1,7 @@
 package com.carl.breakfast.dao.pojo.cart;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * cookie存储的购物车
  *
@@ -9,19 +11,15 @@ package com.carl.breakfast.dao.pojo.cart;
  * <p>
  * 版权所有.(c)2008-2016.卡尔工作室
  */
-public class CookieStopCart extends StopCartSupport<String> {
-    private String cookieId;
+public class CookieStopCart extends StopCartSupport<HttpServletRequest> {
+    private HttpServletRequest request;
 
-    /**
-     * cookie值
-     * @param cookieId
-     */
-    public CookieStopCart(String cookieId) {
-        this.cookieId = cookieId;
+    public CookieStopCart(HttpServletRequest request) {
+        this.request = request;
     }
 
     @Override
-    public String who() {
-        return cookieId;
+    public HttpServletRequest who() {
+        return request;
     }
 }

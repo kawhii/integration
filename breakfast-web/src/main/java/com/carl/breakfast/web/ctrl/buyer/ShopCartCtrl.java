@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 购物车控制类
  *
@@ -25,7 +28,9 @@ public class ShopCartCtrl extends BaseCtrl {
 
     @RequestMapping("/addGoods")
     @ResponseBody
-    public Object addGoods(@RequestParam("goodsId") int goodsId, @RequestParam("qnt") int quantity) {
+    public Object addGoods(
+            HttpServletRequest request, HttpServletResponse response,
+            @RequestParam("goodsId") int goodsId, @RequestParam("qnt") int quantity) {
         return null;
     }
 }
