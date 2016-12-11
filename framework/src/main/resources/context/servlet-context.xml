@@ -8,7 +8,12 @@
    ">
 
     <!-- Enables the Spring MVC @Controller programming model -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven validator="validator"/>
+
+    <bean id="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <!--<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>-->
+    </bean>
 
     <mvc:resources mapping="/js/~/**" location="${resource.module.javascript}"/>
     <mvc:resources mapping="/js/**" location="${resource.javascript}"/>

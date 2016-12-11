@@ -127,6 +127,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.21</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.3.2.Final</version>
+        </dependency>
 
         <!--shiro start-->
         <dependency>

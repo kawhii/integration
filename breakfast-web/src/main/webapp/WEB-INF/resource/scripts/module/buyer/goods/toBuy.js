@@ -71,7 +71,7 @@
             //确定
             $scope.ok = function () {
                 //获取商品id，获取数量，请求服务器，返回成功关闭
-                $request.post("/cart/addGoods", {qnt: $scope.quantity, goodsId: goodsId},
+                $request.post("/cart/addGoods", {quantity: $scope.quantity, goodsId: goodsId},
                     function (data) {
                         //添加成功
                         $goodsSheetShower.destroy();

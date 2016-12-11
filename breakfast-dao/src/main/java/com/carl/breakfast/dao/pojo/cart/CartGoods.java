@@ -2,6 +2,9 @@ package com.carl.breakfast.dao.pojo.cart;
 
 import com.carl.framework.core.execption.BizException;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 /**
  * 购物车的商品
  *
@@ -12,7 +15,10 @@ import com.carl.framework.core.execption.BizException;
  * 版权所有.(c)2008-2016.广州市森锐科技股份有限公司
  */
 public class CartGoods {
+    @NotNull
     private int goodsId;
+    @NotNull
+    @Min(0)
     private int quantity;
 
     public int getGoodsId() {
@@ -29,7 +35,7 @@ public class CartGoods {
     }
 
     public CartGoods setQuantity(int quantity) {
-        if(quantity < 0) {
+        if (quantity < 0) {
             throw new BizException("商品数不能小于0");
         }
         this.quantity = quantity;
