@@ -10,8 +10,10 @@
     angular.module('App', ['ngMaterial', 'toastr', 'ngAnimate'])
         .service('$toast', function (toastr, toastrConfig, $templateCache) {
             angular.extend(toastrConfig, {
-                templates:{
-                    toast : 'custom'
+                extendedTimeOut: 0,
+                timeOut: 3000,
+                templates: {
+                    toast: 'custom'
                 }
             });
             $templateCache.put('custom', '' +
@@ -32,8 +34,8 @@
 
             return {
                 showActionToast: showActionToast,
-                remove : function(toastObj) {
-                    if(toastObj) {
+                remove: function (toastObj) {
+                    if (toastObj) {
                         toastr.remove(toastObj.toastId);
                     }
                 }
@@ -41,32 +43,39 @@
 
         })
         .service('$request', function ($http, $toast) {
-            var defSetting = {filterError : false,mask:true};
+            var defSetting = {filterError: false, mask: true};
             //队列
             var queue = [];
             var taskObj = null;
 
             //请求完成mask
             function completeMask(setting) {
-                if(setting.mask) {
+                if (setting.mask) {
                     queue.splice(0, 1);
                     //取消遮罩层
-                    if(queue.length == 0) {
-                        $toast.remove(taskObj);
+                    if (queue.length == 0) {
+                        setTimeout(function() {
+                            $toast.remove(taskObj);
+                        },1);
                     }
+                }
+            }
+
+            function startMask(setting) {
+                if (setting.mask) {
+                    queue.push(1);
+                }
+                //mask
+                if (queue.length == 1 && setting.mask) {
+                    taskObj = $toast.showActionToast("正在加载...", {timeOut: 0});
+                    console.info(taskObj);
                 }
             }
 
             function request(url, method, data, callback, opt) {
                 var setting = angular.extend({}, defSetting, opt);
+                startMask(setting);
 
-                if(setting.mask) {
-                    queue.push(1);
-                }
-                //mask
-                if(queue.length == 1 && setting.mask) {
-                    taskObj = $toast.showActionToast("正在加载..." , {timeOut:0});
-                }
                 $http({
                     method: method,
                     url: url,
@@ -75,13 +84,13 @@
                 })
                     .then(function (response) {
                         completeMask(setting);
-                        if (response.status == 200 && response.data.header.code == 0) {
+                        if (response.status == 200) {
                             if (callback) {
                                 //若不过滤错误，都给毁掉，否则，0才回调
-                                if(!setting.filterError) {
+                                if (!setting.filterError) {
                                     callback(response.data, response);
                                 } else {
-                                    if(response.data.header.code == 0) {
+                                    if (response.data.header.code == 0) {
                                         callback(response.data, response);
                                     } else {
                                         $toast.showActionToast(response.data.header.message);
