@@ -22,7 +22,7 @@ import java.util.List;
 public abstract class BaseStopCartCookieDao implements IStopCartCookieDao {
     protected static final Log logger = LogFactory.getLog(StopCartCookieDao.class);
     //cookie存储的数据key
-    public static final String STORE_COOKIE_NAME = "$carl.st.g";
+    public static final String STORE_COOKIE_NAME = "carl.st.g";
 
     @Override
     public CookieStopCart getStopCart(HttpServletRequest request) {

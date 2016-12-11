@@ -7,12 +7,12 @@
 
 ;(function () {
     angular.module("BuyerApp", ["App"])
-        .controller("BuyCtrl", BuyCtrl)
+    // .controller("BuyCtrl", BuyCtrl)
         .service("$goodsSheetShower", function ($mdDialog) {
 
             function show(goodsId, isCart) {
                 $mdDialog.show({
-                    controller: createBuyCtrl(goodsId),
+                    controller: createBuyCtrl(goodsId, isCart),
                     templateUrl: '/goods/detailToBuy/' + goodsId + "/" + (isCart ? 1 : 0),
                     parent: 'body',
                     openFrom: 'body',
@@ -51,10 +51,11 @@
     /**
      * 购买的控制器
      * @param goodsId 商品id
+     * @param isCart 是否为购物车
      * @returns {BuyCtrl}
      */
-    function createBuyCtrl(goodsId) {
-        return function BuyCtrl($request, $scope, $goodsSheetShower) {
+    function createBuyCtrl(goodsId, isCart) {
+        return function BuyCtrl($request, $scope, $goodsSheetShower, $toast) {
             //数量
             $scope.quantity = 1;
             //减
@@ -70,11 +71,19 @@
 
             //确定
             $scope.ok = function () {
+                if (isCart) {
+                    addCart();
+                }
+            };
+
+            //添加到购物车
+            function addCart() {
                 //获取商品id，获取数量，请求服务器，返回成功关闭
                 $request.post("/cart/addGoods", {quantity: $scope.quantity, goodsId: goodsId},
                     function (data) {
                         //添加成功
                         $goodsSheetShower.destroy();
+                        $toast.showActionToast("添加成功");
                     });
             }
         }

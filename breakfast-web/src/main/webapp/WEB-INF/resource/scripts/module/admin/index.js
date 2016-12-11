@@ -7,67 +7,101 @@
 (function () {
     'use strict';
 
-    angular.module('App', ['ngMaterial'])
-        .service('$toast', function ($mdToast) {
-            var data = {
-                bottom: true,
-                top: false,
-                left: false,
-                right: true
-            };
-
-            //展示位置
-            function getToastPosition() {
-                return Object.keys(data)
-                    .filter(function (pos) {
-                        return data[pos];
-                    })
-                    .join(' ');
-            };
+    angular.module('App', ['ngMaterial', 'toastr', 'ngAnimate'])
+        .service('$toast', function (toastr, toastrConfig, $templateCache) {
+            angular.extend(toastrConfig, {
+                templates:{
+                    toast : 'custom'
+                }
+            });
+            $templateCache.put('custom', '' +
+                '<div class="{{toastClass}} {{toastType}}" ng-click="tapToast()">' +
+                '<div ng-switch on="allowHtml">' +
+                '<div ng-switch-default ng-if="title" class="{{titleClass}}" aria-label="{{title}}">{{title}}</div>' +
+                '<div ng-switch-default class="{{messageClass}}" aria-label="{{message}}">{{message}}</div>' +
+                '<div ng-switch-when="true" ng-if="title" class="{{titleClass}}" ng-bind-html="title"></div>' +
+                '<div ng-switch-when="true" class="{{messageClass}}" ng-bind-html="message"></div>' +
+                '</div>' +
+                '<progress-bar ng-if="progressBar"></progress-bar>' +
+                '</div>');
 
             //展示吐丝
-            function showActionToast(content) {
-                var pinTo = getToastPosition();
-                $mdToast.show(
-                    $mdToast.simple()
-                        .textContent(content)
-                        .position(pinTo)
-                        .hideDelay(3000)
-                );
-            };
+            function showActionToast(content, opt) {
+                return toastr.info(content, '温馨提示', opt);
+            }
 
             return {
-                showActionToast: showActionToast
+                showActionToast: showActionToast,
+                remove : function(toastObj) {
+                    if(toastObj) {
+                        toastr.remove(toastObj.toastId);
+                    }
+                }
             }
 
         })
         .service('$request', function ($http, $toast) {
-            function request(url, method, data, callback) {
+            var defSetting = {filterError : false,mask:true};
+            //队列
+            var queue = [];
+            var taskObj = null;
+
+            //请求完成mask
+            function completeMask(setting) {
+                if(setting.mask) {
+                    queue.splice(0, 1);
+                    //取消遮罩层
+                    if(queue.length == 0) {
+                        $toast.remove(taskObj);
+                    }
+                }
+            }
+
+            function request(url, method, data, callback, opt) {
+                var setting = angular.extend({}, defSetting, opt);
+
+                if(setting.mask) {
+                    queue.push(1);
+                }
+                //mask
+                if(queue.length == 1 && setting.mask) {
+                    taskObj = $toast.showActionToast("正在加载..." , {timeOut:0});
+                }
                 $http({
                     method: method,
                     url: url,
                     data: method == 'POST' ? data : null,
-                    params: method == 'GET' ? data : null
+                    params: method == 'GET' ? data : null,
                 })
                     .then(function (response) {
+                        completeMask(setting);
                         if (response.status == 200 && response.data.header.code == 0) {
                             if (callback) {
-                                callback(response.data, response);
+                                //若不过滤错误，都给毁掉，否则，0才回调
+                                if(!setting.filterError) {
+                                    callback(response.data, response);
+                                } else {
+                                    if(response.data.header.code == 0) {
+                                        callback(response.data, response);
+                                    } else {
+                                        $toast.showActionToast(response.data.header.message);
+                                    }
+                                }
+
                             }
-                        } else {
-                            $toast.showActionToast(response.data.header.message);
                         }
                     }, function (response) {
+                        completeMask(setting);
                         $toast.showActionToast(response.data);
                     });
             }
 
             return {
-                get: function (url, params, callback) {
-                    request(url, "GET", params, callback);
+                get: function (url, params, callback, opt) {
+                    request(url, "GET", params, callback, opt);
                 },
-                post: function (url, params, callback) {
-                    request(url, "POST", params, callback);
+                post: function (url, params, callback, opt) {
+                    request(url, "POST", params, callback, opt);
                 }
             }
         })
