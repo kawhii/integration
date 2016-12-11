@@ -1,6 +1,5 @@
 package com.carl.breakfast.dao.pojo.cart;
 
-import com.sun.istack.internal.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +66,7 @@ public abstract class StopCartSupport<H> implements StopCart<H> {
     }
 
     @Override
-    public final void remove(@NotNull CartGoods goods) throws StopCartRemoveException {
+    public final void remove(CartGoods goods) throws StopCartRemoveException {
         Integer q = goodsListMap.get(goods.getGoodsId());
         if((q == null || q == 0) && goods.getQuantity() > 0) {
             throw new StopCartRemoveException(null, goods.getQuantity());
