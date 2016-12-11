@@ -41,7 +41,7 @@
             </section>
         </div>
         <div class="option mui-flex">
-            <button class="ok cell">确定</button>
+            <button class="ok cell" ng-click="ok()">确定</button>
         </div>
     </div>
 </div>
