@@ -41,11 +41,11 @@ public class ShopCartCtrl extends BaseCtrl {
             @RequestBody @Valid CartGoods goods
             , BindingResult result) {
 
-        //TODO 增加数据校验
         Subject subject = SecurityUtils.getSubject();
         if(result.hasErrors()) {
             return fail("非法输入");
         }
+        //如果已经登陆了，添加到数据库，否则添加到cookie
         if(subject.isAuthenticated()) {
             //todo 数据库修改
         } else {

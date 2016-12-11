@@ -42,9 +42,51 @@
         <!--webjars-->
         <dependency>
             <groupId>org.webjars.bower</groupId>
+            <artifactId>angular</artifactId>
+            <version>1.5.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-animate</artifactId>
+            <version>1.5.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-aria</artifactId>
+            <version>1.5.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-messages</artifactId>
+            <version>1.5.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
             <artifactId>angular-material</artifactId>
             <version>1.1.1</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular-animate</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular-aria</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular-messages</artifactId>
+                </exclusion>
+            </exclusions>
+
         </dependency>
         <dependency>
             <groupId>org.webjars.bower</groupId>
@@ -63,6 +105,12 @@
             <artifactId>angular-file-upload</artifactId>
             <version>2.3.4</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
