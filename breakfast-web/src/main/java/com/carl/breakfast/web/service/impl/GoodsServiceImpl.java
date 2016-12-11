@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 加强版服务实现
  *
@@ -88,11 +90,11 @@ public class GoodsServiceImpl implements IGoodsService {
     @Transactional
     public int update(GoodsDetail goodsDetail) {
         GoodsPojo pojo = goodsFortifiedDao.getById(goodsDetail.getGoods().getId() + "");
-        if(pojo != null) {
+        if (pojo != null) {
             int res = goodsFortifiedDao.update(goodsDetail.getGoods());
-            if(res == 1) {
+            if (res == 1) {
                 //价格不一样添加修改历史
-                if(pojo.getPrice() - goodsDetail.getGoods().getPrice() != 0) {
+                if (pojo.getPrice() - goodsDetail.getGoods().getPrice() != 0) {
                     goodsFortifiedDao.insertModify(pojo.getId(), "PRICE", Float.toString(pojo.getPrice()),
                             Float.toString(goodsDetail.getGoods().getPrice()), (String) SecurityUtils.getSubject().getPrincipal());
                 }
@@ -100,5 +102,12 @@ public class GoodsServiceImpl implements IGoodsService {
             return res;
         }
         return 0;
+    }
+
+    @Override
+    public List<GoodsPojo> listGoods(int[] ids) {
+        if (ids == null || ids.length == 0)
+            return null;
+        return goodsFortifiedDao.listBy(MapBuilder.<String, Object>build().p("ids", ids));
     }
 }
