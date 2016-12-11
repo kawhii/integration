@@ -30,6 +30,12 @@
     <!-- 根据搜索条件获取数据 -->
     <sql id="condition_sql">
         <if test="id != null">and ID = #{id,jdbcType=INTEGER}</if>
+        <if test="ids != null">
+            AND ID IN
+            <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
         <if test="createUser != null and createUser != ''">and CREATE_USER = #{createUser,jdbcType=VARCHAR}</if>
         <if test="name != null and name != ''">and NAME LIKE CONCAT('%','${name}','%' )</if>
         <if test="title != null and title != ''">and TITLE LIKE CONCAT('%','${title}','%' )</if>
@@ -68,6 +74,15 @@
             <include refid="condition_sql"/>
         </where>
         order by ON_SALE_TIME desc limit #{pageFirst}, #{pageSize}
+    </select>
+
+    <!-- 列表查询 -->
+    <select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from
+        <include refid="table_name"/>
+        <where>
+            <include refid="condition_sql"/>
+        </where>
     </select>
 
     <!-- 分页查询时要用到的总数统计 -->
