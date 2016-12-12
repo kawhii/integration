@@ -1,5 +1,6 @@
 package com.carl.breakfast.web.ctrl.buyer;
 
+import com.alibaba.fastjson.JSON;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.framework.ui.ctrl.BaseCtrl;
@@ -40,7 +41,7 @@ public class OrderCtrl extends BaseCtrl {
      * @return
      */
     @RequestMapping(value = "/immConfirmOrder.html", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-    public String immConfirmOrder(@RequestParam("goodsId") int goodsId) {
+    public ModelAndView immConfirmOrder(@RequestParam("goodsId") int goodsId) {
         //1. 接收商品id（一个）
         //2. 查询具体商品数据
         //3. 前端允许修改数量 immediately=true
@@ -58,7 +59,9 @@ public class OrderCtrl extends BaseCtrl {
             data.put("immediately", true);
         }
 
-        return freemarker("orderConfirm");
+        ModelAndView view = new ModelAndView(freemarker("orderConfirm"));
+        view.addObject("data", JSON.toJSONString(data));
+        return view;
     }
 
     /**

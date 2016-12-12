@@ -1,1 +1,3 @@
-asdasd
+<script>
+    var orderData = ${data!''};
+</script>
