@@ -8,6 +8,8 @@ import com.carl.breakfast.web.ctrl.admin.GoodsModel;
 import com.carl.framework.core.page.PageBean;
 import com.carl.framework.core.page.PageParam;
 
+import java.util.List;
+
 /**
  * 加强版服务类
  * @author Carl
@@ -56,4 +58,11 @@ public interface IGoodsService extends IService<GoodsFortifiedDao> {
      * @return
      */
     int update(GoodsDetail goodsDetail);
+
+    /**
+     * 根据id查询商品信息
+     * @param ids
+     * @return
+     */
+    List<GoodsPojo> listGoods(int[] ids);
 }
