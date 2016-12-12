@@ -78,7 +78,9 @@
 
     <!-- 列表查询 -->
     <select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select * from
+        select
+          ID,NAME,TITLE,SUB_TITLE,STOCK,SALES,PRICE,GOODS_TYPE,MAIN_IMG_ID,MAIN_IMG_PATH,NOTE,ON_SALE_TIME
+        from
         <include refid="table_name"/>
         <where>
             <include refid="condition_sql"/>
