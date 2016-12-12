@@ -13,15 +13,17 @@
         //前端初始化
         $scope.goodsId = '';
 
-        //直接购买
+        /*//直接购买
         $scope.buy = function() {
-            $goodsSheetShower.buy($scope.goodsId);
-        };
+            console.info($scope.byForm);
+        };*/
 
         //前端点击购物车
         $scope.cart = function() {
             $goodsSheetShower.cart($scope.goodsId);
         };
+
+        // $scope.byForm = null;
     }
 
     angular.bootstrap(document.getElementById("footer"),
