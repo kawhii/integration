@@ -31,7 +31,7 @@
             <div class="buy-single-row mui-flex align-center">
                 <div class="title cell fixed">购买数量</div>
                 <div class="content cell">
-                    <a class="btn minus"></a>
+                    <a class="btn minus off" ></a>
                     <input class="amount" type="number" value="1" pattern="[0-9]*" >
                     <a class="btn plus"></a>
                 </div>
