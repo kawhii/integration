@@ -44,20 +44,16 @@
         <div class="order-orderPay buy-single-row">
             <div class="line">
                 <span>共</span>
-                <span>1</span>
+                <span>{{items.quantity[item.id]}}</span>
                 <span>件，</span>
                 <span></span>
                 <span>合计：</span>
                 <div class="price">
-                    <span class="dollar">￥</span>
-                    <span class="main-price">199</span>
-                    <span>
-                        <span>.</span>
-                        <span>00</span>
-                    </span>
+                    <span class="main-price">{{item.price*items.quantity[item.id]| currency : '￥' : 2}}</span>
                 </div>
             </div>
         </div>
     </div>
+    <#include "freemarker/order/orderSubmitButton.ftl">
 </div>
 <script src="/js/~/order/orderGoodsList.js"></script>
