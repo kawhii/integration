@@ -5,9 +5,6 @@
     padding: 9px;
 }
 
-.mui-flex, .mui-flex *, .mui-flex :after, .mui-flex :before {
-    box-sizing: border-box;
-}
 .mui-flex {
     display: -webkit-box!important;
     display: -webkit-flex!important;
@@ -81,13 +78,6 @@
     background-color: #EE243A;
     color: #fff;
 }
-.mui-flex>.cell.fixed {
-    -webkit-box-flex: 0!important;
-    -webkit-flex: none!important;
-    -ms-flex: none!important;
-    flex: none!important;
-    width: auto;
-}
 
 .order-itemInfo .ext {
     font-size: 12px;
@@ -120,16 +110,6 @@
 .order-quantity .content {
     line-height: 1;
 }
-
-order-quantity .minus:after, .order-quantity .plus:after, .order-quantity .plus:before {
-    position: absolute;
-    top: 15px;
-    left: 10px;
-    border-bottom: 2px solid #999;
-    width: 12px;
-    height: 1px;
-    content: ' ';
-}
 .order-quantity .amount {
     display: inline-block;
     vertical-align: top;
@@ -151,4 +131,30 @@ order-quantity .minus:after, .order-quantity .plus:after, .order-quantity .plus:
     text-align: right;
     color: #666;
     line-height: 28px;
+}
+.mui-flex, .mui-flex *, .mui-flex :after, .mui-flex :before {
+    box-sizing: border-box;
+}
+.order-quantity .minus:after, .order-quantity .plus:after, .order-quantity .plus:before {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    border-bottom: 2px solid #999;
+    width: 12px;
+    height: 1px;
+    content: ' ';
+}
+
+.order-quantity .off {
+    background-color: #f5f5f5;
+}
+:after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.order-quantity .plus:before {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
