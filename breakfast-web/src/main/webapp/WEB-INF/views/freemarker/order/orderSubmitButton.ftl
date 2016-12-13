@@ -3,16 +3,14 @@
         <div class="cell realPay">
             <div class="realPay-wrapper">
                 <span>共</span>
-                <span class="count">1</span>
+                <span class="count">{{goodsTotal}}</span>
                 <span>件，</span>
                 <span></span>
                 <span>总金额</span>
                 <span class="price">
-                <span class="dollar">￥</span>
-                <span class="main-price">199</span>
-                <span>
-                    <span>.</span>
-                    <span>00</span></span></span></div>
+                    <span class="main-price">{{priceTotal| currency : '￥' : 2}}</span>
+                </span>
+            </div>
         </div>
         <div class="cell fixed action">
             <div class="mui-flex align-center">

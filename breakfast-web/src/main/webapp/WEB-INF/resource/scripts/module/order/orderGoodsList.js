@@ -8,7 +8,28 @@
     angular.module("OrderGoodsList", ["App"])
         .controller("ListCtrl", ["$scope", function($scope) {
             //orderData从界面生成进来的
-            $scope.items = orderData;
+            var data = orderData;
+            $scope.items = data;
+
+            //商品总数
+            $scope.goodsTotal = 0;
+            //总价
+            $scope.priceTotal = 0;
+
+            //重写计算总和
+            function resetTotal() {
+                $scope.goodsTotal = 0;
+                $scope.priceTotal = 0;
+                angular.forEach($scope.items.goodsItems, function(item, idx) {
+                    $scope.goodsTotal += $scope.items.quantity[item.id];
+                    $scope.priceTotal += $scope.items.quantity[item.id] * item.price;
+                });
+            }
+
+            //当数量发生改变时，重写计算价钱
+            $scope.$watchCollection("items.quantity", function() {
+                resetTotal();
+            });
 
             //购买数减
             $scope.minus = function(id) {
