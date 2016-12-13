@@ -8,7 +8,8 @@
             <div class="order-itemInfo mui-flex">
                 <div class="cell fixed item-pic">
                     <div class="img">
-                        <img class="img-cell" ng-src="/file/img/~/{{item.mainImgPath}}" style="width: 92px;height: 92px">
+                        <img class="img-cell" ng-src="/file/img/~/{{item.mainImgPath}}"
+                             style="width: 92px;height: 92px">
                     </div>
                 </div>
                 <div class="content cell">
@@ -31,9 +32,29 @@
             <div class="buy-single-row mui-flex align-center">
                 <div class="title cell fixed">购买数量</div>
                 <div class="content cell">
-                    <a class="btn minus off" ></a>
-                    <input class="amount" type="number" value="1" pattern="[0-9]*" >
-                    <a class="btn plus"></a>
+                    <a class="btn minus {{items.quantity[item.id]==1?'off':''}}" ng-click="minus(item.id)"></a>
+                    <input class="amount" type="number" ng-model="items.quantity[item.id]" pattern="[0-9]*">
+                    <a class="btn plus" ng-click="plus(item.id)"></a>
+                </div>
+            </div>
+            <div class="seperator-wrap">
+                <hr class="seperator">
+            </div>
+        </div>
+        <div class="order-orderPay buy-single-row">
+            <div class="line">
+                <span>共</span>
+                <span>1</span>
+                <span>件，</span>
+                <span></span>
+                <span>合计：</span>
+                <div class="price">
+                    <span class="dollar">￥</span>
+                    <span class="main-price">199</span>
+                    <span>
+                        <span>.</span>
+                        <span>00</span>
+                    </span>
                 </div>
             </div>
         </div>

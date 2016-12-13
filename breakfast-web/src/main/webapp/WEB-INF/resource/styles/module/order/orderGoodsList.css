@@ -158,3 +158,24 @@
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
 }
+.order-orderPay .line {
+    text-align: right;
+    color: #666;
+    font-weight: bolder;
+}
+.order-orderPay .line .price {
+    display: inline-block;
+    color: #DD2727;
+}
+.seperator-wrap {
+    background-color: #fff;
+}
+.input .seperator {
+    width: 100%;
+    margin: 0;
+}
+.seperator {
+    margin: 0 9px;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
