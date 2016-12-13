@@ -33,7 +33,7 @@
                 <div class="title cell fixed">购买数量</div>
                 <div class="content cell">
                     <a class="btn minus {{items.quantity[item.id]==1?'off':''}}" ng-click="minus(item.id)"></a>
-                    <input class="amount" type="number" ng-model="items.quantity[item.id]" pattern="[0-9]*">
+                    <input class="amount" type="number" ng-model="items.quantity[item.id]" ng-change="onchangeAmount(item)" pattern="[0-9]*">
                     <a class="btn plus" ng-click="plus(item.id)"></a>
                 </div>
             </div>

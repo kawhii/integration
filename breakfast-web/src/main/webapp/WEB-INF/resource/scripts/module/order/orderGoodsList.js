@@ -31,6 +31,14 @@
                 resetTotal();
             });
 
+            //当改变数量时触发
+            $scope.onchangeAmount = function(item) {
+                if(!$scope.items.quantity[item.id] || $scope.items.quantity[item.id] <= 0) {
+                    alert("至少需要购买一件商品");
+                    $scope.items.quantity[item.id] = 1;
+                }
+            }
+
             //购买数减
             $scope.minus = function(id) {
                 var q =  $scope.items.quantity[id];
@@ -42,6 +50,12 @@
             //购买数加
             $scope.plus = function(id) {
                 $scope.items.quantity[id] ++;
+            };
+
+            $scope.createOrder = function() {
+                if($scope.goodsTotal <= 0) {
+
+                }
             };
         }]);
 
