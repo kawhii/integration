@@ -12,7 +12,7 @@
                 </span>
             </div>
         </div>
-        <div class="cell fixed action">
+        <div class="cell fixed action" ng-click="createOrder()">
             <div class="mui-flex align-center">
                 <span title="提交订单">提交订单</span>
             </div>
