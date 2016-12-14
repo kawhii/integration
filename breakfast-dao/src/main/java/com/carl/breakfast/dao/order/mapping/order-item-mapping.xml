@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.order.OrderItemDaoImpl">
+    <!--表名明-->
+    <sql id="table_name">
+        CORE_ORDER_GOODS
+    </sql>
+
+
+
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.pojo.order.OrderGoodsItem">
+        <id column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER"/>
+        <result column="QUANTITY" property="quantity" jdbcType="INTEGER"/>
+        <result column="UNIT_PRICE" property="unitPrice" jdbcType="FLOAT"/>
+        <result column="GOODS_TITLE" property="goodsTitle" jdbcType="VARCHAR"/>
+        <result column="GOODS_IMG_PATH" property="goodsImgPath" jdbcType="VARCHAR"/>
+        <result column="GOODS_IMG_ID" property="goodsImgId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 根据搜索条件获取数据 -->
+    <sql id="condition_sql">
+        <if test="orderId != null">and ORDER_ID = #{orderId,jdbcType=VARCHAR}</if>
+        <if test="goodsId != null and goodsId > 0">and GOODS_ID = #{goodsId,jdbcType=INTEGER}</if>
+        <if test="goodsTitle != null and goodsTitle != ''">and GOODS_TITLE LIKE CONCAT('%','${goodsTitle}','%' )</if>
+    </sql>
+</mapper>

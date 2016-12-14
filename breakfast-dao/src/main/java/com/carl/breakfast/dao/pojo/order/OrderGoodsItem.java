@@ -1,5 +1,7 @@
 package com.carl.breakfast.dao.pojo.order;
 
+import com.carl.framework.core.entity.BaseEntity;
+
 /**
  * 订单商品信息
  *
@@ -7,7 +9,7 @@ package com.carl.breakfast.dao.pojo.order;
  * @date 2016/12/15
  * 版权所有.(c)2016 - 2020. 卡尔工作室
  */
-public class OrderGoodsItem {
+public class OrderGoodsItem extends BaseEntity {
     //ORDER_ID
     private String orderId;
     //GOODS_ID
@@ -21,7 +23,12 @@ public class OrderGoodsItem {
     //GOODS_IMG_PATH
     private String goodsImgPath;
     //GOODS_IMG_ID
-    private String goodsImgId;
+    private int goodsImgId;
+
+    //获取总价
+    public float getTotalPrice() {
+        return getUnitPrice() * getQuantity();
+    }
 
     public String getOrderId() {
         return orderId;
@@ -50,11 +57,11 @@ public class OrderGoodsItem {
         return this;
     }
 
-    public String getGoodsImgId() {
+    public int getGoodsImgId() {
         return goodsImgId;
     }
 
-    public OrderGoodsItem setGoodsImgId(String goodsImgId) {
+    public OrderGoodsItem setGoodsImgId(int goodsImgId) {
         this.goodsImgId = goodsImgId;
         return this;
     }
@@ -84,10 +91,5 @@ public class OrderGoodsItem {
     public OrderGoodsItem setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
         return this;
-    }
-
-    //获取总价
-    public float getTotalPrice() {
-        return getUnitPrice() * getQuantity();
     }
 }

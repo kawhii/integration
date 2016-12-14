@@ -1,5 +1,7 @@
 package com.carl.breakfast.dao.pojo.order;
 
+import java.util.List;
+
 /**
  * 订单创建时的bean
  * @author Carl
@@ -19,4 +21,69 @@ public class OrderCreateBean {
     private float price;
     //ADDRESS
     private String address;
+
+    private List<OrderGoodsItem> items;
+
+    public String getId() {
+        return id;
+    }
+
+    public OrderCreateBean setId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public OrderCreateBean setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public OrderCreateBean setContactName(String contactName) {
+        this.contactName = contactName;
+        return this;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public OrderCreateBean setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+        return this;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public OrderCreateBean setPrice(float price) {
+        this.price = price;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public OrderCreateBean setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public List<OrderGoodsItem> getItems() {
+        return items;
+    }
+
+    public OrderCreateBean setItems(List<OrderGoodsItem> items) {
+        this.items = items;
+        return this;
+    }
 }
