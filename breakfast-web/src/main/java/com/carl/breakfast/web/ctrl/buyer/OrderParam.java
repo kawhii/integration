@@ -1,12 +1,14 @@
 package com.carl.breakfast.web.ctrl.buyer;
 
+import java.io.Serializable;
+
 /**
  * 订单创建参数
  * @author Carl
  * @date 2016/12/14
  * 版权所有.(c)2016 - 2020. 卡尔工作室
  */
-public class OrderParam {
+public class OrderParam implements Serializable {
     private int goodsId;
     private int quantity;
 
