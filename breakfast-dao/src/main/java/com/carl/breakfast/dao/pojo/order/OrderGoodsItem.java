@@ -8,12 +8,29 @@ package com.carl.breakfast.dao.pojo.order;
  * 版权所有.(c)2016 - 2020. 卡尔工作室
  */
 public class OrderGoodsItem {
+    //ORDER_ID
+    private String orderId;
+    //GOODS_ID
     private int goodsId;
+    //QUANTITY
     private int quantity = 0;
+    //UNIT_PRICE
     private float unitPrice = 0;
+    //GOODS_TITLE
     private String goodsTitle;
+    //GOODS_IMG_PATH
     private String goodsImgPath;
+    //GOODS_IMG_ID
     private String goodsImgId;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public OrderGoodsItem setOrderId(String orderId) {
+        this.orderId = orderId;
+        return this;
+    }
 
     public String getGoodsTitle() {
         return goodsTitle;
