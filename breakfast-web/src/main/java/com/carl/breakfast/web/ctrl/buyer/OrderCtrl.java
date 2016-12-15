@@ -97,10 +97,10 @@ public class OrderCtrl extends BaseCtrl {
      */
     @RequestMapping(value = "/createOrder", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public ModelAndView createOrder(@RequestBody List<OrderParam> orders) {
+    public ModelAndView createOrder(@RequestBody OrderParam params) {
         //商品id：商品以及数量
-        Map<Integer, OrderParam> goodsMap = MapBuilder.build();
-        for (OrderParam orderParam : orders) {
+        Map<Integer, OrderGoodsParam> goodsMap = MapBuilder.build();
+        for (OrderGoodsParam orderParam : params.getGoods()) {
             goodsMap.put(orderParam.getGoodsId(), orderParam);
         }
         //获取当前用户信息
@@ -115,7 +115,7 @@ public class OrderCtrl extends BaseCtrl {
         orderCreate.setContactName(account)
                 .setContactNumber(account)
                 .setUsername(account)
-                .setAddress("默认地址");
+                .setAddress(params.getAddress().getAddressDetail());
 
         //购买商品条目
         List<OrderGoodsItem> items = new ArrayList<>(goodsPojoList.size());
@@ -136,7 +136,7 @@ public class OrderCtrl extends BaseCtrl {
 
         //创建订单
         orderService.createOrder(orderCreate);
-        logger.debug(orderCreate);
+        logger.info("订单创建成功，id:[" + orderCreate.getId() + "]");
 
         //1. 接收商品id（多个）
         //2. 查询具体商品数据

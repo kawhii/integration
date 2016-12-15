@@ -1,6 +1,7 @@
 package com.carl.breakfast.web.ctrl.buyer;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 订单创建参数
@@ -9,25 +10,24 @@ import java.io.Serializable;
  * 版权所有.(c)2016 - 2020. 卡尔工作室
  */
 public class OrderParam implements Serializable {
-    private int goodsId;
-    private int quantity;
+    private List<OrderGoodsParam> goods;
+    private OrderAddressParam address;
 
-
-    public int getGoodsId() {
-        return goodsId;
+    public List<OrderGoodsParam> getGoods() {
+        return goods;
     }
 
-    public OrderParam setGoodsId(int goodsId) {
-        this.goodsId = goodsId;
+    public OrderParam setGoods(List<OrderGoodsParam> goods) {
+        this.goods = goods;
         return this;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public OrderAddressParam getAddress() {
+        return address;
     }
 
-    public OrderParam setQuantity(int quantity) {
-        this.quantity = quantity;
+    public OrderParam setAddress(OrderAddressParam address) {
+        this.address = address;
         return this;
     }
 }

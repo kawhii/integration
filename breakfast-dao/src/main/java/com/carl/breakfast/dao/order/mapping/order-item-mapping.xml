@@ -5,7 +5,7 @@
 <mapper namespace="com.carl.breakfast.dao.order.OrderItemDaoImpl">
     <!--表名明-->
     <sql id="table_name">
-        CORE_ORDER_GOODS
+        core_order_goods
     </sql>
 
 
@@ -27,12 +27,24 @@
         <if test="goodsTitle != null and goodsTitle != ''">and goods_title LIKE CONCAT('%','${goodsTitle}','%' )</if>
     </sql>
 
-    <insert id="insert"  parameterType="com.carl.breakfast.dao.pojo.order.OrderGoodsItem">
+    <insert id="batchInsert"  parameterType="java.util.List">
         insert into
         <include refid="table_name"/>
         (order_id, goods_id, quantity, unit_price, goods_title, goods_img_path, goods_img_id,
           total_price)
-        values (#{orderId}, #{goodsId}, #{quantity}, #{unitPrice},#{goodsTitle}, #{goodsImgPath}, #{goodsImgId}
-        #{mainImgPath}, #{note}, #{quantity} * #{unitPrice})
+        values
+        <foreach collection ="list" item="item" index= "index" separator =",">
+                           (
+                                #{item.orderId},
+                                #{item.goodsId},
+                                #{item.quantity},
+                                #{item.unitPrice},
+                                #{item.goodsTitle},
+                                #{item.goodsImgPath},
+                                #{item.goodsImgId},
+                                #{item.quantity} * #{item.unitPrice}
+                            )
+            </foreach >
+
     </insert>
 </mapper>

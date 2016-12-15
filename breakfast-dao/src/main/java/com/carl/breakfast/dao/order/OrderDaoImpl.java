@@ -1,5 +1,6 @@
 package com.carl.breakfast.dao.order;
 
+import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
 import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.framework.core.dao.BaseDaoImpl;
 import com.carl.framework.core.execption.BizException;
@@ -30,6 +31,12 @@ public class OrderDaoImpl extends BaseDaoImpl<OrderPojo> implements IOrderDao {
         if (result <= 0) {
             throw BizException.DB_INSERT_RESULT_0.newInstance("数据库操作,insert返回0.{%s}", getStatement(SQL_INSERT));
         }
+
+        //设置订单id
+        for(OrderGoodsItem item : entity.getItems()) {
+            item.setOrderId(entity.getId());
+        }
+
         //插入订单条目
         orderItemDao.insert(entity.getItems());
         return result;

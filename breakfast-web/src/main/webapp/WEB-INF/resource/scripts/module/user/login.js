@@ -14,7 +14,7 @@
 
             $scope.login = function() {
                 var form = angular.element(document.querySelector("#loginForm"));
-                console.info(form[0].submit());
+                form[0].submit()
                /* var deferred = $q.defer();
                 $http({
                     method:"POST",
