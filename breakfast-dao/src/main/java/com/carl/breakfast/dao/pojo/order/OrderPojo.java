@@ -1,6 +1,9 @@
 package com.carl.breakfast.dao.pojo.order;
 
+import com.carl.framework.core.entity.BaseEntity;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * 数据库订单映射
@@ -9,7 +12,7 @@ import java.util.Date;
  * @date 2016/12/14
  * 版权所有.(c)2016 - 2020. 卡尔工作室
  */
-public class OrderPojo {
+public class OrderPojo extends BaseEntity {
     //ID
     private String id;
     //CREATE_TIME
@@ -51,6 +54,17 @@ public class OrderPojo {
     //ADDRESS
     private String address;
 
+    private List<OrderGoodsItem> items;
+
+    public List<OrderGoodsItem> getItems() {
+        return items;
+    }
+
+    public OrderPojo setItems(List<OrderGoodsItem> items) {
+        this.items = items;
+        return this;
+    }
+
     public String getId() {
         return id;
     }
@@ -64,9 +78,8 @@ public class OrderPojo {
         return createTime;
     }
 
-    public OrderPojo setCreateTime(Date createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-        return this;
     }
 
     public Date getPayTime() {
