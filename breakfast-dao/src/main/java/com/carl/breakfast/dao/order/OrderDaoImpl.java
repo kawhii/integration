@@ -5,6 +5,7 @@ import com.carl.framework.core.dao.BaseDaoImpl;
 import com.carl.framework.core.execption.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 订单数据源实现
@@ -23,6 +24,7 @@ public class OrderDaoImpl extends BaseDaoImpl<OrderPojo> implements IOrderDao {
     /**
      * 单条插入数据.
      */
+    @Transactional
     public int insert(OrderPojo entity) {
         int result = getSessionTemplate().insert(getStatement(SQL_INSERT), entity);
         if (result <= 0) {

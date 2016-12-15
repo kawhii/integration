@@ -6,7 +6,7 @@
  */
 ;(function () {
     angular.module("OrderGoodsList", ["App"])
-        .controller("ListCtrl", ["$scope", function ($scope) {
+        .controller("ListCtrl", ["$scope",'$request', function ($scope, $request) {
             //orderData从界面生成进来的
             var data = orderData;
             $scope.items = data;
@@ -57,8 +57,10 @@
                 if ($scope.goodsTotal > 0) {
                     var params = buildOrder();
                     if(params.length > 0) {
-                        //TODO 请求创建订单
-                        console.info(params);
+                        //请求创建订单
+                        $request.post("/order/createOrder", params, function(data) {
+                            console.info(data);
+                        });
                     }
                 }
             };

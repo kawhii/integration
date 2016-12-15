@@ -106,6 +106,7 @@ public class OrderCtrl extends BaseCtrl {
         //获取当前用户信息
         String account = (String)SecurityUtils.getSubject().getPrincipal();
 
+        //获取具体产品信息
         Integer[] ids = goodsMap.keySet().toArray(new Integer[]{});
         List<GoodsPojo> goodsPojoList = goodsService.listGoods(ids);
 
@@ -119,6 +120,7 @@ public class OrderCtrl extends BaseCtrl {
         //购买商品条目
         List<OrderGoodsItem> items = new ArrayList<>(goodsPojoList.size());
 
+        //循环创建订单产品
         for(GoodsPojo goodsPojo : goodsPojoList) {
             OrderGoodsItem item = new OrderGoodsItem();
             item.setUnitPrice(goodsPojo.getPrice())
@@ -127,6 +129,8 @@ public class OrderCtrl extends BaseCtrl {
                     .setQuantity(goodsMap.get(goodsPojo.getId()).getQuantity())
                     .setGoodsId(goodsPojo.getId())
                     .setGoodsTitle(goodsPojo.getTitle());
+            //添加到数组
+            items.add(item);
         }
         orderCreate.setItems(items);
 

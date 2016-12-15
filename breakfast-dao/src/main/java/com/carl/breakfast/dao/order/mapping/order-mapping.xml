@@ -5,7 +5,7 @@
 <mapper namespace="com.carl.breakfast.dao.order.OrderDaoImpl">
     <!--表名明-->
     <sql id="table_name">
-        CORE_ORDER
+        core_order
     </sql>
 
 
@@ -30,7 +30,7 @@
     <!--插入数据自动生成uuid-->
     <insert id="insert"  keyProperty="id" parameterType="com.carl.breakfast.dao.pojo.order.OrderPojo">
         <selectKey keyProperty="id" resultType="String" order="BEFORE">
-            SELECT UUID()
+            SELECT REPLACE(UUID(),'-','')
         </selectKey>
 
         insert into

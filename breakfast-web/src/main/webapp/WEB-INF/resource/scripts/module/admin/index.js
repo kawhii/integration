@@ -68,7 +68,6 @@
                 //mask
                 if (queue.length == 1 && setting.mask) {
                     taskObj = $toast.showActionToast("正在加载...", {timeOut: 0});
-                    console.info(taskObj);
                 }
             }
 
