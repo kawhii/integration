@@ -57,6 +57,7 @@
                 if ($scope.goodsTotal > 0) {
                     var params = buildOrder();
                     if (params.length > 0) {
+                        //todo 地址信息，返回值处理
                         //请求创建订单
                         $request.post("/order/createOrder", {
                             goods: params,

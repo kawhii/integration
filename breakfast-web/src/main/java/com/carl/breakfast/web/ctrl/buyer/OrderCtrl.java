@@ -136,14 +136,8 @@ public class OrderCtrl extends BaseCtrl {
 
         //创建订单
         orderService.createOrder(orderCreate);
-        logger.info("订单创建成功，id:[" + orderCreate.getId() + "]");
 
-        //1. 接收商品id（多个）
-        //2. 查询具体商品数据
-        //3. 前端不允许修改数量
-        //4. 地址选择
-        //5. 价格显示
-        //6. 提交订单（商品id，数量）
+        //todo 返回值，地址选择
         return null;
     }
 }
