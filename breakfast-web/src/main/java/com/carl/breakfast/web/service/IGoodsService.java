@@ -64,5 +64,5 @@ public interface IGoodsService extends IService<GoodsFortifiedDao> {
      * @param ids
      * @return
      */
-    List<GoodsPojo> listGoods(int[] ids);
+    List<GoodsPojo> listGoods(Integer[] ids);
 }

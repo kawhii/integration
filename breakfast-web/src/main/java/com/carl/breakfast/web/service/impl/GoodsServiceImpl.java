@@ -105,7 +105,7 @@ public class GoodsServiceImpl implements IGoodsService {
     }
 
     @Override
-    public List<GoodsPojo> listGoods(int[] ids) {
+    public List<GoodsPojo> listGoods(Integer[] ids) {
         if (ids == null || ids.length == 0)
             return null;
         return goodsFortifiedDao.listBy(MapBuilder.<String, Object>build().p("ids", ids));

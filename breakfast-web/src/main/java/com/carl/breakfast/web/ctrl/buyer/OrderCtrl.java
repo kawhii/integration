@@ -2,16 +2,21 @@ package com.carl.breakfast.web.ctrl.buyer;
 
 import com.alibaba.fastjson.JSON;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
+import com.carl.breakfast.web.bean.OrderCreateBean;
 import com.carl.breakfast.web.service.IGoodsService;
+import com.carl.breakfast.web.service.IOrderService;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +35,9 @@ public class OrderCtrl extends BaseCtrl {
 
     @Autowired
     private IGoodsService goodsService;
+
+    @Autowired
+    private IOrderService orderService;
 
     @Override
     protected String getModuleName() {
@@ -51,8 +59,8 @@ public class OrderCtrl extends BaseCtrl {
         //6. 提交订单（商品id，数量）
 
         Map<String, Object> data = MapBuilder.build();
-        List<GoodsPojo> goodsPojoList = goodsService.listGoods(new int[]{goodsId});
-        if(goodsPojoList != null && goodsPojoList.size() > 0) {
+        List<GoodsPojo> goodsPojoList = goodsService.listGoods(new Integer[]{goodsId});
+        if (goodsPojoList != null && goodsPojoList.size() > 0) {
             Map<Integer, Integer> quantity = MapBuilder.<Integer, Integer>build().p(goodsId, 1);
             data.put("goodsItems", goodsPojoList);
             data.put("quantity", quantity);
@@ -90,8 +98,42 @@ public class OrderCtrl extends BaseCtrl {
     @RequestMapping(value = "/createOrder", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public ModelAndView createOrder(@RequestBody List<OrderParam> orders) {
-        logger.debug(orders);
-        //TODO 接收商品id（多个）
+        //商品id：商品以及数量
+        Map<Integer, OrderParam> goodsMap = MapBuilder.build();
+        for (OrderParam orderParam : orders) {
+            goodsMap.put(orderParam.getGoodsId(), orderParam);
+        }
+        //获取当前用户信息
+        String account = (String)SecurityUtils.getSubject().getPrincipal();
+
+        Integer[] ids = goodsMap.keySet().toArray(new Integer[]{});
+        List<GoodsPojo> goodsPojoList = goodsService.listGoods(ids);
+
+        OrderCreateBean orderCreate = new OrderCreateBean();
+        //订单基础信息
+        orderCreate.setContactName(account)
+                .setContactNumber(account)
+                .setUsername(account)
+                .setAddress("默认地址");
+
+        //购买商品条目
+        List<OrderGoodsItem> items = new ArrayList<>(goodsPojoList.size());
+
+        for(GoodsPojo goodsPojo : goodsPojoList) {
+            OrderGoodsItem item = new OrderGoodsItem();
+            item.setUnitPrice(goodsPojo.getPrice())
+                    .setGoodsImgId(goodsPojo.getMainImgId())
+                    .setGoodsImgPath(goodsPojo.getMainImgPath())
+                    .setQuantity(goodsMap.get(goodsPojo.getId()).getQuantity())
+                    .setGoodsId(goodsPojo.getId())
+                    .setGoodsTitle(goodsPojo.getTitle());
+        }
+        orderCreate.setItems(items);
+
+        //创建订单
+        orderService.createOrder(orderCreate);
+        logger.debug(orderCreate);
+
         //1. 接收商品id（多个）
         //2. 查询具体商品数据
         //3. 前端不允许修改数量
