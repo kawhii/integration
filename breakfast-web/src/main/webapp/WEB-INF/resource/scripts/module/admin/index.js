@@ -8,7 +8,7 @@
     'use strict';
 
     angular.module('App', ['ngMaterial', 'toastr', 'ngAnimate'])
-        .service('$toast', function (toastr, toastrConfig, $templateCache) {
+        .service('$toast', function (toastr, toastrConfig, $templateCache, $mdDialog) {
             angular.extend(toastrConfig, {
                 extendedTimeOut: 0,
                 timeOut: 3000,
@@ -38,11 +38,14 @@
                     if (toastObj) {
                         toastr.remove(toastObj.toastId);
                     }
+                },
+                loading: function() {
+                    return $mdDialog.show({template:'<md-progress-circular style="align-self: center" md-mode="indeterminate"></md-progress-circular>'});
                 }
             }
 
         })
-        .service('$request', function ($http, $toast) {
+        .service('$request', function ($http, $toast, $mdDialog) {
             var defSetting = {filterError: false, mask: true};
             //队列
             var queue = [];
@@ -55,7 +58,7 @@
                     //取消遮罩层
                     if (queue.length == 0) {
                         setTimeout(function() {
-                            $toast.remove(taskObj);
+                            $mdDialog.hide();
                         },1);
                     }
                 }
@@ -67,7 +70,7 @@
                 }
                 //mask
                 if (queue.length == 1 && setting.mask) {
-                    taskObj = $toast.showActionToast("正在加载...", {timeOut: 0});
+                    taskObj = $toast.loading();
                 }
             }
 
