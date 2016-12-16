@@ -47,7 +47,7 @@ public class OrderCtrl extends BaseCtrl {
     /**
      * 立即提交
      *
-     * sec
+     * sec ok
      * @return
      */
     @RequestMapping(value = "/immConfirmOrder.html", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
