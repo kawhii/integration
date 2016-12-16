@@ -16,7 +16,7 @@
                     toast: 'custom'
                 }
             });
-            $templateCache.put('custom', '' +
+            $templateCache.put('custom',
                 '<div class="{{toastClass}} {{toastType}}" ng-click="tapToast()">' +
                 '<div ng-switch on="allowHtml">' +
                 '<div ng-switch-default ng-if="title" class="{{titleClass}}" aria-label="{{title}}">{{title}}</div>' +
@@ -79,7 +79,7 @@
                     method: method,
                     url: url,
                     data: method == 'POST' ? data : null,
-                    params: method == 'GET' ? data : null,
+                    params: method == 'GET' ? data : null
                 })
                     .then(function (response) {
                         completeMask(setting);
@@ -125,7 +125,7 @@
         $scope.items = [
             new Item("goods/index", "发布商品"),
             new Item("goods/list", "当前商品"),
-            new Item("sys/file", "图片管理"),
+            new Item("sys/file", "图片管理")
         ];
     }
 })();
