@@ -11,6 +11,7 @@
         .service("$goodsSheetShower", function ($mdDialog) {
 
             function show(goodsId, isCart) {
+
                 $mdDialog.show({
                     controller: createBuyCtrl(goodsId, isCart),
                     templateUrl: '/goods/detailToBuy/' + goodsId + "/" + (isCart ? 1 : 0),

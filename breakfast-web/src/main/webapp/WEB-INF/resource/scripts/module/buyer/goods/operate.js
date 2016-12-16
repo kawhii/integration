@@ -17,7 +17,6 @@
         $scope.buy = function() {
             console.info($scope.byForm);
         };*/
-
         //前端点击购物车
         $scope.cart = function() {
             $goodsSheetShower.cart($scope.goodsId);

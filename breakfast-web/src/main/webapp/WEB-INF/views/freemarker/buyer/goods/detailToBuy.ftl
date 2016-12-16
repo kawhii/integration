@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-</head>
-<body>
+
 <link rel="stylesheet" , href="/styles/~/buyer/goods/detailToBuy.css"/>
 
 <div style="max-width:800px;max-height:810px;height: 200px;width: 300px" ng-cloak="">
@@ -31,8 +25,11 @@
                     <div class="content">
                         <div class="number-control">
                             <div class="mui-number">
-                                <button type="button"ng-click="decrease()"  class="decrease {{quantity==1?'disabled':''}}">-</button>
-                                <input type="number" class="num" ng-model="quantity" min="1" max="100" step="1" name="quantity">
+                                <button type="button" ng-click="decrease()"
+                                        class="decrease {{quantity==1?'disabled':''}}">-
+                                </button>
+                                <input type="number" class="num" ng-model="quantity" min="1" max="100" step="1"
+                                       name="quantity">
                                 <button type="button" ng-click="increase()" class="increase">+</button>
                             </div>
                         </div>
@@ -45,5 +42,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>
