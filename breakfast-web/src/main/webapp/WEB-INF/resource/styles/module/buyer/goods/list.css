@@ -1,0 +1,153 @@
+.searchlist-square-pic, .searchlist-long-pic {
+    padding: 0px;
+    background-color: #f0f2f5;
+}
+
+ul, ol, li {
+    list-style: none outside none;
+}
+ul, ol, li {
+    list-style: none outside none;
+}
+.searchlist-square-pic .big-pic-list:nth-child(1), .searchlist-long-pic .big-pic-list:nth-child(1) {
+    padding: 1px 1px 0px 0px;
+}
+
+.searchlist-square-pic .big-pic-list, .searchlist-long-pic .big-pic-list {
+    border-bottom: 0px;
+    border-width: 0 0 0 0;
+    position: relative;
+    width: 50%;
+    padding: 2px 1px 0px 0px;
+    background-color: #f0f2f5;
+    float: left;
+    list-style: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.searchlist-square-pic .card-border, .searchlist-long-pic .card-border {
+    padding: 0px 0px 8px 0px;
+    background-color: white;
+    position: relative;
+    display: block;
+}
+.searchlist-square-pic .square-pic-list-div, .searchlist-long-pic .square-pic-list-div {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    line-height: 0;
+    font-size: 0px;
+    text-align: center;
+}
+.searchlist-long-pic .product-content-box {
+    height: 80px;
+}
+
+.searchlist-square-pic .product-content-box, .searchlist-long-pic .product-content-box {
+    height: 80px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+.searchlist-square-pic .square-pic-list-name, .searchlist-long-pic .square-pic-list-name {
+    color: #232326;
+    font-size: 0px;
+    overflow: hidden;
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 6px;
+}
+.searchlist-square-pic .square-pic-list-name span, .searchlist-long-pic .square-pic-list-name span {
+    font-size: 14px;
+}
+.searchlist-square-pic .price-auther-sam, .searchlist-long-pic .price-auther-sam {
+    height: 40px;
+    overflow: hidden;
+}
+.searchlist-long-pic .product-book-author-big {
+    display: block;
+}
+.searchlist-square-pic .product-book-author-big, .searchlist-long-pic .product-book-author-big {
+    font-size: 12px;
+    overflow: hidden;
+    display: block;
+    height: 14px;
+    line-height: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    color: #848689;
+    margin-bottom: 2px;
+}
+.searchlist-square-pic .square-pic-list-price, .searchlist-long-pic .square-pic-list-price {
+    height: 20px;
+    overflow: hidden;
+    font-size: 0;
+    margin-top: 1px;
+}
+.searchlist-square-pic .product-price1, .searchlist-long-pic .product-price1 {
+    color: #f15353;
+    font-size: 16px;
+    padding-right: 10px;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: text-bottom;
+    display: inline-block;
+    margin-top: 1px;
+    float: left;
+}
+.searchlist-square-pic .big-price, .searchlist-long-pic .big-price {
+    font-size: 20px;
+    line-height: 18px;
+}
+.searchlist-square-pic .small-price, .searchlist-long-pic .small-price {
+    font-size: 16px;
+}
+.searchlist-square-pic .little-icon, .searchlist-long-pic .little-icon {
+    display: block;
+    float: left;
+    padding: 0px 2px 0px 2px;
+    background-color: #f23030;
+    border-radius: 2px;
+    color: white;
+    font-size: 11px;
+    margin-right: 5px;
+    margin-left: 0px;
+    margin-top: 4px;
+    height: 14px;
+    line-height: 15px;
+    overflow: hidden;
+}
+.searchlist-square-pic .evaluate-self, .searchlist-long-pic .evaluate-self {
+    height: 14px;
+    line-height: 14px;
+    margin-top: 5px;
+    color: #848689;
+    font-size: 0;
+}
+.searchlist-square-pic .evaluate-self .evaluate, .searchlist-long-pic .evaluate-self .evaluate {
+    display: inline-block;
+    margin-left: 0px;
+    font-size: 12px;
+}
+a:visited {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+a, div, header, span {
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+a {
+    text-decoration: none;
+    color: #fff;
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+}
