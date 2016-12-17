@@ -78,8 +78,10 @@
                 $http.post("/admin/goods/addGoods", data)
                     .then(function (response) {
                         if (response.status == 200 && response.data.header.code == 0) {
-                            alert("商品保存成功");
-                            location.reload()
+                            $toast.showActionToast("商品保存成功");
+                            setTimeout(function() {
+                                location.reload();
+                            }, 300);
                         } else {
                             $toast.showActionToast(response.data.header.message);
                         }

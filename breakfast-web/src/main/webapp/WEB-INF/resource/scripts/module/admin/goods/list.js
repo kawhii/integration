@@ -67,8 +67,7 @@
                 //下架
                 $scope.updateStatus = function (id, status) {
                     $request.get("/admin/goods/updateState?state=" + status + "&goodsId=" + id,{}, function (d) {
-                        console.info(123);
-                        $toast.showActionToast((status == 0 ? '下' : '上') + '架成功');
+                        $toast.showActionToast((status == 2 ? '下' : '上') + '架成功');
                         $scope.search();
                     });
                 };
@@ -130,7 +129,7 @@
                        } else {
                            $toast.showActionToast("修改失败");
                        }
-                    });
+                    }, {mask:false});
                 };
 
             }]);
