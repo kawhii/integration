@@ -39,8 +39,16 @@
                         toastr.remove(toastObj.toastId);
                     }
                 },
-                loading: function() {
-                    return $mdDialog.show({template:'<md-progress-circular style="align-self: center" md-mode="indeterminate"></md-progress-circular>'});
+                loading: function () {
+                    return $mdDialog.show(
+                            {
+                                clickOutsideToClose: false,
+                                escapeToClose : false,
+                                focusOnOpen : false,
+                                disableParentScroll : false,
+                                template: '<md-progress-circular style="align-self: center" md-mode="indeterminate"></md-progress-circular>'
+                            }
+                        );
                 }
             }
 
@@ -57,9 +65,9 @@
                     queue.splice(0, 1);
                     //取消遮罩层
                     if (queue.length == 0) {
-                        setTimeout(function() {
+                        setTimeout(function () {
                             $mdDialog.hide();
-                        },1);
+                        }, 1);
                     }
                 }
             }

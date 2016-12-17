@@ -51,10 +51,10 @@
     bottom: 0;
     left: 0;
 }
-.mui-flex, .mui-flex *, .mui-flex:after, .mui-flex:before {
+#s-decision-wrapper .mui-flex, .mui-flex *, .mui-flex:after, .mui-flex:before {
     box-sizing: border-box;
 }
-.mui-flex {
+#s-decision-wrapper .mui-flex {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -72,7 +72,7 @@
     font-size: 15px;
     color: #fff;
 }
-.mui-flex>.cell {
+#s-decision-wrapper .mui-flex>.cell {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -90,7 +90,7 @@
     color: #666;
     margin-bottom: .5em;
 }
-h1, h2, h3, h4, h5, h6 {
+#s-decision-wrapper h1, h2, h3, h4, h5, h6 {
     font-size: 100%;
     font-weight: 400;
 }
@@ -101,7 +101,7 @@ h1, h2, h3, h4, h5, h6 {
 #s-decision-wrapper .number .number-control {
     float: left;
 }
-.mui-number {
+#s-decision-wrapper .mui-number {
     display: inline-block;
     vertical-align: middle;
     border: 1px solid #b3b3b3;
@@ -113,17 +113,17 @@ h1, h2, h3, h4, h5, h6 {
     overflow: hidden;
 }
 
-.mui-number .decrease.disabled, .mui-number .increase.disabled {
+#s-decision-wrapper .mui-number .decrease.disabled, .mui-number .increase.disabled {
     color: #cfcfcf;
 }
 
-.mui-number .decrease.disabled, .mui-number .increase.disabled {
+#s-decision-wrapper .mui-number .decrease.disabled, .mui-number .increase.disabled {
     color: #cfcfcf;
 }
-.mui-number .decrease {
+#s-decision-wrapper .mui-number .decrease {
     border-right: 1px solid #b3b3b3;
 }
-.mui-number .decrease, .mui-number .increase {
+#s-decision-wrapper .mui-number .decrease, .mui-number .increase {
     font-style: normal;
     /*font-size: 18px;*/
     font-weight: 700;
@@ -137,7 +137,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #5f646e;
 }
 
-.mui-number .num {
+#s-decision-wrapper .mui-number .num {
     min-width: 55px;
     max-width: 70px;
     -webkit-box-sizing: border-box;
@@ -149,13 +149,13 @@ h1, h2, h3, h4, h5, h6 {
     color: #3d4245;
     height: 45px;
 }
-.mui-number .decrease, .mui-number .increase, .mui-number .num {
+#s-decision-wrapper .mui-number .decrease, .mui-number .increase, .mui-number .num {
     float: left;
     text-align: center;
 }
-.mui-number .decrease {
+#s-decision-wrapper .mui-number .decrease {
     border-right: 1px solid #b3b3b3;
 }
-.mui-number .increase {
+#s-decision-wrapper .mui-number .increase {
     border-left: 1px solid #b3b3b3;
 }

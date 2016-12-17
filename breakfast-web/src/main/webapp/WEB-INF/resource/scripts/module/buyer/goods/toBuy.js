@@ -8,7 +8,7 @@
 ;(function () {
     angular.module("BuyerApp", ["App"])
     // .controller("BuyCtrl", BuyCtrl)
-        .service("$goodsSheetShower", function ($mdDialog) {
+        .service("$goodsSheetShower", function ($mdDialog, $toast) {
 
             function show(goodsId, isCart) {
 
@@ -17,6 +17,7 @@
                     templateUrl: '/goods/detailToBuy/' + goodsId + "/" + (isCart ? 1 : 0),
                     parent: 'body',
                     openFrom: 'body',
+                    focusOnOpen : true,
                     clickOutsideToClose: true
                 })
                     .then(function (answer) {
@@ -39,7 +40,7 @@
                  * @param goodsId 商品id
                  */
                 cart: function (goodsId) {
-                    show(goodsId, true);
+                   show(goodsId, true);
                 },
                 //隐藏
                 destroy: function () {
@@ -83,9 +84,9 @@
                 $request.post("/cart/addGoods", {quantity: $scope.quantity, goodsId: goodsId},
                     function (data) {
                         //添加成功
-                        $goodsSheetShower.destroy();
+                       $goodsSheetShower.destroy();
                         $toast.showActionToast("添加成功");
-                    });
+                    }, {mask:false});
             }
         }
     }
