@@ -38,21 +38,6 @@
             pullData();
         };
 
-        //添加到购物车
-        $scope.addCart = function (id) {
-            console.info(id);
-            //获取商品id，获取数量，请求服务器，返回成功关闭
-            /*$request.post("/cart/addGoods", {quantity: 1, goodsId: id},
-                function (data) {
-                    //添加成功
-                    $toast.showActionToast("添加成功");
-                }, {mask: true});*/
-        };
-
-        $scope.goDetail = function(url) {
-            console.info(url);
-        };
-
         pullData();
     }
 

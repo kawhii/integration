@@ -27,11 +27,11 @@
                             <div class="price-auther-sam">
                                 <div class="product-book-author-big"></div>
                                 <div class="square-pic-list-price">
-                                    <span class="product-price1">¥ <span class="big-price">{{item.price| currency :'' : 2}}</span></span>
-                                    <#--<span class="little-icon">满减</span>-->
+                                    <span class="product-price1">¥<span class="big-price">{{item.price| currency :'' : 2}}</span></span>
+                                   <#-- <span class="little-icon">满减</span>-->
                                 </div>
                             </div>
-                            <#--<div class="evaluate-self"><span class="evaluate">81682条评价</span></div>-->
+                            <div class="evaluate-self"><span class="evaluate">已售 {{item.sales}}</span></div>
                         </div>
                     </a>
                 </li>

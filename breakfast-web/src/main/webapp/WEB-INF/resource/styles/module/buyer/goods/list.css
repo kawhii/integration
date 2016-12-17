@@ -151,3 +151,19 @@ a {
     background: transparent;
     -webkit-tap-highlight-color: transparent;
 }
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+body {
+    -webkit-text-size-adjust: 100%;
+    background: #fff;
+    min-width: 320px;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    font-family: PingFangSC-Regular,Helvetica,"Droid Sans",Arial,sans-serif;
+}
