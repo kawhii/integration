@@ -20,7 +20,7 @@
         <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR"/>
         <result column="PRICE" property="price" jdbcType="FLOAT"/>
         <result column="GOODS_TYPE" property="goodsType" jdbcType="INTEGER"/>
-        <result column="MAIN_IMG_ID" property="goodsType" jdbcType="INTEGER"/>
+        <result column="MAIN_IMG_ID" property="mainImgId" jdbcType="INTEGER"/>
         <result column="MAIN_IMG_PATH" property="mainImgPath" jdbcType="VARCHAR"/>
         <result column="NOTE" property="note" jdbcType="VARCHAR"/>
         <result column="USE_DATE" property="useDate" jdbcType="TIMESTAMP"/>

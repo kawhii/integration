@@ -77,8 +77,11 @@ public class ShopCartCtrl extends BaseCtrl {
             }
             //查询所有商品
             List<GoodsPojo> goodsPojoList = goodsService.listGoods(goodsRel.keySet().toArray(new Integer[]{}));
+            view.addObject("title", "购物车(" + goodsPojoList.size() + ")");
             //返回json数据
             view.addObject("data", MapBuilder.build().p("goods", goodsPojoList).p("goodsRel", goodsRel).toJson());
+        } else {
+            view.addObject("title", "购物车(0)");
         }
         return view;
     }
