@@ -1,5 +1,7 @@
 package com.carl.breakfast.web.service;
 
+import com.carl.breakfast.dao.pojo.cart.StopCart;
+
 import javax.security.auth.Subject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +29,12 @@ public interface IStopCartService {
      * @param quantity 数量
      */
     void addGoodsInCookie(HttpServletRequest request, HttpServletResponse response, int goodsId, int quantity);
+
+    /**
+     * 获取当前用户的购物车
+     * @param request
+     */
+    StopCart obtainCart(HttpServletRequest request);
 
     /**
      * 从购物车中移除商品数量

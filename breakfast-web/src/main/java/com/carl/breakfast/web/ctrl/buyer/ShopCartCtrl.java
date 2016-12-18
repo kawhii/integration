@@ -1,18 +1,26 @@
 package com.carl.breakfast.web.ctrl.buyer;
 
+import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.dao.pojo.cart.CartGoods;
-import com.carl.breakfast.web.service.StopCartService;
+import com.carl.breakfast.dao.pojo.cart.StopCart;
+import com.carl.breakfast.web.service.IGoodsService;
+import com.carl.breakfast.web.service.IStopCartService;
 import com.carl.framework.ui.ctrl.BaseCtrl;
+import com.carl.framework.util.MapBuilder;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 购物车控制类
@@ -27,11 +35,13 @@ import javax.validation.Valid;
 @Controller
 public class ShopCartCtrl extends BaseCtrl {
     @Autowired
-    private StopCartService stopCartService;
+    private IStopCartService stopCartService;
+    @Autowired
+    private IGoodsService goodsService;
 
     @Override
     protected String getModuleName() {
-        return "cart";
+        return "buyer/cart";
     }
 
     @RequestMapping(value = "/addGoods", method = RequestMethod.POST)
@@ -42,15 +52,34 @@ public class ShopCartCtrl extends BaseCtrl {
             , BindingResult result) {
 
         Subject subject = SecurityUtils.getSubject();
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return fail("非法输入");
         }
         //如果已经登陆了，添加到数据库，否则添加到cookie
-        if(subject.isAuthenticated()) {
-            //todo 数据库修改
-        } else {
-            stopCartService.addGoodsInCookie(request, response, goods.getGoodsId(), goods.getQuantity());
-        }
+//        if(subject.isAuthenticated()) {
+        //todo 数据库修改
+//        } else {
+        stopCartService.addGoodsInCookie(request, response, goods.getGoodsId(), goods.getQuantity());
+//        }
         return success();
+    }
+
+    @RequestMapping("/listGoods.html")
+    public ModelAndView listGoods(HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(freemarker("listGoods"));
+        StopCart cart = stopCartService.obtainCart(request);
+        if (cart != null) {
+            List<CartGoods> list = cart.getGoods();
+            //获取购物车下的数据映射
+            Map<Integer, Integer> goodsRel = new HashMap<>(list.size());
+            for (CartGoods goods : list) {
+                goodsRel.put(goods.getGoodsId(), goods.getQuantity());
+            }
+            //查询所有商品
+            List<GoodsPojo> goodsPojoList = goodsService.listGoods(goodsRel.keySet().toArray(new Integer[]{}));
+            //返回json数据
+            view.addObject("data", MapBuilder.build().p("goods", goodsPojoList).p("goodsRel", goodsRel).toJson());
+        }
+        return view;
     }
 }

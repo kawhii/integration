@@ -3,6 +3,7 @@ package com.carl.breakfast.web.service;
 import com.carl.breakfast.dao.cart.IStopCartCookieDao;
 import com.carl.breakfast.dao.pojo.cart.CartGoods;
 import com.carl.breakfast.dao.pojo.cart.CookieStopCart;
+import com.carl.breakfast.dao.pojo.cart.StopCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,11 @@ public class StopCartService implements IStopCartService {
         cookieStopCart.addGoods(new CartGoods(goodsId, quantity));
         //保存到购物车中
         stopCartCookieDao.saveStopCart(response, cookieStopCart);
+    }
+
+    @Override
+    public StopCart obtainCart(HttpServletRequest request) {
+        return stopCartCookieDao.getStopCart(request);
     }
 
     @Override

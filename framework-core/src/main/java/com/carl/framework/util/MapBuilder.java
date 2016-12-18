@@ -1,5 +1,7 @@
 package com.carl.framework.util;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.HashMap;
 
 /**
@@ -21,5 +23,9 @@ public class MapBuilder<K, V> extends HashMap<K, V> {
     public MapBuilder<K, V> p(K key, V val) {
         super.put(key, val);
         return this;
+    }
+
+    public String toJson() {
+        return JSON.toJSONString(this);
     }
 }
