@@ -7,7 +7,6 @@
     <title>${data.goods.title!''}</title>
 <#include "freemarker/base/base.ftl">
     <script type="text/javascript" src="/js/~/admin/index.js"></script>
-    <link rel="stylesheet" href="/styles/common/bootstrap.min.css"/>
 </head>
 <body>
 <style type="text/css">

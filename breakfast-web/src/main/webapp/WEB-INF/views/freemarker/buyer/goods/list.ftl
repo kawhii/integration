@@ -1,14 +1,15 @@
 <script type="text/javascript" src="/js/~/buyer/goods/list.js"></script>
 <link rel="stylesheet" , href="/styles/~/buyer/goods/list.css"/>
+<#include "freemarker/base/nav.ftl">
 <div ng-app="BuyerGoods" ng-controller="BuyerGoodsListCtrl" id="ID_BuyerGoods" ng-cloak
      style="background-color: honeydew">
     <div flex-gt-sm="50" flex>
 
-        <md-toolbar layout="row" class="md-hue-3" style="background-color: coral">
+       <#-- <md-toolbar layout="row" class="md-hue-3" style="background-color: coral">
             <div class="md-toolbar-tools">
                 <span>最新商品</span>
             </div>
-        </md-toolbar>
+        </md-toolbar>-->
 
         <md-content>
             <ul class="searchlist-long-pic">
