@@ -7,6 +7,8 @@ import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.breakfast.web.service.IStopCartService;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ import java.util.Map;
 @RequestMapping("/cart")
 @Controller
 public class ShopCartCtrl extends BaseCtrl {
+    protected static final Log logger = LogFactory.getLog(ShopCartCtrl.class);
     @Autowired
     private IStopCartService stopCartService;
     @Autowired
@@ -64,6 +67,40 @@ public class ShopCartCtrl extends BaseCtrl {
         return success();
     }
 
+    @RequestMapping(value = "/operateGoods", method = RequestMethod.POST)
+    @ResponseBody
+    public Object operateGoods(
+            HttpServletRequest request, HttpServletResponse response,
+            @RequestBody @Valid CartGoodsOpt cartGoodsOpt,
+            BindingResult result) {
+
+        Subject subject = SecurityUtils.getSubject();
+        if (result.hasErrors()) {
+            return fail("非法输入");
+        }
+
+        try {
+            switch (cartGoodsOpt.getType()) {
+                //加
+                case 1:
+                    stopCartService.addGoodsInCookie(request, response, cartGoodsOpt.getGoods().getGoodsId(), cartGoodsOpt.getGoods().getQuantity());
+                    break;
+                //减
+                case 2:
+                    stopCartService.removeGoodsInCookie(request, response, cartGoodsOpt.getGoods().getGoodsId(), cartGoodsOpt.getGoods().getQuantity());
+                    break;
+                //删除
+                case 3:
+                    stopCartService.removeGoodsInCookie(request, response, cartGoodsOpt.getGoods().getGoodsId());
+                    break;
+            }
+        } catch (Exception ex) {
+            logger.error(ex);
+            return fail(ex.getMessage());
+        }
+        return success();
+    }
+
     @RequestMapping("/listGoods.html")
     public ModelAndView listGoods(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(freemarker("listGoods"));
@@ -77,9 +114,11 @@ public class ShopCartCtrl extends BaseCtrl {
             }
             //查询所有商品
             List<GoodsPojo> goodsPojoList = goodsService.listGoods(goodsRel.keySet().toArray(new Integer[]{}));
-            view.addObject("title", "购物车(" + goodsPojoList.size() + ")");
+//            view.addObject("title", "购物车(" + (goodsPojoList == null ? 0 : goodsPojoList.size()) + ")");
+            view.addObject("title", "购物车");
             //返回json数据
-            view.addObject("data", MapBuilder.build().p("goods", goodsPojoList).p("goodsRel", goodsRel).toJson());
+            if(goodsPojoList != null)
+                view.addObject("data", MapBuilder.build().p("goods", goodsPojoList).p("goodsRel", goodsRel).toJson());
         } else {
             view.addObject("title", "购物车(0)");
         }

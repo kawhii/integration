@@ -14,7 +14,7 @@
         </div>
         <div class="cell fixed action" ng-click="createOrder()">
             <div class="mui-flex align-center">
-                <span title="提交订单">提交订单</span>
+                <span title="提交订单">${submitTitle!'提交订单'}</span>
             </div>
         </div>
     </div>

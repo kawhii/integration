@@ -22,3 +22,10 @@
     top:50%;
     margin:-100px 0 0 -150px
 }
+
+.list .edit {
+    text-align: right;
+    margin-right: 20px;
+    font-size: 16px;
+    padding-top: 10px;
+}
