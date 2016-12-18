@@ -122,6 +122,7 @@ public class ShopCartCtrl extends BaseCtrl {
         } else {
             view.addObject("title", "购物车(0)");
         }
+        view.addObject("submitTitle", "我要结算");
         return view;
     }
 }

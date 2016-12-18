@@ -10,10 +10,13 @@
 
             $scope.buyState = {};
 
+            $scope.submitGoods = [];
+
             //计算价钱
             function priceReload() {
                 $scope.priceTotal = 0;
                 $scope.goodsTotal = 0;
+                $scope.submitGoods = [];
                 //若有勾选了，才计算
                 if(!$scope.items.goods)
                     return;
@@ -21,6 +24,7 @@
                     if ($scope.buyState[item.id] === true) {
                         $scope.goodsTotal++;
                         $scope.priceTotal += (item.price * $scope.items.goodsRel[item.id]);
+                        $scope.submitGoods.push({id:item.id, quantity : $scope.items.goodsRel[item.id]});
                     }
                 });
             }
@@ -93,6 +97,8 @@
                     return;
                 }
                 //TODO 提交订单
+                console.info($scope.submitGoods);
+                document.getElementById("ID_form").submit();
             }
         });
 }());

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,7 +81,7 @@ public class OrderCtrl extends BaseCtrl {
      * @return
      */
     @RequestMapping(value = "/cartConfirmOrder.html", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-    public ModelAndView cartConfirmOrder() {
+    public ModelAndView cartConfirmOrder(@RequestParam("goods") String goods[]) {
         //TODO 接收商品id（多个）
         //1. 接收商品id（多个）
         //2. 查询具体商品数据
@@ -88,7 +89,26 @@ public class OrderCtrl extends BaseCtrl {
         //4. 地址选择
         //5. 价格显示
         //6. 提交订单（商品id，数量）
-        return null;
+
+        //解析提交的参数，分好分割id以及数量
+        Map<Integer, Integer> goodsRel = new HashMap<>(goods.length);
+        for(String str : goods) {
+            String res[] = str.split(";");
+            goodsRel.put(Integer.parseInt(res[0]), Integer.parseInt(res[1]));
+        }
+
+        Map<String, Object> data = MapBuilder.build();
+        List<GoodsPojo> goodsPojoList = goodsService.listGoods(goodsRel.keySet().toArray(new Integer[]{}));
+        if (goodsPojoList != null && goodsPojoList.size() > 0) {
+            data.put("goodsItems", goodsPojoList);
+            data.put("quantity", goodsRel);
+            //立即提交
+            data.put("immediately", false);
+        }
+
+        ModelAndView view = new ModelAndView(freemarker("orderConfirm"));
+        view.addObject("data", JSON.toJSONString(data));
+        return view;
     }
 
     /**

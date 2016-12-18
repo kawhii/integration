@@ -2,6 +2,8 @@
 <div ng-app="OrderGoodsList" ng-controller="ListCtrl" ng-cloak>
 
     <div class="panel panel-default order-order" ng-repeat="item in items.goodsItems">
+        <md-subheader  ng-if="$index==0" class="md-no-sticky"></md-subheader>
+        <p ng-if="$index==0"></p>
         <!-- Default panel contents -->
         <div class="panel-heading">{{item.title}}</div>
         <div class="order-item">
@@ -32,9 +34,9 @@
             <div class="buy-single-row mui-flex align-center">
                 <div class="title cell fixed">购买数量</div>
                 <div class="content cell">
-                    <a class="btn minus {{items.quantity[item.id]==1?'off':''}}" ng-click="minus(item.id)"></a>
-                    <input class="amount" type="number" ng-model="items.quantity[item.id]" ng-change="onchangeAmount(item)" pattern="[0-9]*">
-                    <a class="btn plus" ng-click="plus(item.id)"></a>
+                    <a ng-if="items.immediately" class="btn minus {{items.quantity[item.id]==1?'off':''}}" ng-click="minus(item.id)"></a>
+                    <input class="amount" ng-readonly="!items.immediately" type="number" ng-model="items.quantity[item.id]" ng-change="onchangeAmount(item)" pattern="[0-9]*">
+                    <a ng-if="items.immediately" class="btn plus" ng-click="plus(item.id)"></a>
                 </div>
             </div>
             <div class="seperator-wrap">

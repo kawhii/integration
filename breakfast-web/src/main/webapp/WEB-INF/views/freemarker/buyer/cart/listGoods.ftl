@@ -69,6 +69,12 @@
             </div>
         </md-list>
 
+        <div>
+            <form method="post" action="/order/cartConfirmOrder.html" id="ID_form">
+                <input name="goods" type="hidden" ng-repeat="item in submitGoods" value="{{item.id}};{{item.quantity}}"/>
+            </form>
+        </div>
+
         <div ng-if="items && items.goods.length>0">
             <#include "freemarker/order/orderSubmitButton.ftl"/>
         </div>
