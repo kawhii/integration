@@ -9,6 +9,7 @@
 </head>
 <body>
 <#include "freemarker/base/nav.ftl">
+<script type="text/javascript" src="/js/~/admin/index.js"></script>
 <script>
     var stopCart = ${data!''};
 </script>
@@ -28,7 +29,7 @@
                     </p>
                 </div>
 
-                <md-checkbox class="md-primary"></md-checkbox>
+                <md-checkbox class="md-primary" ng-model="buyState[item.id]"></md-checkbox>
             </md-list-item>
         </md-list>
 

@@ -3,12 +3,12 @@
         <div class="cell realPay">
             <div class="realPay-wrapper">
                 <span>共</span>
-                <span class="count">{{goodsTotal}}</span>
+                <span class="count">{{goodsTotal?goodsTotal:0}}</span>
                 <span>件，</span>
                 <span></span>
                 <span>总金额</span>
                 <span class="price">
-                    <span class="main-price">{{priceTotal| currency : '￥' : 2}}</span>
+                    <span class="main-price">{{priceTotal?priceTotal:0| currency : '￥' : 2}}</span>
                 </span>
             </div>
         </div>
