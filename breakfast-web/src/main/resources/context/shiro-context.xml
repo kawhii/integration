@@ -38,6 +38,7 @@
                 # some example chain definitions:
                 #/admin/** = authc, roles[admin]
                 /u/test = rememberRequest
+                /order/** = rememberRequest
                 /u/login = authc
                 /u/logout = logout
                 /docs/** = authc, perms[document:read]
