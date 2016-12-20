@@ -73,7 +73,13 @@
                 <property name="hashAlgorithmName" value="MD5"/>
             </bean>
         </property>
+        <property name="authenticationCachingEnabled" value="true"></property>
+        <property name="cachingEnabled" value="true"></property>
+        <property name="cacheManager" ref="shiroCacheManager"></property>
     </bean>
+
+    <!--校验缓存-->
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
 
     <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->
     <!-- the lifecycleBeanProcessor has run: -->
