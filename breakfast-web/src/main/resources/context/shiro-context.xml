@@ -31,6 +31,10 @@
                         <property name="redirectUrl" value="${url.index}"></property>
                     </bean>
                 </entry>
+                <entry key="authc">
+                    <!--代替原有的校验模式，为了把用户数据设到session-->
+                    <bean class="com.carl.breakfast.web.filter.UserInfoAuthenticationFilter"></bean>
+                </entry>
             </map>
         </property>
         <property name="filterChainDefinitions">
