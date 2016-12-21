@@ -28,6 +28,7 @@
                 <md-checkbox name="rememberMe" aria-label="Checkbox 1">
                     记住我
                 </md-checkbox>
+            <#if shiroLoginFailure??><span style="color: red">用户名或密码错误</span></#if>
             </md-input-container>
             <md-input-container md-no-float class="md-block">
                 <md-button class="md-raised md-primary" type="submit" ng-click="login()">登陆</md-button>
