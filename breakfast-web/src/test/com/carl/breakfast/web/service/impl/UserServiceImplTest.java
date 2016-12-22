@@ -22,5 +22,8 @@ public class UserServiceImplTest extends BaseTest {
         UserInfo userInfo = userService.findByUsername("carl");
         Assert.assertNotNull(userInfo);
         System.out.println(userInfo.getName() + ",salt:" + userInfo.getPasswordSalt());
+
+        UserInfo nullUser = userService.findByUsername("Abc-carl1");
+        Assert.assertNull(nullUser);
     }
 }
