@@ -3,9 +3,11 @@ package com.carl.breakfast.web.ctrl.buyer;
 import com.alibaba.fastjson.JSON;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
+import com.carl.breakfast.dao.sys.pojo.UserInfo;
 import com.carl.breakfast.web.bean.OrderCreateBean;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.breakfast.web.service.IOrderService;
+import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
 import org.apache.commons.logging.Log;
@@ -47,8 +49,9 @@ public class OrderCtrl extends BaseCtrl {
 
     /**
      * 立即提交
-     *
+     * <p>
      * sec ok
+     *
      * @return
      */
     @RequestMapping(value = "/immConfirmOrder.html", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
@@ -92,7 +95,7 @@ public class OrderCtrl extends BaseCtrl {
 
         //解析提交的参数，分好分割id以及数量
         Map<Integer, Integer> goodsRel = new HashMap<>(goods.length);
-        for(String str : goods) {
+        for (String str : goods) {
             String res[] = str.split(";");
             goodsRel.put(Integer.parseInt(res[0]), Integer.parseInt(res[1]));
         }
@@ -124,8 +127,9 @@ public class OrderCtrl extends BaseCtrl {
         for (OrderGoodsParam orderParam : params.getGoods()) {
             goodsMap.put(orderParam.getGoodsId(), orderParam);
         }
+
         //获取当前用户信息
-        String account = (String)SecurityUtils.getSubject().getPrincipal();
+        UserInfo userInfo = UserUtils.currUser();
 
         //获取具体产品信息
         Integer[] ids = goodsMap.keySet().toArray(new Integer[]{});
@@ -133,16 +137,16 @@ public class OrderCtrl extends BaseCtrl {
 
         OrderCreateBean orderCreate = new OrderCreateBean();
         //订单基础信息
-        orderCreate.setContactName(account)
-                .setContactNumber(account)
-                .setUsername(account)
+        orderCreate.setContactName(userInfo.getName())
+                .setContactNumber(userInfo.getUsername())
+                .setUsername(userInfo.getUsername())
                 .setAddress(params.getAddress().getAddressDetail());
 
         //购买商品条目
         List<OrderGoodsItem> items = new ArrayList<>(goodsPojoList.size());
 
         //循环创建订单产品
-        for(GoodsPojo goodsPojo : goodsPojoList) {
+        for (GoodsPojo goodsPojo : goodsPojoList) {
             OrderGoodsItem item = new OrderGoodsItem();
             item.setUnitPrice(goodsPojo.getPrice())
                     .setGoodsImgId(goodsPojo.getMainImgId())
