@@ -12,7 +12,6 @@ import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
