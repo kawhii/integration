@@ -38,4 +38,9 @@
         (id, username, contact_name, contact_number, price, address)
         values (#{id,jdbcType=VARCHAR}, #{username}, #{contactName}, #{contactNumber}, #{price},#{address})
     </insert>
+
+    <!--交易结果-->
+    <select id="exchangeSuccess" resultType="java.util.HashMap">
+      select price, create_time, '商品数量' as c from <include refid="table_name"/>
+    </select>
 </mapper>

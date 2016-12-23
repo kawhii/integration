@@ -4,9 +4,13 @@ import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
 import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.framework.core.dao.BaseDaoImpl;
 import com.carl.framework.core.execption.BizException;
+import com.carl.framework.util.MapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 订单数据源实现
@@ -33,12 +37,17 @@ public class OrderDaoImpl extends BaseDaoImpl<OrderPojo> implements IOrderDao {
         }
 
         //设置订单id
-        for(OrderGoodsItem item : entity.getItems()) {
+        for (OrderGoodsItem item : entity.getItems()) {
             item.setOrderId(entity.getId());
         }
 
         //插入订单条目
         orderItemDao.insert(entity.getItems());
         return result;
+    }
+
+    @Override
+    public List<Map<String, Object>> exchangeSuccess(String startDate, String endDate) {
+        return getSessionTemplate().selectList(getStatement("exchangeSuccess"), MapBuilder.build().p("startDate", startDate).p("endDate", endDate));
     }
 }
