@@ -37,7 +37,7 @@ public class IniExportInfoExtractor implements ExportInfoExtractor {
         String column = ini.getSectionProperty("export", pre + "column");
         String header = ini.getSectionProperty("export", pre + "header");
         return new ExportRealInfo().setFileName(name)
-                .setColumnName(column.split(","))
-                .setHeaderName(header.split("."));
+                .setColumnName(column != null ? column.split(",") : null)
+                .setHeaderName(header != null ? header.split(".") : null);
     }
 }
