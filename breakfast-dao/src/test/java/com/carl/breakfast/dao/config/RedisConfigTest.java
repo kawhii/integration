@@ -10,6 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
+import java.util.Random;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -46,6 +48,31 @@ public class RedisConfigTest {
         assertNotNull(name);
 
         assertEquals("carl", name);
+    }
+
+    @Test
+    public void testSet() {
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+
+        int count = 0;
+        while (true) {
+            Random forDom = new Random();
+            Random witeDom = new Random();
+            count++;
+
+            int forCount = forDom.nextInt(1000) + 1;
+            System.out.println("正在执行次数：" + count + "," + forCount);
+            for (int i = 0, l = forCount; i < l; i++) {
+                valueOperations.set("k" + count + "-" + i, "v" + count + "-" + i);
+                try {
+                    int w = witeDom.nextInt(15) + 1;
+                    Thread.sleep(w);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
+        }
     }
 
 }
