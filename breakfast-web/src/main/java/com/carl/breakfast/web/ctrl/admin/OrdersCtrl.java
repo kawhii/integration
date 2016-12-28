@@ -5,6 +5,7 @@ import com.carl.framework.core.functional.WriterException;
 import com.carl.framework.core.pio.IniExportInfoExtractor;
 import com.carl.framework.core.pio.RequestExcelWriter;
 import com.carl.framework.ui.ctrl.BaseCtrl;
+import com.carl.framework.util.Excel;
 import com.carl.framework.util.MapBuilder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -43,11 +44,7 @@ public class OrdersCtrl extends BaseCtrl {
                 MapBuilder.<String, Object>build().p("name", "zhouqi").p("age", 3)
         );
         try {
-            //获取配置文件
-            IWriter writer = new RequestExcelWriter(data)
-                    //ini服务
-                    .setInfoExtractor(new IniExportInfoExtractor("classpath:export/orders.ini"));
-            writer.write(response.getOutputStream());
+            Excel.export2Response4Ini(data, "classpath:export/orders.ini", "exportVolume", response);
         } catch (WriterException e) {
             e.printStackTrace();
         } catch (Exception e) {
