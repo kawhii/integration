@@ -54,12 +54,12 @@ public class IniExportInfoExtractor implements ExportInfoExtractor {
 
     @Override
     public ExportRealInfo extract(String id) throws ExportRealInfoException {
-        String pre = StringUtil.isNull(id) ? id + "." : "";
+        String pre = !StringUtil.isNull(id) ? id + "." : "";
         String name = ini.getSectionProperty("export", pre + "fileName");
         String column = ini.getSectionProperty("export", pre + "column");
         String header = ini.getSectionProperty("export", pre + "header");
         return new ExportRealInfo().setFileName(name)
                 .setColumnName(column != null ? column.split(",") : null)
-                .setHeaderName(header != null ? header.split(".") : null);
+                .setHeaderName(header != null ? header.split(",") : null);
     }
 }
