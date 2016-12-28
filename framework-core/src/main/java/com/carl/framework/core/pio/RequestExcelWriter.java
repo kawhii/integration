@@ -91,12 +91,13 @@ public class RequestExcelWriter implements IWriter {
 
     private void check() throws Exception {
         if(this.getExcelExportor() == null) {
-            throw new WriterException("导出执行者为空");
+            this.setExcelExportor(new DefaultExcelExportor());
+//            throw new WriterException("导出执行者为空");
         }
 
-        if(this.getSelectionId() == null) {
+        /*if(this.getSelectionId() == null) {
             throw new WriterException("导出选项");
-        }
+        }*/
 
         if(getInfoExtractor() == null) {
             throw new WriterException("导出信息提取");

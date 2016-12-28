@@ -2,7 +2,11 @@ package com.carl.framework.core.pio;
 
 import com.carl.framework.util.StringUtil;
 import org.apache.shiro.config.Ini;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
@@ -28,6 +32,24 @@ public class IniExportInfoExtractor implements ExportInfoExtractor {
     public IniExportInfoExtractor(InputStream iniInputStream) {
         this.ini = new Ini();
         this.ini.load(iniInputStream);
+    }
+
+    public IniExportInfoExtractor(File file) {
+        try {
+            this.ini.load(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public IniExportInfoExtractor(String path) {
+        try {
+            //获取配置文件
+            File file = ResourceUtils.getFile(path);
+            this.ini.load(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
