@@ -32,7 +32,7 @@
             </md-input-container>
             <md-input-container md-no-float class="md-block">
                 <md-button class="md-raised md-primary" type="submit" ng-click="login()">登陆</md-button>
-                <md-button class="md-raised ">注册</md-button>
+                <md-button class="md-raised" onclick="javascript:window.location.href='/u/reg.html'">注册</md-button>
             </md-input-container>
         </md-content>
     </form>

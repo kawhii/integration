@@ -9,6 +9,7 @@
 
 <body>
 
+
 </body>
 <script type="text/javascript" src="/js/~/user/reg.js"></script>
 </html>
