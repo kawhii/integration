@@ -26,5 +26,21 @@
         <if test="isDefault != null and isDefault != ''">and isDefault = #{isDefault,jdbcType=TINYINT}</if>
     </sql>
 
+    <!--插入数据自动生成uuid-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.carl.breakfast.dao.pojo.user.SendAddress">
+        insert into
+        <include refid="table_name"/>
+        (id, CONTACTS_NAME, CONTACTS_PHONE, IS_DEFAULT, USERNAME, DETAIL)
+        values (#{id}, #{contactsName}, #{contactsPhone}, #{isDefault,jdbcType=TINYINT}, #{username},#{detail})
+    </insert>
 
+    <!-- 分页查询 -->
+    <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from
+        <include refid="table_name"/>
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+        order by is_default desc limit #{pageFirst}, #{pageSize}
+    </select>
 </mapper>
