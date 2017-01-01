@@ -164,4 +164,17 @@ public class OrderCtrl extends BaseCtrl {
         //todo 返回值，地址选择
         return null;
     }
+
+    @RequestMapping(value = "/myOrders.html", method = RequestMethod.GET)
+    public String myOrders() {
+        return freemarker("myOrders");
+    }
+
+    @RequestMapping(value = "/myOrders.json", method = RequestMethod.GET)
+    @ResponseBody
+    public Object fetchOrders( @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                               @RequestParam(value = "pageSize", required = false, defaultValue = "15") int pageSize) {
+        //todo 拉取当前用户的订单数据
+        return null;
+    }
 }
