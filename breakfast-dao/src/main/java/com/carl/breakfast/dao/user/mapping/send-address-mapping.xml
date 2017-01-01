@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.user.SendAddressDaoImpl">
+    <!--表名明-->
+    <sql id="table_name">
+        mall_address
+    </sql>
+
+
+
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.pojo.user.SendAddress">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="CONTACTS_NAME" property="contactsName" jdbcType="VARCHAR"/>
+        <result column="CONTACTS_PHONE" property="contactsPhone" jdbcType="VARCHAR"/>
+        <result column="IS_DEFAULT" property="isDefault" jdbcType="TINYINT"/>
+        <result column="USERNAME" property="username" jdbcType="VARCHAR"/>
+        <result column="DETAIL" property="detail" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 根据搜索条件获取数据 -->
+    <sql id="condition_sql">
+        <if test="id != null">and id = #{id,jdbcType=INTEGER}</if>
+        <if test="username != null and username != ''">and username = #{username,jdbcType=VARCHAR}</if>
+        <if test="isDefault != null and isDefault != ''">and isDefault = #{isDefault,jdbcType=TINYINT}</if>
+    </sql>
+
+
+</mapper>
