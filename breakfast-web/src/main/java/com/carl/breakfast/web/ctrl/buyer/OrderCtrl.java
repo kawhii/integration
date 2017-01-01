@@ -166,8 +166,10 @@ public class OrderCtrl extends BaseCtrl {
     }
 
     @RequestMapping(value = "/myOrders.html", method = RequestMethod.GET)
-    public String myOrders() {
-        return freemarker("myOrders");
+    public ModelAndView myOrders() {
+        ModelAndView view = new ModelAndView(freemarker("myOrders"));
+        view.addObject("title", "订单管理");
+        return view;
     }
 
     @RequestMapping(value = "/myOrders.json", method = RequestMethod.GET)
