@@ -13,7 +13,7 @@
 <div class="orders order-manage">
     <div class="orders-nav">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#">所有订单</a></li>
+            <li role="presentation" class="active"><a href="#">全部</a></li>
             <li role="presentation"><a href="#">待付款</a></li>
             <li role="presentation"><a href="#">待发货</a></li>
             <li role="presentation"><a href="#">待收货</a></li>
