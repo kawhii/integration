@@ -1,5 +1,6 @@
-package com.carl.breakfast.dao.config;
+package com.carl.breakfast.dao.config.jms;
 
+import com.carl.breakfast.dao.config.BaseConfig;
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

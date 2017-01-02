@@ -1,5 +1,6 @@
-package com.carl.breakfast.dao.config;
+package com.carl.breakfast.dao.config.redis;
 
+import com.carl.breakfast.dao.config.BaseConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

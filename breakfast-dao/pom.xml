@@ -22,8 +22,8 @@
         <!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-all -->
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-all</artifactId>
-            <version>5.14.2</version>
+            <artifactId>activemq-core</artifactId>
+            <version>5.1.0</version>
         </dependency>
         <dependency>
             <groupId>javax.jms</groupId>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
-            <version>4.2.9.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <!--jms end-->
 
