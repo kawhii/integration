@@ -9,6 +9,9 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.jms.ConnectionFactory;
+import javax.jms.Message;
+
 import static org.junit.Assert.*;
 
 /**
@@ -19,19 +22,28 @@ import static org.junit.Assert.*;
 public class JmsConfigTest {
     @Autowired
     private JmsTemplate jmsTemplate;
+    @Autowired
+    private ConnectionFactory connectionFactory;
+
     @Test
     public void jmsTemplate() throws Exception {
         assertNotNull(jmsTemplate);
+        String text = "msg";
         jmsTemplate.send(session -> {
             ActiveMQTextMessage message = new ActiveMQTextMessage();
-            message.setText("testMsg2");
+            message.setText(text);
             return message;
         });
+        Message msg = jmsTemplate.receive();
+        assertTrue(msg instanceof ActiveMQTextMessage);
+        String res = ((ActiveMQTextMessage)msg).getText();
+        System.out.println(res);
+        assertEquals(text, res);
+
     }
 
     @Test
     public void connectionFactory() throws Exception {
-
+        assertNotNull(connectionFactory);
     }
-
 }
