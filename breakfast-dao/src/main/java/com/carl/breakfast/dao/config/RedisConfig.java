@@ -22,15 +22,7 @@ import redis.clients.jedis.JedisShardInfo;
 @PropertySources({
         @PropertySource("classpath:redis.properties")
 })
-public class RedisConfig {
-
-    /*使用这个bean才能解析出${}语法*/
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
-
-
+public class RedisConfig extends BaseConfig {
     @Bean
     public RedisConnectionFactory jedisConnectionFactory(@Value("${host}") String host, @Value("${port}") int port) {
         JedisShardInfo shardInfo = new JedisShardInfo(host, port);

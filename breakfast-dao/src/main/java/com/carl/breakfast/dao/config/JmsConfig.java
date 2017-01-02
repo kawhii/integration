@@ -1,7 +1,14 @@
 package com.carl.breakfast.dao.config;
 
+import org.apache.activemq.spring.ActiveMQConnectionFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.core.JmsTemplate;
+
+import javax.jms.ConnectionFactory;
 
 /**
  * jms
@@ -14,5 +21,28 @@ import org.springframework.jms.annotation.EnableJms;
  */
 @Configuration
 @EnableJms
-public class JmsConfig {
+@PropertySource("classpath:jms.properties")
+public class JmsConfig extends BaseConfig {
+    @Value("${jms.brokerUrl}")
+    private String brokerUrl;
+    @Value("${jms.destinationName}")
+    private String destinationName;
+    @Value("${jms.sessionTransacted}")
+    private Boolean sessionTransacted;
+
+    @Bean
+    public JmsTemplate jmsTemplate() {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setConnectionFactory(connectionFactory());
+        jmsTemplate.setSessionTransacted(sessionTransacted);
+        jmsTemplate.setDefaultDestinationName(destinationName);
+        return jmsTemplate;
+    }
+
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
+        connectionFactory.setBrokerURL(brokerUrl);
+        return connectionFactory;
+    }
 }

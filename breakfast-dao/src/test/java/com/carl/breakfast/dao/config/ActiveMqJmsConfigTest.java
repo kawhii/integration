@@ -44,7 +44,7 @@ public class ActiveMqJmsConfigTest {
                 connection.start();
 
                 // Create a Session
-                Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+                Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
 
                 // Create the destination (Topic or Queue)
                 Destination destination = session.createQueue("TEST.FOO");
