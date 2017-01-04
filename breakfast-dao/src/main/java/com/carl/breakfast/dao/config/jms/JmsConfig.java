@@ -39,6 +39,11 @@ public class JmsConfig extends BaseConfig {
     @Value("${jms.deliveryPersistent}")
     private Boolean deliveryPersistent;
 
+    @Value("${jms.username}")
+    private String username;
+    @Value("${jms.password}")
+    private String password;
+
     @Bean
     public JmsTemplate jmsTemplate() {
         JmsTemplate jmsTemplate = new JmsTemplate();
@@ -61,6 +66,8 @@ public class JmsConfig extends BaseConfig {
     public ConnectionFactory connectionFactory() {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(brokerUrl);
+        connectionFactory.setUserName(username);
+        connectionFactory.setPassword(password);
         return connectionFactory;
     }
 }
