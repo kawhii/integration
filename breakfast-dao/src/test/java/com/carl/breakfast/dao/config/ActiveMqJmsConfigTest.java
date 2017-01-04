@@ -20,6 +20,18 @@ public class ActiveMqJmsConfigTest {
     }
 
     @Test
+    public void topic() throws InterruptedException {
+        Thread t = thread(new HelloWorldTopic(), false);
+        t.join();
+    }
+
+    @Test
+    public void subscriber() throws InterruptedException {
+        Thread t = thread(new HelloWorldSubscriber(), false);
+        t.join();
+    }
+
+    @Test
     public void consumer() throws InterruptedException {
         Thread t = thread(new HelloWorldConsumer(), false);
         t.join();
@@ -44,14 +56,54 @@ public class ActiveMqJmsConfigTest {
                 connection.start();
 
                 // Create a Session
-                Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+                Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
                 // Create the destination (Topic or Queue)
                 Destination destination = session.createQueue("TEST.FOO");
 
                 // Create a MessageProducer from the Session to the Topic or Queue
                 MessageProducer producer = session.createProducer(destination);
-                producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+                producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+
+                // Create a messages
+                String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
+                TextMessage message = session.createTextMessage(text);
+
+                // Tell the producer to send the message
+                System.out.println("Sent message: " + message.hashCode() + " : " + Thread.currentThread().getName());
+                producer.send(message);
+
+//                session.commit();
+                // Clean up
+                session.close();
+                connection.close();
+            } catch (Exception e) {
+                System.out.println("Caught: " + e);
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public static class HelloWorldTopic implements Runnable {
+        public void run() {
+            try {
+
+                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(/*"vm://localhost"*/);
+
+                // Create a Connection
+                Connection connection = connectionFactory.createConnection();
+                connection.start();
+
+                // Create a Session
+                Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+
+                // Create the destination (Topic or Queue)
+                Destination destination = session.createTopic("TEST.FOO.topic3");
+
+                // Create a MessageProducer from the Session to the Topic or Queue
+                MessageProducer producer = session.createProducer(destination);
+                producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
                 // Create a messages
                 String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
@@ -62,6 +114,55 @@ public class ActiveMqJmsConfigTest {
                 producer.send(message);
 
                 session.commit();
+                // Clean up
+                session.close();
+                connection.close();
+            } catch (Exception e) {
+                System.out.println("Caught: " + e);
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public static class HelloWorldSubscriber implements Runnable {
+        public void run() {
+            try {
+
+                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(/*"vm://localhost"*/);
+                connectionFactory.setClientID("abc");
+                // Create a Connection
+                Connection connection = connectionFactory.createConnection();
+                connection.start();
+
+                // Create a Session
+                Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+                // Create the destination (Topic or Queue)
+                Topic destination = session.createTopic("TEST.FOO.topic3");
+                // Create a MessageProducer from the Session to the Topic or Queue
+                TopicSubscriber subscriber = session.createDurableSubscriber(destination,"carl");
+
+                subscriber.setMessageListener((message) -> {
+                    if (message instanceof TextMessage) {
+                        TextMessage textMessage = (TextMessage) message;
+                        String text = null;
+                        try {
+                            text = textMessage.getText();
+                        } catch (JMSException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println("Received: " + text);
+                    } else {
+                        System.out.println("Received: " + message);
+                    }
+                });
+
+                // Wait for a message
+//                Message message = consumer.receive(1000);
+
+                Thread.sleep(20000);
+
                 // Clean up
                 session.close();
                 connection.close();
