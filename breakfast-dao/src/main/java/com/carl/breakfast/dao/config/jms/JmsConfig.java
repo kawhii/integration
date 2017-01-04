@@ -30,13 +30,30 @@ public class JmsConfig extends BaseConfig {
     private String destinationName;
     @Value("${jms.sessionTransacted}")
     private Boolean sessionTransacted;
+    @Value("${jms.pubSubDomain}")
+    private Boolean pubSubDomain;
+    @Value("${jms.pubSubNoLocal}")
+    private Boolean pubSubNoLocal;
+    @Value("${jms.sessionAcknowledgeMode}")
+    private Integer sessionAcknowledgeMode;
+    @Value("${jms.deliveryPersistent}")
+    private Boolean deliveryPersistent;
 
     @Bean
     public JmsTemplate jmsTemplate() {
         JmsTemplate jmsTemplate = new JmsTemplate();
+        //连接工厂
         jmsTemplate.setConnectionFactory(connectionFactory());
+        //是否事务
         jmsTemplate.setSessionTransacted(sessionTransacted);
+        //目标名称
         jmsTemplate.setDefaultDestinationName(destinationName);
+        //是否发布还是点对点
+        jmsTemplate.setPubSubDomain(pubSubDomain);
+        //
+        jmsTemplate.setPubSubNoLocal(pubSubNoLocal);
+        jmsTemplate.setSessionAcknowledgeMode(sessionAcknowledgeMode);
+        jmsTemplate.setDeliveryPersistent(deliveryPersistent);
         return jmsTemplate;
     }
 
