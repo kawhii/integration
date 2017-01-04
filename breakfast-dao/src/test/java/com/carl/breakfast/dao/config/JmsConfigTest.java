@@ -43,6 +43,13 @@ public class JmsConfigTest {
     }
 
     @Test
+    public void received() throws Exception {
+        Message message = jmsTemplate.receive();
+        System.out.println(message);
+
+    }
+
+    @Test
     public void connectionFactory() throws Exception {
         assertNotNull(connectionFactory);
     }
