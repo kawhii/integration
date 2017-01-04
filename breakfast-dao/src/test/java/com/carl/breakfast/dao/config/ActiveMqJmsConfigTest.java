@@ -61,6 +61,7 @@ public class ActiveMqJmsConfigTest {
                 System.out.println("Sent message: " + message.hashCode() + " : " + Thread.currentThread().getName());
                 producer.send(message);
 
+                session.commit();
                 // Clean up
                 session.close();
                 connection.close();
