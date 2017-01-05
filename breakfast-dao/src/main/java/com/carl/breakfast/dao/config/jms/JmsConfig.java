@@ -2,6 +2,8 @@ package com.carl.breakfast.dao.config.jms;
 
 import com.carl.breakfast.dao.config.BaseConfig;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.broker.BrokerService;
+import org.apache.activemq.store.memory.MemoryPersistenceAdapter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,7 @@ import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsTemplate;
 
 import javax.jms.ConnectionFactory;
+import java.io.IOException;
 
 /**
  * jms
@@ -69,5 +72,15 @@ public class JmsConfig extends BaseConfig {
         connectionFactory.setUserName(username);
         connectionFactory.setPassword(password);
         return connectionFactory;
+    }
+
+    @Bean
+    public BrokerService brokerService() throws Exception {
+        BrokerService broker = new BrokerService();
+        broker.addConnector(brokerUrl);
+        broker.setBrokerName("brokerService");
+        broker.setPersistent(false);
+        broker.setPersistenceAdapter(new MemoryPersistenceAdapter() );
+        return broker;
     }
 }
