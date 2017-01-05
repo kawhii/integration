@@ -1,6 +1,7 @@
 package com.carl.breakfast.dao.config;
 
 import com.carl.breakfast.dao.config.jms.JmsConfig;
+import org.apache.activemq.broker.BrokerFactory;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.command.ActiveMQTextMessage;
 import org.junit.Test;
