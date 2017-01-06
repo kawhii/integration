@@ -76,11 +76,12 @@ public class JmsConfig extends BaseConfig {
 
     @Bean
     public BrokerService brokerService() throws Exception {
-        BrokerService broker = new BrokerService();
+        /*BrokerService broker = new BrokerService();
         broker.addConnector(brokerUrl);
         broker.setBrokerName("brokerService");
         broker.setPersistent(false);
         broker.setPersistenceAdapter(new MemoryPersistenceAdapter() );
-        return broker;
+        return broker;*/
+        return null;
     }
 }
