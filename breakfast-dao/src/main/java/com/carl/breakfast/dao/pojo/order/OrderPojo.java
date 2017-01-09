@@ -59,6 +59,11 @@ public class OrderPojo extends BaseEntity {
     //ADD_CODE2
     private String addCode2;
 
+    //ADD_NAME1
+    private String addName1;
+    //ADD_NAME2
+    private String addName2;
+
     //IS_IMPATIENT
     private boolean isImpatient;
 
@@ -276,6 +281,24 @@ public class OrderPojo extends BaseEntity {
 
     public OrderPojo setAddCode2(String addCode2) {
         this.addCode2 = addCode2;
+        return this;
+    }
+
+    public String getAddName1() {
+        return addName1;
+    }
+
+    public OrderPojo setAddName1(String addName1) {
+        this.addName1 = addName1;
+        return this;
+    }
+
+    public String getAddName2() {
+        return addName2;
+    }
+
+    public OrderPojo setAddName2(String addName2) {
+        this.addName2 = addName2;
         return this;
     }
 }
