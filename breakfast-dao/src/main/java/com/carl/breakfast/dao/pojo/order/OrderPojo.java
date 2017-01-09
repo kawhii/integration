@@ -54,6 +54,14 @@ public class OrderPojo extends BaseEntity {
     //ADDRESS
     private String address;
 
+    //ADD_CODE1
+    private String addCode1;
+    //ADD_CODE2
+    private String addCode2;
+
+    //IS_IMPATIENT
+    private boolean isImpatient;
+
     private List<OrderGoodsItem> items;
 
     public List<OrderGoodsItem> getItems() {
@@ -241,6 +249,33 @@ public class OrderPojo extends BaseEntity {
 
     public OrderPojo setAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public boolean isImpatient() {
+        return isImpatient;
+    }
+
+    public OrderPojo setImpatient(boolean impatient) {
+        isImpatient = impatient;
+        return this;
+    }
+
+    public String getAddCode1() {
+        return addCode1;
+    }
+
+    public OrderPojo setAddCode1(String addCode1) {
+        this.addCode1 = addCode1;
+        return this;
+    }
+
+    public String getAddCode2() {
+        return addCode2;
+    }
+
+    public OrderPojo setAddCode2(String addCode2) {
+        this.addCode2 = addCode2;
         return this;
     }
 }
