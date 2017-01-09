@@ -15,3 +15,6 @@ on og.order_id = co.id
 where co.create_time between [starttime] and current_time
 group by co.id
 order by co.create_time;
+
+
+--销售统计
