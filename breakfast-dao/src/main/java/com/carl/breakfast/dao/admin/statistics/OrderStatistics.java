@@ -2,7 +2,6 @@ package com.carl.breakfast.dao.admin.statistics;
 
 import com.carl.framework.core.entity.BaseEntity;
 
-import java.util.Date;
 
 /**
  * 订单分析数据bean

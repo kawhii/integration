@@ -50,7 +50,8 @@ public class StatisticsCtrl {
                         .p("createTime", createTime)
         );
 
-        String fileName = null;
+        //问号名字
+        String fileName;
 
         //空导出名字格式
         if (StringUtil.isNull(unitCode)) {
@@ -61,11 +62,14 @@ public class StatisticsCtrl {
         }
 
         try {
+            String finalFileName = fileName;
             Excel.export2Response(statisticsService.convertOrder2Map(data),  () ->  {
                 IniExportInfoExtractor infoExtractor = new IniExportInfoExtractor("classpath:export/orders.ini");
                 ExportRealInfo realInfo = infoExtractor.extract("order");
+                realInfo.setFileName(finalFileName);
                 return realInfo;
             }, response);
+            //TODO 异常处理
         } catch (WriterException e) {
             e.printStackTrace();
         } catch (Exception e) {
