@@ -26,14 +26,16 @@
 
 
 
-    <!-- 分页查询 -->
+    <!-- 分页查询
+     TODO 限制订单交易完成才列出来
+     -->
     <select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select co.id as orderId,
-        co.ADD_CODE1 as unitCode,
-        co.ADD_CODE2 as floorCode,
-        co.add_name1 as unitName,
-        co.add_name2 as floorName,
-        group_concat(concat(og.goods_title,'*',og.quantity)) as goodsInfo,
+        select co.id as orderid,
+        co.add_code1 as unitcode,
+        co.add_code2 as floorcode,
+        co.add_name1 as unitname,
+        co.add_name2 as floorname,
+        group_concat(concat(og.goods_title,'*',og.quantity)) as goodsinfo,
         co.price as totalPrice,
         co.is_impatient as isImpatient,
         co.create_time as createTime,

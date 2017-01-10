@@ -1,6 +1,5 @@
 package com.carl.breakfast.dao.admin.statistics;
 
-import com.carl.framework.core.dao.BaseDao;
 import com.carl.framework.core.dao.BaseDaoImpl;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +12,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class StatisticsOrderDaoImpl extends
-        BaseDaoImpl<OrderStatistics> implements BaseDao<OrderStatistics> {
+        BaseDaoImpl<OrderStatistics> implements StatisticsOrderDao {
 }
