@@ -31,6 +31,11 @@ public abstract class Excel {
                                            String iniSelectionId, HttpServletResponse response) throws Exception {
         IniExportInfoExtractor infoExtractor = new IniExportInfoExtractor(iniPath);
         ExportRealInfo realInfo = infoExtractor.extract(iniSelectionId);
+        export2Response(data, () -> realInfo, response);
+    }
+
+    public static void export2Response(List<Map<String, Object>> data, ExportRealInfoCreator creator, HttpServletResponse response) throws Exception {
+        ExportRealInfo realInfo = creator.create();
         String name = realInfo.getFileName();
         // 生成提示信息，
         response.setContentType("application/vnd.ms-excel");
@@ -41,5 +46,12 @@ public abstract class Excel {
         //获取配置文件
         IWriter writer = new RequestExcelWriter(data, realInfo);
         writer.write(response.getOutputStream());
+    }
+
+    /**
+     * 获取导出信息
+     */
+    public interface ExportRealInfoCreator {
+        ExportRealInfo create() throws ExportRealInfoException;
     }
 }

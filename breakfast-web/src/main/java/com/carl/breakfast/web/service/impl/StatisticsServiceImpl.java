@@ -23,4 +23,9 @@ public class StatisticsServiceImpl implements IStatisticsService {
     public List<OrderStatistics> queryOrder(Map<String, Object> paramMap) {
         return statisticsOrderDao.listBy(paramMap);
     }
+
+    @Override
+    public List<Map<String, Object>> convertOrder2Map(List<OrderStatistics> orderStatistics) {
+        return null;
+    }
 }

@@ -21,4 +21,11 @@ public interface IStatisticsService {
      */
     List<OrderStatistics> queryOrder(Map<String, Object> paramMap);
 
+    /**
+     * 转换数据去map
+     * @param orderStatistics
+     * @return
+     */
+    List<Map<String, Object>> convertOrder2Map(List<OrderStatistics> orderStatistics);
+
 }
