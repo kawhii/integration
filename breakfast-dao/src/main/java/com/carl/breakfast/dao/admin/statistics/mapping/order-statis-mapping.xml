@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.admin.statistics.StatisticsOrderDaoImpl">
+
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.admin.statistics.OrderStatistics">
+        <id column="orderId" property="orderId" jdbcType="VARCHAR"/>
+        <result column="floorCode" property="floorCode" jdbcType="VARCHAR"/>
+        <result column="unitCode" property="unitCode" jdbcType="VARCHAR"/>
+        <result column="floorName" property="floorName" jdbcType="VARCHAR"/>
+        <result column="unitName" property="unitName" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="goodsInfo" property="goodsInfo" jdbcType="VARCHAR"/>
+        <result column="totalPrice" property="totalPrice" jdbcType="FLOAT"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="isImpatient" property="isImpatient" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <!-- 根据搜索条件获取数据 -->
+    <sql id="condition_sql">
+        <if test="orderId != null">and co.id = #{orderId,jdbcType=VARCHAR}</if>
+        <if test="createTime != null">co.create_time between #{createTime,jdbcType=VARCHAR} and  DATE_ADD(#{createTime,jdbcType=VARCHAR}, INTERVAL 1 DAY)</if>
+        <if test="unitCode != null and unitCode != ''">and co.add_code1 = #{unitCode,jdbcType=VARCHAR}</if>
+    </sql>
+
+
+
+    <!-- 分页查询 -->
+    <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select co.id as orderId,
+        co.ADD_CODE1 as unitCode,
+        co.ADD_CODE2 as floorCode,
+        co.add_name1 as unitName,
+        co.add_name2 as floorName,
+        group_concat(concat(og.goods_title,'*',og.quantity)) as goodsInfo,
+        co.price as totalPrice,
+        co.is_impatient as isImpatient,
+        co.create_time as createTime,
+        co.address as address
+        from core_order co
+        left join core_order_goods og
+        on og.order_id = co.id
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+        group by co.id
+        order by co.create_time desc limit #{pageFirst}, #{pageSize}
+    </select>
+</mapper>
