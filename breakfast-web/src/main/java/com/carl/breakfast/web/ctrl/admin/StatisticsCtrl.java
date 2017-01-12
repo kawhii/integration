@@ -35,7 +35,7 @@ public class StatisticsCtrl {
     public void exportOrder(
             @RequestParam(required = false, value = "unitCode") String unitCode,
             @RequestParam(required = false, value = "createTime") String createTime,
-            @RequestParam(required = false, value = "unitCode") String unitName,
+            @RequestParam(required = false, value = "unitName") String unitName,
             HttpServletResponse response
     ) {
         //为空默认当天
@@ -75,6 +75,5 @@ public class StatisticsCtrl {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

@@ -36,3 +36,4 @@
 1.订单创建修改地址选择
 2.订单统计报表根据基础sql进行查询以及导出
 3.销售统计基础sql
+4./admin/statistics/exportOrder 测试
