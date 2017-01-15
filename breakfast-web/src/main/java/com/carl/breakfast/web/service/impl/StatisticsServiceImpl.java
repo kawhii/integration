@@ -21,7 +21,7 @@ import java.util.Map;
 public class StatisticsServiceImpl implements IStatisticsService {
     @Autowired
     private StatisticsOrderDao statisticsOrderDao;
-    private static SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd hh23:mi:ss");
+    private static SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd hh23:mm:ss");
 
     @Override
     public List<OrderStatistics> queryOrder(Map<String, Object> paramMap) {
