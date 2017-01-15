@@ -5,6 +5,7 @@ import com.carl.breakfast.web.service.IStatisticsService;
 import com.carl.framework.core.functional.WriterException;
 import com.carl.framework.core.pio.ExportRealInfo;
 import com.carl.framework.core.pio.IniExportInfoExtractor;
+import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.Excel;
 import com.carl.framework.util.MapBuilder;
 import com.carl.framework.util.StringUtil;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/admin/statistics")
-public class StatisticsCtrl {
+public class StatisticsCtrl extends BaseCtrl {
     @Autowired
     private IStatisticsService statisticsService;
 
@@ -75,5 +76,15 @@ public class StatisticsCtrl {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping("/index")
+    public String index() {
+        return "index";
+    }
+
+    @Override
+    protected String getModuleName() {
+        return "admin/statistics";
     }
 }

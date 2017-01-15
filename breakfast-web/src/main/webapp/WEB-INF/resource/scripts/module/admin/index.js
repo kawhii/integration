@@ -136,7 +136,7 @@
         $scope.items = [
             new Item("goods/index", "发布商品"),
             new Item("goods/list", "当前商品"),
-            new Item("sys/file", "图片管理")
+            new Item("admin/statistics/index", "数据统计")
         ];
     }
 })();
