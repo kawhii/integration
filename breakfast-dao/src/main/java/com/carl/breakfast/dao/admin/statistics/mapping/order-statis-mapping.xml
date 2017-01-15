@@ -20,7 +20,7 @@
     <!-- 根据搜索条件获取数据 -->
     <sql id="condition_sql">
         <if test="orderId != null">and co.id = #{orderId,jdbcType=VARCHAR}</if>
-        <if test="createTime != null">co.create_time between #{createTime,jdbcType=VARCHAR} and  DATE_ADD(#{createTime,jdbcType=VARCHAR}, INTERVAL 1 DAY)</if>
+        <if test="createTime != null and createTime != ''">co.create_time between #{createTime,jdbcType=VARCHAR} and  DATE_ADD(#{createTime,jdbcType=VARCHAR}, INTERVAL 1 DAY)</if>
         <if test="unitCode != null and unitCode != ''">and co.add_code1 = #{unitCode,jdbcType=VARCHAR}</if>
     </sql>
 

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
@@ -64,7 +65,7 @@ public class StatisticsCtrl extends BaseCtrl {
 
         try {
             String finalFileName = fileName;
-            Excel.export2Response(statisticsService.convertOrder2Map(data),  () ->  {
+            Excel.export2Response(statisticsService.convertOrder2Map(data), () -> {
                 IniExportInfoExtractor infoExtractor = new IniExportInfoExtractor("classpath:export/orders.ini");
                 ExportRealInfo realInfo = infoExtractor.extract("order");
                 realInfo.setFileName(finalFileName);
@@ -78,9 +79,23 @@ public class StatisticsCtrl extends BaseCtrl {
         }
     }
 
-    @RequestMapping("/index")
-    public String index() {
-        return "index";
+    @RequestMapping("/order.json")
+    @ResponseBody
+    /**
+     * unitCode 楼层编码
+     * createTime 楼层编码
+     */
+    public Object order(@RequestParam(required = false, name = "unitCode") String unitCode,
+                        @RequestParam(required = false, name = "createTime") String createTime) {
+        //为空默认当天
+        if (StringUtil.isNull(createTime)) {
+            SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd");
+            createTime = dateFm.format(new Date());
+        }
+        Object res = statisticsService.queryOrder(
+                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("createTime", createTime)
+        );
+        return success(res);
     }
 
     @Override
