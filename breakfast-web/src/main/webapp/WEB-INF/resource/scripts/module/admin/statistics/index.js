@@ -28,7 +28,293 @@
         .controller('StatisticsCtrl', ['$scope', '$toast', '$request', function ($scope, $toast, $request) {
             //标签页索引
             $scope.tabIndex = 1;//1-订单，2销售量
+            //楼栋查询地址
+            $scope.searchText = '';
 
+            //自动完成控件查询
+            $scope.querySearch = querySearch;
+
+            function querySearch(query) {
+                var results = query ? $scope.unitCodeList.filter(createFilterFor(query)) : $scope.unitCodeList;
+                return results;
+            }
+
+            function createFilterFor(query) {
+                var lowercaseQuery = angular.lowercase(query);
+
+                return function filterFn(state) {
+                    return !query || (state.INFO.indexOf(lowercaseQuery) >= 0);
+                };
+
+            }
+
+            $scope.unitCodeList =
+                [
+                    {
+                        "ID": "my1d",
+                        "INFO": "梅苑1栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 1,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "my2d",
+                        "INFO": "梅苑2栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 2,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "my3d",
+                        "INFO": "梅苑3栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 3,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "my4d",
+                        "INFO": "梅苑4栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 4,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "my5d",
+                        "INFO": "梅苑5栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 5,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "my6d",
+                        "INFO": "梅苑6栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 6,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "my7d",
+                        "INFO": "梅苑7栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 7,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "my8d",
+                        "INFO": "梅苑8栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 8,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "my9d",
+                        "INFO": "梅苑9栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 9,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "my10d",
+                        "INFO": "梅苑10栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 10,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "zy1d",
+                        "INFO": "竹苑1栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 11,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "zy2d",
+                        "INFO": "竹苑2栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 12,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "zy3d",
+                        "INFO": "竹苑3栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 13,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "zy4d",
+                        "INFO": "竹苑4栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 14,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "zy5d",
+                        "INFO": "竹苑5栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 15,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "ly1d",
+                        "INFO": "兰苑1栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 21,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "ly2d",
+                        "INFO": "兰苑2栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 22,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "ly3d",
+                        "INFO": "兰苑3栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 23,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "ly4d",
+                        "INFO": "兰苑4栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 24,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "ly5d",
+                        "INFO": "兰苑5栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 25,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "jy1d",
+                        "INFO": "菊苑1栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 31,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "jy2d",
+                        "INFO": "菊苑2栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 32,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "jy3d",
+                        "INFO": "菊苑3栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 33,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "jy4d",
+                        "INFO": "菊苑4栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 34,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "jy5d",
+                        "INFO": "菊苑5栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 35,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "rx1d",
+                        "INFO": "榕轩1栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 41,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "rx2d",
+                        "INFO": "榕轩2栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 42,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "rx3d",
+                        "INFO": "榕轩3栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 43,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "rx4d",
+                        "INFO": "榕轩4栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 44,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "rx5d",
+                        "INFO": "榕轩5栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 45,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "rx6d",
+                        "INFO": "榕轩6栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 46,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "rx7d",
+                        "INFO": "榕轩7栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 47,
+                        "PID": "",
+                        "NOTE": null
+                    },
+                    {
+                        "ID": "rx8d",
+                        "INFO": "榕轩8栋",
+                        "TYPE_ID": "D",
+                        "SEQ": 48,
+                        "PID": "",
+                        "NOTE": null
+                    }
+                ];
 
             $scope.data = {
                 recordList: []
@@ -60,7 +346,7 @@
                     if (obj.impatient) {
                         $scope.countImpatient++;
                     }
-                    if (obj.totalPrice){
+                    if (obj.totalPrice) {
                         price += obj.totalPrice;
                     }
                 }
@@ -71,7 +357,10 @@
             //渲染列表
             function renderList() {
                 $request.get("/admin/statistics/order.json"
-                    , {unitCode: $scope.unitCode, createTime: $scope.createTime ? $scope.createTime.format("yyyy-MM-dd") : ''}
+                    , {
+                        unitCode: $scope.unitCode ? $scope.unitCode.ID : '',
+                        createTime: $scope.createTime ? $scope.createTime.format("yyyy-MM-dd") : ''
+                    }
                     , function (data) {
                         if (data.header.code == 0) {
 

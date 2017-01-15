@@ -18,10 +18,26 @@
         </div>
         <div>
             <div class="form-group form-inline">
-                <input type="text" class="form-control" ng-model="unitCode" placeholder="楼层">
-                <#--<input type="text" class="form-control" ng-model="createTime" placeholder="日期">-->
-                <md-datepicker ng-model="createTime" md-placeholder="日期"></md-datepicker>
-                <button type="button" class="btn btn-default" ng-click="search()">查询</button>
+                    <div style="width: 200px">
+                        <md-autocomplete
+                                md-selected-item="unitCode"
+                                md-search-text="searchText"
+                                md-items="item in querySearch(searchText)"
+                                md-item-text="item.INFO"
+                                md-min-length="0"
+                                placeholder="楼栋">
+                            <md-item-template>
+                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.INFO}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                找不到匹配 "{{ctrl.searchText}}" 的数据.
+                            </md-not-found>
+                        </md-autocomplete>
+                    </div>
+                <#--<input type="text" class="form-control" ng-model="unitCode" placeholder="楼层">-->
+                    <md-datepicker ng-model="createTime" md-placeholder="日期"></md-datepicker>
+                    <button type="button" class="btn btn-default" ng-click="search()">查询</button>
+                </div>
             </div>
             <table class="table table-striped">
                 <thead>
