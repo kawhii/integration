@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.admin.statistics.StatisticsSalesDaoImpl">
+
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.admin.statistics.SalesStatistics">
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="total_price" property="totalPrice" jdbcType="FLOAT"/>
+        <result column="unit_price" property="unitPrice" jdbcType="FLOAT"/>
+        <result column="sales" property="sales" jdbcType="INT"/>
+        <result column="goods_title" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="stock" property="stock" jdbcType="INT"/>
+        <result column="unit_name" property="unitName" jdbcType="VARCHAR"/>
+        <result column="unit_code" property="unitCode" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 根据搜索条件获取数据 -->
+    <sql id="condition_sql">
+        <choose>
+            <when test="startTime != null and startTime != ''">
+                co.create_time between #{startTime,jdbcType=VARCHAR}
+            </when>
+
+            <otherwise>
+                co.create_time between DATE_ADD(curdate(), INTERVAL -7 day)
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="endTime != null and endTime != ''">
+                and #{endTime,jdbcType=VARCHAR}
+            </when>
+
+            <otherwise>
+                and curdate()
+            </otherwise>
+        </choose>
+        <if test="codes != null">
+            and co.add_code in
+            <foreach item="item" index="index" collection="codes"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+
+    <select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+          cog.goods_id,
+          sum(total_price) as total_price,
+          sum(cog.unit_price) as unit_price,
+          sum(cog.quantity) as sales,
+          cog.goods_title,
+          mg.stock,
+          co.add_name1 as unit_name,
+          co.add_code as unit_code
+        from core_order co
+          left join core_order_goods cog on co.id = cog.order_id
+        left join mall_goods mg on mg.id = cog.goods_id
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+        group by cog.goods_id, cog.unit_price, cog.goods_title
+    </select>
+</mapper>

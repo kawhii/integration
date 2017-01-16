@@ -20,3 +20,9 @@ order by co.create_time;
 
 
 --销售统计
+select cog.goods_id, sum(total_price) as total_price,
+sum(cog.unit_price) as unit_price, sum(cog.quantity) as sales,
+cog.goods_title, mg.stock, co.add_name1 as unit_name, co.add_code as unit_code
+from core_order co left join core_order_goods cog on co.id = cog.order_id
+left join mall_goods mg on mg.id = cog.goods_id
+group by cog.goods_id, cog.unit_price, cog.goods_title
