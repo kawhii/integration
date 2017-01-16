@@ -320,7 +320,7 @@
                 recordList: []
             };
             //时间
-            $scope.createTime = '';
+            $scope.createTime = new Date();
             //楼层编码
             $scope.unitCode = '';
             //分页信息
@@ -328,6 +328,16 @@
                 curr: 1,
                 haveNext: true,
                 pageSize: 10
+            };
+
+
+
+            //导出当前数据
+            $scope.orderExport = function() {
+                window.open("/admin/statistics/exportOrder?unitCode=" + ($scope.unitCode ? $scope.unitCode.ID : '') + "&" +
+                    "createTime=" + ($scope.createTime ? $scope.createTime.format("yyyy-MM-dd") : '') + "&" +
+                    "unitName=" + ($scope.unitName ? $scope.unitCode.unitName : '')
+                )
             };
 
             //监听用于重写汇总数据

@@ -37,6 +37,7 @@
                 <#--<input type="text" class="form-control" ng-model="unitCode" placeholder="楼层">-->
                     <md-datepicker ng-model="createTime" md-placeholder="日期"></md-datepicker>
                     <button type="button" class="btn btn-default" ng-click="search()">查询</button>
+                    <button type="button" class="btn btn-default" ng-click="orderExport()">导出</button>
                 </div>
             </div>
             <table class="table table-striped">
