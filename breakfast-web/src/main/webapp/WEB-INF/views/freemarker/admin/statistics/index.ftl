@@ -86,6 +86,7 @@
         <div>
         <div class="form-group form-inline">
                 <div style="width: 200px">
+                    <#--TODO 完成对chip的多个根据商品名称查询-->
                     <md-autocomplete
                             md-selected-item="unitCode"
                             md-search-text="searchText"
