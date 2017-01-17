@@ -339,7 +339,16 @@
             $scope.orderExport = function () {
                 window.open("/admin/statistics/exportOrder?unitCode=" + ($scope.unitCode ? $scope.unitCode.ID : '') + "&" +
                     "createTime=" + ($scope.createTime ? $scope.createTime.format("yyyy-MM-dd") : '') + "&" +
-                    "unitName=" + ($scope.unitName ? $scope.unitCode.unitName : '')
+                    "unitName=" + ($scope.unitCode ? $scope.unitCode.INFO : '')
+                )
+            };
+
+            //导出当前数据
+            $scope.salesExport = function () {
+                window.open("/admin/statistics/exportSales?unitCode=" + ($scope.unitCode ? $scope.unitCode.ID : '') + "&" +
+                    "startTime=" + ($scope.startDate ? $scope.startDate.format("yyyy-MM-dd") : '') + "&" +
+                    "endTime=" + ($scope.endDate ? $scope.endDate.format("yyyy-MM-dd") : '') + "&" +
+                    "unitName=" + ($scope.unitCode ? $scope.unitCode.INFO : '')
                 )
             };
 
