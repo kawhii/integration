@@ -1,6 +1,7 @@
 package com.carl.breakfast.web.service.impl;
 
 import com.carl.breakfast.dao.admin.statistics.OrderStatistics;
+import com.carl.breakfast.dao.admin.statistics.SalesStatistics;
 import com.carl.breakfast.dao.sys.BaseTest;
 import com.carl.breakfast.web.service.IStatisticsService;
 import com.carl.framework.util.MapBuilder;
@@ -23,4 +24,10 @@ public class StatisticsServiceImplTest extends BaseTest {
         assertNull(list);
     }
 
+    @Test
+    public void querySales() throws Exception {
+        List<SalesStatistics> list = statisticsService.querySales(
+                MapBuilder.<String, Object>build());
+        assertNull(list);
+    }
 }

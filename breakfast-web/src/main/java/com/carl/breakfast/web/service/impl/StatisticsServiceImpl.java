@@ -1,7 +1,9 @@
 package com.carl.breakfast.web.service.impl;
 
 import com.carl.breakfast.dao.admin.statistics.OrderStatistics;
+import com.carl.breakfast.dao.admin.statistics.SalesStatistics;
 import com.carl.breakfast.dao.admin.statistics.StatisticsOrderDao;
+import com.carl.breakfast.dao.admin.statistics.StatisticsSalesDao;
 import com.carl.breakfast.web.service.IStatisticsService;
 import com.carl.framework.util.MapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,20 @@ import java.util.Map;
 public class StatisticsServiceImpl implements IStatisticsService {
     @Autowired
     private StatisticsOrderDao statisticsOrderDao;
+
+    @Autowired
+    private StatisticsSalesDao statisticsSalesDao;
+
     private static SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd hh23:mm:ss");
 
     @Override
     public List<OrderStatistics> queryOrder(Map<String, Object> paramMap) {
         return statisticsOrderDao.listBy(paramMap);
+    }
+
+    @Override
+    public List<SalesStatistics> querySales(Map<String, Object> paramMap) {
+        return statisticsSalesDao.listBy(paramMap);
     }
 
     @Override

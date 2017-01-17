@@ -1,6 +1,7 @@
 package com.carl.breakfast.web.service;
 
 import com.carl.breakfast.dao.admin.statistics.OrderStatistics;
+import com.carl.breakfast.dao.admin.statistics.SalesStatistics;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,14 @@ public interface IStatisticsService {
      * @return
      */
     List<OrderStatistics> queryOrder(Map<String, Object> paramMap);
+
+    /**
+     * 查询销售量
+     * @param paramMap
+     * @return
+     */
+    List<SalesStatistics> querySales(Map<String, Object> paramMap);
+
 
     /**
      * 转换数据去map
