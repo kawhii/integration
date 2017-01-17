@@ -98,6 +98,27 @@ public class StatisticsCtrl extends BaseCtrl {
         return success(res);
     }
 
+    @RequestMapping("/sales.json")
+    @ResponseBody
+    /**
+     * unitCode 楼层编码
+     * createTime 楼层编码
+     */
+    public Object sales(@RequestParam(required = false, name = "unitCode") String unitCode,
+                        @RequestParam(required = false, name = "startTime") String startTime,
+                        @RequestParam(required = false, name = "endTime") String endTime
+                        ) {
+        //为空默认当天
+        if (StringUtil.isNull(endTime)) {
+            SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd");
+            endTime = dateFm.format(new Date());
+        }
+        Object res = statisticsService.querySales(
+                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("endTime", endTime).p("startTime", startTime)
+        );
+        return success(res);
+    }
+
     @Override
     protected String getModuleName() {
         return "admin/statistics";

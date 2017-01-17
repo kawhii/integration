@@ -317,10 +317,14 @@
                 ];
 
             $scope.data = {
-                recordList: []
+                recordList: [],
+                //销售数据
+                salesList: []
             };
             //时间
             $scope.createTime = new Date();
+            $scope.startDate = new Date(new Date() - 24 * 60 * 60 * 1000);
+            $scope.endDate = new Date();
             //楼层编码
             $scope.unitCode = '';
             //分页信息
@@ -331,9 +335,8 @@
             };
 
 
-
             //导出当前数据
-            $scope.orderExport = function() {
+            $scope.orderExport = function () {
                 window.open("/admin/statistics/exportOrder?unitCode=" + ($scope.unitCode ? $scope.unitCode.ID : '') + "&" +
                     "createTime=" + ($scope.createTime ? $scope.createTime.format("yyyy-MM-dd") : '') + "&" +
                     "unitName=" + ($scope.unitName ? $scope.unitCode.unitName : '')
@@ -344,6 +347,10 @@
             $scope.$watchCollection("data.recordList", function (newObj, oObj) {
                 //汇总数据
                 resetCountData(newObj);
+            });
+            $scope.$watchCollection("data.salesList", function (newObj, oObj) {
+                //汇总数据
+                resetSalesData(newObj);
             });
             $scope.countImpatient = 0;
             $scope.countPrice = 0;
@@ -361,6 +368,18 @@
                     }
                 }
                 $scope.countPrice = price;
+            }
+
+            function resetSalesData(newObj) {
+                $scope.salesCountPrice = 0;
+                var price = 0;
+                for (var i in newObj) {
+                    var obj = newObj[i];
+                    if (obj.totalPrice) {
+                        price += obj.totalPrice;
+                    }
+                }
+                $scope.salesCountPrice = price;
             }
 
 
@@ -387,12 +406,40 @@
                     });
             }
 
+            function loadSalesList() {
+                $request.get("/admin/statistics/sales.json"
+                    , {
+                        unitCode: $scope.unitCode ? $scope.unitCode.ID : '',
+                        startTime: $scope.startDate ? $scope.startDate.format("yyyy-MM-dd") : '',
+                        endTime: $scope.endDate ? $scope.endDate.format("yyyy-MM-dd") : ''
+
+                    }
+                    , function (data) {
+                        if (data.header.code == 0) {
+
+                            $scope.data = data.body;
+                            //有数据才计算页码
+                            if (data.body.length >= 0) {
+                                $scope.data.salesList = data.body;
+                            } else {
+                                $scope.data.salesList = [];
+                            }
+                        } else {
+                            $toast.showActionToast(data.header.message);
+                        }
+                    });
+            }
+
             renderList();
+            loadSalesList();
 
 
             //重新查询
             $scope.search = function () {
                 renderList();
+            };
+            $scope.searchSales = function () {
+                loadSalesList();
             };
         }]);
 
