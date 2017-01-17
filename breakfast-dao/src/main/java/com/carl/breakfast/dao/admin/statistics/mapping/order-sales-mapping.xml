@@ -28,11 +28,11 @@
         </choose>
         <choose>
             <when test="endTime != null and endTime != ''">
-                and #{endTime,jdbcType=VARCHAR}
+                and DATE_ADD(#{endTime,jdbcType=VARCHAR}, INTERVAL +1 day)
             </when>
 
             <otherwise>
-                and curdate()
+                and DATE_ADD(curdate(), INTERVAL +1 day)
             </otherwise>
         </choose>
         <if test="codes != null">
@@ -42,6 +42,12 @@
                 #{item}
             </foreach>
         </if>
+
+        <choose>
+            <when test="unitCode != null and unitCode != ''">
+                and co.add_code1 = #{unitCode,jdbcType=VARCHAR}
+            </when>
+        </choose>
     </sql>
 
 
@@ -53,7 +59,15 @@
           sum(cog.quantity) as sales,
           cog.goods_title,
           mg.stock,
-          co.add_name1 as unit_name,
+            <choose>
+                <when test="unitCode != null and unitCode != ''">
+                    co.add_name1
+                </when>
+                <otherwise>
+                    '全部'
+                </otherwise>
+            </choose>
+          as unit_name,
           co.add_code1 as unit_code
         from core_order co
           left join core_order_goods cog on co.id = cog.order_id
