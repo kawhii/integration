@@ -30,9 +30,31 @@
             $scope.tabIndex = 1;//1-订单，2销售量
             //楼栋查询地址
             $scope.searchText = '';
+            //选择的上哦名字
+            $scope.selectGoods = [];
 
             //自动完成控件查询
             $scope.querySearch = querySearch;
+            $scope.queryGoods = queryGoods;
+
+
+            var cachedQuery, lastSearch;
+
+            function queryGoods(criteria) {
+                cachedQuery = /*cachedQuery || */criteria;
+                return cachedQuery ? $scope.data.goodsList.filter(createGoodsFilter(cachedQuery)) : [];
+            }
+
+            function createGoodsFilter(query) {
+                var lowercaseQuery = angular.lowercase(query);
+
+                return function filterFn(contact) {
+                    return (contact.name.indexOf(lowercaseQuery) != -1);
+                    ;
+                };
+
+            }
+
 
             function querySearch(query) {
                 var results = query ? $scope.unitCodeList.filter(createFilterFor(query)) : $scope.unitCodeList;
@@ -319,7 +341,9 @@
             $scope.data = {
                 recordList: [],
                 //销售数据
-                salesList: []
+                salesList: [],
+                //商品数据
+                goodsList: []
             };
             //时间
             $scope.createTime = new Date();
@@ -348,7 +372,8 @@
                 window.open("/admin/statistics/exportSales?unitCode=" + ($scope.unitCode ? $scope.unitCode.ID : '') + "&" +
                     "startTime=" + ($scope.startDate ? $scope.startDate.format("yyyy-MM-dd") : '') + "&" +
                     "endTime=" + ($scope.endDate ? $scope.endDate.format("yyyy-MM-dd") : '') + "&" +
-                    "unitName=" + ($scope.unitCode ? $scope.unitCode.INFO : '')
+                    "unitName=" + ($scope.unitCode ? $scope.unitCode.INFO : '') + "&" +
+                    "codes=" + getGoodsId()
                 )
             };
 
@@ -361,6 +386,7 @@
                 //汇总数据
                 resetSalesData(newObj);
             });
+
             $scope.countImpatient = 0;
             $scope.countPrice = 0;
             function resetCountData(newObj) {
@@ -391,6 +417,23 @@
                 $scope.salesCountPrice = price;
             }
 
+            //加载商品
+            function loadGoods() {
+                $request.get("/admin/goods/list.json", {
+                    page: 1, pageSize: 100
+                }, function (data) {
+                    if (data.header.code == 0) {
+                        if (data.body.recordList.length >= 0) {
+                            $scope.data.goodsList = data.body.recordList;
+                        } else {
+                            $scope.data.goodsList = [];
+                        }
+                    } else {
+                        $toast.showActionToast(data.header.message);
+                    }
+                });
+            }
+
 
             //渲染列表
             function renderList() {
@@ -402,7 +445,6 @@
                     , function (data) {
                         if (data.header.code == 0) {
 
-                            $scope.data = data.body;
                             //有数据才计算页码
                             if (data.body.length >= 0) {
                                 $scope.data.recordList = data.body;
@@ -415,18 +457,26 @@
                     });
             }
 
+            //获取选择的商品id
+            function getGoodsId() {
+                var ids = [];
+                for (var i in $scope.selectGoods) {
+                    ids.push($scope.selectGoods[i].id);
+                }
+                return ids.join();
+            }
+
             function loadSalesList() {
                 $request.get("/admin/statistics/sales.json"
                     , {
                         unitCode: $scope.unitCode ? $scope.unitCode.ID : '',
                         startTime: $scope.startDate ? $scope.startDate.format("yyyy-MM-dd") : '',
-                        endTime: $scope.endDate ? $scope.endDate.format("yyyy-MM-dd") : ''
-
+                        endTime: $scope.endDate ? $scope.endDate.format("yyyy-MM-dd") : '',
+                        codes: getGoodsId()
                     }
                     , function (data) {
                         if (data.header.code == 0) {
 
-                            $scope.data = data.body;
                             //有数据才计算页码
                             if (data.body.length >= 0) {
                                 $scope.data.salesList = data.body;
@@ -441,6 +491,7 @@
 
             renderList();
             loadSalesList();
+            loadGoods();
 
 
             //重新查询

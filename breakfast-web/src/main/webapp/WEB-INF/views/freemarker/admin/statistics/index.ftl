@@ -85,8 +85,18 @@
         </div>
         <div>
         <div class="form-group form-inline">
+            <md-contact-chips
+                    ng-model="selectGoods"
+                    md-contacts="queryGoods($query)"
+                    md-contact-name="name"
+                    md-contact-image="image"
+                    md-contact-email="email"
+                    md-require-match="true"
+                    md-highlight-flags="i"
+                    filter-selected="true"
+                    placeholder="商品">
+            </md-contact-chips>
                 <div style="width: 200px">
-                    <#--TODO 完成对chip的多个根据商品名称查询-->
                     <md-autocomplete
                             md-selected-item="unitCode"
                             md-search-text="searchText"

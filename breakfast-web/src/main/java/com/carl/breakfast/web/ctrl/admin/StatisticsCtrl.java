@@ -110,15 +110,17 @@ public class StatisticsCtrl extends BaseCtrl {
      */
     public Object sales(@RequestParam(required = false, name = "unitCode") String unitCode,
                         @RequestParam(required = false, name = "startTime") String startTime,
-                        @RequestParam(required = false, name = "endTime") String endTime
+                        @RequestParam(required = false, name = "endTime") String endTime,
+                        @RequestParam(required = false, name = "codes", defaultValue = "") String codes
     ) {
         //为空默认当天
         if (StringUtil.isNull(endTime)) {
             SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd");
             endTime = dateFm.format(new Date());
         }
+        String[] cs = codes.length() <= 0 ? new String[]{} : codes.split(",");
         Object res = statisticsService.querySales(
-                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("endTime", endTime).p("startTime", startTime)
+                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("endTime", endTime).p("startTime", startTime).p("codes", cs.length > 0 ? cs : null)
         );
         return success(res);
     }
@@ -129,6 +131,7 @@ public class StatisticsCtrl extends BaseCtrl {
             @RequestParam(required = false, name = "unitName") String unitName,
             @RequestParam(required = false, name = "startTime") String startTime,
             @RequestParam(required = false, name = "endTime") String endTime,
+            @RequestParam(required = false, name = "codes", defaultValue = "") String codes,
             HttpServletResponse response
     ) {
         //为空默认当天
@@ -136,9 +139,10 @@ public class StatisticsCtrl extends BaseCtrl {
             SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd");
             endTime = dateFm.format(new Date());
         }
+        String[] cs = codes.length() <= 0 ? new String[]{} : codes.split(",");
 
         List<SalesStatistics> data = statisticsService.querySales(
-                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("endTime", endTime).p("startTime", startTime)
+                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("endTime", endTime).p("startTime", startTime).p("codes", cs.length > 0 ? cs : null)
         );
 
         //问号名字
@@ -153,7 +157,7 @@ public class StatisticsCtrl extends BaseCtrl {
 
             //转换
 
-            for(SalesStatistics ss : data) {
+            for (SalesStatistics ss : data) {
                 eData.add(BeanUtil.transBean2Map(ss));
             }
 
