@@ -33,11 +33,6 @@ public class LoginCtrl extends BaseCtrl {
         return freemarker("login");
     }
 
-    @RequestMapping(value = "/test")
-    public String mainContent() {
-        return freemarker("test");
-    }
-
     @RequestMapping(value = "/logout")
     public Object logout(@Value("${url.index}") String indexUrl) {
         return new ModelAndView(new RedirectView(indexUrl));
