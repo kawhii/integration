@@ -4,7 +4,7 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#ID_menuList">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" <#--data-target="#ID_menuList"-->>
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -25,3 +25,12 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<script>
+    $('.navbar').click(function() {
+        $(this).find('.navbar-collapse').slideDown();
+        console.info(123);
+    });
+    $('.navbar').mouseleave(function () {
+        $(this).find('.navbar-collapse').slideUp();
+    });
+</script>
