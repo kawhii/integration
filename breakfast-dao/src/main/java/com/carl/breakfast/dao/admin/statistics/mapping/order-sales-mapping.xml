@@ -55,7 +55,7 @@
         select
           cog.goods_id,
           sum(total_price) as total_price,
-          sum(cog.unit_price) as unit_price,
+          cog.unit_price as unit_price,
           sum(cog.quantity) as sales,
           cog.goods_title,
           mg.stock,
