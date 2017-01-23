@@ -29,7 +29,6 @@
 <script>
     $('.navbar').click(function() {
         $(this).find('.navbar-collapse').slideDown();
-        console.info(123);
     });
     $('.navbar').mouseleave(function () {
         $(this).find('.navbar-collapse').slideUp();
