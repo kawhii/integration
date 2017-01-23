@@ -137,7 +137,8 @@
             new Item("goods/index", "发布商品"),
             new Item("goods/list", "当前商品"),
             new Item("sys/file", "图片管理"),
-            new Item("statistics/index", "数据统计")
+            new Item("statistics/index", "数据统计"),
+            new Item("user/index", "帐号设置")
         ];
     }
 })();

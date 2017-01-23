@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/styles/common/bootstrap.min.css"/>
-<script src="/webjars/angular-file-upload/angular-file-upload.min.js"></script>
 
 <div id="ID_statisticsApp" ng-app="StatisticsApp" ng-controller="StatisticsCtrl" ng-cloak>
     <div class="container">
