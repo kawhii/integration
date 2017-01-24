@@ -2,6 +2,7 @@ package com.carl.breakfast.dao.sys;
 
 import com.carl.breakfast.dao.sys.pojo.UserInfo;
 import com.carl.framework.core.dao.BaseDaoImpl;
+import com.carl.framework.util.MapBuilder;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,4 +12,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("userDao")
 public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
+    @Override
+    public int modifyPassword(String username, String oldPwd, String newPwd) {
+        return getSessionTemplate().update("modifyPassword",
+                MapBuilder.build()
+                        .p("username", username)
+                        .p("oldPwd", oldPwd)
+                        .p("newPwd", newPwd));
+    }
 }

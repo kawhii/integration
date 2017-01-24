@@ -17,7 +17,18 @@
     </resultMap>
 
     <!--根据id查询-->
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
-        SELECT * FROM <include refid="table_name"/> WHERE username = #{param1}
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT * FROM
+        <include refid="table_name"/>
+        WHERE username = #{param1}
     </select>
+
+    <!--修改密码-->
+    <update id="modifyPassword">
+        update <include refid="table_name"/>
+        <set>
+            password = #{newPwd}
+        </set>
+        where username = #{username} and password = #{oldPwd}
+    </update>
 </mapper>
