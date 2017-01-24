@@ -35,7 +35,7 @@ public class UserServiceImpl implements IUserService {
         String salt = userInfo.getPasswordSalt();
         String targetOldPwd = passwordUtil.encodePassword(oldPwd, salt);
         String targetNewPwd = passwordUtil.encodePassword(newPwd, salt);
-        if (!targetOldPwd.equals(targetNewPwd))
+        if (!targetOldPwd.equals(userInfo.getPassword()))
             return UsesModifyFlag.PASSWORD_ERROR;
 
         //数据源修改密码
