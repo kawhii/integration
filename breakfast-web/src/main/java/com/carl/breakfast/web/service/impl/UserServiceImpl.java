@@ -3,7 +3,10 @@ package com.carl.breakfast.web.service.impl;
 import com.carl.breakfast.dao.sys.UserDao;
 import com.carl.breakfast.dao.sys.pojo.UserInfo;
 import com.carl.breakfast.web.service.IUserService;
+import com.carl.breakfast.web.service.UsesModifyFlag;
+import com.carl.breakfast.web.utils.BkPasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,9 +18,28 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    @Qualifier("passwordUtil")
+    private BkPasswordUtil passwordUtil;
 
     @Override
     public UserInfo findByUsername(String username) {
         return userDao.getById(username);
+    }
+
+    @Override
+    public UsesModifyFlag modifyPassword(String username, String oldPwd, String newPwd) {
+        UserInfo userInfo = userDao.getById(username);
+        if (userInfo == null)
+            return UsesModifyFlag.NO_USER;
+        String salt = userInfo.getPasswordSalt();
+        String targetOldPwd = passwordUtil.encodePassword(oldPwd, salt);
+        String targetNewPwd = passwordUtil.encodePassword(newPwd, salt);
+        if (!targetOldPwd.equals(targetNewPwd))
+            return UsesModifyFlag.PASSWORD_ERROR;
+
+        //数据源修改密码
+        int res = userDao.modifyPassword(username, targetOldPwd, targetNewPwd);
+        return res == 1 ? UsesModifyFlag.SUCCESS : UsesModifyFlag.RESULT_ERROR;
     }
 }
