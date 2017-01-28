@@ -18,11 +18,12 @@
         }
     });
 
-    var $scope = {};
-    function BuyerGoodsListCtrl() {
-
+    var $scope = {
         //当前页码
-        var page = 1;
+        page: 1
+    };
+
+    function BuyerGoodsListCtrl() {
         //所有数据
         //是否还有下一页
         $scope.haveNextPage = true;
@@ -30,7 +31,7 @@
         //加载数据
         function pullData() {
             carl.request("/goods/list.json", {
-                page: page
+                page: $scope.page
             }, function (data) {
                 $scope.haveNextPage = data.body.endPageIndex - data.body.currentPage >= 1;
                 app.items = app.items.concat(data.body.recordList);
@@ -39,11 +40,12 @@
 
         //加载更多
         $scope.loadMore = function () {
-            page++;
+            $scope.page++;
             pullData();
         };
 
         pullData();
     }
+
     BuyerGoodsListCtrl();
 }());
