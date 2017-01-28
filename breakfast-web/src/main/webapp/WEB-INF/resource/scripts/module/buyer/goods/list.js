@@ -11,24 +11,29 @@
  */
 !(function () {
     'use strict';
-    angular.module('BuyerGoods', ['App'])
-        .controller("BuyerGoodsListCtrl", BuyerGoodsListCtrl);
+    var app = new Vue({
+        el: '#ID_goodsApp',
+        data: {
+            items: []
+        }
+    });
 
-    function BuyerGoodsListCtrl($scope, $request) {
+    var $scope = {};
+    function BuyerGoodsListCtrl() {
+
         //当前页码
         var page = 1;
         //所有数据
-        $scope.items = [];
         //是否还有下一页
         $scope.haveNextPage = true;
 
         //加载数据
         function pullData() {
-            $request.get("/goods/list.json", {
+            carl.request("/goods/list.json", {
                 page: page
             }, function (data) {
                 $scope.haveNextPage = data.body.endPageIndex - data.body.currentPage >= 1;
-                $scope.items = $scope.items.concat(data.body.recordList);
+                app.items = app.items.concat(data.body.recordList);
             });
         }
 
@@ -40,7 +45,5 @@
 
         pullData();
     }
-
-    angular.bootstrap(document.getElementById("ID_BuyerGoods"),
-        ['BuyerGoods']);
+    BuyerGoodsListCtrl();
 }());

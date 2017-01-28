@@ -24,6 +24,7 @@
     <link href="/styles/~/base/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
     <script src="/js/lib/jquery/jquery.min.js"></script>
     <script src="/js/~/base/carl.core.js"></script>
+    <script src="/webjars/vue/vue.min.js"></script>
 </head>
 <body>
 <div id="ID_mask" class="home-plusHint">加载中...</div>

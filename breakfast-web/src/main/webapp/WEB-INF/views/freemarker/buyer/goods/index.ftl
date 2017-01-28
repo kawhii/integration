@@ -15,50 +15,17 @@
                 <input type="text" placeholder="搜索" value=""/>
             </div>
         </div>
-        <div class="home-main">
+        <div class="home-main" id="ID_goodsApp">
 
-            <div class="home-goods">
+            <div class="home-goods" v-for="item in items">
                 <a href="details.html">
                     <div class="home-img">
-                        <img src="img/goods.jpg" alt=""/>
+                        <img v-bind:src="'/file/img/~/' + item.mainImgPath" alt=""/>
                     </div>
                     <div class="home-info">
-                        <p class="home-goods-name">双龙出火</p>
-                        <p class="home-goods-price">￥666</p>
-                        <p class="home-goods-sales">销量：<span>100</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好评：<span>80%</span></p>
-                    </div>
-                </a>
-                <div class="home-plus">
-                    <i class="fa fa-plus-circle fa-lg"></i>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="home-goods">
-                <a href="details.html">
-                    <div class="home-img">
-                        <img src="img/goods.jpg" alt=""/>
-                    </div>
-                    <div class="home-info">
-                        <p class="home-goods-name">双龙出火</p>
-                        <p class="home-goods-price">￥666</p>
-                        <p class="home-goods-sales">销量：<span>100</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好评：<span>80%</span></p>
-                    </div>
-                </a>
-                <div class="home-plus">
-                    <i class="fa fa-plus-circle fa-lg"></i>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="home-goods">
-                <a href="details.html">
-                    <div class="home-img">
-                        <img src="img/goods.jpg" alt=""/>
-                    </div>
-                    <div class="home-info">
-                        <p class="home-goods-name">双龙出火</p>
-                        <p class="home-goods-price">￥666</p>
-                        <p class="home-goods-sales">销量：<span>100</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好评：<span>80%</span></p>
+                        <p class="home-goods-name">{{item.name}}</p>
+                        <p class="home-goods-price">￥{{item.price}}</p>
+                        <p class="home-goods-sales">销量：<span>{{item.sales}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好评：<span>80%</span></p>
                     </div>
                 </a>
                 <div class="home-plus">
@@ -87,7 +54,6 @@
         </ul>
     </footer>
 </section>
-
-<script src="/webjars/vue/vue.min.js"></script>
+<script src="/js/~/buyer/goods/list.js"></script>
 <#include "freemarker/base/mallEnd.ftl">
 
