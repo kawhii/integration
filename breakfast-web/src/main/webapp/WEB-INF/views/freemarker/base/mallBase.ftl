@@ -15,11 +15,15 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1,minimum-scale=1"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1,minimum-scale=1"/>
     <title>早餐供应平台</title>
     <link rel="stylesheet" type="text/css" href="/styles/~/base/basis.css"/>
     <link rel="stylesheet" type="text/css" href="/styles/~/base/style.css"/>
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/styles/~/base/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <script src="/js/lib/jquery/jquery.min.js"></script>
+    <script src="/js/~/base/carl.core.js"></script>
 </head>
 <body>
+<div id="ID_mask" class="home-plusHint">加载中...</div>

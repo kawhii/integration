@@ -87,5 +87,7 @@
         </ul>
     </footer>
 </section>
+
+<script src="/webjars/vue/vue.min.js"></script>
 <#include "freemarker/base/mallEnd.ftl">
 
