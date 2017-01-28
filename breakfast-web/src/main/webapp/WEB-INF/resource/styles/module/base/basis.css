@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* set highlight color for user interaction */
+	-moz-tap-highlight-color: rgba(0, 0, 0, 0); /* set highlight color for user interaction */
+	-webkit-touch-callout: none;
+}
+body{
+	font: normal 62.5% "Microsoft YaHei",'Helvetica Neue', Helvetica, Arial, sans-serif;
+	/***min-width: 300px;设置最小宽HTCG7***/
+	-webkit-text-size-adjust:none;/**避免重力感应时文字随分辨率增大而增大**/
+	margin:0 0;
+	padding:0 0;
+  /*font-family: 'OpenSans-Regular'*/
+}
+
+p{ padding:0; margin:0;}
+h1,h2,h3,h4,h5,h6{ padding:0 0; margin:0 0;}
+ul,ol,dl{ list-style:none;	padding:0 0; margin:0 0;}
+li{ list-style-type:none;}
+input[type=checkbox],input[type=radio],img,button{ cursor:pointer;}
+img{ border:none;}
+input[type=text],button,select{ border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+input,button,img{ outline:none;}
+button{ border:none;}
+a{ text-decoration:none;}
+
+.text_center{ text-align:center;}
+.text_left{ text-align:left;}
+.text_right{ text-align:right;}
+.left{ float:left;}
+.right{ float:right;}
+.bold{ font-weight:bold;}
+.hide{ display:none;}
+.show{ display:block;}
+.clearfix{ clear:both;}
+
+.red{ color:#F00;}
+.white{ color:#FFF;}
+.black{ color:#000;}
+.blue{ color:#0FF;}
+.yellow{ color:#FF0;}
+.red1{ color:#F99 !important;}
+.orange{ color:#FB7F05;}
+

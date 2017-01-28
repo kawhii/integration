@@ -19,4 +19,10 @@ gulp.task('watch-css', function () {
 
 });
 
-gulp.task('default', ['watch-view', 'watch-js', 'watch-css']);
+gulp.task('watch-base', function () {
+    return watch('resource/**/base/**/*.*', { ignoreInitial: false })
+        .pipe(gulp.dest('../../../../target/breakfast-web/WEB-INF/resource/'));
+
+});
+
+gulp.task('default', ['watch-view', 'watch-js', 'watch-css', 'watch-base']);

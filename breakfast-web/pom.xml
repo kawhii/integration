@@ -60,7 +60,11 @@
             <artifactId>angular-messages</artifactId>
             <version>1.5.9</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>vue</artifactId>
+            <version>2.1.10</version>
+        </dependency>
 
         <dependency>
             <groupId>org.webjars.bower</groupId>
