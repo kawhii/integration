@@ -1,6 +1,6 @@
 <footer class="nav">
     <ul>
-        <a href="home.html">
+        <a href="/goods/index.html">
             <li><i class="fa fa-home fa-lg"></i><p>首页</p></li>
         </a>
         <a href="carts.html">

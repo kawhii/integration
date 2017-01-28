@@ -1,5 +1,4 @@
 <#include "freemarker/base/mallBase.ftl">
-<#--<script type="text/javascript" src="/js/~/admin/index.js"></script>-->
 <section class="contain">
     <header class="header">
         <p>早餐供应平台</p>
@@ -18,7 +17,7 @@
         <div class="home-main" id="ID_goodsApp">
 
             <div class="home-goods" v-for="item in items">
-                <a href="details.html">
+                <a v-bind:href="'/goods/detail/' + item.id">
                     <div class="home-img">
                         <img v-bind:src="'/file/img/~/' + item.mainImgPath" alt=""/>
                     </div>

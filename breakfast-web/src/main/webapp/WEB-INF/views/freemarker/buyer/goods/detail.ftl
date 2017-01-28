@@ -1,50 +1,118 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<#include "freemarker/base/mallBase.ftl">
+<section class="contain">
+    <header class="header">
+        <a href="javascript:history.go(-1);"><i class="fa fa-chevron-left fa-1x return"></i></a>
+        <p>商品详情</p>
+    </header>
 
-    <title>${data.goods.title!''}</title>
-<#include "freemarker/base/base.ftl">
-    <script type="text/javascript" src="/js/~/admin/index.js"></script>
-</head>
-<body>
-<style type="text/css">
-    .baseInfo div {
-        float: left;
-        width: 33.33%;
-        text-align: center;
-        color: #c4c4c4;
-    }
-</style>
-<#include "freemarker/base/nav.ftl">
-<md-content class="md-padding" layout-xs="column" layout="row">
-    <div flex-xs flex-gt-xs="50" layout="column">
-        <div>
-            <img src="/file/img/~/${data.goods.mainImgPath!''}" class="md-card-image" style="width: 100%">
+    <!-- details -->
+    <main class="details">
+        <div class="home-plusHint">加入成功</div>
+
+        <div class="banner">
+            <div class="img_gallery">
+                <div class="main_imgDirect"><span id="main_imgCurrent">1</span>/<span id="main_imgTotal"></span></div>
+                <div class="main_img">
+                    <ul>
+                        <li>
+                            <img class="img-responsive" src="//baojiangjun.com/file/img/~/${data.goods.mainImgPath!''}" alt=""/>
+                        </li>
+                    <#list data.goodsExtList as item>
+                        <#if item.keyName?contains("img")></#if>
+                    <li>
+                            <img src="/file/img/~/${item.val!''}" style="width: 100%"/>
+                    </li>
+                    </#list>
+                    </ul>
+                    <a href="javascript:;" id="btn_prev"></a>
+                    <a href="javascript:;" id="btn_next"></a>
+                </div>
+            </div>
         </div>
-        <h5>${data.goods.title!''} ${data.goods.subTitle!''}</div>
 
-    <div style="color: orangered;font-size: 20px">￥${data.goods.price?string('#.##')}</div>
+        <div class="details-main">
+            <div class="details-main-info">
+                <div class="details-main-name">
+                    <p>${data.goods.name!''}</p>
+                    <p class="red">￥${data.goods.price!''}</p>
+                </div>
+                <div class="clearfix"></div>
+                <p>剩余<span>${data.goods.stock!''}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已售<span>${data.goods.sales!''}</span></p>
+                <#--<div class="details-main-detailsName">商品详情</div>-->
+                <#--<div class="details-main-details">-->
+                    <#--<p>文字描述：</p>-->
+                    <#--<!--<img src="img/banner1.jpg" alt=""/>&ndash;&gt;-->
+                <#--</div>-->
+            </div>
 
-    <small class="baseInfo">
-        <div style="text-align: left">运费:0.00</div>
-        <div>剩余:${data.goods.stock!''}</div>
-        <div style="text-align: right"> 销量:${data.goods.sales!''}</div>
-    </small>
-    <hr>
-    <p class="lead">
-    ${data.goods.note!''}
-    </p>
-<#list data.goodsExtList as item>
-    <#if item.keyName?contains("img")></#if>
-    <p>
-        <img src="/file/img/~/${item.val!''}" style="width: 100%"/>
-    </p>
-</#list>
-    </div>
-<#assign goodsId=data.goods.id>
-<#include "freemarker/buyer/goods/operate.ftl">
-</md-content>
-</body>
-</html>
+            <div class="details-main-comment">
+                <div class="details-main-commentTop">
+                    <a href="comment.html">
+                        <p>评价（5）</p>
+                        <p>五星度：<span class="red">100%</span><i class="fa fa-chevron-right fa-1x"></i></p>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+                <div class="details-main-commentMain">
+                    <div class="details-main-commentMain1">
+                        <p>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                        </p>
+                        <p>评价人</p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>评价内容：<span>太好吃了，不错！！</span></p>
+                </div>
+                <div class="details-main-commentMain">
+                    <div class="details-main-commentMain1">
+                        <p>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                        </p>
+                        <p>评价人</p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>评价内容：<span>太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！</span></p>
+                </div>
+                <div class="details-main-commentMain">
+                    <div class="details-main-commentMain1">
+                        <p>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x"></i>
+                        </p>
+                        <p>评价人</p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>评价内容：<span>太好吃了，不错！！</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-foot">
+            <div class="details-foot-carts">
+                <i class="fa fa-shopping-cart fa-lg"></i>
+                <p>购物车(0)</p>
+            </div>
+            <button type="button" value="">加入购物车</button>
+        </div>
+    </main>
+    <!-- details -->
+</section>
+
+<!--鼠标手指左右滑动切换图片js插件-->
+<script src="/js/~/base/slider.js"></script>
+<script src="/js/lib/jquery/jquery.event.drag.js"></script>
+<script src="/js/lib/jquery/jquery.touchSlider.js"></script>
+
+<#include "freemarker/base/mallEnd.ftl">
+
