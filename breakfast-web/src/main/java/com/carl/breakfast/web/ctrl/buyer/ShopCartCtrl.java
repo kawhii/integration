@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,12 +109,14 @@ public class ShopCartCtrl extends BaseCtrl {
         if (cart != null) {
             List<CartGoods> list = cart.getGoods();
             //获取购物车下的数据映射
-            Map<Integer, Integer> goodsRel = new HashMap<>(list.size());
+            Map<String, Integer> goodsRel = new HashMap<>(list.size());
+            List<Integer> ids = new ArrayList<>();
             for (CartGoods goods : list) {
-                goodsRel.put(goods.getGoodsId(), goods.getQuantity());
+                ids.add(goods.getGoodsId());
+                goodsRel.put(String.valueOf(goods.getGoodsId()), goods.getQuantity());
             }
             //查询所有商品
-            List<GoodsPojo> goodsPojoList = goodsService.listGoods(goodsRel.keySet().toArray(new Integer[]{}));
+            List<GoodsPojo> goodsPojoList = goodsService.listGoods(ids.toArray(new Integer[]{}));
 //            view.addObject("title", "购物车(" + (goodsPojoList == null ? 0 : goodsPojoList.size()) + ")");
             view.addObject("title", "购物车");
             //返回json数据

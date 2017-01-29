@@ -31,7 +31,7 @@
                     <div class="carts-number">
                         <ul>
                             <li class="carts-minus"><i class="fa fa-minus fa-1x"></i></li>
-                            <li class="singleNum">${data.goodsRel?values[item_index]}</li>
+                            <li class="singleNum">${data.goodsRel[item.id + ""]}</li>
                             <li class="carts-plus"><i class="fa fa-plus fa-1x"></i></li>
                         </ul>
                     </div>

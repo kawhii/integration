@@ -6,8 +6,7 @@
     </header>
 
     <!-- details -->
-    <main class="details">
-        <div class="home-plusHint">加入成功</div>
+    <main class="details" id="ID_detailApp">
 
         <div class="banner">
             <div class="img_gallery">
@@ -103,10 +102,11 @@
                 <i class="fa fa-shopping-cart fa-lg"></i>
                 <p>购物车(0)</p>
             </div>
-            <button type="button" value="">加入购物车</button>
+            <button type="button" value="" @click="addStopCart(${data.goods.id})">加入购物车</button>
         </div>
     </main>
     <!-- details -->
+    <script src="/js/~/buyer/goods/detail.js"></script>
 </section>
 
 <!--鼠标手指左右滑动切换图片js插件-->
