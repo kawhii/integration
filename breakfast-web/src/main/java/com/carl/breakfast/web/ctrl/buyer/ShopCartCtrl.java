@@ -117,8 +117,10 @@ public class ShopCartCtrl extends BaseCtrl {
 //            view.addObject("title", "购物车(" + (goodsPojoList == null ? 0 : goodsPojoList.size()) + ")");
             view.addObject("title", "购物车");
             //返回json数据
-            if(goodsPojoList != null)
-                view.addObject("data", MapBuilder.build().p("goods", goodsPojoList).p("goodsRel", goodsRel).toJson());
+            if(goodsPojoList != null) {
+                view.addObject("dataJson", MapBuilder.build().p("goods", goodsPojoList).p("goodsRel", goodsRel).toJson());
+                view.addObject("data", MapBuilder.build().p("goods", goodsPojoList).p("goodsRel", goodsRel));
+            }
         } else {
             view.addObject("title", "购物车(0)");
         }

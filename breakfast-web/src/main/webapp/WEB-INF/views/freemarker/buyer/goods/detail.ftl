@@ -15,7 +15,7 @@
                 <div class="main_img">
                     <ul>
                         <li>
-                            <img class="img-responsive" src="/file/img/~/${data.goods.mainImgPath!''}" alt=""/>
+                            <img class="img-responsive" src="${var_domain_url}/file/img/~/${data.goods.mainImgPath!''}" alt=""/>
                         </li>
                     <#list data.goodsExtList as item>
                         <#if item.keyName?contains("img")></#if>

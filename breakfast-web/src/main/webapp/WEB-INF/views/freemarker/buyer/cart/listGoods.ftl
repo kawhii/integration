@@ -1,4 +1,3 @@
-
 <#include "freemarker/base/mallBase.ftl">
 <section class="contain">
     <header class="header">
@@ -15,6 +14,7 @@
         </div>-->
 
         <div class="carts-main">
+        <#list data.goods as item>
             <div class="carts-goods">
                 <div class="carts-goodsLeft">
                     <div class="carts-choose">
@@ -22,16 +22,16 @@
                         <input type="checkbox" name="carts-choose[]"/>
                     </div>
                     <div class="carts-img">
-                        <a href="#"><img src="img/goods.jpg" alt=""/></a>
+                        <a href="#"><img src="${var_domain_url}/file/img/~/${item.mainImgPath!''}" alt=""/></a>
                     </div>
                     <div class="carts-info">
-                        <p class="carts-goods-name">双龙出火</p>
-                        <p class="carts-goods-price">￥666</p>
+                        <p class="carts-goods-name">${item.name}</p>
+                        <p class="carts-goods-price">￥${item.price}</p>
                     </div>
                     <div class="carts-number">
                         <ul>
                             <li class="carts-minus"><i class="fa fa-minus fa-1x"></i></li>
-                            <li class="singleNum">1</li>
+                            <li class="singleNum">${data.goodsRel?values[item_index]}</li>
                             <li class="carts-plus"><i class="fa fa-plus fa-1x"></i></li>
                         </ul>
                     </div>
@@ -39,54 +39,7 @@
                 <div class="carts-goodsRight">删除</div>
                 <div class="clearfix"></div>
             </div>
-            <div class="carts-goods">
-                <div class="carts-goodsLeft">
-                    <div class="carts-choose">
-                        <div class="carts-choosebox"></div>
-                        <input type="checkbox" name="carts-choose[]"/>
-                    </div>
-                    <div class="carts-img">
-                        <a href="#"><img src="img/goods.jpg" alt=""/></a>
-                    </div>
-                    <div class="carts-info">
-                        <p class="carts-goods-name">双龙出火</p>
-                        <p class="carts-goods-price">￥666</p>
-                    </div>
-                    <div class="carts-number">
-                        <ul>
-                            <li class="carts-minus"><i class="fa fa-minus fa-1x"></i></li>
-                            <li class="singleNum">1</li>
-                            <li class="carts-plus"><i class="fa fa-plus fa-1x"></i></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="carts-goodsRight">删除</div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="carts-goods">
-                <div class="carts-goodsLeft">
-                    <div class="carts-choose">
-                        <div class="carts-choosebox"></div>
-                        <input type="checkbox" name="carts-choose[]"/>
-                    </div>
-                    <div class="carts-img">
-                        <a href="#"><img src="img/goods.jpg" alt=""/></a>
-                    </div>
-                    <div class="carts-info">
-                        <p class="carts-goods-name">双龙出火</p>
-                        <p class="carts-goods-price">￥666</p>
-                    </div>
-                    <div class="carts-number">
-                        <ul>
-                            <li class="carts-minus"><i class="fa fa-minus fa-1x"></i></li>
-                            <li class="singleNum">1</li>
-                            <li class="carts-plus"><i class="fa fa-plus fa-1x"></i></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="carts-goodsRight">删除</div>
-                <div class="clearfix"></div>
-            </div>
+        </#list>
         </div>
 
         <div class="carts-foot">
@@ -97,7 +50,9 @@
             </div>
             <div class="carts-price">
                 <p><span>合计：</span><span class="priceTotal red">￥0.00</span><br/><span>不含运费</span></p>
-                <a href="orders-fill.html"><div class="carts-count">结算( <span class="cartsNum">0</span> )</div></a>
+                <a href="orders-fill.html">
+                    <div class="carts-count">结算( <span class="cartsNum">0</span> )</div>
+                </a>
             </div>
         </div>
     </main>

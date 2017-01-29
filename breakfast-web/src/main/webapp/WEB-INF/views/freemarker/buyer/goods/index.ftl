@@ -19,7 +19,7 @@
             <div class="home-goods" v-for="item in items">
                 <a v-bind:href="'/goods/detail/' + item.id">
                     <div class="home-img">
-                        <img v-bind:src="'/file/img/~/' + item.mainImgPath" alt=""/>
+                        <img v-bind:src="'${var_domain_url}/file/img/~/' + item.mainImgPath" alt=""/>
                     </div>
                     <div class="home-info">
                         <p class="home-goods-name">{{item.name}}</p>

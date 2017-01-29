@@ -55,8 +55,8 @@
         </property>
         <property name="freemarkerVariables">
             <map>
-                <entry key="base" value-ref="baseTemplateDirectiveModel">
-                </entry>
+                <entry key="base" value-ref="baseTemplateDirectiveModel"></entry>
+                <entry key="var_domain_url" value="${domain.url}"></entry>
             </map>
         </property>
     </bean>
