@@ -11,6 +11,7 @@
         </a>
         <a href="person.html">
             <li><i class="fa fa-user fa-lg"></i><p>我的</p></li>
+
         </a>
     </ul>
 </footer>
