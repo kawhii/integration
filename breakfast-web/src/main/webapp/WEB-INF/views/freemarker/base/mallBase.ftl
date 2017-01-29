@@ -17,7 +17,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1,minimum-scale=1"/>
-    <title>早餐供应平台</title>
+    <title>${title!'早餐供应平台'}</title>
     <link rel="stylesheet" type="text/css" href="/styles/~/base/basis.css"/>
     <link rel="stylesheet" type="text/css" href="/styles/~/base/style.css"/>
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
