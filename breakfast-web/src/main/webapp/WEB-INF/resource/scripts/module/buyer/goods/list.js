@@ -15,6 +15,16 @@
         el: '#ID_goodsApp',
         data: {
             items: []
+        }, methods: {
+            //添加到购物车
+            addStopCart: function (item) {
+                carl.request("/cart/addGoods", {quantity: 1, goodsId: item.id},
+                    function (data) {
+                       if(data.header.code == 0) {
+                           carl.toast("添加成功");
+                       }
+                    }, {get: false});
+            }
         }
     });
 

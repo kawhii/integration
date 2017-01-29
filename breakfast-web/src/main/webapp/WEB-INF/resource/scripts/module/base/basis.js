@@ -6,16 +6,16 @@ $(function(){
 
     /*============== home首页 ================ */
     //首页点击添加商品提示
-    $(".home-plus i,.details-foot button,.carts-goodsRight").on("touchstart",function(event){
-        if(event.originalEvent.changedTouches.length == 1){
-            event.preventDefault();
-            $(".home-plusHint").addClass("plusHint");
-            setTimeout(removeHint,1000);
-        }
-    });
-    function removeHint(){
-        $(".home-plusHint").removeClass("plusHint");
-    }
+    // $(".home-plus i,.details-foot button,.carts-goodsRight").on("touchstart",function(event){
+    //     if(event.originalEvent.changedTouches.length == 1){
+    //         event.preventDefault();
+    //         $(".home-plusHint").addClass("plusHint");
+    //         setTimeout(removeHint,1000);
+    //     }
+    // });
+    // function removeHint(){
+    //     $(".home-plusHint").removeClass("plusHint");
+    // }
 
     //图片切换
     main_imgLength = $(".main_img ul li").size();

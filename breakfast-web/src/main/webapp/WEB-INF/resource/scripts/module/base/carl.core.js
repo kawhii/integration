@@ -43,14 +43,32 @@
 
         startMask(setting);
 
-
-        $[setting.get ? 'get' : 'post'](url, data, function (data) {
-            completeMask(setting);
-            if (callback) {
-                callback(data);
+        $.ajax({
+            type: setting.get ? 'GET' : 'POST',
+            url: url,
+            contentType: setting.get ? null : "application/json; charset=utf-8",
+            data: data ? (setting.get ? data : JSON.stringify(data)) : '',
+            dataType: "json",
+            success: function (data) {
+                completeMask(setting);
+                if (callback) {
+                    callback(data);
+                }
+            },
+            error: function (data) {
+                completeMask(setting);
+                if (callback) {
+                    callback(data);
+                }
             }
+        });
+        /*$[setting.get ? 'get' : 'post'](url, data, function (data) {
+         completeMask(setting);
+         if (callback) {
+         callback(data);
+         }
 
-        }, 'json');
+         }, 'json');*/
     }
 
     /**
@@ -67,17 +85,27 @@
 
     //兼容火狐、IE8
     //显示遮罩层
-    function showMask() {
+    function showMask(msg) {
+        msg = msg ? msg : '加载中...';
+        $("#ID_mask").html(msg);
         $("#ID_mask").addClass("plusHint");
         $("#ID_mask").show();
     }
 
     //隐藏遮罩层
     function hideMask() {
-
         $("#ID_mask").removeClass("plusHint");
         $("#ID_mask").hide();
     }
+
+    /**
+     * 吐丝
+     * @param msg
+     */
+    carl.toast = function (msg) {
+        showMask(msg);
+        setTimeout(hideMask, 800);
+    };
 
     window.carl = carl;
 }(window));

@@ -27,7 +27,7 @@
                         <p class="home-goods-sales">销量：<span>{{item.sales}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好评：<span>80%</span></p>
                     </div>
                 </a>
-                <div class="home-plus">
+                <div class="home-plus" @click="addStopCart(item)">
                     <i class="fa fa-plus-circle fa-lg"></i>
                 </div>
                 <div class="clearfix"></div>
