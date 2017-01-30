@@ -212,6 +212,7 @@ $(function(){
 
             if(editHide == 0){
                 $(this).html("完成");
+                $(this).val(0);
                 $(".carts-price p").hide();
                 $(".carts-count").html('删除( <span class="cartsNum">0</span> )');
                 editHide = 1;
@@ -219,6 +220,7 @@ $(function(){
                 cartsNum();
             }else{
                 $(this).html("编辑");
+                $(this).val(1);
                 $(".carts-price p").show();
                 $(".carts-count").html('结算( <span class="cartsNum">0</span> )');
                 editHide = 0;

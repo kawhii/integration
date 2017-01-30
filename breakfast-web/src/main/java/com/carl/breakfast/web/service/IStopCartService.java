@@ -51,7 +51,7 @@ public interface IStopCartService {
      * @param response
      * @param goodsId
      */
-    void removeGoodsInCookie(HttpServletRequest request, HttpServletResponse response, int goodsId);
+    void removeGoodsInCookie(HttpServletRequest request, HttpServletResponse response, Integer []goodsId);
 
     /**
      * 从购物车中移除所有商品

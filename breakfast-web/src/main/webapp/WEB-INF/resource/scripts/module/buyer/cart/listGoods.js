@@ -14,6 +14,19 @@
     var app = new Vue({
         el: '#ID_CartGoodsApp',
         data: {}, methods: {
+            //编辑选中的，1-提交，0-删除
+            editChoose: function () {
+                var type = $('.carts-edit').val();
+                var chooseId = [];
+                //获取全部选中的id
+                $('.carts-choose :checkbox:checked').each(function () {
+                    chooseId.push($(this).val());
+                });
+                if (type == 0) {
+                    //移除选中的
+                    removeChoose(chooseId, $('.carts-choose :checkbox:checked'));
+                }
+            },
             //删除
             remove: function (id, event) {
                 carl.request("/cart/operateGoods", {type: 3, goods: {goodsId: id}},
@@ -58,6 +71,18 @@
             }
         }
     });
+
+    //删除被移除的
+    function removeChoose(ids, targets) {
+
+        carl.request("/cart/removeGoods", ids,
+            function (data) {
+                if (data.header.code == 0) {
+                    targets.parent().parent().parent().remove();
+                    cartsNum();
+                }
+            }, {get: false});
+    }
 
     //计算购物车选中商品数量和总价格
     function cartsNum() {

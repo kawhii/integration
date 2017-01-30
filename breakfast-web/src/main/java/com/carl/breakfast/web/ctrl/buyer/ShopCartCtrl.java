@@ -92,13 +92,22 @@ public class ShopCartCtrl extends BaseCtrl {
                     break;
                 //删除
                 case 3:
-                    stopCartService.removeGoodsInCookie(request, response, cartGoodsOpt.getGoods().getGoodsId());
+                    stopCartService.removeGoodsInCookie(request, response, new Integer[]{cartGoodsOpt.getGoods().getGoodsId()});
                     break;
             }
         } catch (Exception ex) {
             logger.error(ex);
             return fail(ex.getMessage());
         }
+        return success();
+    }
+
+    //删除商品
+    @RequestMapping(value = "/removeGoods", method = RequestMethod.POST)
+    @ResponseBody
+    public Object operateGoods(HttpServletRequest request, HttpServletResponse response,
+                               @RequestBody Integer[] ids) {
+        stopCartService.removeGoodsInCookie(request, response, ids);
         return success();
     }
 

@@ -52,16 +52,19 @@ public class StopCartService implements IStopCartService {
     }
 
     @Override
-    public void removeGoodsInCookie(HttpServletRequest request, HttpServletResponse response, int goodsId) {
+    public void removeGoodsInCookie(HttpServletRequest request, HttpServletResponse response, Integer []goodsId) {
         CookieStopCart cookieStopCart = stopCartCookieDao.getStopCart(request);
         if (cookieStopCart != null) {
             //根据id获取商品，找到直接移除
-            CartGoods goods = cookieStopCart.getGoodsById(goodsId);
-            if (goods != null) {
-                cookieStopCart.remove(goods);
-                //保存到购物车中
-                stopCartCookieDao.saveStopCart(response, cookieStopCart);
+            for(int id :goodsId) {
+                CartGoods goods = cookieStopCart.getGoodsById(id);
+                if(goods != null) {
+                    cookieStopCart.remove(goods);
+                }
             }
+
+            //保存到购物车中
+            stopCartCookieDao.saveStopCart(response, cookieStopCart);
         }
     }
 

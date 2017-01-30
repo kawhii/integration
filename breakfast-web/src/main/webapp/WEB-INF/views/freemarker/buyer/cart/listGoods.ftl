@@ -1,7 +1,7 @@
 <#include "freemarker/base/mallBase.ftl">
 <section class="contain">
     <header class="header">
-        <button type="button" value="" class="carts-edit">编辑</button>
+        <button type="button" value="1" class="carts-edit">编辑</button>
         <p>购物车( <span class="cartsNum">0</span> )</p>
     </header>
 
@@ -22,7 +22,7 @@
                     <div class="carts-goodsLeft">
                         <div class="carts-choose">
                             <div class="carts-choosebox"></div>
-                            <input type="checkbox" name="carts-choose[]"/>
+                            <input type="checkbox" name="carts-choose[]" value="${item.id}"/>
                         </div>
                         <div class="carts-img">
                             <a href="#"><img src="${var_domain_url}/file/img/~/${item.mainImgPath!''}" alt=""/></a>
@@ -56,8 +56,8 @@
             </div>
             <div class="carts-price">
                 <p><span>合计：</span><span class="priceTotal red">￥0.00</span><br/><span>不含运费</span></p>
-                <a href="orders-fill.html">
-                    <div class="carts-count">结算( <span class="cartsNum">0</span> )</div>
+                <a href="#">
+                    <div class="carts-count" @click="editChoose()">结算( <span class="cartsNum">0</span> )</div>
                 </a>
             </div>
         </div>
