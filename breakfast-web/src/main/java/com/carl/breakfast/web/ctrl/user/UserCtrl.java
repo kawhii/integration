@@ -71,4 +71,11 @@ public class UserCtrl extends BaseCtrl {
         }
         return fail("删除失败");
     }
+
+    @RequestMapping("/addAddress.html")
+    public ModelAndView setDefaultAddress() {
+        ModelAndView view = new ModelAndView(freemarker("addressEdit"));
+
+        return view;
+    }
 }

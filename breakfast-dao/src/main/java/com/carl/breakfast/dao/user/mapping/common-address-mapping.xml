@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.user.CommonAddressDaoImpl">
+    <!--表名明-->
+    <sql id="table_name">
+        cm_address
+    </sql>
+
+
+
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.pojo.user.CommonAddress">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="INFO" property="info" jdbcType="VARCHAR"/>
+        <result column="TYPE_ID" property="typeId" jdbcType="VARCHAR"/>
+        <result column="SEQ" property="seq" jdbcType="INTEGER"/>
+        <result column="PID" property="pId" jdbcType="VARCHAR"/>
+        <result column="NOTE" property="note" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 根据搜索条件获取数据 -->
+    <sql id="condition_sql">
+        <if test="id != null">and id = #{id,jdbcType=INTEGER}</if>
+        <if test="typeId != null and typeId != ''">and TYPE_ID = #{typeId,jdbcType=VARCHAR}</if>
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from
+        <include refid="table_name"/>
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+        order by seq
+    </select>
+</mapper>
