@@ -38,4 +38,10 @@ public interface IAddressService {
      */
     List<SendAddress> queryAddressByUsername(String username);
 
+    /**
+     * 个根据id删除地址
+     * @param id
+     * @return
+     */
+    boolean removeAddressById(int id);
 }

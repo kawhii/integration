@@ -269,18 +269,18 @@ $(function(){
 
     /*============== address收货地址 ================ */
     //复选按钮的选中与未选中
-    $(".address-choose").on("touchstart",function(event){
+    /*$(".address-choose").on("touchstart",function(event){
         if(event.originalEvent.changedTouches.length == 1) {
             event.preventDefault();
 
-            /*$(".address-main-info").removeClass("address-main-infoBg");
-            $(this).parents(".address-main-info").addClass("address-main-infoBg");*/
+            /!*$(".address-main-info").removeClass("address-main-infoBg");
+            $(this).parents(".address-main-info").addClass("address-main-infoBg");*!/
             $(".address-main-info").find(".address-choosebox").removeClass("carts-chooseboxBg");
             $(".address-main-info").find("input").prop("checked", false);
             $(this).find(".address-choosebox").addClass("carts-chooseboxBg");
             $(this).find("input").prop("checked", true);
         }
-    });
+    });*/
 
     $(".address-main-info").on("touchstart",function(event){
         if(event.originalEvent.changedTouches.length == 1) {

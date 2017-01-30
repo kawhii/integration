@@ -10,7 +10,7 @@
 
         <#list address as item>
             <div class="address-main-info  ${item.default?string('address-main-infoBg','')}">
-                <input type="hidden" id="${item.id}"/>
+                <input type="hidden" value="${item.id}"/>
                 <p>收货人：<span>${item.contactsName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话：<span>${item.contactsPhone}</span></p>
                 <p>收货地址：<span>${item.detail}</span></p>
                 <div class="address-main-edit">

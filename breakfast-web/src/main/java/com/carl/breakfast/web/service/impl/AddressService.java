@@ -38,4 +38,9 @@ public class AddressService implements IAddressService {
     public List<SendAddress> queryAddressByUsername(String username) {
         return addressDao.listBy(MapBuilder.<String, Object>build().p("username", username));
     }
+
+    @Override
+    public boolean removeAddressById(int id) {
+        return 1 == addressDao.delete(id + "");
+    }
 }

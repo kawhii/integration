@@ -20,10 +20,10 @@ public class AddressServiceTest extends BaseTest {
     public void addAddress() throws Exception {
         SendAddress address = new SendAddress();
         address.setUsername("admin");
-        address.setContactsName("我是联系人2");
+        address.setContactsName("我是联系人");
         address.setDetail("详细地址1");
-        address.setDefault(false);
-        address.setContactsPhone("10086");
+        address.setDefault(true);
+        address.setContactsPhone("13712312312");
         addressService.addAddress(address);
     }
 
