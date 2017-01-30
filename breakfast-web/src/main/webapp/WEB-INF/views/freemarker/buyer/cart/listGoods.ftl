@@ -6,7 +6,7 @@
     </header>
 
     <!-- carts -->
-    <main class="carts">
+    <main class="carts" id="ID_CartGoodsApp">
         <div class="home-plusHint">删除成功</div>
         <!--<div class="popupHint" id="cartsdeleteHint">
             <div class="popupHint-top">删除成功！</div>
@@ -30,9 +30,10 @@
                     </div>
                     <div class="carts-number">
                         <ul>
-                            <li class="carts-minus"><i class="fa fa-minus fa-1x"></i></li>
+                            <li class="carts-minus" @click="minus(${item.id},$event)">
+                                <i class="fa fa-minus fa-1x"></i></li>
                             <li class="singleNum">${data.goodsRel[item.id + ""]}</li>
-                            <li class="carts-plus"><i class="fa fa-plus fa-1x"></i></li>
+                            <li class="carts-plus" @click="plus(${item.id},$event)"><i class="fa fa-plus fa-1x"></i></li>
                         </ul>
                     </div>
                 </div>
@@ -56,6 +57,7 @@
             </div>
         </div>
     </main>
+    <script src="/js/~/buyer/cart/listGoods.js"></script>
     <!-- carts -->
 <#include "freemarker/base/mallFooter.ftl">
 </section>

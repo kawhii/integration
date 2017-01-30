@@ -98,7 +98,7 @@
         </div>
 
         <div class="details-foot">
-            <div class="details-foot-carts">
+            <div class="details-foot-carts" @click="goCartPage()">
                 <i class="fa fa-shopping-cart fa-lg"></i>
                 <p v-cloak>购物车({{cartCount}})</p>
             </div>

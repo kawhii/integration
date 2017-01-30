@@ -42,7 +42,7 @@ $(function(){
     $(".carts-goods").on("touchstart",function(event){
         var e = event.originalEvent.changedTouches[0];
         if(event.originalEvent.changedTouches.length == 1){
-            event.preventDefault();
+           // event.preventDefault();
 
             x = e.clientX;
             y = e.clientY;
@@ -74,7 +74,7 @@ $(function(){
     $(".carts-goodsLeft").on("touchend",function(event){
         var e = event.originalEvent.changedTouches[0];
         if(event.originalEvent.changedTouches.length == 1){
-            event.preventDefault();
+           // event.preventDefault();
 
             if(xDiffer < 0){
                 $(this).animate({
@@ -95,7 +95,7 @@ $(function(){
     });
 
     //点击删除购物车商品弹出提示框
-    /*$(".carts-goodsRight").on("touchstart",function(event){
+    $(".carts-goodsRight").on("touchstart",function(event){
         if(event.originalEvent.changedTouches.length == 1){
             event.preventDefault();
 
@@ -109,7 +109,7 @@ $(function(){
 
             $("#cartsdeleteHint").hide(500);
         }
-    });*/
+    });
 
     //复选按钮的选中与未选中
     $(".carts-choose").on("touchstart",function(event){
@@ -155,7 +155,7 @@ $(function(){
     cartsNum();
 
     //单个商品的数量加减
-    $(".carts-minus").on("touchstart",function(event){
+    /*$(".carts-minus").on("touchstart",function(event){
         if(event.originalEvent.changedTouches.length == 1) {
             event.preventDefault();
             var singleNum = parseInt($(this).parent().find(".singleNum").html());
@@ -178,7 +178,7 @@ $(function(){
             }
             cartsNum();
         }
-    });
+    });*/
 
     //全选商品
     $(".carts-chooseAllbox,.carts-chooseAllbox_p").on("touchstart",function(event){

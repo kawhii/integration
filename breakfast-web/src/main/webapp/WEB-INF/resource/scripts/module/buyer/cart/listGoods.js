@@ -1,104 +1,79 @@
-;(function () {
-    angular.module('StopCart', ['ngMaterial', 'App'])
+/**
+ * @date 2017/1/29
+ *
+ * @author Carl
+ * @note
+ * --------------------
+ * @depend
+ * @modify
+ * 版权所有.(c)2008-2017.卡尔工作室
+ */
+!(function () {
+    'use strict';
 
-        .controller('ListCtrl', function ($scope, $toast, $request) {
-
-            $scope.items = stopCart;
-            $scope.goodsTotal = 0;
-
-            $scope.priceTotal = 0;
-
-            $scope.buyState = {};
-
-            $scope.submitGoods = [];
-
-            //计算价钱
-            function priceReload() {
-                $scope.priceTotal = 0;
-                $scope.goodsTotal = 0;
-                $scope.submitGoods = [];
-                //若有勾选了，才计算
-                if(!$scope.items.goods)
+    var app = new Vue({
+        el: '#ID_CartGoodsApp',
+        data: {}, methods: {
+            //减法
+            minus: function (id, event) {
+                var singleNum = parseInt($(event.target).parent().parent().find(".singleNum").html());
+                if (singleNum <= 1) {
                     return;
-                angular.forEach($scope.items.goods, function (item) {
-                    if ($scope.buyState[item.id] === true) {
-                        $scope.goodsTotal++;
-                        $scope.priceTotal += (item.price * $scope.items.goodsRel[item.id]);
-                        $scope.submitGoods.push({id:item.id, quantity : $scope.items.goodsRel[item.id]});
-                    }
-                });
-            }
-
-            //当购买状态改变时触发
-            //计算总价
-            $scope.$watchCollection("buyState", function () {
-                priceReload();
-            });
-
-            //数量改变的时候
-            $scope.$watchCollection("items.goodsRel", function () {
-                priceReload();
-            });
-
-            //编辑模式
-            $scope.edit = function (item) {
-                if (!item.isEdit) {
-                    item.isEdit = true;
-                } else {
-                    item.isEdit = false;
                 }
-            };
-
-            //减
-            $scope.minus = function (item) {
-                if ($scope.items.goodsRel[item.id] == 1)
-                    return;
-                $request.post("/cart/operateGoods", {
-                    goods: {
-                        goodsId: item.id,
-                        quantity: 1
-                    }, type: 2
-                }, function () {
-                    $scope.items.goodsRel[item.id]--;
-                });
-            };
+                carl.request("/cart/operateGoods", {type: 2, goods: {quantity: 1, goodsId: id}},
+                    function (data) {
+                        if (data.header.code == 0) {
+                            if (singleNum > 1) {
+                                $(event.target).parent().parent().find(".singleNum").html(singleNum - 1);
+                            } else {
+                                $(event.target).parent().parent().find(".singleNum").html(1);
+                            }
+                            cartsNum();
+                        }
+                    }, {get: false});
+            },
             //加
-            $scope.plus = function (item) {
-                $request.post("/cart/operateGoods", {
-                    goods: {
-                        goodsId: item.id,
-                        quantity: 1
-                    }, type: 1
-                }, function () {
-                    $scope.items.goodsRel[item.id]++;
-                });
-            };
-            //删除
-            $scope.delete = function (item, index) {
-                var r = confirm("确定要删除【" + item.title + "】？");
-                if(r) {
-                    $request.post("/cart/operateGoods", {
-                        goods: {
-                            goodsId: item.id,
-                            quantity: 1
-                        }, type: 3
-                    }, function () {
-                        //移除
-                        $scope.items.goods.splice(index, 1);
-                        $scope.items.goodsRel[item.id] = 0;
-                    });
-                }
-            };
-
-            //创建订单
-            $scope.createOrder = function () {
-                if ($scope.priceTotal == 0) {
-                    $toast.showActionToast("您还没有选择宝贝哦~");
-                    return;
-                }
-                //TODO 提交订单
-                console.info($scope.submitGoods);
-                document.getElementById("ID_form").submit();
+            plus: function (id, event) {
+                carl.request("/cart/operateGoods", {type: 1, goods: {quantity: 1, goodsId: id}},
+                    function (data) {
+                        if (data.header.code == 0) {
+                            var singleNum = parseInt($(event.target).parent().parent().find(".singleNum").html());
+                            if (singleNum <= 10000) {
+                                $(event.target).parent().parent().find(".singleNum").html(singleNum + 1);
+                            } else {
+                                $(event.target).parent().parent().find(".singleNum").html(10000);
+                            }
+                            cartsNum();
+                        }
+                    }, {get: false});
             }
-        });
+        }
+    });
+
+    //计算购物车选中商品数量和总价格
+    function cartsNum() {
+        var cartsNum = $(".carts-main input:checked").length;
+        $(".cartsNum").text(cartsNum);
+
+        //计算商品总数量
+        var divNum = $(".carts-main>div").size();
+
+        //计算被选中商品总价格
+        var priceTotal = 0;
+        for (var i = 0; i < divNum; i++) {
+            var choosediv = $(".carts-main>div:eq(" + i + ")");
+            if (choosediv.find(".carts-choosebox").hasClass("carts-chooseboxBg")) {
+                var price = choosediv.find(".carts-goods-price").html().substring(1);
+                var singleNum = choosediv.find(".singleNum").html();
+                priceTotal += parseInt(price) * parseInt(singleNum);
+                $(".priceTotal").html("￥" + priceTotal.toFixed(2));
+            }
+        }
+
+        //当选中商品为0时，总价格为0
+        if (cartsNum == 0) {
+            $(".priceTotal").html("￥0.00");
+        }
+    }
+
 }());

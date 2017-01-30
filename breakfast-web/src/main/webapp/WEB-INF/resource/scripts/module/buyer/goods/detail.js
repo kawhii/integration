@@ -16,7 +16,7 @@
         el: '#ID_detailApp',
         data: {
             //当前商品购物车数量
-            cartCount: 2
+            cartCount: 0
         }, methods: {
             //添加到购物车
             addStopCart: function (id) {
@@ -27,6 +27,9 @@
                             carl.toast("添加成功");
                         }
                     }, {get: false});
+            },
+            goCartPage: function() {
+                window.location.href = "/cart/listGoods.html"
             }
         }
     });
