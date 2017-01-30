@@ -22,6 +22,11 @@
     <link rel="stylesheet" type="text/css" href="/styles/~/base/style.css"/>
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/styles/~/base/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
     <script src="/js/lib/jquery/jquery.min.js"></script>
     <script src="/js/~/base/carl.core.js"></script>
     <script src="/webjars/vue/vue.min.js"></script>

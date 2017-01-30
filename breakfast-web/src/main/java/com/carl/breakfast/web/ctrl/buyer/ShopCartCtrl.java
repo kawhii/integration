@@ -120,7 +120,7 @@ public class ShopCartCtrl extends BaseCtrl {
 //            view.addObject("title", "购物车(" + (goodsPojoList == null ? 0 : goodsPojoList.size()) + ")");
             view.addObject("title", "购物车");
             //返回json数据
-            if(goodsPojoList != null) {
+            if (goodsPojoList != null) {
                 view.addObject("dataJson", MapBuilder.build().p("goods", goodsPojoList).p("goodsRel", goodsRel).toJson());
                 view.addObject("data", MapBuilder.build().p("goods", goodsPojoList).p("goodsRel", goodsRel));
             }
@@ -129,5 +129,18 @@ public class ShopCartCtrl extends BaseCtrl {
         }
         view.addObject("submitTitle", "我要结算");
         return view;
+    }
+
+    @RequestMapping("/queryGoodsCount")
+    @ResponseBody
+    public Object queryGoodsCount(HttpServletRequest request, @RequestParam("goodsId") int goodsId) {
+        StopCart cart = stopCartService.obtainCart(request);
+        if (cart != null) {
+            CartGoods cartGoods = cart.getGoodsById(goodsId);
+            if (cartGoods != null) {
+                return success(cartGoods.getQuantity());
+            }
+        }
+        return fail("购物车不存在该商品");
     }
 }

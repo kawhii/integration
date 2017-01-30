@@ -100,8 +100,9 @@
         <div class="details-foot">
             <div class="details-foot-carts">
                 <i class="fa fa-shopping-cart fa-lg"></i>
-                <p>购物车(0)</p>
+                <p v-cloak>购物车({{cartCount}})</p>
             </div>
+            <input type="hidden" id="ID_goodsId" value="${data.goods.id}"/>
             <button type="button" value="" @click="addStopCart(${data.goods.id})">加入购物车</button>
         </div>
     </main>
