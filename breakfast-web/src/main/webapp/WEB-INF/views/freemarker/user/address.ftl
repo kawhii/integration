@@ -10,6 +10,7 @@
 
         <#list address as item>
             <div class="address-main-info  ${item.default?string('address-main-infoBg','')}">
+                <input type="hidden" id="${item.id}"/>
                 <p>收货人：<span>${item.contactsName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话：<span>${item.contactsPhone}</span></p>
                 <p>收货地址：<span>${item.detail}</span></p>
                 <div class="address-main-edit">
@@ -42,6 +43,7 @@
         <div class="address-foot">
             <a href="address-details.html"><button type="button" value=""><i class="fa fa-plus"></i><p>新增地址</p></button></a>
         </div>
+        <script src="/js/~/user/address.js"></script>
     </main>
     <!-- address -->
 
