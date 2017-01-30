@@ -9,4 +9,10 @@ import com.carl.framework.core.dao.BaseDao;
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
 public interface ISendAddressDao extends BaseDao<SendAddress> {
+    /**
+     * 修改为默认
+     * @param username
+     * @param id
+     */
+    void setDefault(String username, int id);
 }
