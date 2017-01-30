@@ -56,6 +56,6 @@
     <!--修改为默认-->
     <update id="setDefault">
         update <include refid="table_name"/> set is_default = 1 where username = #{username} and id = #{id};
-        update <include refid="table_name"/> set is_default = 0 where username = #{username} and id != #{id};
+        update <include refid="table_name"/> set is_default = 0 where username = #{username} and id != #{id}
     </update>
 </mapper>
