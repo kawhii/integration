@@ -95,7 +95,7 @@ $(function(){
     });
 
     //点击删除购物车商品弹出提示框
-    $(".carts-goodsRight").on("touchstart",function(event){
+    /*$(".carts-goodsRight").on("touchstart",function(event){
         if(event.originalEvent.changedTouches.length == 1){
             event.preventDefault();
 
@@ -109,7 +109,7 @@ $(function(){
 
             $("#cartsdeleteHint").hide(500);
         }
-    });
+    });*/
 
     //复选按钮的选中与未选中
     $(".carts-choose").on("touchstart",function(event){

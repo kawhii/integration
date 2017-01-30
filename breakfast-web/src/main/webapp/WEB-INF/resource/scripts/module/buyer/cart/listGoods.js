@@ -14,6 +14,15 @@
     var app = new Vue({
         el: '#ID_CartGoodsApp',
         data: {}, methods: {
+            //删除
+            remove: function (id, event) {
+                carl.request("/cart/operateGoods", {type: 3, goods: {goodsId: id}},
+                    function (data) {
+                        if (data.header.code == 0) {
+                            $(event.target).parent().remove()
+                        }
+                    }, {get: false});
+            },
             //减法
             minus: function (id, event) {
                 var singleNum = parseInt($(event.target).parent().parent().find(".singleNum").html());
