@@ -2,11 +2,14 @@ package com.carl.breakfast.web.ctrl.buyer;
 
 import com.alibaba.fastjson.JSON;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import com.carl.breakfast.dao.pojo.cart.CartGoods;
+import com.carl.breakfast.dao.pojo.cart.StopCart;
 import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
 import com.carl.breakfast.dao.sys.pojo.UserInfo;
 import com.carl.breakfast.web.bean.OrderCreateBean;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.breakfast.web.service.IOrderService;
+import com.carl.breakfast.web.service.IStopCartService;
 import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +44,9 @@ public class OrderCtrl extends BaseCtrl {
 
     @Autowired
     private IOrderService orderService;
+
+    @Autowired
+    private IStopCartService stopCartService;
 
     @Override
     protected String getModuleName() {
@@ -174,9 +181,34 @@ public class OrderCtrl extends BaseCtrl {
 
     @RequestMapping(value = "/myOrders.json", method = RequestMethod.GET)
     @ResponseBody
-    public Object fetchOrders( @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                               @RequestParam(value = "pageSize", required = false, defaultValue = "15") int pageSize) {
+    public Object fetchOrders(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                              @RequestParam(value = "pageSize", required = false, defaultValue = "15") int pageSize) {
         //todo 拉取当前用户的订单数据
         return null;
+    }
+
+    //订单详情
+    @RequestMapping(value = "/fill", method = RequestMethod.POST)
+    public ModelAndView orderFill(HttpServletRequest request, @RequestParam("carts-choose[]") Integer goodsId[]) {
+        StopCart stopCart = stopCartService.obtainCart(request);
+        //返回订单数据
+        List<Map<String, Object>> data = new ArrayList<>();
+        if (stopCart != null) {
+            List<CartGoods> goodsList = stopCart.getGoodsById(goodsId);
+            List<GoodsPojo> goodsPojos = goodsService.listGoods(goodsId);
+
+            for (GoodsPojo goodsPojo : goodsPojos) {
+                for (CartGoods goods : goodsList) {
+                    if (goods.getGoodsId() == goodsPojo.getId()) {
+                        data.add(MapBuilder.<String, Object>build().p("goods", goodsPojo).p("qat", goods));
+                        break;
+                    }
+                }
+            }
+        }
+        ModelAndView view = new ModelAndView(freemarker("orderFill"));
+        view.addObject("title", "填写订单");
+        view.addObject("data", data);
+        return view;
     }
 }

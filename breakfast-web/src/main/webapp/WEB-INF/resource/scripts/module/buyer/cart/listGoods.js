@@ -25,6 +25,9 @@
                 if (type == 0) {
                     //移除选中的
                     removeChoose(chooseId, $('.carts-choose :checkbox:checked'));
+                } else {
+                    //填写订单
+                    fillOrder(chooseId);
                 }
             },
             //删除
@@ -74,6 +77,10 @@
 
     //删除被移除的
     function removeChoose(ids, targets) {
+        if (ids.length == 0) {
+            carl.toast("还没有选中哦~");
+            return;
+        }
 
         carl.request("/cart/removeGoods", ids,
             function (data) {
@@ -82,6 +89,15 @@
                     cartsNum();
                 }
             }, {get: false});
+    }
+
+    //提交确认订单
+    function fillOrder(ids) {
+        if (ids.length == 0) {
+            carl.toast("还没有选中哦~");
+            return;
+        }
+        $('#ID_submitFill').submit();
     }
 
     //计算购物车选中商品数量和总价格

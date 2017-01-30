@@ -16,6 +16,7 @@ public class StopCartCookieDao extends BaseStopCartCookieDao {
         //保留七天
         cookie.setMaxAge(60 * 60 * 24 * 7);
         cookie.setHttpOnly(true);
+        cookie.setPath("/");
     };
 
     @Override

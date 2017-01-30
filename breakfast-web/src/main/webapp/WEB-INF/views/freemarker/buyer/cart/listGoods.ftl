@@ -13,40 +13,43 @@
             <div class="popupHintBtn"><button type="button">确定</button></div>
         </div>-->
 
-        <div class="carts-main">
-        <#list data.goods as item>
-            <#if data.goodsRel[item.id + ""] gt 0>
 
+            <form method="post" action="/order/fill" id="ID_submitFill">
+            <#list data.goods as item>
+                <#if data.goodsRel[item.id + ""] gt 0>
+                <div class="carts-main">
+                    <div class="carts-goods">
 
-                <div class="carts-goods">
-                    <div class="carts-goodsLeft">
-                        <div class="carts-choose">
-                            <div class="carts-choosebox"></div>
-                            <input type="checkbox" name="carts-choose[]" value="${item.id}"/>
+                        <div class="carts-goodsLeft">
+                            <div class="carts-choose">
+                                <div class="carts-choosebox"></div>
+                                <input type="checkbox" name="carts-choose[]" value="${item.id}"/>
+                            </div>
+                            <div class="carts-img">
+                                <a href="#"><img src="${var_domain_url}/file/img/~/${item.mainImgPath!''}" alt=""/></a>
+                            </div>
+                            <div class="carts-info">
+                                <p class="carts-goods-name">${item.name}</p>
+                                <p class="carts-goods-price">￥${item.price}</p>
+                            </div>
+                            <div class="carts-number">
+                                <ul>
+                                    <li class="carts-minus" @click="minus(${item.id},$event)">
+                                        <i class="fa fa-minus fa-1x"></i></li>
+                                    <li class="singleNum">${data.goodsRel[item.id + ""]}</li>
+                                    <li class="carts-plus" @click="plus(${item.id},$event)"><i
+                                            class="fa fa-plus fa-1x"></i>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="carts-img">
-                            <a href="#"><img src="${var_domain_url}/file/img/~/${item.mainImgPath!''}" alt=""/></a>
-                        </div>
-                        <div class="carts-info">
-                            <p class="carts-goods-name">${item.name}</p>
-                            <p class="carts-goods-price">￥${item.price}</p>
-                        </div>
-                        <div class="carts-number">
-                            <ul>
-                                <li class="carts-minus" @click="minus(${item.id},$event)">
-                                    <i class="fa fa-minus fa-1x"></i></li>
-                                <li class="singleNum">${data.goodsRel[item.id + ""]}</li>
-                                <li class="carts-plus" @click="plus(${item.id},$event)"><i class="fa fa-plus fa-1x"></i>
-                                </li>
-                            </ul>
-                        </div>
+                        <div class="carts-goodsRight" @click="remove(${item.id},$event)">删除</div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="carts-goodsRight" @click="remove(${item.id},$event)">删除</div>
-                    <div class="clearfix"></div>
                 </div>
-            </#if>
-        </#list>
-        </div>
+                </#if>
+            </#list>
+
 
         <div class="carts-foot">
             <div class="carts-chooseAll">
@@ -61,6 +64,7 @@
                 </a>
             </div>
         </div>
+        </form>
     </main>
     <script src="/js/~/buyer/cart/listGoods.js"></script>
     <!-- carts -->

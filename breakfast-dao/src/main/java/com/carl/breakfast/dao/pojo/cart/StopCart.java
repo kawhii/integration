@@ -33,10 +33,13 @@ public interface StopCart<H> {
 
     /**
      * 根据商品id获取商品信息
+     *
      * @param id
      * @return
      */
     CartGoods getGoodsById(Integer id);
+
+    List<CartGoods> getGoodsById(Integer id[]);
 
     /**
      * 移除购物车

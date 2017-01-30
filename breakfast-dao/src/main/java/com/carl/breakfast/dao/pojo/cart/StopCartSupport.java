@@ -1,6 +1,7 @@
 package com.carl.breakfast.dao.pojo.cart;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,5 +89,14 @@ public abstract class StopCartSupport<H> implements StopCart<H> {
     public CartGoods getGoodsById(Integer id) {
         Integer q = goodsListMap.get(id);
         return q == null ? null : new CartGoods(id, q);
+    }
+
+    @Override
+    public List<CartGoods> getGoodsById(Integer[] id) {
+        List<CartGoods> cartGoodsList = new ArrayList<>(id.length);
+        for(Integer s : id) {
+            cartGoodsList.add(getGoodsById(s));
+        }
+        return cartGoodsList;
     }
 }
