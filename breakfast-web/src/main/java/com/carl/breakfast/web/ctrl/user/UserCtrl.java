@@ -1,11 +1,12 @@
 package com.carl.breakfast.web.ctrl.user;
 
+import com.carl.breakfast.web.service.ICommonAddressService;
 import com.carl.breakfast.web.service.impl.AddressService;
+import com.carl.breakfast.web.service.impl.CommonAddressService;
 import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserCtrl extends BaseCtrl {
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private CommonAddressService commonAddressService;
 
     @Override
     protected String getModuleName() {
@@ -62,7 +65,7 @@ public class UserCtrl extends BaseCtrl {
     public Object removeAddress(@RequestParam("addressId") int id) {
         try {
             UserUtils.currUser().getUsername();
-            if(addressService.removeAddressById(id)) {
+            if (addressService.removeAddressById(id)) {
                 return success("删除成功");
             }
         } catch (Exception e) {
@@ -75,7 +78,11 @@ public class UserCtrl extends BaseCtrl {
     @RequestMapping("/addAddress.html")
     public ModelAndView setDefaultAddress() {
         ModelAndView view = new ModelAndView(freemarker("addressEdit"));
-
+        Object flow = commonAddressService.listByType(ICommonAddressService.Type.FLOW);
+        Object build = commonAddressService.listByType(ICommonAddressService.Type.BUILD);
+        view.addObject("flow", flow);
+        view.addObject("build", build);
+        view.addObject("title", "收货人");
         return view;
     }
 }

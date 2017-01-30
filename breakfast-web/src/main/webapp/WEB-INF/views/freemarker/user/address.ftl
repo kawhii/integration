@@ -41,7 +41,7 @@
         </div>
 
         <div class="address-foot">
-            <a href="address-details.html"><button type="button" value=""><i class="fa fa-plus"></i><p>新增地址</p></button></a>
+            <a href="/user/addAddress.html"><button type="button" value=""><i class="fa fa-plus"></i><p>新增地址</p></button></a>
         </div>
         <script src="/js/~/user/address.js"></script>
     </main>
