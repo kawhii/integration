@@ -50,7 +50,7 @@
 
             <div class="orders-money">
                 <p>商品金额</p>
-                <p class="red">￥0.00</p>
+                <p class="red">￥${totalPrice}</p>
                 <div class="clearfix"></div>
             </div>
 
@@ -59,11 +59,11 @@
         <div class="orders-fill-foot">
             <div class="orders-fill-choose">
                 <div class="orders-fill-choosebox"></div>
-                <p class="orders-fill-choosebox_p">加餐</p>
+                <p class="orders-fill-choosebox_p">加急</p>
                 <input type="checkbox" id="orders-fill-choose"/>
             </div>
             <div class="orders-fill-price">
-                <p><span>实付款：</span><span class="priceTotal red">￥0.00</span><br/><span>不含运费</span></p>
+                <p><span>实付款：</span><span class="red">￥${totalPrice}</span><br/><span>不含运费</span></p>
                 <a href="#">
                     <button type="button" value="" class="orders-submit">提交订单</button>
                 </a>

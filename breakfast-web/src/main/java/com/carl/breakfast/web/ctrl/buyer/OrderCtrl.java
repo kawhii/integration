@@ -193,6 +193,7 @@ public class OrderCtrl extends BaseCtrl {
         StopCart stopCart = stopCartService.obtainCart(request);
         //返回订单数据
         List<Map<String, Object>> data = new ArrayList<>();
+        float totalPrice = 0f;
         if (stopCart != null) {
             List<CartGoods> goodsList = stopCart.getGoodsById(goodsId);
             List<GoodsPojo> goodsPojos = goodsService.listGoods(goodsId);
@@ -201,6 +202,8 @@ public class OrderCtrl extends BaseCtrl {
                 for (CartGoods goods : goodsList) {
                     if (goods.getGoodsId() == goodsPojo.getId()) {
                         data.add(MapBuilder.<String, Object>build().p("goods", goodsPojo).p("qat", goods));
+                        //计算价格
+                        totalPrice += goods.getQuantity() * goodsPojo.getPrice();
                         break;
                     }
                 }
@@ -209,6 +212,7 @@ public class OrderCtrl extends BaseCtrl {
         ModelAndView view = new ModelAndView(freemarker("orderFill"));
         view.addObject("title", "填写订单");
         view.addObject("data", data);
+        view.addObject("totalPrice", String.format("%.2f", totalPrice));
         return view;
     }
 }
