@@ -62,4 +62,12 @@
     <delete id="deleteByPrimaryKey">
         delete from <include refid="table_name"/> where id = #{param1}
     </delete>
+
+    <select id="selectByPrimaryKey" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from
+        <include refid="table_name"/>
+        <where>
+            id = #{param1}
+        </where>
+    </select>
 </mapper>

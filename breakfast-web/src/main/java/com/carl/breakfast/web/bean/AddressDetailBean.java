@@ -10,6 +10,7 @@ import com.carl.breakfast.dao.pojo.user.AddressExt;
  * 版权所有.(c)2008-2017.卡尔工作室
  */
 public class AddressDetailBean {
+    private int id;
     //CONTACTS_NAME 联系人名
     private String contactsName;
     //CONTACTS_PHONE 联系电话
@@ -18,7 +19,7 @@ public class AddressDetailBean {
     private boolean isDefault;
     //USERNAME 归属用户
     private String username;
-    private String detailAddress = "";
+    private AddressExt detailAddress;
     //学校
     private AddressExt school;
     //楼栋
@@ -64,11 +65,11 @@ public class AddressDetailBean {
         return this;
     }
 
-    public String getDetailAddress() {
+    public AddressExt getDetailAddress() {
         return detailAddress;
     }
 
-    public AddressDetailBean setDetailAddress(String detailAddress) {
+    public AddressDetailBean setDetailAddress(AddressExt detailAddress) {
         this.detailAddress = detailAddress;
         return this;
     }
@@ -106,6 +107,15 @@ public class AddressDetailBean {
 
     public AddressDetailBean setHouseNumber(AddressExt houseNumber) {
         this.houseNumber = houseNumber;
+        return this;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public AddressDetailBean setId(int id) {
+        this.id = id;
         return this;
     }
 }

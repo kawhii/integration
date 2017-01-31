@@ -15,6 +15,13 @@ import java.util.List;
  * 版权所有.(c)2008-2017.卡尔工作室
  */
 public interface IAddressService {
+    String FLOW = "flow";
+    String BUILD = "build";
+    String SCHOOL = "school";
+    String HOUSE_NUM = "houseNum";
+    String DETAIL = "detail";
+
+
     /**
      * 添加地址
      *
@@ -41,8 +48,17 @@ public interface IAddressService {
 
     /**
      * 个根据id删除地址
+     *
      * @param id
      * @return
      */
     boolean removeAddressById(int id);
+
+    /**
+     * 根据id查询
+     *
+     * @param id
+     * @return
+     */
+    AddressDetailBean queryAddressById(int id);
 }

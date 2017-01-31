@@ -39,6 +39,7 @@ public class AddressServiceImpl implements IAddressService {
         AddressExt flow = address.getFlow();
         AddressExt build = address.getBuild();
         AddressExt houseNum = address.getHouseNumber();
+        AddressExt detail = address.getDetailAddress();
         String schoolName = school.getVal();
         //楼层名字
         String flowName = commonAddressDao.getById(flow.getVal()).getInfo();
@@ -47,13 +48,10 @@ public class AddressServiceImpl implements IAddressService {
         //门牌号
         String houseNumber = houseNum.getVal();
         StringBuilder sb = new StringBuilder();
-        sb.append(schoolName).append(buildName).append(flowName).append(houseNumber).append(address.getDetailAddress());
+        sb.append(schoolName).append(buildName).append(flowName).append(houseNumber).append(detail.getVal());
         SendAddress sendAddress = new SendAddress();
-        sendAddress.setContactsPhone(address.getContactsPhone())
-                .setDefault(address.isDefault())
-                .setUsername(address.getUsername())
-                .setContactsName(address.getContactsName())
-                .setDetail(sb.toString());
+        copyToAddress(address, sendAddress);
+        sendAddress.setDetail(sb.toString());
 
         //插入详细表
         addressDao.insert(sendAddress);
@@ -62,11 +60,13 @@ public class AddressServiceImpl implements IAddressService {
         flow.setAddressId(addressId);
         build.setAddressId(addressId);
         houseNum.setAddressId(addressId);
+        detail.setAddressId(addressId);
 
         addressExtDao.insert(school);
         addressExtDao.insert(flow);
         addressExtDao.insert(build);
         addressExtDao.insert(houseNum);
+        addressExtDao.insert(detail);
         return sendAddress;
     }
 
@@ -83,5 +83,50 @@ public class AddressServiceImpl implements IAddressService {
     @Override
     public boolean removeAddressById(int id) {
         return 1 == addressDao.delete(id + "");
+    }
+
+    @Override
+    public AddressDetailBean queryAddressById(int id) {
+        SendAddress sendAddress = addressDao.getById(String.valueOf(id));
+        List<AddressExt> addressExts = addressExtDao.listBy(MapBuilder.<String, Object>build().p("addressId", id));
+        AddressDetailBean bean = new AddressDetailBean();
+        copyToBean(bean, sendAddress);
+        for (AddressExt addressExt : addressExts) {
+            switch (addressExt.getKeyAs()) {
+                case FLOW:
+                    bean.setFlow(addressExt);
+                    break;
+                case SCHOOL:
+                    bean.setSchool(addressExt);
+                    break;
+                case BUILD:
+                    bean.setBuild(addressExt);
+                    break;
+                case HOUSE_NUM:
+                    bean.setHouseNumber(addressExt);
+                    break;
+                case DETAIL:
+                    bean.setDetailAddress(addressExt);
+                    break;
+            }
+        }
+        return bean;
+    }
+
+    private void copyToBean(AddressDetailBean bean, SendAddress sendAddress) {
+        bean.setId(sendAddress.getId())
+                .setDefault(sendAddress.isDefault())
+                .setContactsName(sendAddress.getContactsName())
+                .setContactsPhone(sendAddress.getContactsPhone())
+                .setUsername(sendAddress.getUsername())
+        ;
+    }
+
+    private void copyToAddress(AddressDetailBean bean, SendAddress sendAddress) {
+
+        sendAddress.setContactsPhone(bean.getContactsPhone())
+                .setDefault(bean.isDefault())
+                .setUsername(bean.getUsername())
+                .setContactsName(bean.getContactsName());
     }
 }

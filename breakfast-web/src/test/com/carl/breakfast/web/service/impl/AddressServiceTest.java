@@ -22,13 +22,14 @@ public class AddressServiceTest extends BaseTest {
         AddressDetailBean address = new AddressDetailBean();
         address.setUsername("admin");
         address.setContactsName("我是联系人");
-        address.setDetailAddress("详细地址1");
+
         address.setDefault(true);
         address.setContactsPhone("13712312312");
         address.setSchool(new AddressExt().setKeyAs("school").setKeyName("学校").setVal("广州大学"));
         address.setFlow(new AddressExt().setKeyAs("flow").setKeyName("楼层").setVal("flow2"));
         address.setBuild(new AddressExt().setKeyAs("build").setKeyName("楼栋").setVal("jy2d"));
         address.setHouseNumber(new AddressExt().setKeyAs("houseNum").setKeyName("门牌号").setVal("606"));
+        address.setDetailAddress(new AddressExt().setKeyAs("detail").setKeyName("详细").setVal("详细地址"));
         addressService.addAddress(address);
     }
 
@@ -43,4 +44,9 @@ public class AddressServiceTest extends BaseTest {
         System.out.println(addresses);
     }
 
+    @Test
+    public void AddressDetailBean() throws Exception {
+        Object res = addressService.queryAddressById(10);
+        System.out.println(res);
+    }
 }
