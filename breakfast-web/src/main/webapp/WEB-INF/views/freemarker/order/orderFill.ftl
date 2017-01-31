@@ -20,8 +20,8 @@
         <div class="orders-details-top">
             <a href="/user/address.html"><i class="fa fa-chevron-right fa-2x goAddress"></i></a>
             <div class="orders-detailsAddr">
-                <p>收货人 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话</p>
-                <p>收货地址</p>
+                <p>收货人：${address.contactsName} &nbsp;&nbsp;&nbsp;联系电话：${address.contactsPhone}</p>
+                <p>收货地址：${address.detail}</p>
             </div>
 
         </div>

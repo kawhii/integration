@@ -123,7 +123,7 @@ public class AddressServiceImpl implements IAddressService {
     @Override
     public SendAddress queryDefaultAddress(String username) {
         List<SendAddress> addresses = addressDao.listBy(MapBuilder.<String, Object>build().p("username", username).p("isDefault", 1));
-        if(addresses != null && addresses.size() >= 1) {
+        if(addresses != null && addresses.size() < 1) {
             throw new BizException("不存在默认地址");
         }
         return addresses.get(0);

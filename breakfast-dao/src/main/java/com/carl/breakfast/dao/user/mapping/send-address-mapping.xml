@@ -23,7 +23,7 @@
     <sql id="condition_sql">
         <if test="id != null">and id = #{id,jdbcType=INTEGER}</if>
         <if test="username != null and username != ''">and username = #{username,jdbcType=VARCHAR}</if>
-        <if test="isDefault != null and isDefault != ''">and isDefault = #{isDefault,jdbcType=TINYINT}</if>
+        <if test="isDefault != null and isDefault != ''">and is_default = #{isDefault,jdbcType=TINYINT}</if>
     </sql>
 
     <!--插入数据自动生成uuid-->
