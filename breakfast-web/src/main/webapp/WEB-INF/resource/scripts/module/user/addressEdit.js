@@ -21,13 +21,6 @@
 
     //点击提交
     $('.address-details-footRight button').bind('click', function () {
-        carl.request("/user/addAddress", getParams(), function (data) {
-            if(data.header.code == 0) {
-                carl.toast("新增地址成功");
-                location.href = "/user/address.html";
-            } else {
-                carl.toast(data.header.message);
-            }
-        }, {get: false});
+        alert("修改尚未完成");
     });
 }());

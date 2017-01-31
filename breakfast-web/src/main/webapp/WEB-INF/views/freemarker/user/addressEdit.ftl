@@ -7,16 +7,16 @@
     <!-- address-details -->
     <main class="address-details">
         <form id="ID_addressForm">
-            <input name="addressId" type="hidden"/>
+            <input name="addressId" type="hidden" value="${data.id!''}"/>
         <div class="address-details-main">
             <ul>
                 <li>
                     <label>收货人：</label>
-                    <input type="text" name="cName" value=""/>
+                    <input type="text" name="cName" value="${data.contactsName!''}"/>
                 </li>
                 <li>
                     <label>联系方式：</label>
-                    <input type="text" name="cPhone" value=""/>
+                    <input type="text" name="cPhone" value="${data.contactsPhone!''}"/>
                 </li>
                 <li>
                     <label>学校：</label>
@@ -28,24 +28,26 @@
                     <label>楼栋：</label>
                     <select name="build">
                         <#list build as item>
-                            <option value="${item.id}">${item.info}</option>
+                            <option value="${item.id}"
+                                ${(item.id == data.build.val)?string('selected=selected', '')}>${item.info}</option>
                         </#list>
                     </select>
                 </li>
                 <li>
                     <label>楼层：</label>
-                    <select name="flow">
+                    <select name="flow" >
                     <#list flow as item>
-                        <option value="${item.id}">${item.info}</option>
+                        <option value="${item.id}"
+                        ${(item.id == data.flow.val)?string('selected=selected', '')}>${item.info}</option>
                     </#list>
                     </select>
                 </li>
                 <li>
                     <label>门牌号：</label>
-                    <input name="houseNum" type="text" value=""/>
+                    <input name="houseNum" type="text" value="${data.houseNumber.val!''}"/>
                 </li>
                 <li>
-                    <textarea name="detail" placeholder="详细地址：可不填"></textarea>
+                    <textarea name="detail" placeholder="详细地址：可不填">${data.detailAddress.val!''}</textarea>
                 </li>
             </ul>
         </div>
@@ -53,8 +55,8 @@
         <div class="address-details-foot">
             <div class="address-details-footLeft">
                 <div class="address-details-choose">
-                    <div class="address-details-choosebox"></div>
-                    <input type="checkbox" name="isDefault" value="false"/>
+                    <div class="address-details-choosebox ${data.default?string('carts-chooseboxBg', '')}"></div>
+                    <input type="checkbox" name="isDefault" ${data.default?string('checked', '')}"/>
                     <label>默认收货地址</label>
                 </div>
             </div>
@@ -65,7 +67,7 @@
         </form>
     </main>
     <!-- address-details -->
-    <#if addressId??>
+    <#if data??>
         <script src="/js/~/user/addressEdit.js"></script>
     <#else>
         <script src="/js/~/user/addressAdd.js"></script>

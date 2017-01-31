@@ -124,4 +124,18 @@ public class UserCtrl extends BaseCtrl {
 
         return success();
     }
+
+    @RequestMapping("/addressEdit/{addressId}")
+    public ModelAndView addressEdit(@PathVariable("addressId") int address) {
+        AddressDetailBean detailBean = addressService.queryAddressById(address);
+
+        ModelAndView view = new ModelAndView(freemarker("addressEdit"));
+        Object flow = commonAddressService.listByType(ICommonAddressService.Type.FLOW);
+        Object build = commonAddressService.listByType(ICommonAddressService.Type.BUILD);
+        view.addObject("flow", flow);
+        view.addObject("build", build);
+        view.addObject("title", "收货人");
+        view.addObject("data", detailBean);
+        return view;
+    }
 }

@@ -284,7 +284,7 @@ $(function(){
 
     $(".address-main-info").on("touchstart",function(event){
         if(event.originalEvent.changedTouches.length == 1) {
-            event.preventDefault();
+           // event.preventDefault();
 
             $(".address-main-info").removeClass("address-main-infoBg");
             $(this).addClass("address-main-infoBg");
@@ -295,7 +295,7 @@ $(function(){
     //复选按钮的选中与未选中
     $(".address-details-choose").on("touchstart",function(event){
         if(event.originalEvent.changedTouches.length == 1){
-            event.preventDefault();
+           // event.preventDefault();
 
             if($(this).find(".address-details-choosebox").hasClass("carts-chooseboxBg")){
                 $(this).find(".address-details-choosebox").removeClass("carts-chooseboxBg");

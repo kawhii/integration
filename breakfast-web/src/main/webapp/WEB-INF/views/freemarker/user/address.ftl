@@ -11,22 +11,26 @@
         <#list address as item>
             <div class="address-main-info  ${item.default?string('address-main-infoBg','')}">
                 <input type="hidden" value="${item.id}"/>
-                <p>收货人：<span>${item.contactsName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话：<span>${item.contactsPhone}</span></p>
+                <p>
+                    收货人：<span>${item.contactsName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话：<span>${item.contactsPhone}</span>
+                </p>
                 <p>收货地址：<span>${item.detail}</span></p>
                 <div class="address-main-edit">
                     <div class="address-choose">
                         <div class="address-choosebox ${item.default?string('carts-chooseboxBg','')}"></div>
                         <input type="checkbox" name="address-choose[]"
-                               ${item.default?string('checked="false"','')}/>
+                        ${item.default?string('checked="false"','')}/>
                         <label>默认地址</label>
                     </div>
                     <div class="address-main-editHome">
-                        <div class="address-edit">
-                            <a href="address-details.html">
+                        <a href="/user/addressEdit/${item.id}">
+                            <div class="address-edit">
+
                                 <i class="fa fa-edit fa-lg"></i>
                                 <p>编辑</p>
-                            </a>
-                        </div>
+
+                            </div>
+                        </a>
                         <div class="address-trash">
                             <a href="#">
                                 <i class="fa fa-trash-o fa-lg"></i>
@@ -41,7 +45,10 @@
         </div>
 
         <div class="address-foot">
-            <a href="/user/addAddress.html"><button type="button" value=""><i class="fa fa-plus"></i><p>新增地址</p></button></a>
+            <a href="/user/addAddress.html">
+                <button type="button" value=""><i class="fa fa-plus"></i>
+                    <p>新增地址</p></button>
+            </a>
         </div>
         <script src="/js/~/user/address.js"></script>
     </main>
