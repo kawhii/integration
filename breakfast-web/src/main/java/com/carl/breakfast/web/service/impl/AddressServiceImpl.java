@@ -85,7 +85,9 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
+    @Transactional
     public boolean removeAddressById(int id) {
+        addressExtDao.delete(MapBuilder.<String, Object>build().p("addressId", id));
         return 1 == addressDao.delete(id + "");
     }
 

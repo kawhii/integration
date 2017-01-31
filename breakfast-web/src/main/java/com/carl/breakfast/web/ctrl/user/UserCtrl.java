@@ -10,6 +10,7 @@ import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -99,6 +100,42 @@ public class UserCtrl extends BaseCtrl {
             return fail("非法输入");
         }
         try {
+            String username = UserUtils.currUser().getUsername();
+            AddressDetailBean bean = new AddressDetailBean();
+            bean.setUsername(username)
+                    .setId(paramBean.getId())
+                    .setDefault(paramBean.isDefault())
+                    .setContactsName(paramBean.getcName())
+                    .setContactsPhone(paramBean.getcPhone())
+                    .setDetailAddress(new AddressExt().setVal(paramBean.getDetail())
+                            .setKeyAs(IAddressService.DETAIL).setKeyName("详细地址"))
+                    .setSchool(new AddressExt().setVal(paramBean.getSchool())
+                            .setKeyAs(IAddressService.SCHOOL).setKeyName("学校"))
+                    .setFlow(new AddressExt().setVal(paramBean.getFlow())
+                            .setKeyAs(IAddressService.FLOW).setKeyName("楼层"))
+                    .setBuild(new AddressExt().setVal(paramBean.getBuild())
+                            .setKeyAs(IAddressService.BUILD).setKeyName("楼栋"))
+                    .setHouseNumber(new AddressExt().setVal(paramBean.getHouseNum())
+                            .setKeyAs(IAddressService.HOUSE_NUM).setKeyName("门牌"));
+            addressService.addAddress(bean);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return fail(e.getMessage());
+        }
+
+        return success();
+    }
+
+    @RequestMapping(value = "/addressUpdate", method = RequestMethod.POST)
+    @ResponseBody
+    public Object addressUpdate(@Valid @RequestBody
+                                     AddressParamBean paramBean,
+                             BindingResult result) {
+        if (result.hasErrors()) {
+            return fail("非法输入");
+        }
+        try {
+            addressService.removeAddressById(paramBean.getId());
             String username = UserUtils.currUser().getUsername();
             AddressDetailBean bean = new AddressDetailBean();
             bean.setUsername(username)

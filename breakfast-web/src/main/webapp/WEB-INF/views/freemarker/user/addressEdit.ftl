@@ -7,7 +7,7 @@
     <!-- address-details -->
     <main class="address-details">
         <form id="ID_addressForm">
-            <input name="addressId" type="hidden" value="${data.id!''}"/>
+            <input name="id" type="hidden" value="${data.id!''}"/>
         <div class="address-details-main">
             <ul>
                 <li>

@@ -21,6 +21,13 @@
 
     //点击提交
     $('.address-details-footRight button').bind('click', function () {
-        alert("修改尚未完成");
+        carl.request("/user/addressUpdate", getParams(), function (data) {
+            if(data.header.code == 0) {
+                carl.toast("修改地址成功");
+                location.href = "/user/address.html";
+            } else {
+                carl.toast(data.header.message);
+            }
+        }, {get: false});
     });
 }());

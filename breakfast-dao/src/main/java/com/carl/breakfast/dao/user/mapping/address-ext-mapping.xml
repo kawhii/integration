@@ -21,8 +21,8 @@
     <!-- 根据搜索条件获取数据 -->
     <sql id="condition_sql">
         <if test="id != null">and id = #{id,jdbcType=INTEGER}</if>
-        <if test="addressId != null and addressId != ''">and ADDRESS_ID = #{addressId,jdbcType=VARCHAR}</if>
-        <if test="keyAs != null and keyAs != ''">and KEY_AS = #{keyAs,jdbcType=TINYINT}</if>
+        <if test="addressId != null and addressId != ''">and address_id = #{addressId,jdbcType=VARCHAR}</if>
+        <if test="keyAs != null and keyAs != ''">and key_as = #{keyAs,jdbcType=TINYINT}</if>
     </sql>
 
     <!--插入数据自动生成uuid-->
@@ -42,4 +42,11 @@
             <include refid="condition_sql"/>
         </where>
     </select>
+
+    <delete id="batchDeleteByColumn" parameterType="java.util.Map">
+        delete from <include refid="table_name"/>
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+    </delete>
 </mapper>
