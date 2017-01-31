@@ -23,8 +23,6 @@ public class SendAddress extends BaseEntity {
     //DETAIL 详细地址
     private String detail;
 
-    //外围地址
-    private PeripheralAddress base;
 
     public int getId() {
         return id;
@@ -77,15 +75,6 @@ public class SendAddress extends BaseEntity {
 
     public SendAddress setDetail(String detail) {
         this.detail = detail;
-        return this;
-    }
-
-    public PeripheralAddress getBase() {
-        return base;
-    }
-
-    public SendAddress setBase(PeripheralAddress base) {
-        this.base = base;
         return this;
     }
 }

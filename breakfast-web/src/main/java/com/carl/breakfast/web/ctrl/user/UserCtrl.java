@@ -1,7 +1,7 @@
 package com.carl.breakfast.web.ctrl.user;
 
+import com.carl.breakfast.web.service.IAddressService;
 import com.carl.breakfast.web.service.ICommonAddressService;
-import com.carl.breakfast.web.service.impl.AddressService;
 import com.carl.breakfast.web.service.impl.CommonAddressService;
 import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.ui.ctrl.BaseCtrl;
@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UserCtrl extends BaseCtrl {
     @Autowired
-    private AddressService addressService;
+    private IAddressService addressService;
     @Autowired
     private CommonAddressService commonAddressService;
 

@@ -9,9 +9,8 @@
     </sql>
 
 
-
     <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.pojo.user.CommonAddress">
-        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <id column="ID" property="id" jdbcType="INTEGER"/>
         <result column="INFO" property="info" jdbcType="VARCHAR"/>
         <result column="TYPE_ID" property="typeId" jdbcType="VARCHAR"/>
         <result column="SEQ" property="seq" jdbcType="INTEGER"/>
@@ -33,5 +32,13 @@
             <include refid="condition_sql"/>
         </where>
         order by seq
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from
+        <include refid="table_name"/>
+        <where>
+            id = #{param1}
+        </where>
     </select>
 </mapper>

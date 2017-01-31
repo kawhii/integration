@@ -1,29 +1,34 @@
 package com.carl.breakfast.web.service.impl;
 
+import com.carl.breakfast.dao.pojo.user.AddressExt;
 import com.carl.breakfast.dao.pojo.user.SendAddress;
 import com.carl.breakfast.dao.sys.BaseTest;
+import com.carl.breakfast.web.bean.AddressDetailBean;
+import com.carl.breakfast.web.service.IAddressService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Create by Administrator on 2017/1/30.
  */
 public class AddressServiceTest extends BaseTest {
     @Autowired
-    private AddressService addressService;
+    private IAddressService addressService;
 
     @Test
     public void addAddress() throws Exception {
-        SendAddress address = new SendAddress();
+        AddressDetailBean address = new AddressDetailBean();
         address.setUsername("admin");
         address.setContactsName("我是联系人");
-        address.setDetail("详细地址1");
+        address.setDetailAddress("详细地址1");
         address.setDefault(true);
         address.setContactsPhone("13712312312");
+        address.setSchool(new AddressExt().setKeyAs("school").setKeyName("学校").setVal("广州大学"));
+        address.setFlow(new AddressExt().setKeyAs("flow").setKeyName("楼层").setVal("flow2"));
+        address.setBuild(new AddressExt().setKeyAs("build").setKeyName("楼栋").setVal("jy2d"));
+        address.setHouseNumber(new AddressExt().setKeyAs("houseNum").setKeyName("门牌号").setVal("606"));
         addressService.addAddress(address);
     }
 

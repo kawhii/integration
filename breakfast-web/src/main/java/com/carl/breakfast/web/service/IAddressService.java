@@ -1,6 +1,7 @@
 package com.carl.breakfast.web.service;
 
 import com.carl.breakfast.dao.pojo.user.SendAddress;
+import com.carl.breakfast.web.bean.AddressDetailBean;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface IAddressService {
      * @param address
      * @return
      */
-    SendAddress addAddress(SendAddress address);
+    SendAddress addAddress(AddressDetailBean address);
 
     /**
      * 设置该地址为默认地址
