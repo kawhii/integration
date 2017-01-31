@@ -1,5 +1,8 @@
 package com.carl.breakfast.web.ctrl.user;
 
+import com.carl.breakfast.dao.pojo.user.AddressExt;
+import com.carl.breakfast.web.bean.AddressDetailBean;
+import com.carl.breakfast.web.bean.AddressParamBean;
 import com.carl.breakfast.web.service.IAddressService;
 import com.carl.breakfast.web.service.ICommonAddressService;
 import com.carl.breakfast.web.service.impl.CommonAddressService;
@@ -7,10 +10,11 @@ import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  * 用户控制器
@@ -75,8 +79,8 @@ public class UserCtrl extends BaseCtrl {
         return fail("删除失败");
     }
 
-    @RequestMapping("/addAddress.html")
-    public ModelAndView setDefaultAddress() {
+    @RequestMapping(value = "/addAddress.html", method = RequestMethod.GET)
+    public ModelAndView addAddressPage() {
         ModelAndView view = new ModelAndView(freemarker("addressEdit"));
         Object flow = commonAddressService.listByType(ICommonAddressService.Type.FLOW);
         Object build = commonAddressService.listByType(ICommonAddressService.Type.BUILD);
@@ -84,5 +88,40 @@ public class UserCtrl extends BaseCtrl {
         view.addObject("build", build);
         view.addObject("title", "收货人");
         return view;
+    }
+
+    @RequestMapping(value = "/addAddress", method = RequestMethod.POST)
+    @ResponseBody
+    public Object addAddress(@Valid @RequestBody
+                                     AddressParamBean paramBean,
+                             BindingResult result) {
+        if (result.hasErrors()) {
+            return fail("非法输入");
+        }
+        try {
+            String username = UserUtils.currUser().getUsername();
+            AddressDetailBean bean = new AddressDetailBean();
+            bean.setUsername(username)
+                    .setId(paramBean.getId())
+                    .setDefault(paramBean.isDefault())
+                    .setContactsName(paramBean.getcName())
+                    .setContactsPhone(paramBean.getcPhone())
+                    .setDetailAddress(new AddressExt().setVal(paramBean.getDetail())
+                            .setKeyAs(IAddressService.DETAIL).setKeyName("详细地址"))
+                    .setSchool(new AddressExt().setVal(paramBean.getSchool())
+                            .setKeyAs(IAddressService.SCHOOL).setKeyName("学校"))
+                    .setFlow(new AddressExt().setVal(paramBean.getFlow())
+                            .setKeyAs(IAddressService.FLOW).setKeyName("楼层"))
+                    .setBuild(new AddressExt().setVal(paramBean.getBuild())
+                            .setKeyAs(IAddressService.BUILD).setKeyName("楼栋"))
+                    .setHouseNumber(new AddressExt().setVal(paramBean.getHouseNum())
+                            .setKeyAs(IAddressService.HOUSE_NUM).setKeyName("门牌"));
+            addressService.addAddress(bean);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return fail(e.getMessage());
+        }
+
+        return success();
     }
 }

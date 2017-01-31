@@ -13,7 +13,7 @@
 
     //删除
     $(".address-trash").on("touchstart", function (event) {
-        var idInput = $(this).parentsUntil('address-main-info').find('input[type="hidden"]');
+        var idInput = $(this).parent().parent().parent('.address-main-info').find('input[type="hidden"]');
         var id = idInput.val();
         var _this = this;
         carl.request("/user/removeAddress", {addressId: id}, function (d) {

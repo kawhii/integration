@@ -67,6 +67,10 @@ public class AddressServiceImpl implements IAddressService {
         addressExtDao.insert(build);
         addressExtDao.insert(houseNum);
         addressExtDao.insert(detail);
+
+        if (address.isDefault()) {
+            setDefaultAddress(address.getUsername(), addressId);
+        }
         return sendAddress;
     }
 

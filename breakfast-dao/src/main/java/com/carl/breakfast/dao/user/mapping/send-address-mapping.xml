@@ -51,7 +51,7 @@
         <where>
             <include refid="condition_sql"/>
         </where>
-        order by is_default
+        order by is_default desc
     </select>
     <!--修改为默认-->
     <update id="setDefault">

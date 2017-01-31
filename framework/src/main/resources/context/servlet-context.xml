@@ -12,7 +12,7 @@
 
     <bean id="validator"
           class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-        <!--<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>-->
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
     </bean>
 
     <mvc:resources mapping="/js/~/**" location="${resource.module.javascript}"/>

@@ -6,25 +6,27 @@
     </header>
     <!-- address-details -->
     <main class="address-details">
+        <form id="ID_addressForm">
+            <input name="addressId" type="hidden"/>
         <div class="address-details-main">
             <ul>
                 <li>
                     <label>收货人：</label>
-                    <input type="text" value=""/>
+                    <input type="text" name="cName" value=""/>
                 </li>
                 <li>
                     <label>联系方式：</label>
-                    <input type="text" value=""/>
+                    <input type="text" name="cPhone" value=""/>
                 </li>
                 <li>
                     <label>学校：</label>
-                    <select>
-                        <option>广州大学</option>
+                    <select name="school">
+                        <option value="广州大学">广州大学</option>
                     </select>
                 </li>
                 <li>
                     <label>楼栋：</label>
-                    <select>
+                    <select name="build">
                         <#list build as item>
                             <option value="${item.id}">${item.info}</option>
                         </#list>
@@ -32,7 +34,7 @@
                 </li>
                 <li>
                     <label>楼层：</label>
-                    <select>
+                    <select name="flow">
                     <#list flow as item>
                         <option value="${item.id}">${item.info}</option>
                     </#list>
@@ -40,10 +42,10 @@
                 </li>
                 <li>
                     <label>门牌号：</label>
-                    <input type="text" value=""/>
+                    <input name="houseNum" type="text" value=""/>
                 </li>
                 <li>
-                    <textarea placeholder="详细地址：可不填"></textarea>
+                    <textarea name="detail" placeholder="详细地址：可不填"></textarea>
                 </li>
             </ul>
         </div>
@@ -52,7 +54,7 @@
             <div class="address-details-footLeft">
                 <div class="address-details-choose">
                     <div class="address-details-choosebox"></div>
-                    <input type="checkbox" name="address-details-choose[]"/>
+                    <input type="checkbox" name="isDefault" value="false"/>
                     <label>默认收货地址</label>
                 </div>
             </div>
@@ -60,8 +62,14 @@
                 <button type="button" value="" class="save">保存</button>
             </div>
         </div>
+        </form>
     </main>
     <!-- address-details -->
+    <#if addressId??>
+        <script src="/js/~/user/addressEdit.js"></script>
+    <#else>
+        <script src="/js/~/user/addressAdd.js"></script>
+    </#if>
 
 </section>
 
