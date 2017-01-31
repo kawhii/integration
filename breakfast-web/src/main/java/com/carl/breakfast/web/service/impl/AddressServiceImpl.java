@@ -7,6 +7,7 @@ import com.carl.breakfast.dao.user.ICommonAddressDao;
 import com.carl.breakfast.dao.user.ISendAddressDao;
 import com.carl.breakfast.web.bean.AddressDetailBean;
 import com.carl.breakfast.web.service.IAddressService;
+import com.carl.framework.core.execption.BizException;
 import com.carl.framework.util.MapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,6 +118,15 @@ public class AddressServiceImpl implements IAddressService {
             }
         }
         return bean;
+    }
+
+    @Override
+    public SendAddress queryDefaultAddress(String username) {
+        List<SendAddress> addresses = addressDao.listBy(MapBuilder.<String, Object>build().p("username", username).p("isDefault", 1));
+        if(addresses != null && addresses.size() >= 1) {
+            throw new BizException("不存在默认地址");
+        }
+        return addresses.get(0);
     }
 
     private void copyToBean(AddressDetailBean bean, SendAddress sendAddress) {

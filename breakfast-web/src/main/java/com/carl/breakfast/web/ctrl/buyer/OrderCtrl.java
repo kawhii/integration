@@ -5,8 +5,10 @@ import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.dao.pojo.cart.CartGoods;
 import com.carl.breakfast.dao.pojo.cart.StopCart;
 import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
+import com.carl.breakfast.dao.pojo.user.SendAddress;
 import com.carl.breakfast.dao.sys.pojo.UserInfo;
 import com.carl.breakfast.web.bean.OrderCreateBean;
+import com.carl.breakfast.web.service.IAddressService;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.breakfast.web.service.IOrderService;
 import com.carl.breakfast.web.service.IStopCartService;
@@ -47,6 +49,9 @@ public class OrderCtrl extends BaseCtrl {
 
     @Autowired
     private IStopCartService stopCartService;
+
+    @Autowired
+    private IAddressService addressService;
 
     @Override
     protected String getModuleName() {
@@ -209,10 +214,13 @@ public class OrderCtrl extends BaseCtrl {
                 }
             }
         }
+        SendAddress address = addressService.queryDefaultAddress(UserUtils.currUser().getUsername());
+
         ModelAndView view = new ModelAndView(freemarker("orderFill"));
         view.addObject("title", "填写订单");
         view.addObject("data", data);
         view.addObject("totalPrice", String.format("%.2f", totalPrice));
+        view.addObject("address", address);
         return view;
     }
 }

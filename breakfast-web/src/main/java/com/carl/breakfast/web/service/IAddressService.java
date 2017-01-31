@@ -61,4 +61,11 @@ public interface IAddressService {
      * @return
      */
     AddressDetailBean queryAddressById(int id);
+
+    /**
+     * 查询默认地址
+     * @param username
+     * @return
+     */
+    SendAddress queryDefaultAddress(String username);
 }
