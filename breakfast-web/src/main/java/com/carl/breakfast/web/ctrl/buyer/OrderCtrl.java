@@ -13,6 +13,7 @@ import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.breakfast.web.service.IOrderService;
 import com.carl.breakfast.web.service.IStopCartService;
 import com.carl.breakfast.web.utils.UserUtils;
+import com.carl.framework.core.execption.BizException;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
 import org.apache.commons.logging.Log;
@@ -214,13 +215,16 @@ public class OrderCtrl extends BaseCtrl {
                 }
             }
         }
-        SendAddress address = addressService.queryDefaultAddress(UserUtils.currUser().getUsername());
-
         ModelAndView view = new ModelAndView(freemarker("orderFill"));
         view.addObject("title", "填写订单");
         view.addObject("data", data);
         view.addObject("totalPrice", String.format("%.2f", totalPrice));
-        view.addObject("address", address);
+        try {
+            SendAddress address = addressService.queryDefaultAddress(UserUtils.currUser().getUsername());
+            view.addObject("address", address);
+        } catch (BizException e) {
+            e.printStackTrace();
+        }
         return view;
     }
 }
