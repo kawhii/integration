@@ -23,10 +23,10 @@ import java.net.URI;
  * @date 2017/2/5
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
-public class WXPayRequester implements IPayRequester<WXRequestParam, WXPayBaseResult> {
+public class WXPayRequester implements IPayRequester<WXRequestParam> {
 
     @Override
-    public WXPayBaseResult request(WXRequestParam param, Class<WXPayBaseResult> resultType) throws RequestException {
+    public <T> T request(WXRequestParam param, Class<T> resultType) throws RequestException {
         try {
             //请求工厂
             OkHttpClientHttpRequestFactory factory = new OkHttpClientHttpRequestFactory();
@@ -82,9 +82,9 @@ public class WXPayRequester implements IPayRequester<WXRequestParam, WXPayBaseRe
      * @return
      * @throws Exception
      */
-    private WXPayBaseResult parseStreamAndReturn(InputStream inputStream, Class<? extends WXPayBaseResult> type) throws Exception {
+    private <T> T parseStreamAndReturn(InputStream inputStream, Class<T> type) throws Exception {
         JAXBContext jaxbContext = JAXBContext.newInstance(type);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        return (WXPayBaseResult) jaxbUnmarshaller.unmarshal(inputStream);
+        return (T) jaxbUnmarshaller.unmarshal(inputStream);
     }
 }
