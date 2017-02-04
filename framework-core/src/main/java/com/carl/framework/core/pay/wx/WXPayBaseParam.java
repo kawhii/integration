@@ -2,6 +2,11 @@ package com.carl.framework.core.pay.wx;
 
 import com.carl.framework.core.pay.PayParam;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * 微信支撑基础参数
  *
@@ -9,8 +14,10 @@ import com.carl.framework.core.pay.PayParam;
  * @date 2017/2/4
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class WXPayBaseParam implements PayParam {
     //公众账号ID appid 微信支付分配的公众账号ID（企业号corpid即为此appId）
+    @XmlElement(name = "appid")
     private String appid;
     //商户号 mch_id 微信支付分配的商户号
     private String mchId;
@@ -21,6 +28,7 @@ public abstract class WXPayBaseParam implements PayParam {
     //签名 sign 通过签名算法计算得出的签名值，详见签名生成算法
     private String sign;
     //签名类型	sign_type HMAC-SHA256	签名类型，默认为MD5，支持HMAC-SHA256和MD5。
+    @XmlElement(name = "sign_type")
     private String signType;
     //商品描述	body 腾讯充值中心-QQ会员充值 商品简单描述，该字段请按照规范传递，具体请见参数规定
     private String body;
@@ -44,7 +52,7 @@ public abstract class WXPayBaseParam implements PayParam {
     //商户订单号	out_trade_no 20150806125346	商户系统内部订单号，要求32个字符内、且在同一个商户号下唯一。 详见商户订单号
     private String outTradeNo;
     //标价币种	fee_type CNY	符合ISO 4217标准的三位字母代码，默认人民币：CNY，详细列表请参见货币类型
-    private String fee_type = "CNY";
+    private String feeType = "CNY";
 
     //标价金额	total_fee 订单总金额，单位为分，详见支付金额
     private int totalFee;
@@ -73,6 +81,7 @@ public abstract class WXPayBaseParam implements PayParam {
     //用户标识	openid oUpF8uMuAJO_M2pxb1Q9zNjWeS6o	trade_type=JSAPI时（即公众号支付），此参数必传，此参数为微信用户在商户对应appid下的唯一标识。openid如何获取，可参考【获取openid】。企业号请使用【企业号OAuth2.0接口】获取企业号内成员userid，再调用【企业号userid转openid接口】进行转换
     private String openid;
 
+    @XmlTransient
     public String getAppid() {
         return appid;
     }
@@ -82,6 +91,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getMchId() {
         return mchId;
     }
@@ -91,6 +101,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getDeviceInfo() {
         return deviceInfo;
     }
@@ -100,6 +111,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getNonceStr() {
         return nonceStr;
     }
@@ -109,6 +121,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getSign() {
         return sign;
     }
@@ -118,6 +131,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getSignType() {
         return signType;
     }
@@ -127,6 +141,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getBody() {
         return body;
     }
@@ -136,6 +151,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getDetail() {
         return detail;
     }
@@ -145,6 +161,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getAttach() {
         return attach;
     }
@@ -154,6 +171,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getOutTradeNo() {
         return outTradeNo;
     }
@@ -163,15 +181,17 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    public String getFee_type() {
-        return fee_type;
+    @XmlTransient
+    public String getFeeType() {
+        return feeType;
     }
 
-    public WXPayBaseParam setFee_type(String fee_type) {
-        this.fee_type = fee_type;
+    public WXPayBaseParam setFeeType(String feeType) {
+        this.feeType = feeType;
         return this;
     }
 
+    @XmlTransient
     public int getTotalFee() {
         return totalFee;
     }
@@ -181,6 +201,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getSpbillCreateIp() {
         return spbillCreateIp;
     }
@@ -190,6 +211,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getTimeStart() {
         return timeStart;
     }
@@ -199,6 +221,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getTimeExpire() {
         return timeExpire;
     }
@@ -208,6 +231,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getGoodsTag() {
         return goodsTag;
     }
@@ -217,6 +241,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getNotifyUrl() {
         return notifyUrl;
     }
@@ -226,6 +251,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getTradeType() {
         return tradeType;
     }
@@ -235,6 +261,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getProductId() {
         return productId;
     }
@@ -244,6 +271,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getLimitPay() {
         return limitPay;
     }
@@ -253,6 +281,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
+    @XmlTransient
     public String getOpenid() {
         return openid;
     }
