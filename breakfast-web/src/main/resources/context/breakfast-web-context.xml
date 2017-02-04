@@ -13,5 +13,6 @@
             </mvc:resolvers>
         </mvc:resource-chain>
     </mvc:resources>
+    <mvc:resources mapping="/*.txt" location="/"/>
 
 </beans>
