@@ -17,10 +17,11 @@ public class DefaultWXPayParamTest {
     public void genXml() throws Exception {
         DefaultWXPayParam defaultWXPayParam = new DefaultWXPayParam();
         defaultWXPayParam.setAppid("123Appid")
-        .setSignType("sigType");
+                .setSignType("sigType")
+                .setDetail("{goodsId:1}");
         JAXBContext context = JAXBContext.newInstance(DefaultWXPayParam.class);
         Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         StringWriter writer = new StringWriter();
         marshaller.marshal(defaultWXPayParam, writer);
         System.out.println(writer.toString());
