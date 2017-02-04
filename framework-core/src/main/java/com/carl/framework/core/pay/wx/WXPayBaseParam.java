@@ -93,7 +93,7 @@ public abstract class WXPayBaseParam implements PayParam {
     //用户标识	openid oUpF8uMuAJO_M2pxb1Q9zNjWeS6o	trade_type=JSAPI时（即公众号支付），此参数必传，此参数为微信用户在商户对应appid下的唯一标识。openid如何获取，可参考【获取openid】。企业号请使用【企业号OAuth2.0接口】获取企业号内成员userid，再调用【企业号userid转openid接口】进行转换
     private String openid;
 
-    @XmlTransient
+
     public String getAppid() {
         return appid;
     }
@@ -103,7 +103,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    
+
     public String getMchId() {
         return mchId;
     }
@@ -113,7 +113,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getDeviceInfo() {
         return deviceInfo;
     }
@@ -123,7 +123,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getNonceStr() {
         return nonceStr;
     }
@@ -133,7 +133,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getSign() {
         return sign;
     }
@@ -143,7 +143,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getSignType() {
         return signType;
     }
@@ -153,7 +153,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getBody() {
         return body;
     }
@@ -163,7 +163,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getDetail() {
         return detail;
     }
@@ -173,7 +173,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getAttach() {
         return attach;
     }
@@ -183,7 +183,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getOutTradeNo() {
         return outTradeNo;
     }
@@ -193,7 +193,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getFeeType() {
         return feeType;
     }
@@ -203,7 +203,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public int getTotalFee() {
         return totalFee;
     }
@@ -213,7 +213,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getSpbillCreateIp() {
         return spbillCreateIp;
     }
@@ -223,7 +223,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getTimeStart() {
         return timeStart;
     }
@@ -233,7 +233,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getTimeExpire() {
         return timeExpire;
     }
@@ -243,7 +243,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getGoodsTag() {
         return goodsTag;
     }
@@ -253,7 +253,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getNotifyUrl() {
         return notifyUrl;
     }
@@ -263,7 +263,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getTradeType() {
         return tradeType;
     }
@@ -273,7 +273,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getProductId() {
         return productId;
     }
@@ -283,7 +283,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getLimitPay() {
         return limitPay;
     }
@@ -293,7 +293,7 @@ public abstract class WXPayBaseParam implements PayParam {
         return this;
     }
 
-    @XmlTransient
+
     public String getOpenid() {
         return openid;
     }
