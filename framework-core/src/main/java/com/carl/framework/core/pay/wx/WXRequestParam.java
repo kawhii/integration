@@ -11,7 +11,13 @@ import com.carl.framework.core.pay.AbsRequestParam;
  */
 public class WXRequestParam extends AbsRequestParam {
     private boolean sync = true;
-    private Object body;
+    private WXPayBaseParam body;
+
+    public WXRequestParam(WXPayBaseParam body, String url) {
+        this.body = body;
+        setUrl(url);
+    }
+
     public boolean isSync() {
         return sync;
     }
@@ -25,7 +31,7 @@ public class WXRequestParam extends AbsRequestParam {
         return body;
     }
 
-    public WXRequestParam setBody(Object body) {
+    public WXRequestParam setBody(WXPayBaseParam body) {
         this.body = body;
         return this;
     }

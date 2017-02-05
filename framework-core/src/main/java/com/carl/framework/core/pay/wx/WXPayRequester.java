@@ -9,6 +9,7 @@ import org.springframework.http.client.AsyncClientHttpRequest;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.OkHttpClientHttpRequestFactory;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -23,6 +24,7 @@ import java.net.URI;
  * @date 2017/2/5
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
+@Component("wxPayRequester")
 public class WXPayRequester implements IPayRequester<WXRequestParam> {
 
     @Override
@@ -49,7 +51,7 @@ public class WXPayRequester implements IPayRequester<WXRequestParam> {
                     .add("cache-control", "no-cache");
 
             //把对象转成xml
-            JAXBContext context = JAXBContext.newInstance(resultType);
+            JAXBContext context = JAXBContext.newInstance(param.getBody().getClass());
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(param.getBody(), ((HttpOutputMessage) request).getBody());
