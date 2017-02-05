@@ -1,28 +1,28 @@
-package com.carl.framework.core.pay.wx;
+package com.carl.framework.core.wx;
 
+import com.carl.framework.core.pay.wx.DefaultWXPayParam;
 import org.junit.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.StringWriter;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Administrator on 2017/2/5.
  */
-public class DefaultWXPayResultTest {
+public class DefaultWXPayParamTest {
     @Test
     public void genXml() throws Exception {
-        DefaultWXPayResult defaultWXPayParam = new DefaultWXPayResult();
+        DefaultWXPayParam defaultWXPayParam = new DefaultWXPayParam();
         defaultWXPayParam.setAppid("123Appid")
-                .setPrepayId("PrepayId")
-                .setCodeUrl("www.url.com");
-        JAXBContext context = JAXBContext.newInstance(DefaultWXPayResult.class);
+                .setSignType("sigType")
+                .setDetail("{goodsId:1}");
+        JAXBContext context = JAXBContext.newInstance(DefaultWXPayParam.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         StringWriter writer = new StringWriter();
         marshaller.marshal(defaultWXPayParam, writer);
         System.out.println(writer.toString());
+
     }
 }

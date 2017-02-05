@@ -7,6 +7,7 @@ package com.carl.framework.core.pay;
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
 public abstract class AbsRequestParam {
+    private String url;
     private int connectTimeOut = 5000;
     private int readTimeOut = 30000;
     private int writeTimeout = 30000;
@@ -35,6 +36,15 @@ public abstract class AbsRequestParam {
 
     public AbsRequestParam setWriteTimeout(int writeTimeout) {
         this.writeTimeout = writeTimeout;
+        return this;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public AbsRequestParam setUrl(String url) {
+        this.url = url;
         return this;
     }
 }

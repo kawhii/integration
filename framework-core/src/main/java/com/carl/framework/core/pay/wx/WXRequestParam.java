@@ -10,19 +10,8 @@ import com.carl.framework.core.pay.AbsRequestParam;
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
 public class WXRequestParam extends AbsRequestParam {
-    private String url;
     private boolean sync = true;
     private Object body;
-
-    public String getUrl() {
-        return url;
-    }
-
-    public WXRequestParam setUrl(String url) {
-        this.url = url;
-        return this;
-    }
-
     public boolean isSync() {
         return sync;
     }
