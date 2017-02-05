@@ -56,9 +56,11 @@ public abstract class WXPayBaseParam implements PayParam {
     @XmlElement(name = "outTradeNo")
     private String outTradeNo;
     //标价币种	fee_type CNY	符合ISO 4217标准的三位字母代码，默认人民币：CNY，详细列表请参见货币类型
+    @XmlElement(name = "fee_type")
     private String feeType = "CNY";
 
     //标价金额	total_fee 订单总金额，单位为分，详见支付金额
+    @XmlElement(name = "total_fee")
     private int totalFee;
     //终端IP	spbill_create_ip 123.12.12.123	APP和网页支付提交用户端ip，Native支付填调用微信支付API的机器IP。
     @XmlElement(name = "spbill_create_ip")
