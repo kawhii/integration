@@ -1,6 +1,7 @@
 package com.carl.framework.core.pay.wx;
 
 import org.junit.Test;
+import org.springframework.util.StringUtils;
 
 import static org.junit.Assert.*;
 
