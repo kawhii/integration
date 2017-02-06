@@ -20,9 +20,11 @@ import java.util.TreeMap;
  */
 public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
     protected static final Log logger = LogFactory.getLog(WXBaseCrypto.class);
+
     /**
      * 具体见<a href="https://pay.weixin.qq.com/wiki/tools/signverify/">校验签名</a>
      * 具体见<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=4_3">官方说明</a>
+     *
      * @param params
      * @return
      * @throws CryptoException
@@ -42,7 +44,8 @@ public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
                 sb.append(k + "=" + v + "&");
             }
         }
-        sb.append("key=" + secKey);
+        sb.append(appenKeyName());
+        sb.append("=" + secKey);
         logger.debug("加密串：" + sb.toString());
         String res = fromHexString(sb.toString());
         return !StringUtil.isNull(res) ? res.toUpperCase() : null;
@@ -50,8 +53,16 @@ public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
 
     /**
      * 对字符串进行加密
+     *
      * @param str
      * @return
      */
     protected abstract String fromHexString(String str);
+
+    /**
+     * 追加的keyname
+     *
+     * @return
+     */
+    protected abstract String appenKeyName();
 }

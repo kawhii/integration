@@ -11,7 +11,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
  * <p>
  * 版权所有.(c)2008-2017.卡尔工作室
  */
-public class MD5Crypto extends WXBaseCrypto {
+public class MD5Crypto extends WXPayCrypto {
     @Override
     public String name() {
         return "MD5";
