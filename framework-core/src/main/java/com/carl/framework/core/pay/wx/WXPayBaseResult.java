@@ -198,4 +198,23 @@ public abstract class WXPayBaseResult {
         this.codeUrl = codeUrl;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "WXPayBaseResult{" +
+                "returnCode='" + returnCode + '\'' +
+                ", returnMsg='" + returnMsg + '\'' +
+                ", appid='" + appid + '\'' +
+                ", mchId='" + mchId + '\'' +
+                ", deviceInfo='" + deviceInfo + '\'' +
+                ", nonceStr='" + nonceStr + '\'' +
+                ", sign='" + sign + '\'' +
+                ", resultCode='" + resultCode + '\'' +
+                ", errCode='" + errCode + '\'' +
+                ", errCodeDes='" + errCodeDes + '\'' +
+                ", tradeType='" + tradeType + '\'' +
+                ", prepayId='" + prepayId + '\'' +
+                ", codeUrl='" + codeUrl + '\'' +
+                '}';
+    }
 }

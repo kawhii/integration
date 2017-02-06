@@ -21,8 +21,10 @@ public abstract class WXPayBaseParam implements PayParam {
     @XmlElement(name = "appid")
     private String appid;
     //商户号 mch_id 微信支付分配的商户号
+    @XmlElement(name = "mch_id")
     private String mchId;
     //device_info 自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"
+    @XmlElement(name = "device_info")
     private String deviceInfo;
     //随机字符串	nonce_str 随机字符串，长度要求在32位以内。推荐随机数生成算法
     @XmlElement(name = "nonce_str")
@@ -53,7 +55,7 @@ public abstract class WXPayBaseParam implements PayParam {
     //附加数据	attach 深圳分店	附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用。
     private String attach;
     //商户订单号	out_trade_no 20150806125346	商户系统内部订单号，要求32个字符内、且在同一个商户号下唯一。 详见商户订单号
-    @XmlElement(name = "outTradeNo")
+    @XmlElement(name = "out_trade_no")
     private String outTradeNo;
     //标价币种	fee_type CNY	符合ISO 4217标准的三位字母代码，默认人民币：CNY，详细列表请参见货币类型
     @XmlElement(name = "fee_type")

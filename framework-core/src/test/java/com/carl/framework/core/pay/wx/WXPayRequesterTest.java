@@ -15,6 +15,7 @@ public class WXPayRequesterTest {
         DefaultWXPayParam payParam = new DefaultWXPayParam();
         payParam.setAppid("wxd678efh567hg6787");
         payParam.setAttach("支付测试");
+        payParam.setBody("JSAPI支付测试");
         payParam.setMchId("10000100");
         payParam.setDetail("{ \"goods_detail\":[ { \"goods_id\":\"iphone6s_16G\", \"wxpay_goods_id\":\"1001\", \"goods_name\":\"iPhone6s 16G\", \"quantity\":1, \"price\":528800, \"goods_category\":\"123456\", \"body\":\"苹果手机\" }, { \"goods_id\":\"iphone6s_32G\", \"wxpay_goods_id\":\"1002\", \"goods_name\":\"iPhone6s 32G\", \"quantity\":1, \"price\":608800, \"goods_category\":\"123789\", \"body\":\"苹果手机\" } ] }");
         payParam.setNonceStr("1add1a30ac87aa2db72f57a2375d8fec");
