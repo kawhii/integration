@@ -20,7 +20,7 @@ public class WXPayRequesterTest {
         payParam.setNotifyUrl("http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php");
         payParam.setOutTradeNo("1415659990");
         payParam.setTotalFee(1);
-        payParam.setNonceStr("A7B53A81C2C84EC69B8D5CBC3FB93FAB");
+        payParam.setNonceStr(UUID.get());
         payParam.setTradeType("JSAPI");
         payParam.setSpbillCreateIp("123.12.12.123");
         WXRequestParam requestParam = new WXRequestParam(payParam, url);
