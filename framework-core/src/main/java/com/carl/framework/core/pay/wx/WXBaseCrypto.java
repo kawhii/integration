@@ -3,6 +3,8 @@ package com.carl.framework.core.pay.wx;
 import com.carl.framework.core.pay.crypto.CryptoException;
 import com.carl.framework.core.pay.crypto.ICrypto;
 import com.carl.framework.util.StringUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -17,6 +19,7 @@ import java.util.TreeMap;
  * 版权所有.(c)2008-2017.卡尔工作室
  */
 public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
+    protected static final Log logger = LogFactory.getLog(WXBaseCrypto.class);
     /**
      * 具体见<a href="https://pay.weixin.qq.com/wiki/tools/signverify/">校验签名</a>
      * 具体见<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=4_3">官方说明</a>
@@ -40,7 +43,7 @@ public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
             }
         }
         sb.append("key=" + secKey);
-        System.out.println(sb.toString());
+        logger.debug("加密串：" + sb.toString());
         String res = fromHexString(sb.toString());
         return !StringUtil.isNull(res) ? res.toUpperCase() : null;
     }

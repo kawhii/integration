@@ -4,6 +4,9 @@ import com.carl.framework.core.pay.IPayRequester;
 import com.carl.framework.core.pay.RequestException;
 import com.carl.framework.core.pay.crypto.CryptoException;
 import com.carl.framework.util.XmlUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jdom.JDOMException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpOutputMessage;
@@ -16,8 +19,8 @@ import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -32,6 +35,7 @@ import java.util.Map;
  */
 @Component("wxPayRequester")
 public class WXPayRequester implements IPayRequester<WXRequestParam> {
+    protected static final Log logger = LogFactory.getLog(WXBaseCrypto.class);
     //是否自动生成 sign
     private boolean createSign = true;
 
@@ -86,6 +90,9 @@ public class WXPayRequester implements IPayRequester<WXRequestParam> {
 
             //获取到xml内容
             byte[] content = XmlUtils.obj2xmlByte(param.getBody());
+
+            logger.debug(IOUtils.toString(new ByteArrayInputStream(content)));
+
             //写出
             ((HttpOutputMessage) request).getBody().write(content);
 
