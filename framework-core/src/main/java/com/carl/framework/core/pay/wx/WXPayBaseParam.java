@@ -33,7 +33,8 @@ public abstract class WXPayBaseParam implements PayParam {
     private String sign;
     //签名类型	sign_type HMAC-SHA256	签名类型，默认为MD5，支持HMAC-SHA256和MD5。
     @XmlElement(name = "sign_type")
-    private String signType = "MD5";
+    // = "MD5"
+    private String signType;
     //商品描述	body 腾讯充值中心-QQ会员充值 商品简单描述，该字段请按照规范传递，具体请见参数规定
     private String body;
     //商品详情	detail
@@ -59,7 +60,8 @@ public abstract class WXPayBaseParam implements PayParam {
     private String outTradeNo;
     //标价币种	fee_type CNY	符合ISO 4217标准的三位字母代码，默认人民币：CNY，详细列表请参见货币类型
     @XmlElement(name = "fee_type")
-    private String feeType = "CNY";
+    // = "CNY"
+    private String feeType;
 
     //标价金额	total_fee 订单总金额，单位为分，详见支付金额
     @XmlElement(name = "total_fee")
