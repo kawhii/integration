@@ -17,6 +17,14 @@ import java.util.TreeMap;
  * 版权所有.(c)2008-2017.卡尔工作室
  */
 public abstract class WXBaseCrypto implements ICrypto {
+
+    /**
+     * 具体见<a href="https://pay.weixin.qq.com/wiki/tools/signverify/">校验签名</a>
+     * 具体见<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=4_3">官方说明</a>
+     * @param params
+     * @return
+     * @throws CryptoException
+     */
     @Override
     public String sign(Map<String, String> params) throws CryptoException {
         TreeMap<String, String> sortMap = new TreeMap<>(params);
