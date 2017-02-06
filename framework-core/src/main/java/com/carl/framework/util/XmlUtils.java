@@ -7,9 +7,10 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,33 @@ import java.util.TreeMap;
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
 public abstract class XmlUtils {
+
+    /**
+     * 对象转输出流
+     * @param obj
+     * @return
+     * @throws JAXBException
+     */
+    public static OutputStream obj2xmlStream(Object obj) throws JAXBException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        //把对象转成xml
+        JAXBContext context = JAXBContext.newInstance(obj.getClass());
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(obj, byteArrayOutputStream);
+        return byteArrayOutputStream;
+    }
+
+    /**
+     * 对象转xml字符串
+     * @param obj
+     * @return
+     * @throws JAXBException
+     */
+    public static String obj2xmlStr(Object obj) throws JAXBException {
+        return obj2xmlStream(obj).toString();
+    }
+
     /**
      * 把xml文件转换为map形式，其中key为有值的节点名称，并以其所有的祖先节点为前缀，用
      * "."相连接。如：SubscribeServiceReq.Send_Address.Address_Info.DeviceType
