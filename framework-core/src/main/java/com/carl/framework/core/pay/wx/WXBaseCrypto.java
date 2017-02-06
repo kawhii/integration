@@ -17,7 +17,6 @@ import java.util.TreeMap;
  * 版权所有.(c)2008-2017.卡尔工作室
  */
 public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
-
     /**
      * 具体见<a href="https://pay.weixin.qq.com/wiki/tools/signverify/">校验签名</a>
      * 具体见<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=4_3">官方说明</a>
@@ -26,7 +25,7 @@ public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
      * @throws CryptoException
      */
     @Override
-    public String sign(Map<String, String> params) throws CryptoException {
+    public String sign(Map<String, String> params, String secKey) throws CryptoException {
         TreeMap<String, String> sortMap = new TreeMap<>(params);
         StringBuilder sb = new StringBuilder();
         Set es = sortMap.entrySet();//所有参与传参的参数按照accsii排序（升序）
@@ -40,10 +39,8 @@ public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
                 sb.append(k + "=" + v + "&");
             }
         }
-        int laIndex = sb.lastIndexOf("&");
-        if (laIndex == sb.length() - 1) {
-            sb.delete(laIndex, sb.length());
-        }
+        sb.append("key=" + secKey);
+        System.out.println(sb.toString());
         String res = fromHexString(sb.toString());
         return !StringUtil.isNull(res) ? res.toUpperCase() : null;
     }

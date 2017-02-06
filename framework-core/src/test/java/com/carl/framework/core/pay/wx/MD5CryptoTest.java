@@ -16,6 +16,6 @@ public class MD5CryptoTest {
     public void sign() throws Exception {
         MD5Crypto md5Crypto = new MD5Crypto();
         Map<String,String> param = MapBuilder.<String, String>build().p("appid", "2").p("key", "aa");
-        System.out.println(md5Crypto.sign(param));
+        System.out.println(md5Crypto.sign(param, ""));
     }
 }

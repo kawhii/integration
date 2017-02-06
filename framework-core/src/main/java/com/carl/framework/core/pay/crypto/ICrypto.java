@@ -23,8 +23,9 @@ public interface ICrypto {
      * 计算sign
      *
      * @param params
+     * @param secKey 秘钥
      * @return
      * @throws CryptoException
      */
-    String sign(Map<String, String> params) throws CryptoException;
+    String sign(Map<String, String> params, String secKey) throws CryptoException;
 }

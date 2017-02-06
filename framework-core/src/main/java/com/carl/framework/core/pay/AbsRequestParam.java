@@ -8,6 +8,7 @@ package com.carl.framework.core.pay;
  */
 public abstract class AbsRequestParam {
     private String url;
+    private String secKey;
     private int connectTimeOut = 5000;
     private int readTimeOut = 30000;
     private int writeTimeout = 30000;
@@ -45,6 +46,15 @@ public abstract class AbsRequestParam {
 
     public AbsRequestParam setUrl(String url) {
         this.url = url;
+        return this;
+    }
+
+    public String getSecKey() {
+        return secKey;
+    }
+
+    public AbsRequestParam setSecKey(String secKey) {
+        this.secKey = secKey;
         return this;
     }
 }

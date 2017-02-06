@@ -33,7 +33,7 @@ public abstract class WXPayBaseParam implements PayParam {
     private String sign;
     //签名类型	sign_type HMAC-SHA256	签名类型，默认为MD5，支持HMAC-SHA256和MD5。
     @XmlElement(name = "sign_type")
-    private String signType;
+    private String signType = "MD5";
     //商品描述	body 腾讯充值中心-QQ会员充值 商品简单描述，该字段请按照规范传递，具体请见参数规定
     private String body;
     //商品详情	detail

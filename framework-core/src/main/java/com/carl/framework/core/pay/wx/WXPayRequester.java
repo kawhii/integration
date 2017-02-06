@@ -81,7 +81,7 @@ public class WXPayRequester implements IPayRequester<WXRequestParam> {
 
             //是否签名
             if (isCreateSign()) {
-                setSign(param.getBody());
+                setSign(param.getBody(), param.getSecKey());
             }
 
             //获取到xml内容
@@ -113,15 +113,16 @@ public class WXPayRequester implements IPayRequester<WXRequestParam> {
      * 设置签名
      *
      * @param param
+     * @param secKey 秘钥
      * @throws JAXBException
      * @throws IOException
      * @throws JDOMException
      * @throws CryptoException
      */
-    protected void setSign(WXPayBaseParam param) throws JAXBException, IOException, JDOMException, CryptoException {
+    protected void setSign(WXPayBaseParam param, String secKey) throws JAXBException, IOException, JDOMException, CryptoException {
         String xmlStr = XmlUtils.obj2xmlStr(param);
         Map<String, String> objMap = XmlUtils.xml2Map(xmlStr);
-        String sign = crypto.sign(objMap);
+        String sign = crypto.sign(objMap, secKey);
         param.setSign(sign);
     }
 
