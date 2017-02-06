@@ -29,14 +29,14 @@ public abstract class XmlUtils {
      * @return
      * @throws JAXBException
      */
-    public static OutputStream obj2xmlStream(Object obj) throws JAXBException {
+    public static byte[] obj2xmlByte(Object obj) throws JAXBException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         //把对象转成xml
         JAXBContext context = JAXBContext.newInstance(obj.getClass());
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.marshal(obj, byteArrayOutputStream);
-        return byteArrayOutputStream;
+        return byteArrayOutputStream.toByteArray();
     }
 
     /**
@@ -45,8 +45,9 @@ public abstract class XmlUtils {
      * @return
      * @throws JAXBException
      */
-    public static String obj2xmlStr(Object obj) throws JAXBException {
-        return obj2xmlStream(obj).toString();
+    public static String obj2xmlStr(Object obj) throws JAXBException, IOException {
+        byte[] bytes = obj2xmlByte(obj);
+        return IOUtils.toString(new ByteArrayInputStream(bytes));
     }
 
     /**

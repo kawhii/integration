@@ -2,6 +2,9 @@ package com.carl.framework.core.pay.wx;
 
 import com.carl.framework.core.pay.IPayRequester;
 import com.carl.framework.core.pay.RequestException;
+import com.carl.framework.core.pay.crypto.CryptoException;
+import com.carl.framework.util.XmlUtils;
+import org.jdom.JDOMException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.HttpRequest;
@@ -12,10 +15,13 @@ import org.springframework.http.client.OkHttpClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
 
 /**
  * 微信网络请求
@@ -26,6 +32,29 @@ import java.net.URI;
  */
 @Component("wxPayRequester")
 public class WXPayRequester implements IPayRequester<WXRequestParam> {
+    //是否自动生成 sign
+    private boolean createSign = true;
+
+    //默认签名为MD5
+    private WXCrypto crypto = new MD5Crypto();
+
+    public boolean isCreateSign() {
+        return createSign;
+    }
+
+    public WXPayRequester setCreateSign(boolean createSign) {
+        this.createSign = createSign;
+        return this;
+    }
+
+    public WXCrypto getCrypto() {
+        return crypto;
+    }
+
+    public WXPayRequester setCrypto(WXCrypto crypto) {
+        this.crypto = crypto;
+        return this;
+    }
 
     @Override
     public <T> T request(WXRequestParam param, Class<T> resultType) throws RequestException {
@@ -50,14 +79,18 @@ public class WXPayRequester implements IPayRequester<WXRequestParam> {
             request.getHeaders()
                     .add("cache-control", "no-cache");
 
-            //把对象转成xml
-            JAXBContext context = JAXBContext.newInstance(param.getBody().getClass());
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(param.getBody(), ((HttpOutputMessage) request).getBody());
+            //是否签名
+            if (isCreateSign()) {
+                setSign(param.getBody());
+            }
+
+            //获取到xml内容
+            byte[] content = XmlUtils.obj2xmlByte(param.getBody());
+            //写出
+            ((HttpOutputMessage) request).getBody().write(content);
 
             ClientHttpResponse response;
-            //请求
+            //请求并且获取内容
             if (param.isSync()) {
                 response = ((ClientHttpRequest) request).execute();
             } else {
@@ -74,6 +107,22 @@ public class WXPayRequester implements IPayRequester<WXRequestParam> {
         } catch (Exception e) {
             throw new RequestException(e);
         }
+    }
+
+    /**
+     * 设置签名
+     *
+     * @param param
+     * @throws JAXBException
+     * @throws IOException
+     * @throws JDOMException
+     * @throws CryptoException
+     */
+    protected void setSign(WXPayBaseParam param) throws JAXBException, IOException, JDOMException, CryptoException {
+        String xmlStr = XmlUtils.obj2xmlStr(param);
+        Map<String, String> objMap = XmlUtils.xml2Map(xmlStr);
+        String sign = crypto.sign(objMap);
+        param.setSign(sign);
     }
 
     /**

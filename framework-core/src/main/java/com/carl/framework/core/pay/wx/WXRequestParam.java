@@ -27,7 +27,7 @@ public class WXRequestParam extends AbsRequestParam {
         return this;
     }
 
-    public Object getBody() {
+    public WXPayBaseParam getBody() {
         return body;
     }
 

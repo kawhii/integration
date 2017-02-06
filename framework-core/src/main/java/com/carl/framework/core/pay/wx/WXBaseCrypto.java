@@ -16,7 +16,7 @@ import java.util.TreeMap;
  * <p>
  * 版权所有.(c)2008-2017.卡尔工作室
  */
-public abstract class WXBaseCrypto implements ICrypto {
+public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
 
     /**
      * 具体见<a href="https://pay.weixin.qq.com/wiki/tools/signverify/">校验签名</a>
