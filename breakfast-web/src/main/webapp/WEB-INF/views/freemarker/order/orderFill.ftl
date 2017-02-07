@@ -6,7 +6,7 @@
     </header>
     <!-- orders-fill -->
     <main class="orders-fill">
-
+        <form name="createOrderForm">
         <div class="popupHint" id="returnHint">
             <div class="popupHint-top">便宜不等人，请三思而行~</div>
             <ul>
@@ -22,6 +22,7 @@
             <div class="orders-detailsAddr">
                 <p>收货人：${address.contactsName} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${address.contactsPhone}</p>
                 <p>收货地址：${address.detail}</p>
+                <input type="hidden" name="addressId" value="${address.id}"/>
             </div>
 
         </div>
@@ -39,6 +40,7 @@
                     <p>x<span>${item.qat.quantity}</span></p>
                 </div>
                 <div class="clearfix"></div>
+                <input type="hidden" name="goods" value="{id : ${item.goods.id}, q: ${item.qat.quantity}}"/>
             </div>
         </#list>
 
@@ -60,7 +62,7 @@
             <div class="orders-fill-choose">
                 <div class="orders-fill-choosebox"></div>
                 <p class="orders-fill-choosebox_p">加急</p>
-                <input type="checkbox" id="orders-fill-choose"/>
+                <input type="checkbox" name="fillChoose" id="orders-fill-choose"/>
             </div>
             <div class="orders-fill-price">
                 <p><span>实付款：</span><span class="red">￥${totalPrice}</span><br/><span>不含运费</span></p>
@@ -69,21 +71,38 @@
                 </a>
             </div>
         </div>
-
+        </form>
     </main>
     <!-- orders-fill -->
 
 </section>
 <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
-    wx.config({
+    (function() {
+        //获取订单数据
+        var orderData = $('form[name="createOrderForm"]').serializeArray();
+        var orderJson = {
+        };
+        for(var i in orderData) {
+            var obj = orderData[i];
+            var val = eval('(' + obj.value + ')');
+            if(orderJson[obj.name]) {
+                orderJson[obj.name] = [orderJson[obj.name], val];
+            } else {
+                orderJson[obj.name] = val;
+            }
+        }
+
+        console.info(orderJson);
+    })();
+    /*wx.config({
         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: 'wx6d72707ef14de6c0', // 必填，公众号的唯一标识
         timestamp: , // 必填，生成签名的时间戳
         nonceStr: '', // 必填，生成签名的随机串
         signature: '',// 必填，签名，见附录1
         jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-    });
+    });*/
 
 </script>
 <#include "freemarker/base/mallEnd.ftl">
