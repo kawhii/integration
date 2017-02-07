@@ -67,7 +67,7 @@
                 <div class="orders-fill-price">
                     <p><span>实付款：</span><span class="red">￥${totalPrice}</span><br/><span>不含运费</span></p>
                     <a href="#">
-                        <button type="button" value="" class="orders-submit">提交订单</button>
+                        <button type="button" id="ID_submitBtn" value="" class="orders-submit">提交订单</button>
                     </a>
                 </div>
             </div>
@@ -92,12 +92,12 @@
             }
         }
 
-        console.info(orderJson);
-
-        //请求创建订单
-        carl.request("/order/create.action", orderJson, function (data) {
-            console.info(data);
-        }, {get: false})
+        $('#ID_submitBtn').click(function() {
+            //请求创建订单
+            carl.request("/order/create.action", orderJson, function (data) {
+                console.info(data);
+            }, {get: false});
+        });
     })();
     /*wx.config({
         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
