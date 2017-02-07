@@ -59,15 +59,15 @@ public abstract class WXPayBaseParam implements PayParam {
     @XmlElement(name = "notify_url")
     private String notifyUrl;
 
-    //签名类型	sign_type HMAC-SHA256	签名类型，默认为MD5，支持HMAC-SHA256和MD5。
-    @XmlElement(name = "sign_type")
-    // = "MD5"
-    private String signType;
-
     //商户订单号	out_trade_no 20150806125346	商户系统内部订单号，要求32个字符内、且在同一个商户号下唯一。 详见商户订单号
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
     //标价币种	fee_type CNY	符合ISO 4217标准的三位字母代码，默认人民币：CNY，详细列表请参见货币类型
+
+    //签名类型	sign_type HMAC-SHA256	签名类型，默认为MD5，支持HMAC-SHA256和MD5。
+    @XmlElement(name = "sign_type")
+    // = "MD5"
+    private String signType;
 
     //终端IP	spbill_create_ip 123.12.12.123	APP和网页支付提交用户端ip，Native支付填调用微信支付API的机器IP。
     @XmlElement(name = "spbill_create_ip")

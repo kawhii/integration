@@ -80,8 +80,6 @@ public class WXPayRequester implements IPayRequester<WXRequestParam> {
 
             request.getHeaders()
                     .add("content-type", "application/xml");
-            request.getHeaders()
-                    .add("cache-control", "no-cache");
 
             //是否签名
             if (isCreateSign()) {
