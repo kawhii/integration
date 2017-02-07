@@ -7,6 +7,7 @@ import com.carl.breakfast.dao.pojo.cart.StopCart;
 import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
 import com.carl.breakfast.dao.pojo.user.SendAddress;
 import com.carl.breakfast.dao.sys.pojo.UserInfo;
+import com.carl.breakfast.web.bean.AddressDetailBean;
 import com.carl.breakfast.web.bean.OrderCreateBean;
 import com.carl.breakfast.web.service.IAddressService;
 import com.carl.breakfast.web.service.IGoodsService;
@@ -226,5 +227,55 @@ public class OrderCtrl extends BaseCtrl {
             e.printStackTrace();
         }
         return view;
+    }
+
+    @RequestMapping(value = "/create.action", method = RequestMethod.POST)
+    @ResponseBody
+    public Object create(@RequestBody OrderCreateParam orderCreateParam) {
+        //获取当前用户信息
+        UserInfo userInfo = UserUtils.currUser();
+        OrderCreateBean orderCreate = new OrderCreateBean();
+        try {
+            SendAddress address = addressService.querySimpleAddressById(orderCreateParam.getAddressId());
+            //地址信息设置
+            orderCreate.setAddress(address.getDetail())
+                    .setContactName(address.getContactsName())
+                    .setContactNumber(address.getContactsPhone())
+                    .setUsername(userInfo.getUsername())
+            ;
+            //总价设置
+            List<GoodsPojo> goodsPojos = goodsService.listGoods(orderCreateParam.getGoodsIds());
+            float totalPrice = 0f;
+            List<OrderGoodsItem> orderGoodsItems = new ArrayList<>(goodsPojos.size());
+            for (GoodsPojo goodsPojo : goodsPojos) {
+                for (OrderCreateParam.OrderGoodsParam goodsParam : orderCreateParam.getGoods()) {
+                    if (goodsParam.getId() == goodsPojo.getId()) {
+                        OrderGoodsItem item = new OrderGoodsItem();
+                        item.setUnitPrice(goodsPojo.getPrice())
+                                .setGoodsImgId(goodsPojo.getMainImgId())
+                                .setGoodsImgPath(goodsPojo.getMainImgPath())
+                                .setQuantity(goodsParam.getQt())
+                                .setGoodsId(goodsPojo.getId())
+                                .setGoodsTitle(goodsPojo.getTitle());
+                        //价格
+                        totalPrice += goodsPojo.getPrice() * goodsParam.getQt();
+                        orderGoodsItems.add(item);
+                        continue;
+                    }
+                }
+            }
+
+            orderCreate.setPrice(totalPrice).setItems(orderGoodsItems);
+            orderService.createOrder(orderCreate);
+
+            //创建订单成功
+            //TODO 1. 进行微信统一下单接口
+            //TODO 2. 把购物车的商品删除
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e);
+            return fail(e.getMessage());
+        }
+        return success(orderCreate);
     }
 }

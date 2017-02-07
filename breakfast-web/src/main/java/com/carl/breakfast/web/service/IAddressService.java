@@ -68,4 +68,11 @@ public interface IAddressService {
      * @return
      */
     SendAddress queryDefaultAddress(String username);
+
+    /**
+     * 查询详细地址
+     * @param id
+     * @return
+     */
+    SendAddress querySimpleAddressById(int id);
 }

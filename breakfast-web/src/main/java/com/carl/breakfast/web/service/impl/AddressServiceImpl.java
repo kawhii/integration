@@ -129,6 +129,11 @@ public class AddressServiceImpl implements IAddressService {
         return addresses.get(0);
     }
 
+    @Override
+    public SendAddress querySimpleAddressById(int id) {
+        return addressDao.getById(id + "");
+    }
+
     private void copyToBean(AddressDetailBean bean, SendAddress sendAddress) {
         bean.setId(sendAddress.getId())
                 .setDefault(sendAddress.isDefault())
