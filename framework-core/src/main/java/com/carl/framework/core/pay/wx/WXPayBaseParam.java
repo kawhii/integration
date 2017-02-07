@@ -20,23 +20,17 @@ public abstract class WXPayBaseParam implements PayParam {
     //公众账号ID appid 微信支付分配的公众账号ID（企业号corpid即为此appId）
     @XmlElement(name = "appid")
     private String appid;
-    //商户号 mch_id 微信支付分配的商户号
-    @XmlElement(name = "mch_id")
-    private String mchId;
+
+    //附加数据	attach 深圳分店	附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用。
+    private String attach;
+
+    //商品描述	body 腾讯充值中心-QQ会员充值 商品简单描述，该字段请按照规范传递，具体请见参数规定
+    private String body;
+
     //device_info 自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"
     @XmlElement(name = "device_info")
     private String deviceInfo;
-    //随机字符串	nonce_str 随机字符串，长度要求在32位以内。推荐随机数生成算法
-    @XmlElement(name = "nonce_str")
-    private String nonceStr;
-    //签名 sign 通过签名算法计算得出的签名值，详见签名生成算法
-    private String sign;
-    //签名类型	sign_type HMAC-SHA256	签名类型，默认为MD5，支持HMAC-SHA256和MD5。
-    @XmlElement(name = "sign_type")
-    // = "MD5"
-    private String signType;
-    //商品描述	body 腾讯充值中心-QQ会员充值 商品简单描述，该字段请按照规范传递，具体请见参数规定
-    private String body;
+
     //商品详情	detail
     /**
      * 商品详细列表，使用Json格式，传输签名前请务必使用CDATA标签将JSON文本串保护起来。
@@ -53,22 +47,40 @@ public abstract class WXPayBaseParam implements PayParam {
     @XmlJavaTypeAdapter(value = CDATAAdapter.class)
     private String detail;
 
-    //附加数据	attach 深圳分店	附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用。
-    private String attach;
+    //商户号 mch_id 微信支付分配的商户号
+    @XmlElement(name = "mch_id")
+    private String mchId;
+
+    //随机字符串	nonce_str 随机字符串，长度要求在32位以内。推荐随机数生成算法
+    @XmlElement(name = "nonce_str")
+    private String nonceStr;
+
+    //通知地址	notify_url http://www.weixin.qq.com/wxpay/pay.php	异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。
+    @XmlElement(name = "notify_url")
+    private String notifyUrl;
+
+    //签名类型	sign_type HMAC-SHA256	签名类型，默认为MD5，支持HMAC-SHA256和MD5。
+    @XmlElement(name = "sign_type")
+    // = "MD5"
+    private String signType;
+
     //商户订单号	out_trade_no 20150806125346	商户系统内部订单号，要求32个字符内、且在同一个商户号下唯一。 详见商户订单号
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
     //标价币种	fee_type CNY	符合ISO 4217标准的三位字母代码，默认人民币：CNY，详细列表请参见货币类型
-    @XmlElement(name = "fee_type")
-    // = "CNY"
-    private String feeType;
+
+    //终端IP	spbill_create_ip 123.12.12.123	APP和网页支付提交用户端ip，Native支付填调用微信支付API的机器IP。
+    @XmlElement(name = "spbill_create_ip")
+    private String spbillCreateIp;
 
     //标价金额	total_fee 订单总金额，单位为分，详见支付金额
     @XmlElement(name = "total_fee")
     private int totalFee;
-    //终端IP	spbill_create_ip 123.12.12.123	APP和网页支付提交用户端ip，Native支付填调用微信支付API的机器IP。
-    @XmlElement(name = "spbill_create_ip")
-    private String spbillCreateIp;
+
+
+    @XmlElement(name = "fee_type")
+    // = "CNY"
+    private String feeType;
 
     //交易起始时间	time_start 20091225091010	订单生成时间，格式为yyyyMMddHHmmss，如2009年12月25日9点10分10秒表示为20091225091010。其他详见时间规则
     @XmlElement(name = "time_start")
@@ -82,9 +94,7 @@ public abstract class WXPayBaseParam implements PayParam {
     @XmlElement(name = "goods_tag")
     private String goodsTag;
 
-    //通知地址	notify_url http://www.weixin.qq.com/wxpay/pay.php	异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。
-    @XmlElement(name = "notify_url")
-    private String notifyUrl;
+
 
     //交易类型	trade_type 取值如下：JSAPI，NATIVE，APP等，说明详见参数规定
     @XmlElement(name = "trade_type")
@@ -97,7 +107,8 @@ public abstract class WXPayBaseParam implements PayParam {
     private String limitPay;
     //用户标识	openid oUpF8uMuAJO_M2pxb1Q9zNjWeS6o	trade_type=JSAPI时（即公众号支付），此参数必传，此参数为微信用户在商户对应appid下的唯一标识。openid如何获取，可参考【获取openid】。企业号请使用【企业号OAuth2.0接口】获取企业号内成员userid，再调用【企业号userid转openid接口】进行转换
     private String openid;
-
+    //签名 sign 通过签名算法计算得出的签名值，详见签名生成算法
+    private String sign;
 
     public String getAppid() {
         return appid;
