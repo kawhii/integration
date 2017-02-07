@@ -59,6 +59,9 @@ public abstract class WXPayBaseParam implements PayParam {
     @XmlElement(name = "notify_url")
     private String notifyUrl;
 
+    //用户标识	openid oUpF8uMuAJO_M2pxb1Q9zNjWeS6o	trade_type=JSAPI时（即公众号支付），此参数必传，此参数为微信用户在商户对应appid下的唯一标识。openid如何获取，可参考【获取openid】。企业号请使用【企业号OAuth2.0接口】获取企业号内成员userid，再调用【企业号userid转openid接口】进行转换
+    private String openid;
+
     //商户订单号	out_trade_no 20150806125346	商户系统内部订单号，要求32个字符内、且在同一个商户号下唯一。 详见商户订单号
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
@@ -105,8 +108,6 @@ public abstract class WXPayBaseParam implements PayParam {
     //指定支付方式	limit_pay no_credit	上传此参数no_credit--可限制用户不能使用信用卡支付
     @XmlElement(name = "limit_pay")
     private String limitPay;
-    //用户标识	openid oUpF8uMuAJO_M2pxb1Q9zNjWeS6o	trade_type=JSAPI时（即公众号支付），此参数必传，此参数为微信用户在商户对应appid下的唯一标识。openid如何获取，可参考【获取openid】。企业号请使用【企业号OAuth2.0接口】获取企业号内成员userid，再调用【企业号userid转openid接口】进行转换
-    private String openid;
     //签名 sign 通过签名算法计算得出的签名值，详见签名生成算法
     private String sign;
 

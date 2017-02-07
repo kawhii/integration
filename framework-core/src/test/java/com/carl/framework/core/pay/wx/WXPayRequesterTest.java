@@ -15,12 +15,12 @@ public class WXPayRequesterTest {
         WXPayRequester wxPayRequester = new WXPayRequester();
         DefaultWXPayParam payParam = new DefaultWXPayParam();
         payParam.setAppid("wx6d72707ef14de6c0");
-        payParam.setBody("test");
+        payParam.setBody("test-t");
         payParam.setMchId("1425675902");
         payParam.setNotifyUrl("http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php");
         payParam.setOutTradeNo("141523659990");
         payParam.setTotalFee(1);
-        payParam.setNonceStr("ibuaiVcKdpRxkhJA");
+        payParam.setNonceStr(UUID.get());
         payParam.setTradeType("JSAPI");
         payParam.setSignType("MD5");
         payParam.setSpbillCreateIp("123.12.12.1");
