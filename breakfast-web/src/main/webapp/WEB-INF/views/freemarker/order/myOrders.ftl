@@ -16,7 +16,7 @@
 
         <div class="orders-goods" v-for="order in orders">
             <div class="orders-top">
-                <p>订单号：{{order.id}}</p>
+                <p>订单号：{{order.orderNo}}</p>
                 <i class="fa fa-trash-o fa-lg ordersDeleteBtn"></i>
             </div>
             <div class="clearfix"></div>
