@@ -1,9 +1,9 @@
 <#include "freemarker/base/mallBase.ftl">
 <section class="contain">
     <header class="header">
-        <i class="fa fa-chevron-left fa-1x return" id="orders-fillReturn" ></i>
-        <p>${title!'我的订单'}</p>
+        <p>我的订单</p>
     </header>
+
     <!-- orders -->
     <main class="orders" id="ID_myOrdersApp" v-cloak>
         <div class="popupHint" id="deleteHint">
@@ -23,7 +23,9 @@
             <div class="orders-info">
                 <a href="orders-details.html">
                     <ul>
-                        <li v-for="goods in order.items"><img v-bind:src="'${var_domain_url}/file/img/~/' + goods.goodsImgPath" alt=""/></li>
+                        <li v-for="goods in order.items">
+                            <img v-bind:src="'${var_domain_url}/file/img/~/' + goods.goodsImgPath" alt=""/>
+                        </li>
                     </ul>
                 </a>
             </div>
@@ -41,6 +43,7 @@
                 <div class="clearfix"></div>
             </div>
         </div>
+
     </main>
     <script src="/js/~/order/myOrders.js"></script>
     <!-- orders -->

@@ -20,16 +20,17 @@
     //订单数据
     function loadOrders(page) {
         carl.request("/order/myOrders.json", {page: page}, function (data) {
-
             if (data.header.code == 0 && data.body.recordList.length > 0) {
                 for (var i in data.body.recordList) {
                     app.orders.push(data.body.recordList[i]);
                 }
+                setTimeout(function () {
+                    $(".contain").attr('style', '');
+                }, 100);
             }
         });
     }
 
     loadOrders(page);
-
 
 }());
