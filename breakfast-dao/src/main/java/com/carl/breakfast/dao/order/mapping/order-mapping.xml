@@ -28,17 +28,16 @@
         <if test="goodsTitle != null and goodsTitle != ''">and goods_title LIKE CONCAT('%','${goodsTitle}','%' )</if>
     </sql>
 
-    <!--<selectKey keyProperty="id" resultType="String" order="BEFORE">
-            SELECT REPLACE(UUID(),'-','')
-        </selectKey>-->
     <!--插入数据自动生成uuid-->
     <insert id="insert" keyProperty="id" parameterType="com.carl.breakfast.dao.pojo.order.OrderPojo">
 
-
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT REPLACE(UUID(),'-','')
+        </selectKey>
         insert into
         <include refid="table_name"/>
-        (id, username, contact_name, contact_number, price, address)
-        values (#{id,jdbcType=VARCHAR}, #{username}, #{contactName}, #{contactNumber}, #{price},#{address})
+        (id, order_no, username, contact_name, contact_number, price, address)
+        values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{username}, #{contactName}, #{contactNumber}, #{price},#{address})
     </insert>
 
     <!--交易结果-->
@@ -50,6 +49,7 @@
     <resultMap type="com.carl.breakfast.dao.pojo.order.OrderPojo" id="pageResult">
         <id column="id" property="id" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
         <result column="pay_time" property="payTime" jdbcType="TIMESTAMP"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="contact_name" property="contactName" jdbcType="VARCHAR"/>

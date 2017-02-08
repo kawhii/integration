@@ -39,7 +39,7 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public OrderCreateBean createOrder(OrderCreateBean createBean) {
         OrderPojo orderPojo = new OrderPojo();
-        orderPojo.setId(idGenerator.create());
+        orderPojo.setOrderNo(idGenerator.create());
         float price = getTotalPrice(createBean);
         orderPojo.setAddress(createBean.getAddress())
                 .setItems(createBean.getItems())

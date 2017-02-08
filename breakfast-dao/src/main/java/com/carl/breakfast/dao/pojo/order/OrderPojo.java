@@ -1,6 +1,9 @@
 package com.carl.breakfast.dao.pojo.order;
 
+import com.carl.breakfast.dao.json.CustomDoubleSerialize;
 import com.carl.framework.core.entity.BaseEntity;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.List;
 public class OrderPojo extends BaseEntity {
     //ID
     private String id;
+    //ORDER_NO
+    private String orderNo;
     //CREATE_TIME
     private Date createTime;
     //PAY_TIME
@@ -26,6 +31,7 @@ public class OrderPojo extends BaseEntity {
     //CONTACT_NUMBER
     private String contactNumber;
     //PRICE
+    @JsonSerialize(using = CustomDoubleSerialize.class, contentUsing = CustomDoubleSerialize.class)
     private float price;
     //PAY_STATE
     private int payState;
@@ -75,6 +81,15 @@ public class OrderPojo extends BaseEntity {
 
     public OrderPojo setItems(List<OrderGoodsItem> items) {
         this.items = items;
+        return this;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public OrderPojo setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
         return this;
     }
 
