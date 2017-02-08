@@ -46,7 +46,7 @@
         <include refid="table_name"/>
     </select>
 
-    <resultMap type="om.carl.breakfast.dao.pojo.order.OrderPojo" id="pageResult">
+    <resultMap type="com.carl.breakfast.dao.pojo.order.OrderPojo" id="pageResult">
         <id column="id" property="id" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="pay_time" property="payTime" jdbcType="TIMESTAMP"/>
@@ -80,6 +80,7 @@
         from <include refid="table_name"/> as co
         left join core_order_goods cog on co.id = cog.order_id
         <include refid="condition_sql"/>
+        order by co.create_time desc
     </select>
 
     <!-- 分页查询时要用到的总数统计 -->
