@@ -1,7 +1,10 @@
 package com.carl.breakfast.web.service;
 
 import com.carl.breakfast.dao.order.IOrderDao;
+import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.breakfast.web.bean.OrderCreateBean;
+import com.carl.framework.core.page.PageBean;
+import com.carl.framework.core.page.PageParam;
 
 /**
  * 订单服务
@@ -19,4 +22,13 @@ public interface IOrderService extends IService<IOrderDao> {
      * @return
      */
     OrderCreateBean createOrder(OrderCreateBean createBean);
+
+
+    /**
+     * 根据用户名查询订单，按创建时间倒序
+     * @param username
+     * @param pageParam
+     * @return
+     */
+    PageBean<OrderPojo> queryOrderByUsername(String username, PageParam pageParam);
 }

@@ -5,6 +5,9 @@ import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
 import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.breakfast.web.bean.OrderCreateBean;
 import com.carl.breakfast.web.service.IOrderService;
+import com.carl.framework.core.page.PageBean;
+import com.carl.framework.core.page.PageParam;
+import com.carl.framework.util.MapBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +56,10 @@ public class OrderServiceImpl implements IOrderService {
             price += item.getTotalPrice();
         }
         return price;
+    }
+
+    @Override
+    public PageBean<OrderPojo> queryOrderByUsername(String username, PageParam pageParam) {
+        return getDao().listPage(pageParam, MapBuilder.<String, Object>build().p("username", username));
     }
 }

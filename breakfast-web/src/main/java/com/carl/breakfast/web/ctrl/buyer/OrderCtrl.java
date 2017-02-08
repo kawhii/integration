@@ -182,7 +182,10 @@ public class OrderCtrl extends BaseCtrl {
     @RequestMapping(value = "/myOrders.html", method = RequestMethod.GET)
     public ModelAndView myOrders() {
         ModelAndView view = new ModelAndView(freemarker("myOrders"));
-        view.addObject("title", "订单管理");
+        view.addObject("title", "我的订单");
+
+        //获取当前用户信息
+        UserInfo userInfo = UserUtils.currUser();
         return view;
     }
 

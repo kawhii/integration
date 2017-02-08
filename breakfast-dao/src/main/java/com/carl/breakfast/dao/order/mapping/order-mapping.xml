@@ -9,7 +9,6 @@
     </sql>
 
 
-
     <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.pojo.order.OrderPojo">
         <id column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
         <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER"/>
@@ -20,6 +19,27 @@
         <result column="GOODS_IMG_ID" property="goodsImgId" jdbcType="INTEGER"/>
     </resultMap>
 
+    <resultMap type="om.carl.breakfast.dao.pojo.order.OrderPojo" id="pageResult">
+        <id column="order_id" property="id" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="pay_time" property="payTime" jdbcType="TIMESTAMP"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="contact_name" property="contactName" jdbcType="VARCHAR"/>
+        <result column="contact_number" property="contactNumber" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="FLOAT"/>
+        <result column="pay_state" property="payState" jdbcType="INTEGER"/>
+        <result column="order_state" property="orderState" jdbcType="INTEGER"/>
+        <result column="end_opera_time" property="endOperaTime" jdbcType="TIMESTAMP"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="is_impatient" property="isImpatient" jdbcType="TINYINT"/>
+
+        <!-- ofType指定students集合中的对象类型 -->
+        <collection property="items" ofType="com.carl.breakfast.dao.pojo.order.OrderGoodsItem">
+            <id property="id" column="id"/>
+            <result property="name" column="s_name"/>
+        </collection>
+    </resultMap>
+
     <!-- 根据搜索条件获取数据 -->
     <sql id="condition_sql">
         <if test="orderId != null">and order_id = #{orderId,jdbcType=VARCHAR}</if>
@@ -28,7 +48,7 @@
     </sql>
 
     <!--插入数据自动生成uuid-->
-    <insert id="insert"  keyProperty="id" parameterType="com.carl.breakfast.dao.pojo.order.OrderPojo">
+    <insert id="insert" keyProperty="id" parameterType="com.carl.breakfast.dao.pojo.order.OrderPojo">
         <selectKey keyProperty="id" resultType="String" order="BEFORE">
             SELECT REPLACE(UUID(),'-','')
         </selectKey>
@@ -41,6 +61,7 @@
 
     <!--交易结果-->
     <select id="exchangeSuccess" resultType="java.util.HashMap">
-      select price, create_time, '商品数量' as c from <include refid="table_name"/>
+        select price, create_time, '商品数量' as c from
+        <include refid="table_name"/>
     </select>
 </mapper>
