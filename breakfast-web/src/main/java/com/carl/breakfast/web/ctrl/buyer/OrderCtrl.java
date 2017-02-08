@@ -194,7 +194,7 @@ public class OrderCtrl extends BaseCtrl {
                               @RequestParam(value = "pageSize", required = false, defaultValue = "15") int pageSize) {
         //获取当前用户信息
         UserInfo userInfo = UserUtils.currUser();
-        return orderService.queryOrderByUsername(userInfo.getUsername(), new PageParam(page, pageSize));
+        return success(orderService.queryOrderByUsername(userInfo.getUsername(), new PageParam(page, pageSize)));
     }
 
     //订单详情

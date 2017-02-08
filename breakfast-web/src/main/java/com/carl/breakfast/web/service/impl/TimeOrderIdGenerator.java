@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Component
 public class TimeOrderIdGenerator implements IOrderIdGenerator {
-    private DateFormat formatter = new SimpleDateFormat("yyyyMMddhhmmssSS");
+    private DateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmssSS");
 
     @Override
     public String create() {
