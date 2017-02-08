@@ -37,7 +37,8 @@ public class OrderServiceImpl implements IOrderService {
                 .setContactName(createBean.getContactName())
                 .setContactNumber(createBean.getContactNumber())
                 .setUsername(createBean.getUsername())
-                .setPrice(price);
+                .setPrice(price)
+                .setImpatient(createBean.isImpatient());
         LOG.debug("准备创建订单，user:[" + createBean.getUsername() +"]，总价:[" + price + "]");
         getDao().insert(orderPojo);
         createBean.setId(orderPojo.getId());

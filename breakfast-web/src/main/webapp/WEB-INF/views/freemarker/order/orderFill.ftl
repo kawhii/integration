@@ -93,6 +93,8 @@
         }
 
         $('#ID_submitBtn').click(function() {
+            //是否有选加急
+            orderJson.vexedly = $('#orders-fill-choose').parent().find('.orders-fill-choosebox').hasClass('carts-chooseboxBg')
             //请求创建订单
             carl.request("/order/create.action", orderJson, function (data) {
                 console.info(data);

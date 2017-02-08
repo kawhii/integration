@@ -25,6 +25,17 @@ public class OrderCreateBean {
     private String address;
 
     private List<OrderGoodsItem> items;
+    //IS_IMPATIENT 是否加急
+    private boolean impatient;
+
+    public boolean isImpatient() {
+        return impatient;
+    }
+
+    public OrderCreateBean setImpatient(boolean impatient) {
+        this.impatient = impatient;
+        return this;
+    }
 
     public String getId() {
         return id;
