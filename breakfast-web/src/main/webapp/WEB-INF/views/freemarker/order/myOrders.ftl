@@ -1,26 +1,119 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
+<#include "freemarker/base/mallBase.ftl">
+<section class="contain">
+    <header class="header">
+        <i class="fa fa-chevron-left fa-1x return" id="orders-fillReturn"></i>
+        <p>${title!'我的订单'}</p>
+    </header>
+    <!-- orders -->
+    <main class="orders" id="ID_myOrdersApp">
+        <div class="popupHint" id="deleteHint">
+            <div class="popupHint-top">确认删除此订单？</div>
+            <ul>
+                <li>取消</li>
+                <a href="#"><li id="ordersDelete">删除</li></a>
+            </ul>
+        </div>
 
-    <title>订单管理</title>
-<#include "freemarker/base/base.ftl">
-    <link rel="stylesheet" href="/styles/~/user/myOrders.css"/>
-</head>
-<body>
-<link rel="stylesheet" href="/styles/common/bootstrap.min.css"/>
-<#include "freemarker/base/nav.ftl">
-<div class="orders order-manage">
-    <div class="orders-nav">
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#">全部</a></li>
-            <li role="presentation"><a href="#">待付款</a></li>
-            <li role="presentation"><a href="#">待发货</a></li>
-            <li role="presentation"><a href="#">待收货</a></li>
-            <li role="presentation"><a href="#">待评价</a></li>
-        </ul>
-    </div>
-</div>
+        <div class="orders-goods">
+            <div class="orders-top">
+                <p>订单号：20140111123456</p>
+                <i class="fa fa-trash-o fa-lg ordersDeleteBtn"></i>
+            </div>
+            <div class="clearfix"></div>
+            <div class="orders-info">
+                <a href="orders-details.html">
+                    <ul>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                    </ul>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="orders-foot">
+                <div class="orders-foot1">
+                    <p class="orders-foot1Left">状态：<span>已完成</span></p>
+                    <p class="orders-foot1Right">共5件商品&nbsp;&nbsp;&nbsp;<span class="red">实付款：￥0.00</span></p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="orders-foot2">
+                    <button type="button" value="" class="review">评价晒单</button>
+                    <button type="button" value="" class="buyAgain">再次购买</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
 
-</body>
-</html>
+        <div class="orders-goods">
+            <div class="orders-top">
+                <p>订单号：20140111123456</p>
+                <i class="fa fa-trash-o fa-lg ordersDeleteBtn"></i>
+            </div>
+            <div class="clearfix"></div>
+            <div class="orders-info">
+                <a href="orders-details.html">
+                    <ul>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                    </ul>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="orders-foot">
+                <div class="orders-foot1">
+                    <p class="orders-foot1Left">状态：<span>已完成</span></p>
+                    <p class="orders-foot1Right">共5件商品&nbsp;&nbsp;&nbsp;<span class="red">实付款：￥0.00</span></p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="orders-foot2">
+                    <button type="button" value="" class="review">评价晒单</button>
+                    <button type="button" value="" class="buyAgain">再次购买</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="orders-goods">
+            <div class="orders-top">
+                <p>订单号：20140111123456</p>
+                <i class="fa fa-trash-o fa-lg ordersDeleteBtn"></i>
+            </div>
+            <div class="clearfix"></div>
+            <div class="orders-info">
+                <a href="orders-details.html">
+                    <ul>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                        <li><img src="img/goods.jpg" alt=""/></li>
+                    </ul>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="orders-foot">
+                <div class="orders-foot1">
+                    <p class="orders-foot1Left">状态：<span>已完成</span></p>
+                    <p class="orders-foot1Right">共5件商品&nbsp;&nbsp;&nbsp;<span class="red">实付款：￥0.00</span></p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="orders-foot2">
+                    <button type="button" value="" class="review">评价晒单</button>
+                    <button type="button" value="" class="buyAgain">再次购买</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </main>
+    <!-- orders -->
+<#include "freemarker/base/mallFooter.ftl">
+</section>
+<script>
+
+</script>
+<#include "freemarker/base/mallEnd.ftl">

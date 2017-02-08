@@ -28,11 +28,12 @@
         <if test="goodsTitle != null and goodsTitle != ''">and goods_title LIKE CONCAT('%','${goodsTitle}','%' )</if>
     </sql>
 
+    <!--<selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT REPLACE(UUID(),'-','')
+        </selectKey>-->
     <!--插入数据自动生成uuid-->
     <insert id="insert" keyProperty="id" parameterType="com.carl.breakfast.dao.pojo.order.OrderPojo">
-        <selectKey keyProperty="id" resultType="String" order="BEFORE">
-            SELECT REPLACE(UUID(),'-','')
-        </selectKey>
+
 
         insert into
         <include refid="table_name"/>

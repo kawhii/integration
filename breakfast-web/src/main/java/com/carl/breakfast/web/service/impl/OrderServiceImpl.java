@@ -4,6 +4,7 @@ import com.carl.breakfast.dao.order.IOrderDao;
 import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
 import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.breakfast.web.bean.OrderCreateBean;
+import com.carl.breakfast.web.service.IOrderIdGenerator;
 import com.carl.breakfast.web.service.IOrderService;
 import com.carl.framework.core.page.PageBean;
 import com.carl.framework.core.page.PageParam;
@@ -12,6 +13,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 /**
  * @author Carl
@@ -31,9 +33,13 @@ public class OrderServiceImpl implements IOrderService {
         return orderDao;
     }
 
+    @Autowired
+    private IOrderIdGenerator idGenerator;
+
     @Override
     public OrderCreateBean createOrder(OrderCreateBean createBean) {
         OrderPojo orderPojo = new OrderPojo();
+        orderPojo.setId(idGenerator.create());
         float price = getTotalPrice(createBean);
         orderPojo.setAddress(createBean.getAddress())
                 .setItems(createBean.getItems())
@@ -42,17 +48,17 @@ public class OrderServiceImpl implements IOrderService {
                 .setUsername(createBean.getUsername())
                 .setPrice(price)
                 .setImpatient(createBean.isImpatient());
-        LOG.debug("准备创建订单，user:[" + createBean.getUsername() +"]，总价:[" + price + "]");
+        LOG.debug("准备创建订单，user:[" + createBean.getUsername() + "]，总价:[" + price + "]");
         getDao().insert(orderPojo);
         createBean.setId(orderPojo.getId());
-        LOG.debug("创建订单成功，user:[" + createBean.getUsername() +"]，id:[" + orderPojo.getId() + "]");
+        LOG.debug("创建订单成功，user:[" + createBean.getUsername() + "]，id:[" + orderPojo.getId() + "]");
         return createBean;
     }
 
     //获取订单总价
     private float getTotalPrice(OrderCreateBean createBean) {
         float price = 0f;
-        for(OrderGoodsItem item : createBean.getItems()) {
+        for (OrderGoodsItem item : createBean.getItems()) {
             price += item.getTotalPrice();
         }
         return price;

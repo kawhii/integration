@@ -15,6 +15,7 @@ import com.carl.breakfast.web.service.IOrderService;
 import com.carl.breakfast.web.service.IStopCartService;
 import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.core.execption.BizException;
+import com.carl.framework.core.page.PageParam;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
 import org.apache.commons.logging.Log;
@@ -184,8 +185,6 @@ public class OrderCtrl extends BaseCtrl {
         ModelAndView view = new ModelAndView(freemarker("myOrders"));
         view.addObject("title", "我的订单");
 
-        //获取当前用户信息
-        UserInfo userInfo = UserUtils.currUser();
         return view;
     }
 
@@ -193,8 +192,9 @@ public class OrderCtrl extends BaseCtrl {
     @ResponseBody
     public Object fetchOrders(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                               @RequestParam(value = "pageSize", required = false, defaultValue = "15") int pageSize) {
-        //todo 拉取当前用户的订单数据
-        return null;
+        //获取当前用户信息
+        UserInfo userInfo = UserUtils.currUser();
+        return orderService.queryOrderByUsername(userInfo.getUsername(), new PageParam(page, pageSize));
     }
 
     //订单详情
