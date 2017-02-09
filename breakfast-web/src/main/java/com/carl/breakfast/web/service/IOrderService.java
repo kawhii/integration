@@ -39,4 +39,12 @@ public interface IOrderService extends IService<IOrderDao> {
      * @return
      */
     boolean removeOrder(String id, String username);
+
+    /**
+     * 根据id查找
+     * @param id
+     * @param name
+     * @return
+     */
+    OrderPojo findByIdAndName(String id, String name);
 }

@@ -5,6 +5,7 @@ import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.dao.pojo.cart.CartGoods;
 import com.carl.breakfast.dao.pojo.cart.StopCart;
 import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
+import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.breakfast.dao.pojo.user.SendAddress;
 import com.carl.breakfast.dao.sys.pojo.UserInfo;
 import com.carl.breakfast.web.bean.AddressDetailBean;
@@ -286,5 +287,14 @@ public class OrderCtrl extends BaseCtrl {
     @RequestMapping("/{id}/delete")
     public Object deleteOrder(@PathVariable("id") String id) {
         return orderService.removeOrder(id, UserUtils.currUser().getUsername()) ? success() : fail("删除失败");
+    }
+
+    @ResponseBody
+    @RequestMapping("/{id}/detail")
+    public ModelAndView detail(@PathVariable("id") String id) {
+        ModelAndView view = new ModelAndView(freemarker("detail"));
+        OrderPojo orderPojo = orderService.findByIdAndName(id, UserUtils.currUser().getName());
+        view.addObject("order", orderPojo);
+        return view;
     }
 }

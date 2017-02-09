@@ -73,4 +73,9 @@ public class OrderServiceImpl implements IOrderService {
     public boolean removeOrder(String id, String username) {
         return getDao().removeOrder(id, username) == 1;
     }
+
+    @Override
+    public OrderPojo findByIdAndName(String id, String name) {
+        return getDao().getBy(MapBuilder.<String, Object>build().p("orderId", id).p("username", name));
+    }
 }

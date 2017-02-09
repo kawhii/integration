@@ -20,7 +20,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="orders-info">
-                <a href="orders-details.html">
+                <a v-bind:href="'/order/' + order.id + '/detail'">
                     <ul>
                         <li v-for="goods in order.items">
                             <img v-bind:src="'${var_domain_url}/file/img/~/' + goods.goodsImgPath" alt=""/>
