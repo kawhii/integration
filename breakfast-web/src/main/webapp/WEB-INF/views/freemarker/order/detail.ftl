@@ -21,7 +21,7 @@
             <p>订单号：${order.orderNo}</p>
             <div class="orders-detailsAddr">
                 <p>
-                    收货人：<span>${order.contactName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话：<span>${order.contactPhone}</span>
+                    收货人：<span>${order.contactName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话：<span>${order.contactNumber}</span>
                 </p>
                 <p>收货地址：<span>${order.address}</span></p>
             </div>
