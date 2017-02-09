@@ -51,6 +51,8 @@ public class OrderPojo extends BaseEntity {
     private float revertPrice;
     //IS_CANCEL
     private boolean cancel;
+    //IS_REMOVE 是否已删除
+    private boolean isRemove;
     //CANCEL_TIME
     private Date cancelTime;
     //PAY_SYSTEM_INFO
@@ -314,6 +316,15 @@ public class OrderPojo extends BaseEntity {
 
     public OrderPojo setAddName2(String addName2) {
         this.addName2 = addName2;
+        return this;
+    }
+
+    public boolean isRemove() {
+        return isRemove;
+    }
+
+    public OrderPojo setRemove(boolean remove) {
+        isRemove = remove;
         return this;
     }
 }

@@ -50,4 +50,9 @@ public class OrderDaoImpl extends BaseDaoImpl<OrderPojo> implements IOrderDao {
     public List<Map<String, Object>> exchangeSuccess(String startDate, String endDate) {
         return getSessionTemplate().selectList(getStatement("exchangeSuccess"), MapBuilder.build().p("startDate", startDate).p("endDate", endDate));
     }
+
+    @Override
+    public int removeOrder(String id, String username) {
+        return getSessionTemplate().update("removeOrder", MapBuilder.<String, Object>build().p("orderId", id).p("username",username));
+    }
 }

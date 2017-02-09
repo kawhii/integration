@@ -31,4 +31,12 @@ public interface IOrderService extends IService<IOrderDao> {
      * @return
      */
     PageBean<OrderPojo> queryOrderByUsername(String username, PageParam pageParam);
+
+    /**
+     * 根据id以及用户名移除订单
+     * @param id
+     * @param username
+     * @return
+     */
+    boolean removeOrder(String id, String username);
 }

@@ -68,4 +68,9 @@ public class OrderServiceImpl implements IOrderService {
     public PageBean<OrderPojo> queryOrderByUsername(String username, PageParam pageParam) {
         return getDao().listPage(pageParam, MapBuilder.<String, Object>build().p("username", username));
     }
+
+    @Override
+    public boolean removeOrder(String id, String username) {
+        return getDao().removeOrder(id, username) == 1;
+    }
 }

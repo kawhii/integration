@@ -14,10 +14,10 @@
             </ul>
         </div>
 
-        <div class="orders-goods" v-for="order in orders">
+        <div class="orders-goods" v-for="(order, index) in orders">
             <div class="orders-top">
                 <p>订单号：{{order.orderNo}}</p>
-                <i class="fa fa-trash-o fa-lg ordersDeleteBtn"></i>
+                <i class="fa fa-trash-o fa-lg ordersDeleteBtn" @click="removeOrder(order, index)"></i>
             </div>
             <div class="clearfix"></div>
             <div class="orders-info">

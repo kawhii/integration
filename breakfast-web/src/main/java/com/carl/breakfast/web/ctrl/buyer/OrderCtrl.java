@@ -281,4 +281,10 @@ public class OrderCtrl extends BaseCtrl {
         }
         return success(orderCreate);
     }
+
+    @ResponseBody
+    @RequestMapping("/{id}/delete")
+    public Object deleteOrder(@PathVariable("id") String id) {
+        return orderService.removeOrder(id, UserUtils.currUser().getUsername()) ? success() : fail("删除失败");
+    }
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 /**
  * 订单操作
+ *
  * @author Carl
  * @date 2016/12/15
  * @since JDK1.7
@@ -17,9 +18,18 @@ import java.util.Map;
 public interface IOrderDao extends BaseDao<OrderPojo> {
     /**
      * 查询由开始日期到结束日期的交易数量
+     *
      * @param startDate
      * @param endDate
      * @return
      */
     List<Map<String, Object>> exchangeSuccess(String startDate, String endDate);
+
+    /**
+     * 根据id以及用户名移除订单
+     * @param id
+     * @param username
+     * @return
+     */
+    int removeOrder(String id, String username);
 }

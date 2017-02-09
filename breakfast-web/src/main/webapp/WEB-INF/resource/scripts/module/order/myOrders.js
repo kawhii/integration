@@ -12,7 +12,12 @@
         data: {
             //订单数据
             orders: []
-        }, methods: {}
+        }, methods: {
+            //删除订单
+            removeOrder: function (goods, index) {
+                this.orders.splice(index, 1)
+            }
+        }
     });
 
     var page = 1;

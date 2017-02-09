@@ -26,6 +26,7 @@
         <if test="goodsId != null and goodsId > 0">and goods_id = #{goodsId,jdbcType=INTEGER}</if>
         <if test="username != null and username != ''">and username = #{username,jdbcType=VARCHAR}</if>
         <if test="goodsTitle != null and goodsTitle != ''">and goods_title LIKE CONCAT('%','${goodsTitle}','%' )</if>
+        and is_remove = 0
     </sql>
 
     <!--插入数据自动生成uuid-->
@@ -93,4 +94,12 @@
             <include refid="condition_sql"/>
         </where>
     </select>
+
+    <update id="removeOrder" parameterMap="java.util.Map">
+        update from <include refid="table_name"/>
+        set is_remove = 1
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+    </update>
 </mapper>
