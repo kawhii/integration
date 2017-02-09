@@ -293,8 +293,9 @@ public class OrderCtrl extends BaseCtrl {
     @RequestMapping("/{id}/detail")
     public ModelAndView detail(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView(freemarker("detail"));
-        OrderPojo orderPojo = orderService.findByIdAndName(id, UserUtils.currUser().getName());
+        OrderPojo orderPojo = orderService.findByIdAndName(id, UserUtils.currUser().getUsername());
         view.addObject("order", orderPojo);
+        view.addObject("title", "订单详情");
         return view;
     }
 }
