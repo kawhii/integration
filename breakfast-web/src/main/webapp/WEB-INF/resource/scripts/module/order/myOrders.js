@@ -18,8 +18,8 @@
                 var flag = window.confirm("确定删除该订单？");
                 if(flag) {
                     carl.request("/order/" + goods.id + "/delete", {}, function(data) {
-                        if(data.code == 0) {
-                            this.orders.splice(index, 1);
+                        if(data.header.code == 0) {
+                            app.orders.splice(index, 1);
                         }
                     });
                 }

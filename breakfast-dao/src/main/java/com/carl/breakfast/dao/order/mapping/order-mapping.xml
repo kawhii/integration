@@ -80,9 +80,9 @@
         co.pay_state,co.order_state,co.end_opera_time,co.address,co.is_impatient,
         cog.order_id,cog.goods_id,cog.quantity,cog.unit_price,cog.goods_title,cog.goods_img_path,cog.goods_img_id
         from <include refid="table_name"/> as co
-        left join core_order_goods cog on co.id = cog.order_id
+        inner join core_order_goods cog on co.id = cog.order_id
         <include refid="condition_sql"/>
-        order by co.create_time desc
+        order by co.create_time desc limit #{pageFirst}, #{pageSize}
     </select>
 
     <!-- 分页查询时要用到的总数统计 -->
