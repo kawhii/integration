@@ -85,11 +85,17 @@
         for (var i in orderData) {
             var obj = orderData[i];
             var val = eval('(' + obj.value + ')');
-            if (orderJson[obj.name]) {
-                orderJson[obj.name] = [orderJson[obj.name], val];
+            var cont = orderJson[obj.name];
+            if (cont) {
+                if(cont instanceof Array) {
+                    cont.push(val);
+                } else {
+                    cont = [cont, val];
+                }
             } else {
-                orderJson[obj.name] = val;
+                cont = val;
             }
+            orderJson[obj.name] = cont;
         }
 
         $('#ID_submitBtn').click(function() {
