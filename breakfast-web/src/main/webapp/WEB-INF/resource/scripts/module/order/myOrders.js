@@ -15,6 +15,21 @@
         }, methods: {
             //删除订单
             removeOrder: function (goods, index) {
+                $(".carts-goodsRight").on("touchstart",function(event){
+                    if(event.originalEvent.changedTouches.length == 1){
+                        event.preventDefault();
+
+                        $("#cartsdeleteHint").show(500);
+                    }
+                });
+
+                $(".popupHintBtn button").on("touchstart",function(event){
+                    if(event.originalEvent.changedTouches.length == 1){
+                        event.preventDefault();
+
+                        $("#cartsdeleteHint").hide(500);
+                    }
+                });
                 this.orders.splice(index, 1)
             }
         }

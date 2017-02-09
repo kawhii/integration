@@ -95,7 +95,7 @@
         </where>
     </select>
 
-    <update id="removeOrder" parameterMap="java.util.Map">
+    <update id="removeOrder" parameterType="java.util.Map">
         update from <include refid="table_name"/>
         set is_remove = 1
         <where>
