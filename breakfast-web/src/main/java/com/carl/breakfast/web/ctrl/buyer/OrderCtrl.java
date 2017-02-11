@@ -313,13 +313,17 @@ public class OrderCtrl extends BaseCtrl {
 
 
     //提交评论页面
-    @RequestMapping("/{orderId}/${goodsId}/commentOrder")
+    @RequestMapping("/{orderId}/{goodsId}/commentOrder")
     public ModelAndView goCommentOrdersSubmit(@PathVariable("orderId") String orderId, @PathVariable("goodsId") int goodsId) {
         ModelAndView view = new ModelAndView(freemarker("commentOrdersSubmit"));
         OrderPojo orderPojo = orderService.findByIdAndOthers(orderId,
                 MapBuilder.<String, Object>build().p("username", UserUtils.currUser().getUsername()).p("goodsId", goodsId).p("isComment", false));
+        if(orderPojo == null || orderPojo.getItems().isEmpty()) {
+            //todo 已评论或者没有该商品，处理异常
+        }
         //判断
         view.addObject("order", orderPojo);
+        view.addObject("goods", orderPojo.getItems().get(0));
         view.addObject("title", "评价晒单");
         return view;
     }
