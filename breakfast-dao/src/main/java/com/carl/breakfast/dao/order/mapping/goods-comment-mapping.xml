@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carl.breakfast.dao.order.GoodsCommentDaoImpl">
+    <!--表名明-->
+    <sql id="table_name">
+        mall_goods_comment
+    </sql>
+
+
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.pojo.order.OrderPojo">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER"/>
+        <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
+        <result column="USERNAME" property="username" jdbcType="VARCHAR"/>
+        <result column="GRADE" property="grade" jdbcType="VARCHAR"/>
+        <result column="CONTENT" property="content" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <!-- 根据搜索条件获取数据 -->
+    <sql id="condition_sql">
+        <if test="orderId != null">and id = #{orderId,jdbcType=VARCHAR}</if>
+        <if test="id != null">and id = #{id,jdbcType=INTEGER}</if>
+        <if test="goodsId != null and goodsId > 0">and goods_id = #{goodsId,jdbcType=INTEGER}</if>
+        <if test="username != null and username != ''">and username = #{username,jdbcType=VARCHAR}</if>
+    </sql>
+
+    <!--插入数据自动生成id-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.carl.breakfast.dao.pojo.order.GoodsComment">
+        insert into
+        <include refid="table_name"/>
+        (id, goods_id, order_id, username, grade, content)
+        values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{orderId}, #{username}, #{grade}, #{content})
+    </insert>
+
+
+
+    <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map">
+       select id, goods_id as goodsId, order_id as orderId, username, grade, content
+        <include refid="table_name"/>
+        <include refid="condition_sql"/>
+        order by create_time desc
+    </select>
+</mapper>
