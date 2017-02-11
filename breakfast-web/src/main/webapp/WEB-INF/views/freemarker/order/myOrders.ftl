@@ -36,8 +36,8 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="orders-foot2">
-                    <button type="button" value="" class="review">评价晒单</button>
-                    <button type="button" value="" class="buyAgain">再次购买</button>
+                    <button type="button" value="" @click="goComment(order.id)" class="review">评价晒单</button>
+                    <#--<button type="button" value="" class="buyAgain">再次购买</button>-->
                 </div>
                 <div class="clearfix"></div>
             </div>

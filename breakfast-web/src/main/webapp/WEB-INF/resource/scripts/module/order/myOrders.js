@@ -13,6 +13,10 @@
             //订单数据
             orders: []
         }, methods: {
+                //去评论
+            goComment: function(orderId) {
+                window.location.href = "/order/" + orderId + "/comment";
+            },
             //删除订单
             removeOrder: function (goods, index) {
                 var flag = window.confirm("确定删除该订单？");

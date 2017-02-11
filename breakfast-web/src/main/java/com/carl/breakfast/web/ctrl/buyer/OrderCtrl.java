@@ -298,4 +298,14 @@ public class OrderCtrl extends BaseCtrl {
         view.addObject("title", "订单详情");
         return view;
     }
+
+    //评论
+    @RequestMapping("/{id}/comment")
+    public ModelAndView goComment(@PathVariable("id") String id) {
+        ModelAndView view = new ModelAndView(freemarker("comment"));
+        OrderPojo orderPojo = orderService.findByIdAndName(id, UserUtils.currUser().getUsername());
+        view.addObject("order", orderPojo);
+        view.addObject("title", "评价晒单");
+        return view;
+    }
 }
