@@ -6,6 +6,8 @@ import com.carl.breakfast.web.bean.OrderCreateBean;
 import com.carl.framework.core.page.PageBean;
 import com.carl.framework.core.page.PageParam;
 
+import java.util.Map;
+
 /**
  * 订单服务
  *
@@ -43,8 +45,8 @@ public interface IOrderService extends IService<IOrderDao> {
     /**
      * 根据id查找
      * @param id
-     * @param name
+     * @param params 其他参数
      * @return
      */
-    OrderPojo findByIdAndName(String id, String name);
+    OrderPojo findByIdAndOthers(String id, Map<String, Object> params);
 }

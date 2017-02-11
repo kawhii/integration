@@ -2,7 +2,7 @@
 <section class="contain">
     <header class="header">
         <a href="javascript:history.go(-1);"><i class="fa fa-chevron-left fa-1x return"></i></a>
-        <p>评价晒单</p>
+        <p>评价晒单-${order.orderNo}</p>
     </header>
 
     <!-- comment-orders -->
@@ -14,7 +14,7 @@
                 </div>
                 <div class="comment-orders-goods-name">${item.goodsTitle}</div>
                 <div class="comment-orders-goods-btn">
-                    <a href="comment-ordersSubmit.html"><button type="button">评价晒单</button></a>
+                    <a href="/order/${order.id}/${item.goodsId}/commentOrder"><button type="button">评价晒单</button></a>
                 </div>
                 <div class="clearfix"></div>
             </div>

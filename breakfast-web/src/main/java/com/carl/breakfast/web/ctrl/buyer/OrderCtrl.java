@@ -293,7 +293,8 @@ public class OrderCtrl extends BaseCtrl {
     @RequestMapping("/{id}/detail")
     public ModelAndView detail(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView(freemarker("detail"));
-        OrderPojo orderPojo = orderService.findByIdAndName(id, UserUtils.currUser().getUsername());
+        OrderPojo orderPojo = orderService.findByIdAndOthers(id,
+                MapBuilder.<String, Object>build().p("username", UserUtils.currUser().getUsername()));
         view.addObject("order", orderPojo);
         view.addObject("title", "订单详情");
         return view;
@@ -303,7 +304,21 @@ public class OrderCtrl extends BaseCtrl {
     @RequestMapping("/{id}/comment")
     public ModelAndView goComment(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView(freemarker("comment"));
-        OrderPojo orderPojo = orderService.findByIdAndName(id, UserUtils.currUser().getUsername());
+        OrderPojo orderPojo = orderService.findByIdAndOthers(id,
+                MapBuilder.<String, Object>build().p("username", UserUtils.currUser().getUsername()));
+        view.addObject("order", orderPojo);
+        view.addObject("title", "评价晒单");
+        return view;
+    }
+
+
+    //提交评论页面
+    @RequestMapping("/{orderId}/${goodsId}/commentOrder")
+    public ModelAndView goCommentOrdersSubmit(@PathVariable("orderId") String orderId, @PathVariable("goodsId") int goodsId) {
+        ModelAndView view = new ModelAndView(freemarker("commentOrdersSubmit"));
+        OrderPojo orderPojo = orderService.findByIdAndOthers(orderId,
+                MapBuilder.<String, Object>build().p("username", UserUtils.currUser().getUsername()).p("goodsId", goodsId).p("isComment", false));
+        //判断
         view.addObject("order", orderPojo);
         view.addObject("title", "评价晒单");
         return view;

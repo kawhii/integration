@@ -14,6 +14,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 
 /**
  * @author Carl
@@ -75,7 +77,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public OrderPojo findByIdAndName(String id, String name) {
-        return getDao().getBy(MapBuilder.<String, Object>build().p("orderId", id).p("username", name));
+    public OrderPojo findByIdAndOthers(String id, Map<String, Object> params){
+        return getDao().getBy(MapBuilder.<String, Object>build().p("orderId", id).pAll(params));
     }
 }

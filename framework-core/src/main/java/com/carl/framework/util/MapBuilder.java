@@ -3,6 +3,7 @@ package com.carl.framework.util;
 import com.alibaba.fastjson.JSON;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 方便构造器
@@ -22,6 +23,13 @@ public class MapBuilder<K, V> extends HashMap<K, V> {
 
     public MapBuilder<K, V> p(K key, V val) {
         super.put(key, val);
+        return this;
+    }
+
+    public MapBuilder<K, V> pAll(Map<? extends K, ? extends V> map) {
+        if (map != null && !map.isEmpty()) {
+            super.putAll(map);
+        }
         return this;
     }
 
