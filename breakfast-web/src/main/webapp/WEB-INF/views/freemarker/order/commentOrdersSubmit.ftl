@@ -5,7 +5,7 @@
         <a href="comment-ordersSubmit-success.html">
             <button type="button" id="comment-ordersSubmit">提交</button>
         </a>
-        <p>评价晒单</p>
+        <p>${order.orderNo}-${goods.goodsTitle}</p>
     </header>
 
     <!-- comment-ordersSubmit -->
