@@ -313,7 +313,7 @@ public class OrderCtrl extends BaseCtrl {
 
 
     //提交评论页面
-    @RequestMapping("/{orderId}/{goodsId}/commentOrder")
+    @RequestMapping(value = "/{orderId}/{goodsId}/commentOrder", method = RequestMethod.GET)
     public ModelAndView goCommentOrdersSubmit(@PathVariable("orderId") String orderId, @PathVariable("goodsId") int goodsId) {
         ModelAndView view = new ModelAndView(freemarker("commentOrdersSubmit"));
         OrderPojo orderPojo = orderService.findByIdAndOthers(orderId,

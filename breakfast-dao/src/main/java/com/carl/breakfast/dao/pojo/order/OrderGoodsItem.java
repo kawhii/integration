@@ -28,6 +28,18 @@ public class OrderGoodsItem extends BaseEntity {
     //GOODS_IMG_ID
     private int goodsImgId;
 
+    //IS_COMMENT 是否已评论
+    private boolean comment;
+
+    public boolean isComment() {
+        return comment;
+    }
+
+    public OrderGoodsItem setComment(boolean comment) {
+        this.comment = comment;
+        return this;
+    }
+
     //获取总价
     public float getTotalPrice() {
         return getUnitPrice() * getQuantity();

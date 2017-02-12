@@ -2,15 +2,15 @@
 <section class="contain">
     <header class="header">
         <a href="javascript:history.go(-1);"><i class="fa fa-chevron-left fa-1x return"></i></a>
-        <a href="comment-ordersSubmit-success.html">
-            <button type="button" id="comment-ordersSubmit">提交</button>
+        <a href="javascript:void(0)">
+            <button type="button" id="comment-ordersSubmit" onclick="javascript:$('#ID_submitForm').submit()">提交</button>
         </a>
         <p>${order.orderNo}-${goods.goodsTitle}</p>
     </header>
 
     <!-- comment-ordersSubmit -->
     <main class="comment-ordersSubmit">
-        <form>
+        <form id="ID_submitForm" method="post">
             <div class="comment-orders-goodsSubmit">
                 <div class="comment-orders-goodsSubmit-top">
                     <div class="comment-orders-goodsSubmit-img">
