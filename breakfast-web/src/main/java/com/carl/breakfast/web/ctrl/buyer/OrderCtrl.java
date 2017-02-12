@@ -333,7 +333,7 @@ public class OrderCtrl extends BaseCtrl {
 
     //提交评论页面
     @RequestMapping(value = "/commentOrder", method = RequestMethod.POST)
-    public ModelAndView submitCommentOrders(@RequestBody CommentSubmitParam commentSubmitParam) {
+    public ModelAndView submitCommentOrders(CommentSubmitParam commentSubmitParam) {
         ModelAndView view = new ModelAndView(freemarker("commentSuccess"));
 
         view.addObject("title", "评价晒单");
