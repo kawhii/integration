@@ -11,7 +11,7 @@
 
     <!-- comment-ordersSubmit -->
     <main class="comment-ordersSubmit">
-        <form id="ID_submitForm" method="post">
+        <form id="ID_submitForm" method="post" action="/order/commentOrder">
             <div class="comment-orders-goodsSubmit">
                 <div class="comment-orders-goodsSubmit-top">
                     <div class="comment-orders-goodsSubmit-img">
@@ -32,18 +32,18 @@
                 </div>
 
                 <div class="comment-orders-goodsSubmit-content">
-                    <textarea name="note" id="ID_note" placeholder="如果你无法简洁的表达你的想法，那只说明你还不够了解它。--爱因斯坦"></textarea>
+                    <textarea name="content" id="ID_content" placeholder="如果你无法简洁的表达你的想法，那只说明你还不够了解它。--爱因斯坦"></textarea>
                 </div>
             </div>
         </form>
         <script>
             //提交
             $('#comment-ordersSubmit').click(function () {
-                if (!$("#ID_note").val()) {
+                if (!$("#ID_content").val()) {
                     carl.toast("分享一下想法咯~", {
                         timeout: 1200
                     });
-                    $("#ID_note").focus();
+                    $("#ID_content").focus();
                     return;
                 }
                 $('#ID_submitForm').submit();

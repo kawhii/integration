@@ -1,4 +1,4 @@
-package com.carl.breakfast.web.ctrl.buyer;
+package com.carl.breakfast.web.ctrl.buyer.param;
 
 import java.io.Serializable;
 import java.util.List;

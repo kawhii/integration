@@ -8,8 +8,11 @@ import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
 import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.breakfast.dao.pojo.user.SendAddress;
 import com.carl.breakfast.dao.sys.pojo.UserInfo;
-import com.carl.breakfast.web.bean.AddressDetailBean;
 import com.carl.breakfast.web.bean.OrderCreateBean;
+import com.carl.breakfast.web.ctrl.buyer.param.CommentSubmitParam;
+import com.carl.breakfast.web.ctrl.buyer.param.OrderCreateParam;
+import com.carl.breakfast.web.ctrl.buyer.param.OrderGoodsParam;
+import com.carl.breakfast.web.ctrl.buyer.param.OrderParam;
 import com.carl.breakfast.web.service.IAddressService;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.breakfast.web.service.IOrderService;
@@ -318,12 +321,21 @@ public class OrderCtrl extends BaseCtrl {
         ModelAndView view = new ModelAndView(freemarker("commentOrdersSubmit"));
         OrderPojo orderPojo = orderService.findByIdAndOthers(orderId,
                 MapBuilder.<String, Object>build().p("username", UserUtils.currUser().getUsername()).p("goodsId", goodsId).p("isComment", false));
-        if(orderPojo == null || orderPojo.getItems().isEmpty()) {
+        if (orderPojo == null || orderPojo.getItems().isEmpty()) {
             //todo 已评论或者没有该商品，处理异常
         }
         //判断
         view.addObject("order", orderPojo);
         view.addObject("goods", orderPojo.getItems().get(0));
+        view.addObject("title", "评价晒单");
+        return view;
+    }
+
+    //提交评论页面
+    @RequestMapping(value = "/commentOrder", method = RequestMethod.POST)
+    public ModelAndView submitCommentOrders(@RequestBody CommentSubmitParam commentSubmitParam) {
+        ModelAndView view = new ModelAndView(freemarker("commentSuccess"));
+
         view.addObject("title", "评价晒单");
         return view;
     }
