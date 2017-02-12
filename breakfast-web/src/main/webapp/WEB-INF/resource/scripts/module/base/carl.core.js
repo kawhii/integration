@@ -102,9 +102,13 @@
      * 吐丝
      * @param msg
      */
-    carl.toast = function (msg) {
+    carl.toast = function (msg, opt) {
+        var def = {
+            timeout: 800
+        };
+        opt = $.extend({}, def, opt)
         showMask(msg);
-        setTimeout(hideMask, 800);
+        setTimeout(hideMask, opt['timeout']);
     };
 
     window.carl = carl;

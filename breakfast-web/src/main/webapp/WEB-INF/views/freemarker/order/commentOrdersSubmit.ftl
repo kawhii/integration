@@ -3,7 +3,8 @@
     <header class="header">
         <a href="javascript:history.go(-1);"><i class="fa fa-chevron-left fa-1x return"></i></a>
         <a href="javascript:void(0)">
-            <button type="button" id="comment-ordersSubmit" onclick="javascript:$('#ID_submitForm').submit()">提交</button>
+            <button type="button" id="comment-ordersSubmit">提交
+            </button>
         </a>
         <p>${order.orderNo}-${goods.goodsTitle}</p>
     </header>
@@ -31,10 +32,23 @@
                 </div>
 
                 <div class="comment-orders-goodsSubmit-content">
-                    <textarea name="note" placeholder="如果你无法简洁的表达你的想法，那只说明你还不够了解它。--爱因斯坦"></textarea>
+                    <textarea name="note" id="ID_note" placeholder="如果你无法简洁的表达你的想法，那只说明你还不够了解它。--爱因斯坦"></textarea>
                 </div>
             </div>
         </form>
+        <script>
+            //提交
+            $('#comment-ordersSubmit').click(function () {
+                if (!$("#ID_note").val()) {
+                    carl.toast("分享一下想法咯~", {
+                        timeout: 1200
+                    });
+                    $("#ID_note").focus();
+                    return;
+                }
+                $('#ID_submitForm').submit();
+            });
+        </script>
     </main>
     <!-- comment-orders -->
 </section>
