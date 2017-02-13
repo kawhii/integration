@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.dao.pojo.cart.CartGoods;
 import com.carl.breakfast.dao.pojo.cart.StopCart;
+import com.carl.breakfast.dao.pojo.order.GoodsComment;
 import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
 import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.breakfast.dao.pojo.user.SendAddress;
@@ -13,10 +14,7 @@ import com.carl.breakfast.web.ctrl.buyer.param.CommentSubmitParam;
 import com.carl.breakfast.web.ctrl.buyer.param.OrderCreateParam;
 import com.carl.breakfast.web.ctrl.buyer.param.OrderGoodsParam;
 import com.carl.breakfast.web.ctrl.buyer.param.OrderParam;
-import com.carl.breakfast.web.service.IAddressService;
-import com.carl.breakfast.web.service.IGoodsService;
-import com.carl.breakfast.web.service.IOrderService;
-import com.carl.breakfast.web.service.IStopCartService;
+import com.carl.breakfast.web.service.*;
 import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.core.execption.BizException;
 import com.carl.framework.core.page.PageParam;
@@ -59,6 +57,9 @@ public class OrderCtrl extends BaseCtrl {
 
     @Autowired
     private IAddressService addressService;
+
+    @Autowired
+    private IOrderGoodsCommentService orderGoodsCommentService;
 
     @Override
     protected String getModuleName() {
@@ -337,6 +338,18 @@ public class OrderCtrl extends BaseCtrl {
         ModelAndView view = new ModelAndView(freemarker("commentSuccess"));
 
         view.addObject("title", "评价晒单");
+
+        try {
+            orderGoodsCommentService.saveComment(new GoodsComment().setContent(commentSubmitParam.getContent())
+                    .setGoodsId(commentSubmitParam.getGoodsId())
+                    .setOrderId(commentSubmitParam.getOrderId())
+                    .setUsername(UserUtils.currUser().getUsername())
+                    .setGrade(commentSubmitParam.getGrade()));
+        } catch (BizException e) {
+            e.printStackTrace();
+            //todo 当发生保存异常时，处理
+        }
+
         return view;
     }
 }
