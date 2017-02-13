@@ -21,12 +21,15 @@
                     <div class="comment-orders-goodsSubmitDetails">
                         <p>评量</p>
                         <p>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
+                            <i class="fa fa-star fa-1x unselect"></i>
+                            <i class="fa fa-star fa-1x unselect"></i>
+                            <i class="fa fa-star fa-1x unselect"></i>
+                            <i class="fa fa-star fa-1x unselect"></i>
+                            <i class="fa fa-star fa-1x unselect"></i>
                         </p>
+                        <input name="grade" value="0" type="hidden" id="ID_grade"/>
+                        <input name="goodsId" value="${goods.goodsId}" type="hidden"/>
+                        <input name="orderId" value="${order.id}" type="hidden"/>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -37,6 +40,16 @@
             </div>
         </form>
         <script>
+            $('.comment-orders-goodsSubmitDetails p i').click(function () {
+                var idx = $(this).index();
+                $(".comment-orders-goodsSubmitDetails p i:lt(" + (idx + 1) + ")")
+                        .removeClass('unselect')
+                        .addClass('select');
+                $(".comment-orders-goodsSubmitDetails p i:gt(" + idx + ")")
+                        .removeClass('select')
+                        .addClass('unselect');
+                $('#ID_grade').val(idx + 1);
+            });
             //提交
             $('#comment-ordersSubmit').click(function () {
                 if (!$("#ID_content").val()) {
