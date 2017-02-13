@@ -22,6 +22,7 @@
 
     <!-- 根据搜索条件获取数据 -->
     <sql id="condition_sql">
+        <if test="id != null and goodsId > 0">and id = #{id,jdbcType=INTEGER}</if>
         <if test="orderId != null">and order_id = #{orderId,jdbcType=VARCHAR}</if>
         <if test="goodsId != null and goodsId > 0">and goods_id = #{goodsId,jdbcType=INTEGER}</if>
         <if test="goodsTitle != null and goodsTitle != ''">and goods_title LIKE CONCAT('%','${goodsTitle}','%' )</if>
@@ -47,4 +48,9 @@
             </foreach >
 
     </insert>
+
+    <update id="batchUpdateByColumn" parameterType="java.util.Map">
+        update <include refid="table_name"/> set is_comment = 1
+        <include refid="condition_sql"/>
+    </update>
 </mapper>
