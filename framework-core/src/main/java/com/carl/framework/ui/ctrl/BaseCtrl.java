@@ -47,8 +47,22 @@ public abstract class BaseCtrl {
         return SEPARATOR + getModuleName() + SEPARATOR;
     }
 
+    /**
+     * freemarker
+     * @param templateUrl
+     * @return
+     */
     protected String freemarker(String templateUrl) {
         return FREEMARKER + getWarpModuleName() + templateUrl;
+    }
+
+    /**
+     * jsp返回
+     * @param templateUrl
+     * @return
+     */
+    protected String jsp(String templateUrl) {
+        return JSP + getWarpModuleName() + templateUrl;
     }
 
     /**
