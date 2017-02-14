@@ -242,7 +242,9 @@ p{ margin:0; padding:0;}
 .comment-orders-goodsSubmit-img img{}
 .comment-orders-goodsSubmitDetails{ width:80%; float:left;}
 .comment-orders-goodsSubmitDetails p{}
-.comment-orders-goodsSubmitDetails i{ color:#f00;}
+/*.comment-orders-goodsSubmitDetails i{ color:#f00;}*/
+.comment-orders-goodsSubmitDetails .select{  color:#f00;}
+.comment-orders-goodsSubmitDetails .unselect{  color:#999;}
 .comment-orders-goodsSubmit-content{}
 .comment-orders-goodsSubmit-content textarea{ width:100%; padding:10px; border:none;}
 /* comment-ordersSubmit */
