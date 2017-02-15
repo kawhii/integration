@@ -71,6 +71,7 @@
             <result property="goodsTitle" column="goods_title" jdbcType="VARCHAR"/>
             <result property="goodsImgPath" column="goods_img_path" jdbcType="VARCHAR"/>
             <result property="goodsImgId" column="goods_img_id" jdbcType="INTEGER"/>
+            <result property="comment" column="is_comment" jdbcType="TINYINT"/>
         </collection>
     </resultMap>
 
@@ -78,7 +79,8 @@
     <select id="listPage" parameterType="java.util.Map" resultMap="pageResult">
         select co.id,co.create_time,co.order_no,co.pay_time,co.username,co.contact_name,co.contact_number,co.price,
         co.pay_state,co.order_state,co.end_opera_time,co.address,co.is_impatient,
-        cog.order_id,cog.goods_id,cog.quantity,cog.unit_price,cog.goods_title,cog.goods_img_path,cog.goods_img_id
+        cog.order_id,cog.goods_id,cog.quantity,cog.unit_price,cog.goods_title,cog.goods_img_path,cog.goods_img_id,
+        cog.is_comment
         from <include refid="table_name"/> as co
         inner join core_order_goods cog on co.id = cog.order_id
         <include refid="condition_sql"/>
@@ -88,7 +90,8 @@
     <select id="listBy" resultMap="pageResult" parameterType="java.util.Map">
         select co.id,co.create_time,co.order_no,co.pay_time,co.username,co.contact_name,co.contact_number,co.price,
         co.pay_state,co.order_state,co.end_opera_time,co.address,co.is_impatient,
-        cog.order_id,cog.goods_id,cog.quantity,cog.unit_price,cog.goods_title,cog.goods_img_path,cog.goods_img_id
+        cog.order_id,cog.goods_id,cog.quantity,cog.unit_price,cog.goods_title,cog.goods_img_path,cog.goods_img_id,
+        cog.is_comment
         from <include refid="table_name"/> as co
         inner join core_order_goods cog on co.id = cog.order_id
         <include refid="condition_sql"/>
