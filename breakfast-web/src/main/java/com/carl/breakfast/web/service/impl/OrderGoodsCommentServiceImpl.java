@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author Carl
  * @date 2017/2/13
@@ -41,5 +43,10 @@ public class OrderGoodsCommentServiceImpl implements IOrderGoodsCommentService {
             throw new BizException("请求错误，没有数据需要更新");
         }
         return true;
+    }
+
+    @Override
+    public List<GoodsComment> queryByGoodsId(int goodsId) {
+        return goodsCommentDao.listBy(MapBuilder.<String, Object>build().p("goodsId", goodsId));
     }
 }

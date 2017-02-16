@@ -9,7 +9,7 @@
     </sql>
 
 
-    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.pojo.order.OrderPojo">
+    <resultMap id="BaseResultMap" type="com.carl.breakfast.dao.pojo.order.GoodsComment">
         <id column="ID" property="id" jdbcType="INTEGER"/>
         <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER"/>
         <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
@@ -40,7 +40,8 @@
 
     <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map">
        select id, goods_id as goodsId, order_id as orderId, username, grade, content
-        <include refid="table_name"/>
+        from <include refid="table_name"/>
+        where 1=1
         <include refid="condition_sql"/>
         order by create_time desc
     </select>

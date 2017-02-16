@@ -2,6 +2,8 @@ package com.carl.breakfast.web.service;
 
 import com.carl.breakfast.dao.pojo.order.GoodsComment;
 
+import java.util.List;
+
 /**
  * @author Carl
  * @date 2017/2/13
@@ -17,4 +19,11 @@ public interface IOrderGoodsCommentService {
      * @return
      */
     boolean saveComment(GoodsComment comment);
+
+    /**
+     * 根据商品id查询
+     * @param goodsId
+     * @return
+     */
+    List<GoodsComment> queryByGoodsId(int goodsId);
 }

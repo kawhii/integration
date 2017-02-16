@@ -82,7 +82,7 @@ p{ margin:0; padding:0;}
 .details-main-commentMain1{}
 .details-main-commentMain1 p{}
 .details-main-commentMain1 p:first-child{ float:left;}
-.details-main-commentMain1 p:first-child i{  color:#f00;}
+/*.details-main-commentMain1 p:first-child i{  color:#f00;}*/
 .details-main-commentMain1 p:last-child{ float:right;}
 .details-main-commentMain p{ padding-top:5px;}
 

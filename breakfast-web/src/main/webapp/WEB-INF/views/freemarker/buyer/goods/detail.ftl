@@ -6,7 +6,7 @@
     </header>
 
     <!-- details -->
-    <main class="details" id="ID_detailApp">
+    <main class="details" id="ID_detailApp" v-cloak>
 
         <div class="banner">
             <div class="img_gallery">
@@ -47,52 +47,29 @@
             <div class="details-main-comment">
                 <div class="details-main-commentTop">
                     <a href="comment.html">
-                        <p>评价（5）</p>
-                        <p>五星度：<span class="red">100%</span><i class="fa fa-chevron-right fa-1x"></i></p>
+                        <p>评价（{{comment.length}}）</p>
+                        <p><#--五星度：<span class="red">100%</span><i class="fa fa-chevron-right fa-1x"></i>--></p>
                     </a>
                 </div>
                 <div class="clearfix"></div>
-                <div class="details-main-commentMain">
+                <div class="details-main-commentMain" v-for="item in comment">
                     <div class="details-main-commentMain1">
-                        <p>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
+                        <p class="comment-orders-goodsSubmitDetails">
+                            <i v-if="item.grade>0" class="fa fa-star fa-1x select"></i>
+                            <i v-else class="fa fa-star fa-1x unselect"></i>
+                            <i v-if="item.grade>1" class="fa fa-star fa-1x select"></i>
+                            <i v-else class="fa fa-star fa-1x unselect"></i>
+                            <i v-if="item.grade>2" class="fa fa-star fa-1x select"></i>
+                            <i v-else class="fa fa-star fa-1x unselect"></i>
+                            <i v-if="item.grade>3" class="fa fa-star fa-1x select"></i>
+                            <i v-else class="fa fa-star fa-1x unselect"></i>
+                            <i v-if="item.grade>4" class="fa fa-star fa-1x select"></i>
+                            <i v-else class="fa fa-star fa-1x unselect"></i>
                         </p>
-                        <p>评价人</p>
+                        <p>{{item.username}}</p>
                     </div>
                     <div class="clearfix"></div>
-                    <p>评价内容：<span>太好吃了，不错！！</span></p>
-                </div>
-                <div class="details-main-commentMain">
-                    <div class="details-main-commentMain1">
-                        <p>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                        </p>
-                        <p>评价人</p>
-                    </div>
-                    <div class="clearfix"></div>
-                    <p>评价内容：<span>太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！太好吃了，不错！！</span></p>
-                </div>
-                <div class="details-main-commentMain">
-                    <div class="details-main-commentMain1">
-                        <p>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                            <i class="fa fa-star fa-1x"></i>
-                        </p>
-                        <p>评价人</p>
-                    </div>
-                    <div class="clearfix"></div>
-                    <p>评价内容：<span>太好吃了，不错！！</span></p>
+                    <p>评价内容：<span>{{item.content}}</span></p>
                 </div>
             </div>
         </div>

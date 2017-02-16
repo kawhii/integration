@@ -16,7 +16,9 @@
         el: '#ID_detailApp',
         data: {
             //当前商品购物车数量
-            cartCount: 0
+            cartCount: 0,
+            //评论
+            comment: []
         }, methods: {
             //添加到购物车
             addStopCart: function (id) {
@@ -39,6 +41,12 @@
         carl.request("/cart/queryGoodsCount", {goodsId: goodsId}, function (data) {
             if (data.header.code == 0) {
                 app.cartCount = data.body;
+            }
+        }, {mask: false});
+
+        carl.request("/comment/goods/" + goodsId, {}, function (data) {
+            if (data.header.code == 0) {
+                app.comment = data.body;
             }
         }, {mask: false});
     }
