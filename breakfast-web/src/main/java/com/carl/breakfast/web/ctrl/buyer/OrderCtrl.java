@@ -347,7 +347,7 @@ public class OrderCtrl extends BaseCtrl {
                     .setGrade(commentSubmitParam.getGrade()));
         } catch (BizException e) {
             e.printStackTrace();
-            //todo 当发生保存异常时，处理
+            view.setViewName(freemarker("commentFail"));
         }
 
         return view;
