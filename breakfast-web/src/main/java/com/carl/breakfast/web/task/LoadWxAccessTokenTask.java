@@ -1,5 +1,10 @@
 package com.carl.breakfast.web.task;
 
+import com.carl.framework.core.third.wx.token.ITokenProvider;
+import com.carl.framework.core.third.wx.token.TokenRefreshException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +16,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LoadWxAccessTokenTask {
-    @Scheduled(cron = "*/5 * * * * *")
+    protected final Log logger = LogFactory.getLog(LoadWxAccessTokenTask.class);
+
+
+    @Autowired
+    private ITokenProvider tokenProvider;
+
+    @Scheduled(cron = "*/30 * * * * *")
     public void loadToken() {
-        System.out.println("我要加载token啦...");
         // task execution logic
+        logger.debug("任务执行，开始刷新access_token");
+
+        try {
+            tokenProvider.refresh();
+        } catch (TokenRefreshException e) {
+            logger.error("执行刷新access_token出错");
+            logger.error(e);
+        }
     }
 }
