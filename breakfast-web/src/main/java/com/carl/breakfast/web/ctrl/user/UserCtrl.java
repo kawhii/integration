@@ -47,21 +47,6 @@ public class UserCtrl extends BaseCtrl {
     @Autowired
     private CommonAddressService commonAddressService;
 
-    @Autowired
-    private IUserService userService;
-
-
-
-    protected static final Log logger = LogFactory.getLog(OrderCtrl.class);
-
-    //微信appid
-    @Value("${wx.appid}")
-    private String appId;
-    @Value("${wx.secret}")
-    private String secret;
-
-    private IRequester<AccessTokenParam> urlRequester = new JsonUrlRequester();
-
     @Override
     protected String getModuleName() {
         return "user";
@@ -202,45 +187,5 @@ public class UserCtrl extends BaseCtrl {
         view.addObject("title", "收货人");
         view.addObject("data", detailBean);
         return view;
-    }
-
-    @RequestMapping("/wxl")
-    public String wxLogin(@RequestParam("code") String code, @RequestParam("state") String state) {
-        //登陆
-        try {
-            login(code);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e);
-            //todo 微信登陆异常处理
-        }
-        return "redirect:/goods/index.html";
-    }
-
-
-    /**
-     * 利用微信的code进行登陆
-     *
-     * @param code
-     * @throws Exception
-     */
-    private void login(String code) throws Exception {
-        logger.info("微信登陆：" + code);
-        AccessTokenParam tokenParam = new AccessTokenParam(appId, secret, code);
-//        AccessTokenResult accessTokenResult = urlRequester.request(tokenParam, AccessTokenResult.class);
-        AccessTokenResult accessTokenResult = new AccessTokenResult().setOpenid("112233");
-        //获取openid失败
-        if (accessTokenResult.getErrcode() != 0) {
-            throw new AuthenticationException("获取openid失败");
-        }
-        UserInfo userInfo = userService.findByUsername(accessTokenResult.getOpenid());
-        if(userInfo == null) {
-            logger.info("openid不存在进行注册。");
-            userInfo = new UserInfo().setUsername(accessTokenResult.getOpenid());
-            userService.registerOpenId(userInfo);
-        }
-        WXAuthenticationToken wxAuthenticationToken = new WXAuthenticationToken(accessTokenResult);
-        SecurityUtils.getSubject().login(wxAuthenticationToken);
-        logger.info("【" + code + "】登陆成功");
     }
 }
