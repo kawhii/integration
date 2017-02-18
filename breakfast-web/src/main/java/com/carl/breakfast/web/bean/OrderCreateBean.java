@@ -24,6 +24,9 @@ public class OrderCreateBean {
     //ADDRESS
     private String address;
 
+    //MESSAGE
+    private String message;
+
     private List<OrderGoodsItem> items;
     //IS_IMPATIENT 是否加急
     private boolean impatient;
@@ -34,6 +37,15 @@ public class OrderCreateBean {
 
     public OrderCreateBean setImpatient(boolean impatient) {
         this.impatient = impatient;
+        return this;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public OrderCreateBean setMessage(String message) {
+        this.message = message;
         return this;
     }
 

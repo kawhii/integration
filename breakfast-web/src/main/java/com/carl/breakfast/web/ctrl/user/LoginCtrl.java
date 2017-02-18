@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import static com.carl.breakfast.web.filter.UserInfoAuthenticationFilter.USER_INFO_ATTR_KEY;
+
 /**
  * @author Carl
  * @date 2016/11/20
@@ -103,6 +105,7 @@ public class LoginCtrl extends BaseCtrl {
         }
         WXAuthenticationToken wxAuthenticationToken = new WXAuthenticationToken(accessTokenResult);
         SecurityUtils.getSubject().login(wxAuthenticationToken);
+        SecurityUtils.getSubject().getSession().setAttribute(USER_INFO_ATTR_KEY, userInfo);
         logger.info("【" + code + "】登陆成功");
     }
 }

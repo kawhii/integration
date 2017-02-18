@@ -250,6 +250,7 @@ public class OrderCtrl extends BaseCtrl {
                     .setContactName(address.getContactsName())
                     .setContactNumber(address.getContactsPhone())
                     .setUsername(userInfo.getUsername())
+                    .setMessage(orderCreateParam.getMessage())
             ;
             //总价设置
             List<GoodsPojo> goodsPojos = goodsService.listGoods(orderCreateParam.getGoodsIds());

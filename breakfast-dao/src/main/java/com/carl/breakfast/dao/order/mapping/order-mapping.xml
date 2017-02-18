@@ -37,8 +37,8 @@
         </selectKey>
         insert into
         <include refid="table_name"/>
-        (id, order_no, username, contact_name, contact_number, price, address)
-        values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{username}, #{contactName}, #{contactNumber}, #{price},#{address})
+        (id, order_no, username, contact_name, contact_number, price, address, message)
+        values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{username}, #{contactName}, #{contactNumber}, #{price},#{address}, #{message})
     </insert>
 
     <!--交易结果-->
@@ -55,6 +55,7 @@
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="contact_name" property="contactName" jdbcType="VARCHAR"/>
         <result column="contact_number" property="contactNumber" jdbcType="VARCHAR"/>
+        <result column="message" property="message" jdbcType="VARCHAR"/>
         <result column="price" property="price" jdbcType="FLOAT"/>
         <result column="pay_state" property="payState" jdbcType="INTEGER"/>
         <result column="order_state" property="orderState" jdbcType="INTEGER"/>
@@ -77,7 +78,7 @@
 
     <!--分页查询-->
     <select id="listPage" parameterType="java.util.Map" resultMap="pageResult">
-        select co.id,co.create_time,co.order_no,co.pay_time,co.username,co.contact_name,co.contact_number,co.price,
+        select co.id,co.create_time,co.message,co.order_no,co.pay_time,co.username,co.contact_name,co.contact_number,co.price,
         co.pay_state,co.order_state,co.end_opera_time,co.address,co.is_impatient,
         cog.order_id,cog.goods_id,cog.quantity,cog.unit_price,cog.goods_title,cog.goods_img_path,cog.goods_img_id,
         cog.is_comment
@@ -88,7 +89,7 @@
     </select>
 
     <select id="listBy" resultMap="pageResult" parameterType="java.util.Map">
-        select co.id,co.create_time,co.order_no,co.pay_time,co.username,co.contact_name,co.contact_number,co.price,
+        select co.id,co.message,co.create_time,co.order_no,co.pay_time,co.username,co.contact_name,co.contact_number,co.price,
         co.pay_state,co.order_state,co.end_opera_time,co.address,co.is_impatient,
         cog.order_id,cog.goods_id,cog.quantity,cog.unit_price,cog.goods_title,cog.goods_img_path,cog.goods_img_id,
         cog.is_comment

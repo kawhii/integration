@@ -30,6 +30,8 @@ public class OrderPojo extends BaseEntity {
     private String contactName;
     //CONTACT_NUMBER
     private String contactNumber;
+    //MESSAGE
+    private String message;
     //PRICE
     @JsonSerialize(using = CustomDoubleSerialize.class, contentUsing = CustomDoubleSerialize.class)
     private float price;
@@ -83,6 +85,15 @@ public class OrderPojo extends BaseEntity {
 
     public OrderPojo setItems(List<OrderGoodsItem> items) {
         this.items = items;
+        return this;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public OrderPojo setMessage(String message) {
+        this.message = message;
         return this;
     }
 

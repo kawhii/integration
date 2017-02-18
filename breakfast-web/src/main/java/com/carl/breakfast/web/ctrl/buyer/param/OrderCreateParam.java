@@ -15,6 +15,8 @@ public class OrderCreateParam implements Serializable {
     private List<OrderGoodsParam> goods;
     //加急
     private boolean vexedly;
+    //留言
+    private String message;
 
     public boolean isVexedly() {
         return vexedly;
@@ -40,6 +42,15 @@ public class OrderCreateParam implements Serializable {
 
     public OrderCreateParam setGoods(List<OrderGoodsParam> goods) {
         this.goods = goods;
+        return this;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public OrderCreateParam setMessage(String message) {
+        this.message = message;
         return this;
     }
 

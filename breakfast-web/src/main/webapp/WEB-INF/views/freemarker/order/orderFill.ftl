@@ -47,7 +47,7 @@
 
 
                 <div class="guestbook">
-                    <textarea placeholder="选填：给商家留言（45字以内）"></textarea>
+                    <textarea id="ID_message" placeholder="选填：给商家留言（45字以内）"></textarea>
                 </div>
 
                 <div class="orders-money">
@@ -84,23 +84,34 @@
         var orderJson = {};
         for (var i in orderData) {
             var obj = orderData[i];
-            var val = eval('(' + obj.value + ')');
+            var val = null;
+            try {
+                val = eval('(' + obj.value + ')');
+            } catch (e) {
+                alert("请确认收货地址");
+                return;
+            }
             var cont = orderJson[obj.name];
             if (cont) {
-                if(cont instanceof Array) {
+                if (cont instanceof Array) {
                     cont.push(val);
                 } else {
                     cont = [cont, val];
                 }
             } else {
-                cont = val;
+                if (obj.name == 'goods') {
+                    cont = [val];
+                } else {
+                    cont = val;
+                }
             }
             orderJson[obj.name] = cont;
         }
 
-        $('#ID_submitBtn').click(function() {
+        $('#ID_submitBtn').click(function () {
             //是否有选加急
             orderJson.vexedly = $('#orders-fill-choose').parent().find('.orders-fill-choosebox').hasClass('carts-chooseboxBg')
+            orderJson.message = $('#ID_message').val();
             //请求创建订单
             carl.request("/order/create.action", orderJson, function (data) {
                 console.info(data);
