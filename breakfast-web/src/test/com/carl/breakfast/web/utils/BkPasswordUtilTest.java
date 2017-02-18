@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 /**
@@ -20,6 +22,11 @@ public class BkPasswordUtilTest extends BaseTest {
         String salt = "carls";
         String res = passwordUtil.encodePassword("123456", salt);
         Assert.assertEquals(eRes, res);
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(new Date().getTime()/1000);
     }
 
 }

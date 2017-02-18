@@ -287,19 +287,23 @@ public class OrderCtrl extends BaseCtrl {
 
             //创建订单成功
 
+            /*returnParam.p("wx", MapBuilder.build()
+                    .p("appid",result.getAppid())
+                    .p("prepayId", result.getPrepayId())
+                    .p("nonceStr", result.getNonceStr()));*/
 
             //1. 进行微信统一下单接口
-            DefaultWXPayResult result = wechatOrderService.createOrder(pojo);
-
-            //统一下单接口成功
-            if(!StringUtil.isNull(result.getTradeType())) {
-               /* returnParam.p("wx", MapBuilder.build()
-                        .p("appid",result.getAppid())
-                        .p("prepayId", result.getPrepayId())
-                        .p("nonceStr", result.getNonceStr()));*/
-            } else {
-                return fail(result.getReturnMsg());
-            }
+//            DefaultWXPayResult result = wechatOrderService.createOrder(pojo);
+//
+//            //统一下单接口成功
+//            if(!StringUtil.isNull(result.getTradeType())) {
+//               /* returnParam.p("wx", MapBuilder.build()
+//                        .p("appid",result.getAppid())
+//                        .p("prepayId", result.getPrepayId())
+//                        .p("nonceStr", result.getNonceStr()));*/
+//            } else {
+//                return fail(result.getReturnMsg());
+//            }
 
             //TODO 2. 把购物车的商品删除
         } catch (Exception e) {

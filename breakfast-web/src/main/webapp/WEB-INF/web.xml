@@ -26,15 +26,6 @@
     </filter-mapping>
     <!--权限-->
 
-    <!-- spring配置 -->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:context/applicationContext.xml</param-value>
-    </context-param>
-
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
     <!-- 字符过滤器 -->
     <filter>
         <filter-name>encodingFilter</filter-name>
