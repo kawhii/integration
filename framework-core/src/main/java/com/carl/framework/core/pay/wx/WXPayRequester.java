@@ -2,7 +2,6 @@ package com.carl.framework.core.pay.wx;
 
 import com.carl.framework.util.MapBuilder;
 import com.carl.framework.util.request.BaseRequester;
-import com.carl.framework.core.pay.RequestException;
 import com.carl.framework.core.pay.crypto.CryptoException;
 import com.carl.framework.util.XmlUtils;
 import org.apache.commons.io.IOUtils;
@@ -10,12 +9,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdom.JDOMException;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpOutputMessage;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.client.AsyncClientHttpRequest;
-import org.springframework.http.client.ClientHttpRequest;
-import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.OkHttpClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
@@ -67,6 +60,11 @@ public class WXPayRequester extends BaseRequester<WXRequestParam> {
     @Override
     protected <T> T parseResult(InputStream inputStream, Class<T> resultType) throws Exception {
         return parseStreamAndReturn(inputStream, resultType);
+    }
+
+    @Override
+    protected HttpMethod method() {
+        return HttpMethod.POST;
     }
 
 

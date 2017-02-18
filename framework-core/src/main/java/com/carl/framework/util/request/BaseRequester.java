@@ -34,9 +34,9 @@ public abstract class BaseRequester<P extends AbsRequestParam> implements IReque
             HttpRequest request;
             if (param.isSync()) {
                 //设置头部
-                request = factory.createRequest(new URI(param.getUrl()), HttpMethod.POST);
+                request = factory.createRequest(new URI(param.getUrl()), method());
             } else {
-                request = factory.createAsyncRequest(new URI(param.getUrl()), HttpMethod.POST);
+                request = factory.createAsyncRequest(new URI(param.getUrl()), method());
             }
 
             Map<String, List<String>> headers = headers();
@@ -88,5 +88,19 @@ public abstract class BaseRequester<P extends AbsRequestParam> implements IReque
         return null;
     }
 
+    /**
+     * 解析结果集
+     * @param inputStream
+     * @param resultType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
     protected abstract <T> T parseResult(InputStream inputStream, Class<T> resultType) throws Exception;
+
+    /**
+     * 请求方法
+     * @return
+     */
+    protected abstract HttpMethod method();
 }
