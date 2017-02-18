@@ -25,10 +25,11 @@ public class LoadWxAccessTokenTask {
     @Scheduled(cron = "*/30 * * * * *")
     public void loadToken() {
         // task execution logic
-        logger.debug("任务执行，开始刷新access_token");
+        logger.debug("任务执行，刷新access_token");
 
         try {
             tokenProvider.refresh();
+            logger.debug("刷新access_token成功");
         } catch (TokenRefreshException e) {
             logger.error("执行刷新access_token出错");
             logger.error(e);

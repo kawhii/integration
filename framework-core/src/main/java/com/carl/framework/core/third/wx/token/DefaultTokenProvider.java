@@ -39,8 +39,6 @@ public class DefaultTokenProvider implements ITokenProvider {
             throw new TokenRefreshException("参数必须");
         }
 
-        logger.debug("刷新access_token");
-
         try {
             AccessTokenResult result = urlRequester.request(param, AccessTokenResult.class);
             token = result;
@@ -52,6 +50,6 @@ public class DefaultTokenProvider implements ITokenProvider {
 
     @Override
     public boolean isExpires() {
-        return false;
+        throw new IsExpiresException();
     }
 }
