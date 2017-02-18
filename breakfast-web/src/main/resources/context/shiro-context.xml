@@ -60,7 +60,12 @@
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
-        <property name="realm" ref="myRealm"/>
+        <property name="realms">
+            <list>
+                <ref bean="wxRealm"></ref>
+                <ref bean="myRealm"></ref>
+            </list>
+        </property>
         <!-- By default the servlet container sessions will be used.  Uncomment this line
              to use shiro's native sessions (see the JavaDoc for more): -->
         <!-- <property name="sessionMode" value="native"/> -->
@@ -70,11 +75,23 @@
     <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
     <!-- security datasource: -->
     <bean id="myRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
-       <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dataSource"></property>
         <property name="saltStyle" value="COLUMN"></property>
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
                 <property name="hashAlgorithmName" value="MD5"/>
+            </bean>
+        </property>
+        <property name="authenticationCachingEnabled" value="true"></property>
+        <property name="cachingEnabled" value="true"></property>
+        <property name="cacheManager" ref="shiroCacheManager"></property>
+    </bean>
+
+    <bean id="wxRealm" class="com.carl.framework.core.third.wx.auth.WXAuthorizingRealm">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="saltStyle" value="COLUMN"></property>
+        <property name="credentialsMatcher">
+            <bean class="com.carl.framework.core.third.wx.auth.WXCredentialsMatcher">
             </bean>
         </property>
         <property name="authenticationCachingEnabled" value="true"></property>

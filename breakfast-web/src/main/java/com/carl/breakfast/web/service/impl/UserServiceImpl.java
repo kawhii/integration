@@ -8,6 +8,7 @@ import com.carl.breakfast.web.utils.BkPasswordUtil;
 import com.carl.framework.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,6 +23,12 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     @Qualifier("passwordUtil")
     private BkPasswordUtil passwordUtil;
+
+    @Value("${wx.salt}")
+    private String salt;
+    //默认密码
+    @Value("${wx.password}")
+    private String password;
 
     @Override
     public UserInfo findByUsername(String username) {
@@ -48,7 +55,10 @@ public class UserServiceImpl implements IUserService {
     public void registerOpenId(UserInfo userInfo) {
         if (!StringUtil.isNull(userInfo.getPassword())) {
             userInfo.setPassword(passwordUtil.encodePassword(userInfo.getPassword(), userInfo.getPasswordSalt()));
+        } else {
+            userInfo.setPassword(passwordUtil.encodePassword(password, salt)).setPasswordSalt(salt);
         }
+        userInfo.setName(passwordUtil.encodePassword(userInfo.getUsername(), salt).substring(0, 6));
         userDao.insert(userInfo);
     }
 }

@@ -40,19 +40,6 @@ public class GoodsShowCtrl extends BaseCtrl {
     @Autowired
     private IGoodsService goodsService;
 
-    @Autowired
-    private IUserService userService;
-
-    protected static final Log logger = LogFactory.getLog(OrderCtrl.class);
-
-    //微信appid
-    @Value("${wx.appid}")
-    private String appId;
-    @Value("${wx.secret}")
-    private String secret;
-
-    private IRequester<AccessTokenParam> urlRequester = new JsonUrlRequester();
-
     @Override
     protected String getModuleName() {
         return "buyer/goods";
@@ -60,14 +47,7 @@ public class GoodsShowCtrl extends BaseCtrl {
 
     //商品首页
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam("code") String code, @RequestParam("state") String state) {
-        //登陆
-        try {
-            login(code);
-        } catch (Exception e) {
-            logger.error(e);
-            //todo 微信登陆异常处理
-        }
+    public ModelAndView index() {
         ModelAndView view = new ModelAndView(freemarker("index"));
         return view;
     }
@@ -126,27 +106,4 @@ public class GoodsShowCtrl extends BaseCtrl {
         return view;
     }
 
-    /**
-     * 利用微信的code进行登陆
-     *
-     * @param code
-     * @throws Exception
-     */
-    private void login(String code) throws Exception {
-        logger.info("微信登陆：" + code);
-        AccessTokenParam tokenParam = new AccessTokenParam(appId, secret, code);
-        AccessTokenResult accessTokenResult = urlRequester.request(tokenParam, AccessTokenResult.class);
-        //获取openid失败
-        if (accessTokenResult.getErrcode() != 0) {
-            throw new AuthenticationException("获取openid失败");
-        }
-        UserInfo userInfo = userService.findByUsername(accessTokenResult.getAccessToken());
-        if(userInfo == null) {
-            logger.info("openid不存在进行注册。");
-            userInfo = new UserInfo().setName(accessTokenResult.getOpenid()).setUsername(accessTokenResult.getOpenid());
-            userService.registerOpenId(userInfo);
-        }
-        WXAuthenticationToken wxAuthenticationToken = new WXAuthenticationToken(accessTokenResult);
-        SecurityUtils.getSubject().login(wxAuthenticationToken);
-    }
 }
