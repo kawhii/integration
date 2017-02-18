@@ -1,5 +1,6 @@
 package com.carl.framework.core.pay;
 
+
 /**
  * 基础请求参数
  * @author Carl
@@ -12,6 +13,17 @@ public abstract class AbsRequestParam {
     private int connectTimeOut = 5000;
     private int readTimeOut = 30000;
     private int writeTimeout = 30000;
+
+    private boolean sync = true;
+
+    public boolean isSync() {
+        return sync;
+    }
+
+    public AbsRequestParam setSync(boolean sync) {
+        this.sync = sync;
+        return this;
+    }
 
     public int getConnectTimeOut() {
         return connectTimeOut;

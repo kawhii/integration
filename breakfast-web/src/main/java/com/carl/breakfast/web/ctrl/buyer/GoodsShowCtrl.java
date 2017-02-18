@@ -33,7 +33,7 @@ public class GoodsShowCtrl extends BaseCtrl {
 
     //商品首页
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView index(@RequestParam("code") String code, @RequestParam("state") String state) {
         ModelAndView view = new ModelAndView(freemarker("index"));
         return view;
     }
@@ -63,7 +63,7 @@ public class GoodsShowCtrl extends BaseCtrl {
     public ModelAndView goodsDetail(@PathVariable("id") int id) {
         ModelAndView view = new ModelAndView(freemarker("detail"));
         GoodsDetail dg = goodsService.queryDetailById(id);
-        if(dg == null) {
+        if (dg == null) {
             // TODO: 2016/12/5 不存在商品页面
             view.setViewName(freemarker("notExists"));
         } else {
@@ -82,7 +82,7 @@ public class GoodsShowCtrl extends BaseCtrl {
     public ModelAndView detailToBuy(@PathVariable("id") int id, @PathVariable("isCart") int isCart) {
         ModelAndView view = new ModelAndView(freemarker("detailToBuy"));
         GoodsDetail dg = goodsService.queryDetailById(id);
-        if(dg == null) {
+        if (dg == null) {
             // TODO: 2016/12/5 不存在商品页面
             view.setViewName(freemarker("notExists"));
         } else {

@@ -1,6 +1,7 @@
 package com.carl.framework.core.pay.wx;
 
-import com.carl.framework.core.pay.IPayRequester;
+import com.carl.framework.util.MapBuilder;
+import com.carl.framework.util.request.BaseRequester;
 import com.carl.framework.core.pay.RequestException;
 import com.carl.framework.core.pay.crypto.CryptoException;
 import com.carl.framework.util.XmlUtils;
@@ -23,7 +24,9 @@ import javax.xml.bind.Unmarshaller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,7 +37,7 @@ import java.util.Map;
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
 @Component("wxPayRequester")
-public class WXPayRequester implements IPayRequester<WXRequestParam> {
+public class WXPayRequester extends BaseRequester<WXRequestParam> {
     protected static final Log logger = LogFactory.getLog(WXBaseCrypto.class);
     //是否自动生成 sign
     private boolean createSign = true;
@@ -60,59 +63,12 @@ public class WXPayRequester implements IPayRequester<WXRequestParam> {
         return this;
     }
 
+
     @Override
-    public <T> T request(WXRequestParam param, Class<T> resultType) throws RequestException {
-        try {
-            //请求工厂
-            OkHttpClientHttpRequestFactory factory = new OkHttpClientHttpRequestFactory();
-            factory.setConnectTimeout(param.getConnectTimeOut());
-            factory.setReadTimeout(param.getReadTimeOut());
-            factory.setWriteTimeout(param.getWriteTimeout());
-
-            HttpRequest request;
-
-            if (param.isSync()) {
-                //设置头部
-                request = factory.createRequest(new URI(param.getUrl()), HttpMethod.POST);
-            } else {
-                request = factory.createAsyncRequest(new URI(param.getUrl()), HttpMethod.POST);
-            }
-
-            request.getHeaders()
-                    .add("content-type", "application/xml");
-
-            //是否签名
-            if (isCreateSign()) {
-                setSign(param.getBody(), param.getSecKey());
-            }
-
-            //获取到xml内容
-            byte[] content = XmlUtils.obj2xmlByte(param.getBody());
-
-            logger.debug(IOUtils.toString(new ByteArrayInputStream(content)));
-
-            //写出
-            ((HttpOutputMessage) request).getBody().write(content);
-
-            ClientHttpResponse response;
-            //请求并且获取内容
-            if (param.isSync()) {
-                response = ((ClientHttpRequest) request).execute();
-            } else {
-                response = ((AsyncClientHttpRequest) request).executeAsync().get();
-            }
-            //请求成功
-            if (response.getStatusCode().is2xxSuccessful()) {
-                return parseStreamAndReturn(response.getBody(), resultType);
-            } else {
-                RequestException ex = new RequestException("微信接口请求失败");
-                ex.setParam(param);
-                throw ex;
-            }
-        } catch (Exception e) {
-            throw new RequestException(e);
-        }
+    protected <T> T parseResult(InputStream inputStream, Class<T> resultType) throws Exception {
+        return parseStreamAndReturn(inputStream, resultType);
     }
+
 
     /**
      * 设置签名
@@ -143,5 +99,24 @@ public class WXPayRequester implements IPayRequester<WXRequestParam> {
         JAXBContext jaxbContext = JAXBContext.newInstance(type);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         return (T) jaxbUnmarshaller.unmarshal(inputStream);
+    }
+
+    @Override
+    protected MapBuilder<String, List<String>> headers() {
+        ArrayList<String> type = new ArrayList<>(Arrays.asList(new String[]{"application/xml"}));
+        return super.headers().p("content-type", type);
+    }
+
+    @Override
+    protected byte[] body(WXRequestParam param)  throws Exception {
+        //是否签名
+        if (isCreateSign()) {
+            setSign(param.getBody(), param.getSecKey());
+        }
+        //获取到xml内容
+        byte[] content = XmlUtils.obj2xmlByte(param.getBody());
+
+        logger.debug(IOUtils.toString(new ByteArrayInputStream(content)));
+        return content;
     }
 }

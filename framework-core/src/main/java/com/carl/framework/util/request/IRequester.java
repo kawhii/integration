@@ -1,4 +1,7 @@
-package com.carl.framework.core.pay;
+package com.carl.framework.util.request;
+
+import com.carl.framework.core.pay.AbsRequestParam;
+import com.carl.framework.core.pay.RequestException;
 
 /**
  * 支付请求
@@ -7,7 +10,7 @@ package com.carl.framework.core.pay;
  * @date 2017/2/5
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
-public interface IPayRequester<P extends AbsRequestParam> {
+public interface IRequester<P extends AbsRequestParam> {
     /**
      * 请求
      *
