@@ -23,7 +23,7 @@ public interface IOrderService extends IService<IOrderDao> {
      * @param createBean
      * @return
      */
-    OrderCreateBean createOrder(OrderCreateBean createBean);
+    OrderPojo createOrder(OrderCreateBean createBean);
 
 
     /**

@@ -1,7 +1,6 @@
 package com.carl.breakfast.web.ctrl.user;
 
 import com.carl.breakfast.dao.sys.pojo.UserInfo;
-import com.carl.breakfast.web.ctrl.buyer.OrderCtrl;
 import com.carl.breakfast.web.service.IUserService;
 import com.carl.framework.core.third.wx.auth.WXAuthenticationToken;
 import com.carl.framework.core.third.wx.token.AccessTokenParam;
@@ -36,7 +35,7 @@ public class LoginCtrl extends BaseCtrl {
 
 
 
-    protected static final Log logger = LogFactory.getLog(OrderCtrl.class);
+    protected static final Log logger = LogFactory.getLog(LoginCtrl.class);
 
     //微信appid
     @Value("${wx.appid}")

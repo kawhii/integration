@@ -18,8 +18,10 @@ import com.carl.breakfast.web.service.*;
 import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.core.execption.BizException;
 import com.carl.framework.core.page.PageParam;
+import com.carl.framework.core.pay.wx.DefaultWXPayResult;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
+import com.carl.framework.util.StringUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,9 @@ public class OrderCtrl extends BaseCtrl {
 
     @Autowired
     private IOrderGoodsCommentService orderGoodsCommentService;
+
+    @Autowired
+    private IWechatOrderService wechatOrderService;
 
     @Override
     protected String getModuleName() {
@@ -240,6 +245,8 @@ public class OrderCtrl extends BaseCtrl {
     @RequestMapping(value = "/create.action", method = RequestMethod.POST)
     @ResponseBody
     public Object create(@RequestBody OrderCreateParam orderCreateParam) {
+        //返回前端参数
+        MapBuilder returnParam = MapBuilder.build();
         //获取当前用户信息
         UserInfo userInfo = UserUtils.currUser();
         OrderCreateBean orderCreate = new OrderCreateBean();
@@ -275,17 +282,32 @@ public class OrderCtrl extends BaseCtrl {
             }
 
             orderCreate.setPrice(totalPrice).setItems(orderGoodsItems);
-            orderService.createOrder(orderCreate);
+            OrderPojo pojo = orderService.createOrder(orderCreate);
+            returnParam.p("order", pojo);
 
             //创建订单成功
-            //TODO 1. 进行微信统一下单接口
+
+
+            //1. 进行微信统一下单接口
+            DefaultWXPayResult result = wechatOrderService.createOrder(pojo);
+
+            //统一下单接口成功
+            if(!StringUtil.isNull(result.getTradeType())) {
+               /* returnParam.p("wx", MapBuilder.build()
+                        .p("appid",result.getAppid())
+                        .p("prepayId", result.getPrepayId())
+                        .p("nonceStr", result.getNonceStr()));*/
+            } else {
+                return fail(result.getReturnMsg());
+            }
+
             //TODO 2. 把购物车的商品删除
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e);
             return fail(e.getMessage());
         }
-        return success(orderCreate);
+        return success(returnParam);
     }
 
     @ResponseBody

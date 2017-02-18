@@ -14,6 +14,7 @@ public class WXPayRequesterTest {
     public void request() throws Exception {
         WXPayRequester wxPayRequester = new WXPayRequester();
         DefaultWXPayParam payParam = new DefaultWXPayParam();
+        payParam.setOpenid("o71CQwOCjLONHssbX3zsfJ413FJ4");
         payParam.setAppid("wx6d72707ef14de6c0");
         payParam.setBody("test-t");
         payParam.setMchId("1425675902");
@@ -25,7 +26,7 @@ public class WXPayRequesterTest {
         payParam.setSignType("MD5");
         payParam.setSpbillCreateIp("123.12.12.1");
         WXRequestParam requestParam = new WXRequestParam(payParam, url);
-        requestParam.setSecKey("1425675902");
+        requestParam.setSecKey("91440113MA59AQRF4W1425675902OPOP");
         DefaultWXPayResult result = wxPayRequester.request(requestParam, DefaultWXPayResult.class);
         System.out.println(result);
     }

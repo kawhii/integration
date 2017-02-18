@@ -39,7 +39,7 @@ public class OrderServiceImpl implements IOrderService {
     private IOrderIdGenerator idGenerator;
 
     @Override
-    public OrderCreateBean createOrder(OrderCreateBean createBean) {
+    public OrderPojo createOrder(OrderCreateBean createBean) {
         OrderPojo orderPojo = new OrderPojo();
         orderPojo.setOrderNo(idGenerator.create());
         float price = getTotalPrice(createBean);
@@ -55,7 +55,7 @@ public class OrderServiceImpl implements IOrderService {
         getDao().insert(orderPojo);
         createBean.setId(orderPojo.getId());
         LOG.debug("创建订单成功，user:[" + createBean.getUsername() + "]，id:[" + orderPojo.getId() + "]");
-        return createBean;
+        return orderPojo;
     }
 
     //获取订单总价
