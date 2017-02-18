@@ -2,10 +2,12 @@ package com.carl.breakfast.web.ctrl.buyer;
 
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
+import com.carl.breakfast.dao.sys.pojo.UserInfo;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.breakfast.web.service.IUserService;
 import com.carl.framework.core.page.PageBean;
 import com.carl.framework.core.page.PageParam;
+import com.carl.framework.core.third.wx.auth.WXAuthenticationToken;
 import com.carl.framework.core.third.wx.token.AccessTokenAuthParam;
 import com.carl.framework.core.third.wx.token.AccessTokenParam;
 import com.carl.framework.core.third.wx.token.AccessTokenResult;
@@ -15,6 +17,7 @@ import com.carl.framework.util.request.JsonUrlRequester;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -133,6 +136,17 @@ public class GoodsShowCtrl extends BaseCtrl {
         logger.info("微信登陆：" + code);
         AccessTokenParam tokenParam = new AccessTokenParam(appId, secret, code);
         AccessTokenResult accessTokenResult = urlRequester.request(tokenParam, AccessTokenResult.class);
-//       SecurityUtils.getSubject().login();
+        //获取openid失败
+        if (accessTokenResult.getErrcode() != 0) {
+            throw new AuthenticationException("获取openid失败");
+        }
+        UserInfo userInfo = userService.findByUsername(accessTokenResult.getAccessToken());
+        if(userInfo == null) {
+            logger.info("openid不存在进行注册。");
+            userInfo = new UserInfo().setName(accessTokenResult.getOpenid()).setUsername(accessTokenResult.getOpenid());
+            userService.registerOpenId(userInfo);
+        }
+        WXAuthenticationToken wxAuthenticationToken = new WXAuthenticationToken(accessTokenResult);
+        SecurityUtils.getSubject().login(wxAuthenticationToken);
     }
 }
