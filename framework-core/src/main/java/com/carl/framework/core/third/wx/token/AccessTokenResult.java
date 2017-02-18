@@ -2,7 +2,6 @@ package com.carl.framework.core.third.wx.token;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-import java.io.Serializable;
 
 /**
  * token请求结果
@@ -11,7 +10,7 @@ import java.io.Serializable;
  * @date 2017/2/18
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
-public class AccessTokenResult implements Serializable {
+public class AccessTokenResult extends BaseResult {
     @JSONField(name = "access_token")
     private String accessToken;
 
@@ -28,11 +27,10 @@ public class AccessTokenResult implements Serializable {
     @JSONField(name = "scope")
     private String scope;
 
-    @JSONField(name = "errcode")
-    private int errcode;
+    @JSONField(name = "unionid")
+    private String unionid;
 
-    @JSONField(name = "errmsg")
-    private String errmsg;
+
 
     public String getAccessToken() {
         return accessToken;
@@ -79,21 +77,12 @@ public class AccessTokenResult implements Serializable {
         return this;
     }
 
-    public int getErrcode() {
-        return errcode;
+    public String getUnionid() {
+        return unionid;
     }
 
-    public AccessTokenResult setErrcode(int errcode) {
-        this.errcode = errcode;
-        return this;
-    }
-
-    public String getErrmsg() {
-        return errmsg;
-    }
-
-    public AccessTokenResult setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
+    public AccessTokenResult setUnionid(String unionid) {
+        this.unionid = unionid;
         return this;
     }
 }
