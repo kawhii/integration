@@ -20,10 +20,17 @@ public interface IUserService {
 
     /**
      * 修改密码
-     * @param username  用户名
-     * @param oldPwd 旧密码
-     * @param newPwd 新密码
+     *
+     * @param username 用户名
+     * @param oldPwd   旧密码
+     * @param newPwd   新密码
      * @return
      */
     UsesModifyFlag modifyPassword(String username, String oldPwd, String newPwd);
+
+    /**
+     * 注册用户
+     *
+     */
+    void registerOpenId(UserInfo userInfo);
 }

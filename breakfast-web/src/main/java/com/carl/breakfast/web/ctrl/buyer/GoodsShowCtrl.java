@@ -3,10 +3,21 @@ package com.carl.breakfast.web.ctrl.buyer;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.web.service.IGoodsService;
+import com.carl.breakfast.web.service.IUserService;
 import com.carl.framework.core.page.PageBean;
 import com.carl.framework.core.page.PageParam;
+import com.carl.framework.core.third.wx.token.AccessTokenAuthParam;
+import com.carl.framework.core.third.wx.token.AccessTokenParam;
+import com.carl.framework.core.third.wx.token.AccessTokenResult;
 import com.carl.framework.ui.ctrl.BaseCtrl;
+import com.carl.framework.util.request.IRequester;
+import com.carl.framework.util.request.JsonUrlRequester;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +37,19 @@ public class GoodsShowCtrl extends BaseCtrl {
     @Autowired
     private IGoodsService goodsService;
 
+    @Autowired
+    private IUserService userService;
+
+    protected static final Log logger = LogFactory.getLog(OrderCtrl.class);
+
+    //微信appid
+    @Value("${wx.appid}")
+    private String appId;
+    @Value("${wx.secret}")
+    private String secret;
+
+    private IRequester<AccessTokenParam> urlRequester = new JsonUrlRequester();
+
     @Override
     protected String getModuleName() {
         return "buyer/goods";
@@ -34,6 +58,13 @@ public class GoodsShowCtrl extends BaseCtrl {
     //商品首页
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam("code") String code, @RequestParam("state") String state) {
+        //登陆
+        try {
+            login(code);
+        } catch (Exception e) {
+            logger.error(e);
+            //todo 微信登陆异常处理
+        }
         ModelAndView view = new ModelAndView(freemarker("index"));
         return view;
     }
@@ -90,5 +121,18 @@ public class GoodsShowCtrl extends BaseCtrl {
             view.addObject("isCart", isCart);
         }
         return view;
+    }
+
+    /**
+     * 利用微信的code进行登陆
+     *
+     * @param code
+     * @throws Exception
+     */
+    private void login(String code) throws Exception {
+        logger.info("微信登陆：" + code);
+        AccessTokenParam tokenParam = new AccessTokenParam(appId, secret, code);
+        AccessTokenResult accessTokenResult = urlRequester.request(tokenParam, AccessTokenResult.class);
+//       SecurityUtils.getSubject().login();
     }
 }

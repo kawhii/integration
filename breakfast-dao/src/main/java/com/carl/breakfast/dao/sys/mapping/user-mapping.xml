@@ -31,4 +31,9 @@
         </set>
         where username = #{username} and password = #{oldPwd}
     </update>
+
+    <insert id="insert" parameterType="com.carl.breakfast.dao.sys.pojo.UserInfo">
+        insert into <include refid="table_name"/> (username, password, password_salt, name)
+        values(#{username},#{password},#{passwordSalt},#{name})
+    </insert>
 </mapper>

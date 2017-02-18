@@ -5,6 +5,7 @@ import com.carl.breakfast.dao.sys.pojo.UserInfo;
 import com.carl.breakfast.web.service.IUserService;
 import com.carl.breakfast.web.service.UsesModifyFlag;
 import com.carl.breakfast.web.utils.BkPasswordUtil;
+import com.carl.framework.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,13 @@ public class UserServiceImpl implements IUserService {
         //数据源修改密码
         int res = userDao.modifyPassword(username, targetOldPwd, targetNewPwd);
         return res == 1 ? UsesModifyFlag.SUCCESS : UsesModifyFlag.RESULT_ERROR;
+    }
+
+    @Override
+    public void registerOpenId(UserInfo userInfo) {
+        if (!StringUtil.isNull(userInfo.getPassword())) {
+            userInfo.setPassword(passwordUtil.encodePassword(userInfo.getPassword(), userInfo.getPasswordSalt()));
+        }
+        userDao.insert(userInfo);
     }
 }
