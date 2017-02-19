@@ -90,8 +90,8 @@ public class LoginCtrl extends BaseCtrl {
     private void wxlogin(String code) throws Exception {
         logger.info("微信登陆：" + code);
         AccessTokenParam tokenParam = new AccessTokenParam(appId, secret, code);
-//        AccessTokenResult accessTokenResult = urlRequester.request(tokenParam, AccessTokenResult.class);
-        AccessTokenResult accessTokenResult = new AccessTokenResult().setOpenid("112233");
+        AccessTokenResult accessTokenResult = urlRequester.request(tokenParam, AccessTokenResult.class);
+//        AccessTokenResult accessTokenResult = new AccessTokenResult().setOpenid("112233");
         //获取openid失败
         if (accessTokenResult.getErrcode() != 0) {
             throw new AuthenticationException("获取openid失败");
