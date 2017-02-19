@@ -1,5 +1,7 @@
 package com.carl.breakfast.web.config.wx;
 
+import com.carl.framework.core.third.wx.pay.js.DefaultJSTicketProvider;
+import com.carl.framework.core.third.wx.pay.js.IJSTicketProvider;
 import com.carl.framework.core.third.wx.token.AccessTokenTradeParam;
 import com.carl.framework.core.third.wx.token.DefaultTokenProvider;
 import com.carl.framework.core.third.wx.token.ITokenProvider;
@@ -25,5 +27,10 @@ public class WXConfig {
     public ITokenProvider tokenProvider(@Value("${wx.appid}") String appId, @Value("${wx.secret}") String secret) {
         AccessTokenTradeParam param = new AccessTokenTradeParam(appId, secret);
         return new DefaultTokenProvider().setParam(param);
+    }
+
+    @Bean
+    public IJSTicketProvider jsTickProvider() {
+        return new DefaultJSTicketProvider();
     }
 }

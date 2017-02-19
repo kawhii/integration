@@ -1,35 +1,37 @@
 package com.carl.framework.core.third.wx.pay.js;
 
 import com.carl.framework.core.pay.crypto.CryptoException;
+import com.carl.framework.core.pay.wx.MD5Crypto;
 import com.carl.framework.util.MapBuilder;
 import com.carl.framework.util.UUID;
 
+import java.util.Date;
+
 /**
+ * js权限校验
+ *
  * @author Carl
  * @date 2017/2/19
  * 版权所有.(c)2017 - 2020. 卡尔工作室
  */
 public class JSChooseWXPay {
+    private String appid;
     private int timestamp;
-    private String noncestr;
+    private String nonceStr;
     private String packageStr;
-    private String signType = "SHA1";
+    private String signType = "MD5";
     private String paySign;
 
-    private JSChooseWXPay(int timestamp, String noncestr, String packageStr, String signType, String paySign) {
-        this.timestamp = timestamp;
-        this.noncestr = noncestr;
-        this.packageStr = packageStr;
-        this.signType = signType;
-        this.paySign = paySign;
+    public String getAppid() {
+        return appid;
     }
 
     public int getTimestamp() {
         return timestamp;
     }
 
-    public String getNoncestr() {
-        return noncestr;
+    public String getNonceStr() {
+        return nonceStr;
     }
 
     public String getPackageStr() {
@@ -44,21 +46,26 @@ public class JSChooseWXPay {
         return paySign;
     }
 
+    public JSChooseWXPay(String appid, int timestamp, String nonceStr, String packageStr, String signType, String paySign) {
+        this.appid = appid;
+        this.timestamp = timestamp;
+        this.nonceStr = nonceStr;
+        this.packageStr = packageStr;
+        this.signType = signType;
+        this.paySign = paySign;
+    }
+
     public static class Builder {
-        private String noncestr = UUID.get();
-        private String jsapiTicket;
-        private int timestamp;
-        private String url;
+        private String nonceStr = UUID.get();
+        private int timestamp = Math.toIntExact(new Date().getTime() / 1000);
         private String packageSrt;
-        private JSTicketCrypto signType = new JSSha1TicketCrypto();
+        private MD5Crypto signType = new MD5Crypto();
+        //支付秘钥
+        private String key;
+        private String appId;
 
-        public Builder setNoncestr(String noncestr) {
-            this.noncestr = noncestr;
-            return this;
-        }
-
-        public Builder setJsapiTicket(String jsapiTicket) {
-            this.jsapiTicket = jsapiTicket;
+        public Builder setNonceStr(String nonceStr) {
+            this.nonceStr = nonceStr;
             return this;
         }
 
@@ -67,21 +74,25 @@ public class JSChooseWXPay {
             return this;
         }
 
-        public Builder setUrl(String url) {
-            this.url = url;
-            return this;
-        }
-
         public Builder setPackageSrt(String packageSrt) {
             this.packageSrt = packageSrt;
             return this;
         }
 
-        public Builder setSignType(JSTicketCrypto signType) {
+        public Builder setSignType(MD5Crypto signType) {
             this.signType = signType;
             return this;
         }
 
+        public Builder setKey(String key) {
+            this.key = key;
+            return this;
+        }
+
+        public Builder setAppId(String appId) {
+            this.appId = appId;
+            return this;
+        }
 
         /**
          * 构建支付参数
@@ -91,12 +102,13 @@ public class JSChooseWXPay {
         public JSChooseWXPay build() throws CryptoException {
             String sign = signType.sign(
                     MapBuilder.<String, String>build()
-                            .p("timestamp", String.valueOf(timestamp))
-                            .p("noncestr", noncestr)
-                            .p("jsapi_ticket", jsapiTicket)
-                            .p("url", url),
-                    null);
-            return new JSChooseWXPay(timestamp, noncestr, packageSrt, signType.signType().name(), sign);
+                            .p("appId", appId)
+                            .p("timeStamp", String.valueOf(timestamp))
+                            .p("nonceStr", nonceStr)
+                            .p("package", packageSrt)
+                            .p("signType", signType.name()),
+                    key);
+            return new JSChooseWXPay(appId, timestamp, nonceStr, packageSrt, signType.name(), sign);
         }
     }
 }

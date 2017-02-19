@@ -1,5 +1,6 @@
 package com.carl.breakfast.web.task;
 
+import com.carl.framework.core.third.wx.pay.js.IJSTicketProvider;
 import com.carl.framework.core.third.wx.token.ITokenProvider;
 import com.carl.framework.core.third.wx.token.TokenRefreshException;
 import org.apache.commons.logging.Log;
@@ -23,6 +24,8 @@ public class LoadWxAccessTokenTask implements ApplicationListener<ContextRefresh
 
     @Autowired
     private ITokenProvider tokenProvider;
+    @Autowired
+    private IJSTicketProvider ticketProvider;
 
     //每1小时40分钟分钟执行一次
     @Scheduled(cron = "0 0/40 */1 * * ?")
@@ -33,7 +36,8 @@ public class LoadWxAccessTokenTask implements ApplicationListener<ContextRefresh
         try {
             tokenProvider.refresh();
             logger.debug("刷新access_token成功");
-        } catch (TokenRefreshException e) {
+            refreshJSTicket(tokenProvider.token().getAccessToken());
+        } catch (Exception e) {
             logger.error("执行刷新access_token出错");
             logger.error(e);
         }
@@ -47,5 +51,11 @@ public class LoadWxAccessTokenTask implements ApplicationListener<ContextRefresh
             logger.debug("启动完成。");
             loadToken();
         }
+    }
+
+    private void refreshJSTicket(String accessToken) throws Exception {
+        logger.debug("任务执行，刷新jsticket");
+        ticketProvider.refresh(accessToken);
+        logger.debug("刷新jsticket成功");
     }
 }

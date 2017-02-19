@@ -3,6 +3,7 @@ package com.carl.breakfast.web.service;
 import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.framework.core.execption.BizException;
 import com.carl.framework.core.pay.wx.DefaultWXPayResult;
+import com.carl.framework.core.third.wx.pay.js.JSChooseWXAuthPay;
 import com.carl.framework.core.third.wx.pay.js.JSChooseWXPay;
 
 /**
@@ -25,7 +26,16 @@ public interface IWechatOrderService {
 
 
     /**
-     * 创建jspay参数
+     * 创建jspay config参数
+     *
+     * @param wxPayResult
+     * @return
+     * @throws BizException
+     */
+    JSChooseWXAuthPay createJSPayConfigParam(DefaultWXPayResult wxPayResult) throws BizException;
+
+    /**
+     * 创建js支付参数
      * @param wxPayResult
      * @return
      * @throws BizException

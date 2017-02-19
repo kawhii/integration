@@ -10,14 +10,8 @@ import com.carl.framework.core.pay.wx.DefaultWXPayParam;
 import com.carl.framework.core.pay.wx.DefaultWXPayResult;
 import com.carl.framework.core.pay.wx.WXPayRequester;
 import com.carl.framework.core.pay.wx.WXRequestParam;
-import com.carl.framework.core.third.wx.pay.js.JSChooseWXPay;
-import com.carl.framework.core.third.wx.pay.js.JSTicketRequestParam;
-import com.carl.framework.core.third.wx.pay.js.JSTicketResult;
-import com.carl.framework.core.third.wx.token.AccessTokenResult;
-import com.carl.framework.core.third.wx.token.ITokenProvider;
+import com.carl.framework.core.third.wx.pay.js.*;
 import com.carl.framework.util.UUID;
-import com.carl.framework.util.request.IRequester;
-import com.carl.framework.util.request.JsonUrlRequester;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +50,7 @@ public class WechatOrderServiceImpl implements IWechatOrderService {
     private String orderCreateNotifyUrl;
 
     @Autowired
-    private ITokenProvider tokenProvider;
+    private IJSTicketProvider ticketProvider;
 
     @Override
     public DefaultWXPayResult createOrder(OrderPojo param) throws BizException {
@@ -86,24 +80,27 @@ public class WechatOrderServiceImpl implements IWechatOrderService {
     }
 
     @Override
-    public JSChooseWXPay createJSPayParam(DefaultWXPayResult wxPayResult) throws BizException {
-        AccessTokenResult tokenResult = tokenProvider.token();
+    public JSChooseWXAuthPay createJSPayConfigParam(DefaultWXPayResult wxPayResult) throws BizException {
 
-        IRequester<JSTicketRequestParam> jsonUrlRequester = new JsonUrlRequester();
-        JSTicketRequestParam jsTicketRequestParam = new JSTicketRequestParam(tokenResult.getAccessToken());
-        JSTicketResult jsTicketResult;
+        JSChooseWXAuthPay.Builder builder = new JSChooseWXAuthPay.Builder()
+                .setPackageSrt("prepay_id=" + wxPayResult.getPrepayId())
+                .setJsapiTicket(ticketProvider.ticket().getTicket())
+                .setTimestamp(Math.toIntExact(new Date().getTime() / 1000))
+                .setUrl(payUrl);
         try {
-            jsTicketResult = jsonUrlRequester.request(jsTicketRequestParam, JSTicketResult.class);
-        } catch (RequestException e) {
+            return builder.build();
+        } catch (CryptoException e) {
             logger.error(e);
             throw new BizException(e);
         }
+    }
 
+    @Override
+    public JSChooseWXPay createJSPayParam(DefaultWXPayResult wxPayResult) throws BizException {
         JSChooseWXPay.Builder builder = new JSChooseWXPay.Builder()
+                .setAppId(wxPayResult.getAppid())
                 .setPackageSrt("prepay_id=" + wxPayResult.getPrepayId())
-                .setJsapiTicket(jsTicketResult.getTicket())
-                .setTimestamp(Math.toIntExact(new Date().getTime() / 1000))
-                .setUrl(payUrl);
+                .setKey(secret);
         try {
             return builder.build();
         } catch (CryptoException e) {
