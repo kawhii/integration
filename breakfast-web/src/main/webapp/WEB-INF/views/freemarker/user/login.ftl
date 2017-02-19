@@ -16,7 +16,7 @@
                 <ng-md-icon icon="person" size="36"></ng-md-icon>
                 <input ng-model="user.username" name="username"
                        required
-                       type="text" oninput="if(value.length>11)value=value.slice(0,11)"
+                       type="text" oninput="if(value.length>50)value=value.slice(0,50)"
                        placeholder="手机号码">
             </md-input-container>
 
