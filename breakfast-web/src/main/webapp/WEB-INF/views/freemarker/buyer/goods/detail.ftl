@@ -19,7 +19,7 @@
                     <#list data.goodsExtList as item>
                         <#if item.keyName?contains("img")></#if>
                     <li>
-                            <img src="/file/img/~/${item.val!''}" style="width: 100%"/>
+                            <img src="${var_domain_url}/file/img/~/${item.val!''}" style="width: 100%"/>
                     </li>
                     </#list>
                     </ul>

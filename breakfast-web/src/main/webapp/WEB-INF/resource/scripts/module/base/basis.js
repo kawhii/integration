@@ -2,7 +2,8 @@
 $(function(){
 
     var bodyHeight = $(document).height();
-    $(".contain").height(bodyHeight);
+    //FIXME 解决高度设置的问题
+    // $(".contain").height(bodyHeight);
 
     /*============== home首页 ================ */
     //首页点击添加商品提示

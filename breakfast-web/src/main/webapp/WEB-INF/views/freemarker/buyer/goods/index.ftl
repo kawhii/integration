@@ -32,6 +32,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
+            <div class="loadmore" @click="loadMore">{{loadMoreTitle}}</div>
         </div>
     </main>
     <script src="/js/~/buyer/goods/list.js"></script>
