@@ -1,5 +1,9 @@
 package com.carl.framework.core.third.wx.token;
 
+import com.carl.framework.core.third.wx.pay.js.JSTicketRequestParam;
+import com.carl.framework.core.third.wx.pay.js.JSTicketResult;
+import com.carl.framework.util.request.IRequester;
+import com.carl.framework.util.request.JsonUrlRequester;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -17,6 +21,11 @@ public class DefaultTokenProviderTest {
         provider.setParam(param);
 
 //        provider.refresh();
-        System.out.println(provider.token());
+        AccessTokenResult tokenResult = provider.token();
+//        AccessTokenResult tokenResult = new AccessTokenResult().setAccessToken("123123");
+        /*IRequester<JSTicketRequestParam> jsonUrlRequester = new JsonUrlRequester();
+        JSTicketRequestParam jsTicketRequestParam = new JSTicketRequestParam(tokenResult.getAccessToken());
+        JSTicketResult jsTicketResult = jsonUrlRequester.request(jsTicketRequestParam, JSTicketResult.class);
+        System.out.println(jsTicketResult);*/
     }
 }
