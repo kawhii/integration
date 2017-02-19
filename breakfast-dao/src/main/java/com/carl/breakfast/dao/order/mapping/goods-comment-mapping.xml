@@ -39,7 +39,7 @@
 
 
     <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map">
-       select id, goods_id as goodsId, order_id as orderId, username, grade, content
+       select id, goods_id as goodsId, order_id as orderId, CONCAT(left(username, 5),'****')as username, grade, content
         from <include refid="table_name"/>
         where 1=1
         <include refid="condition_sql"/>
