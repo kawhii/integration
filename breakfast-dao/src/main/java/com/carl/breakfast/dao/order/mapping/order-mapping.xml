@@ -23,7 +23,9 @@
     <!-- 根据搜索条件获取数据 -->
     <sql id="condition_sql">
         <if test="orderId != null">and id = #{orderId,jdbcType=VARCHAR}</if>
+        <if test="orderNo != null">and ORDRE_NO = #{orderNo,jdbcType=VARCHAR}</if>
         <if test="goodsId != null and goodsId > 0">and goods_id = #{goodsId,jdbcType=INTEGER}</if>
+        <if test="payState != null and payState >= 0">and PAY_STATE = #{payState,jdbcType=INTEGER}</if>
         <if test="username != null and username != ''">and username = #{username,jdbcType=VARCHAR}</if>
         <if test="goodsTitle != null and goodsTitle != ''">and goods_title LIKE CONCAT('%','${goodsTitle}','%' )</if>
         and is_remove = 0
@@ -114,5 +116,12 @@
         <where>
             <include refid="condition_sql"/>
         </where>
+    </update>
+
+    <!--修改订单状态-->
+    <update id="updateStatePay" parameterType="java.util.Map">
+        update <include refid="table_name"/> set PAY_STATE = 1
+        where 1=1
+        <include refid="condition_sql"/>
     </update>
 </mapper>

@@ -49,4 +49,11 @@ public interface IOrderService extends IService<IOrderDao> {
      * @return
      */
     OrderPojo findByIdAndOthers(String id, Map<String, Object> params);
+
+    /**
+     * 更新订单
+     * @param params
+     * @return
+     */
+    int updateOrder(Map<String, Object> params);
 }

@@ -32,4 +32,10 @@ public interface IOrderDao extends BaseDao<OrderPojo> {
      * @return
      */
     int removeOrder(String id, String username);
+
+    /**
+     * 修改支付状态
+     * @return
+     */
+    int updateStatePay(Map<String , Object> params);
 }

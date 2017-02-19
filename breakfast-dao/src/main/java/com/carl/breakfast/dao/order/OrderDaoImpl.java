@@ -53,6 +53,11 @@ public class OrderDaoImpl extends BaseDaoImpl<OrderPojo> implements IOrderDao {
 
     @Override
     public int removeOrder(String id, String username) {
-        return getSessionTemplate().update(getStatement("removeOrder"), MapBuilder.<String, Object>build().p("orderId", id).p("username",username));
+        return getSessionTemplate().update(getStatement("removeOrder"), MapBuilder.<String, Object>build().p("orderId", id).p("username", username));
+    }
+
+    @Override
+    public int updateStatePay(Map<String, Object> params) {
+        return getSessionTemplate().update(getStatement("updateStatePay"), params);
     }
 }

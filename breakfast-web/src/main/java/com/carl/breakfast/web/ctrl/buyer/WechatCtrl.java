@@ -1,11 +1,9 @@
 package com.carl.breakfast.web.ctrl.buyer;
 
-import com.carl.breakfast.web.service.IOrderService;
 import com.carl.framework.core.pay.wx.*;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/wx")
 public class WechatCtrl extends BaseCtrl {
     protected static final Log logger = LogFactory.getLog(WechatCtrl.class);
-
-    @Autowired
-    private IOrderService orderService;
-
 
 
     @Override

@@ -78,7 +78,12 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public OrderPojo findByIdAndOthers(String id, Map<String, Object> params){
+    public OrderPojo findByIdAndOthers(String id, Map<String, Object> params) {
         return getDao().getBy(MapBuilder.<String, Object>build().p("orderId", id).pAll(params));
+    }
+
+    @Override
+    public int updateOrder(Map<String, Object> params) {
+        return getDao().updateStatePay(params);
     }
 }
