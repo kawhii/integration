@@ -1,7 +1,10 @@
 package com.carl.framework.ui.ctrl;
 
 
+import com.carl.framework.core.entity.NameEvent;
 import com.carl.framework.util.MapBuilder;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 
 /**
  * 基础控制器
@@ -10,7 +13,7 @@ import com.carl.framework.util.MapBuilder;
  * @date 2016/3/27
  * @modify 版权所有.(c)2008-2016.广州市森锐电子科技有限公司
  */
-public abstract class BaseCtrl {
+public abstract class BaseCtrl implements ApplicationEventPublisherAware {
     /**
      * jsp 文件
      */
@@ -29,6 +32,8 @@ public abstract class BaseCtrl {
      * 文件
      */
     protected final String SEPARATOR = "/";
+
+    private ApplicationEventPublisher publisher;
 
     /**
      * 获取模块名字
@@ -49,6 +54,7 @@ public abstract class BaseCtrl {
 
     /**
      * freemarker
+     *
      * @param templateUrl
      * @return
      */
@@ -58,6 +64,7 @@ public abstract class BaseCtrl {
 
     /**
      * jsp返回
+     *
      * @param templateUrl
      * @return
      */
@@ -88,5 +95,22 @@ public abstract class BaseCtrl {
         MapBuilder<String, Object> data = MapBuilder.build();
         data.put("header", MapBuilder.build().p("code", -1).p("message", message));
         return data;
+    }
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.publisher = applicationEventPublisher;
+    }
+
+    protected ApplicationEventPublisher getPublisher() {
+        return publisher;
+    }
+
+    /**
+     * 发布广播事件
+     * @param event
+     */
+    protected void publisherEvent(NameEvent event) {
+        publisher.publishEvent(event);
     }
 }

@@ -57,7 +57,7 @@ public class GoodsShowCtrl extends BaseCtrl {
     @ResponseBody
     public Object list(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "15") int pageSize,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "50") int pageSize,
             @RequestParam(value = "name", required = false) String name
     ) {
         GoodsPojo goodsPojo = new GoodsPojo();

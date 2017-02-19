@@ -134,7 +134,8 @@
                         paySign: data.body.app.paySign, // 支付签名
                         success: function (res) {
                             // 支付成功后的回调函数
-                            console.info(res);
+//                            console.info(res);
+                            window.location.href = "/order/myOrders.html"
                         }
                     });
                 });
