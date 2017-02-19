@@ -38,19 +38,19 @@ public class WechatCtrl extends BaseCtrl {
     @RequestMapping("/payNotify")
     @ResponseBody
     public WXPayBaseResult payNotify(@RequestBody PayNotifyParam payNotifyParam) {
-        PayNotifyEvent event = new PayNotifyEvent(this, payNotifyParam);
+        PayNotifyEvent event;
         if ("SUCCESS".equals(payNotifyParam.getReturnCode())) {
             logger.info("微信支付回调，用户【" + payNotifyParam.getOpenid() + "】完成对订单【" + payNotifyParam.getOutTradeNo() + "】的支付。");
 
             if(isWechat(payNotifyParam)) {
-                event.setName(PayEventName.ON_PAY_SUCCESS);
+                event = new PayNotifyEvent(PayEventName.ON_PAY_SUCCESS, this, payNotifyParam);
                 publisherEvent(event);
                 return new PayNotifyResult().setResultCode("SUCCESS").setReturnMsg("OK");
             }
-            event.setName(PayEventName.ON_PAY_ILLEGAL);
+            event = new PayNotifyEvent(PayEventName.ON_PAY_ILLEGAL, this, payNotifyParam);
             logger.warn("非法请求微信回调");
         } else {
-            event.setName(PayEventName.ON_PAY_FAIL);
+            event = new PayNotifyEvent(PayEventName.ON_PAY_FAIL, this, payNotifyParam);
             logger.debug("微信支付回调【" + payNotifyParam.getReturnMsg() + "】");
         }
         publisherEvent(event);

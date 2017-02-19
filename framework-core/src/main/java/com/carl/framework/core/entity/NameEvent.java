@@ -17,10 +17,4 @@ public abstract class NameEvent extends ApplicationEvent {
     public NameEvent(Object source) {
         super(source);
     }
-
-    /**
-     * 事件名称
-     * @return
-     */
-    protected abstract String getName();
 }

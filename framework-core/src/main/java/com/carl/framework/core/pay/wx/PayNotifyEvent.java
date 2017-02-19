@@ -7,19 +7,29 @@ package com.carl.framework.core.pay.wx;
  */
 public class PayNotifyEvent extends PayEvent {
     private PayNotifyParam payNotifyParam;
-
-    public PayNotifyEvent(Object source, PayNotifyParam payNotifyParam) {
-        super(source);
-        this.payNotifyParam = payNotifyParam;
-    }
+    private String name;
 
     public PayNotifyEvent(String name, Object source, PayNotifyParam payNotifyParam) {
-        super(name, source);
+        super(source);
         this.payNotifyParam = payNotifyParam;
+        this.name = name;
     }
 
     public PayNotifyEvent setPayNotifyParam(PayNotifyParam payNotifyParam) {
         this.payNotifyParam = payNotifyParam;
+        return this;
+    }
+
+    public PayNotifyParam getPayNotifyParam() {
+        return payNotifyParam;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public PayNotifyEvent setName(String name) {
+        this.name = name;
         return this;
     }
 }
