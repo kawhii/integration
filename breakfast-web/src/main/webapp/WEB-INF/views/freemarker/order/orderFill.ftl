@@ -110,7 +110,7 @@
 
         $('#ID_submitBtn').click(function () {
             //是否有选加急
-            orderJson.vexedly = $('#orders-fill-choose').parent().find('.orders-fill-choosebox').hasClass('carts-chooseboxBg')
+            orderJson.vexedly = $('#orders-fill-choose').parent().find('.orders-fill-choosebox').hasClass('carts-chooseboxBg');
             orderJson.message = $('#ID_message').val();
             //请求创建订单
             carl.request("/order/create.action", orderJson, function (data) {
