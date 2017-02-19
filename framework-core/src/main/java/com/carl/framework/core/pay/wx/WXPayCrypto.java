@@ -8,7 +8,7 @@ package com.carl.framework.core.pay.wx;
  */
 public abstract class WXPayCrypto extends WXBaseCrypto {
     @Override
-    protected String appenKeyName() {
+    protected String appendKeyName() {
         return "key";
     }
 }

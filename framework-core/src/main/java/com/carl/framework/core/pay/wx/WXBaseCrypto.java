@@ -44,11 +44,21 @@ public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
                 sb.append(k + "=" + v + "&");
             }
         }
-        sb.append(appenKeyName());
-        sb.append("=" + secKey);
+        if (!StringUtil.isNull(secKey)) {
+            sb.append(appendKeyName());
+            sb.append("=" + secKey);
+        } else {
+            //截掉最后&
+            if (sb.toString().endsWith("&")) {
+                int len = sb.length();
+                sb.delete(len - 1, len);
+            }
+        }
         logger.debug("加密串：" + sb.toString());
         String res = fromHexString(sb.toString());
-        return !StringUtil.isNull(res) ? res.toUpperCase() : null;
+        String returnRes = !StringUtil.isNull(res) ? (resultUpperCase() ? res.toUpperCase() : res) : null;
+        logger.debug("加密结果：" + returnRes);
+        return returnRes;
     }
 
     /**
@@ -64,5 +74,15 @@ public abstract class WXBaseCrypto implements WXCrypto, ICrypto {
      *
      * @return
      */
-    protected abstract String appenKeyName();
+    protected abstract String appendKeyName();
+
+
+    /**
+     * 结果是否转换成大写
+     *
+     * @return
+     */
+    protected boolean resultUpperCase() {
+        return true;
+    }
 }
