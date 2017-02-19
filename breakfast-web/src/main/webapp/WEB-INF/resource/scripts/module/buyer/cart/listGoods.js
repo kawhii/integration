@@ -115,11 +115,10 @@
             if (choosediv.find(".carts-choosebox").hasClass("carts-chooseboxBg")) {
                 var price = choosediv.find(".carts-goods-price").html().substring(1);
                 var singleNum = choosediv.find(".singleNum").html();
-                priceTotal += parseInt(price) * parseInt(singleNum);
-                $(".priceTotal").html("￥" + priceTotal.toFixed(2));
+                priceTotal += parseFloat(price) * parseFloat(singleNum);
             }
         }
-
+        $(".priceTotal").html("￥" + priceTotal.toFixed(2));
         //当选中商品为0时，总价格为0
         if (cartsNum == 0) {
             $(".priceTotal").html("￥0.00");
