@@ -34,9 +34,11 @@ public class WXPayNotifyHandler {
         PayNotifyParam notifyParam = payNotifyEvent.getPayNotifyParam();
         //修改支付状态为1
         Map<String, Object> params = MapBuilder.<String, Object>build().p("orderNo", notifyParam.getOutTradeNo())
-                .p("username", notifyParam.getAppid()).p("payState", 1);
+                .p("username", notifyParam.getOpenid());
         if(orderService.updateOrder(params) == 1) {
             logger.debug("微信支付订单【" + notifyParam.getOutTradeNo() + "】状态处理完成");
+        } else {
+            logger.warn(String.format("修改订单失败，订单号：%s，用户：%s", notifyParam.getOutTradeNo(), notifyParam.getOpenid()));
         }
     }
 }

@@ -4,6 +4,7 @@ import com.carl.framework.core.pay.wx.*;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WechatCtrl extends BaseCtrl {
     protected static final Log logger = LogFactory.getLog(WechatCtrl.class);
 
-
+    @Value("${wx.appid}")
+    private String appId;
     @Override
     protected String getModuleName() {
         return "wechart";
@@ -58,7 +60,7 @@ public class WechatCtrl extends BaseCtrl {
      */
     private boolean isWechat(PayNotifyParam payNotifyParam) {
         //TODO 安全问题，需要校验是否为微信回调，时间关系先不做
-        return true;
+        return payNotifyParam.getAppid().equals(appId);
     }
 
 

@@ -23,7 +23,7 @@
     <!-- 根据搜索条件获取数据 -->
     <sql id="condition_sql">
         <if test="orderId != null">and id = #{orderId,jdbcType=VARCHAR}</if>
-        <if test="orderNo != null">and ORDRE_NO = #{orderNo,jdbcType=VARCHAR}</if>
+        <if test="orderNo != null">and ORDER_NO = #{orderNo,jdbcType=VARCHAR}</if>
         <if test="goodsId != null and goodsId > 0">and goods_id = #{goodsId,jdbcType=INTEGER}</if>
         <if test="payState != null and payState >= 0">and PAY_STATE = #{payState,jdbcType=INTEGER}</if>
         <if test="username != null and username != ''">and username = #{username,jdbcType=VARCHAR}</if>
@@ -87,6 +87,7 @@
         from <include refid="table_name"/> as co
         inner join core_order_goods cog on co.id = cog.order_id
         <include refid="condition_sql"/>
+        and pay_state = 1
         order by co.create_time desc limit #{pageFirst}, #{pageSize}
     </select>
 
@@ -98,6 +99,7 @@
         from <include refid="table_name"/> as co
         inner join core_order_goods cog on co.id = cog.order_id
         <include refid="condition_sql"/>
+        and pay_state = 1
     </select>
 
     <!-- 分页查询时要用到的总数统计 -->
@@ -108,6 +110,7 @@
         <where>
             <include refid="condition_sql"/>
         </where>
+        and pay_state = 1
     </select>
 
     <update id="removeOrder" parameterType="java.util.Map">

@@ -84,6 +84,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public int updateOrder(Map<String, Object> params) {
+        params.put("payState", 0);
         return getDao().updateStatePay(params);
     }
 }
