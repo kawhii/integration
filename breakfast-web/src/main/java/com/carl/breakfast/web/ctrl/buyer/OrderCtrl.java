@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +67,7 @@ public class OrderCtrl extends BaseCtrl {
 
     @Autowired
     private IWechatOrderService wechatOrderService;
+
 
     @Override
     protected String getModuleName() {
@@ -299,8 +301,6 @@ public class OrderCtrl extends BaseCtrl {
             } else {
                 return fail(result.getReturnMsg());
             }
-
-            //TODO 2. 把购物车的商品删除
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e);
@@ -373,5 +373,22 @@ public class OrderCtrl extends BaseCtrl {
         }
 
         return view;
+    }
+
+
+    //提交订订单后删除购物车数量
+    @RequestMapping(value = "/cart.action", method = RequestMethod.POST)
+    @ResponseBody
+    public Object handleCart(@RequestBody OrderCreateParam orderCreateParam, HttpServletRequest request, HttpServletResponse response) {
+
+        //购物车处理
+
+        if (orderCreateParam.getGoods() != null) {
+            for (OrderCreateParam.OrderGoodsParam goodsParam : orderCreateParam.getGoods()) {
+                logger.debug(String.format("购物车处理商品，id：%s，qt：%s", goodsParam.getId(), goodsParam.getQt()));
+                stopCartService.removeGoodsInCookie(request, response, goodsParam.getId(), goodsParam.getQt());
+            }
+        }
+        return success();
     }
 }

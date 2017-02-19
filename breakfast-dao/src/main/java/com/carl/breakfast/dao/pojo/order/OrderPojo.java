@@ -33,7 +33,7 @@ public class OrderPojo extends BaseEntity {
     //MESSAGE
     private String message;
     //PRICE
-    @JsonSerialize(using = CustomDoubleSerialize.class, contentUsing = CustomDoubleSerialize.class)
+//    @JsonSerialize(using = CustomDoubleSerialize.class, contentUsing = CustomDoubleSerialize.class)
     private float price;
     //PAY_STATE
     private int payState;

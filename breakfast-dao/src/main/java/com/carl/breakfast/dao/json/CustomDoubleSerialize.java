@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
  */
 public class CustomDoubleSerialize extends JsonSerializer<Float> {
 
-    private DecimalFormat df = new DecimalFormat("##.00");
+    private DecimalFormat df = new DecimalFormat("#.00");
 
     @Override
     public void serialize(Float value, JsonGenerator jgen,

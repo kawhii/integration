@@ -19,7 +19,7 @@ public class OrderGoodsItem extends BaseEntity {
     //QUANTITY
     private int quantity = 0;
     //UNIT_PRICE
-    @JsonSerialize(using = CustomDoubleSerialize.class, contentUsing = CustomDoubleSerialize.class)
+//    @JsonSerialize(using = CustomDoubleSerialize.class, contentUsing = CustomDoubleSerialize.class)
     private float unitPrice = 0;
     //GOODS_TITLE
     private String goodsTitle;

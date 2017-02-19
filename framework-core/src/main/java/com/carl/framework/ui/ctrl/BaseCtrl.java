@@ -5,7 +5,6 @@ import com.carl.framework.core.entity.NameEvent;
 import com.carl.framework.util.EventUtil;
 import com.carl.framework.util.MapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisherAware;
 
 /**
  * 基础控制器
@@ -14,7 +13,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
  * @date 2016/3/27
  * @modify 版权所有.(c)2008-2016.广州市森锐电子科技有限公司
  */
-public abstract class BaseCtrl implements ApplicationEventPublisherAware {
+public abstract class BaseCtrl {
     //事件发布工具
     @Autowired
     private EventUtil eventUtil;

@@ -135,7 +135,10 @@
                         success: function (res) {
                             // 支付成功后的回调函数
 //                            console.info(res);
-                            window.location.href = "/order/myOrders.html"
+                            //要求减库存
+                            carl.request("/order/cart.action", orderJson, function (data) {
+                                window.location.href = "/order/myOrders.html";
+                            },{get: false});
                         }
                     });
                 });

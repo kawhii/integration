@@ -42,9 +42,16 @@ public class WXPayNotifyHandler {
                 .p("username", notifyParam.getOpenid());
         if (orderService.updateOrder(params) == 1) {
             logger.debug("微信支付订单【" + notifyParam.getOutTradeNo() + "】状态处理完成");
-            //TODO 发送消息，支付成功
+
+            eventUtil.publisherEvent(new PayNotifyEvent("onOrderHandleSuccess", this, payNotifyEvent.getPayNotifyParam()));
         } else {
             logger.warn(String.format("修改订单失败，订单号：%s，用户：%s", notifyParam.getOutTradeNo(), notifyParam.getOpenid()));
         }
+    }
+
+    @EventListener(condition = "#payNotifyEvent.name == 'onOrderHandleSuccess'")
+    @Async
+    public void sendMessageToUser(PayNotifyEvent payNotifyEvent) {
+        //TODO 发送消息，支付成功
     }
 }
