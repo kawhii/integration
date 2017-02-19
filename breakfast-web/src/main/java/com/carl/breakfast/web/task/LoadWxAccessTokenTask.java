@@ -24,7 +24,8 @@ public class LoadWxAccessTokenTask implements ApplicationListener<ContextRefresh
     @Autowired
     private ITokenProvider tokenProvider;
 
-    @Scheduled(cron = "*/30 * * * * *")
+    //每1小时40分钟分钟执行一次
+    @Scheduled(cron = "0 0/40 */1 * * ?")
     public void loadToken() {
         // task execution logic
         logger.debug("任务执行，刷新access_token");
