@@ -19,7 +19,7 @@ import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.core.execption.BizException;
 import com.carl.framework.core.page.PageParam;
 import com.carl.framework.core.pay.wx.DefaultWXPayResult;
-import com.carl.framework.core.third.wx.pay.js.JSChooseWXPay;
+import com.carl.framework.core.third.wx.pay.js.JSChooseWXAuthPay;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
 import com.carl.framework.util.StringUtil;
@@ -290,11 +290,11 @@ public class OrderCtrl extends BaseCtrl {
 
             //1. 进行微信统一下单接口
             DefaultWXPayResult result = wechatOrderService.createOrder(pojo);
-            returnParam.p("app", MapBuilder.<String, String>build().p("appId", result.getAppid()));
+            returnParam.p("app", wechatOrderService.createJSPayParam(result));
 
             //统一下单接口成功
             if (!StringUtil.isNull(result.getTradeType())) {
-                JSChooseWXPay pay = wechatOrderService.createJSPayParam(result);
+                JSChooseWXAuthPay pay = wechatOrderService.createJSPayConfigParam(result);
                 returnParam.p("payData", pay);
             } else {
                 return fail(result.getReturnMsg());
