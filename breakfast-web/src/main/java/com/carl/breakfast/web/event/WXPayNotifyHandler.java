@@ -4,6 +4,7 @@ import com.carl.breakfast.web.service.IOrderService;
 import com.carl.framework.core.pay.wx.PayEventName;
 import com.carl.framework.core.pay.wx.PayNotifyEvent;
 import com.carl.framework.core.pay.wx.PayNotifyParam;
+import com.carl.framework.util.EventUtil;
 import com.carl.framework.util.MapBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,6 +28,10 @@ public class WXPayNotifyHandler {
     @Autowired
     private IOrderService orderService;
 
+    //事件发布工具
+    @Autowired
+    private EventUtil eventUtil;
+
     @EventListener(condition = "#payNotifyEvent.name == '" + PayEventName.ON_PAY_SUCCESS + "'")
     @Async
     public void onWxPaySuccess(PayNotifyEvent payNotifyEvent) {
@@ -35,8 +40,9 @@ public class WXPayNotifyHandler {
         //修改支付状态为1
         Map<String, Object> params = MapBuilder.<String, Object>build().p("orderNo", notifyParam.getOutTradeNo())
                 .p("username", notifyParam.getOpenid());
-        if(orderService.updateOrder(params) == 1) {
+        if (orderService.updateOrder(params) == 1) {
             logger.debug("微信支付订单【" + notifyParam.getOutTradeNo() + "】状态处理完成");
+            //TODO 发送消息，支付成功
         } else {
             logger.warn(String.format("修改订单失败，订单号：%s，用户：%s", notifyParam.getOutTradeNo(), notifyParam.getOpenid()));
         }
