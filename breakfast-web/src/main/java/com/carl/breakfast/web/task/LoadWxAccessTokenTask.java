@@ -5,6 +5,8 @@ import com.carl.framework.core.third.wx.token.TokenRefreshException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class LoadWxAccessTokenTask {
+public class LoadWxAccessTokenTask implements ApplicationListener<ContextRefreshedEvent> {
     protected final Log logger = LogFactory.getLog(LoadWxAccessTokenTask.class);
 
 
@@ -33,6 +35,16 @@ public class LoadWxAccessTokenTask {
         } catch (TokenRefreshException e) {
             logger.error("执行刷新access_token出错");
             logger.error(e);
+        }
+    }
+
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        if(event.getApplicationContext().getParent() == null){
+            //root application context 没有parent，他就是老大.
+            //需要执行的逻辑代码，当spring容器初始化完成后就会执行该方法。
+            logger.debug("启动完成。");
+            loadToken();
         }
     }
 }
