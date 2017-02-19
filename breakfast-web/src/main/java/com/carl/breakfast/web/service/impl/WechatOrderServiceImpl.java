@@ -5,15 +5,26 @@ import com.carl.breakfast.web.service.IWechatOrderService;
 import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.core.execption.BizException;
 import com.carl.framework.core.pay.RequestException;
+import com.carl.framework.core.pay.crypto.CryptoException;
 import com.carl.framework.core.pay.wx.DefaultWXPayParam;
 import com.carl.framework.core.pay.wx.DefaultWXPayResult;
 import com.carl.framework.core.pay.wx.WXPayRequester;
 import com.carl.framework.core.pay.wx.WXRequestParam;
+import com.carl.framework.core.third.wx.pay.js.JSChooseWXPay;
+import com.carl.framework.core.third.wx.pay.js.JSTicketRequestParam;
+import com.carl.framework.core.third.wx.pay.js.JSTicketResult;
+import com.carl.framework.core.third.wx.token.AccessTokenResult;
+import com.carl.framework.core.third.wx.token.ITokenProvider;
 import com.carl.framework.util.UUID;
+import com.carl.framework.util.request.IRequester;
+import com.carl.framework.util.request.JsonUrlRequester;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @author Carl
@@ -38,9 +49,14 @@ public class WechatOrderServiceImpl implements IWechatOrderService {
     @Value("${wx.pay.secret}")
     private String secret;
 
+    @Value("${wx.pay.url}")
+    private String payUrl;
 
     @Value("${wx.pay.orderCreateNotifyUrl}")
     private String orderCreateNotifyUrl;
+
+    @Autowired
+    private ITokenProvider tokenProvider;
 
     @Override
     public DefaultWXPayResult createOrder(OrderPojo param) throws BizException {
@@ -65,6 +81,33 @@ public class WechatOrderServiceImpl implements IWechatOrderService {
             return result;
         } catch (RequestException e) {
             logger.error("调用统一下单接口失败：" + param.getOrderNo(), e);
+            throw new BizException(e);
+        }
+    }
+
+    @Override
+    public JSChooseWXPay createJSPayParam(DefaultWXPayResult wxPayResult) throws BizException {
+        AccessTokenResult tokenResult = tokenProvider.token();
+
+        IRequester<JSTicketRequestParam> jsonUrlRequester = new JsonUrlRequester();
+        JSTicketRequestParam jsTicketRequestParam = new JSTicketRequestParam(tokenResult.getAccessToken());
+        JSTicketResult jsTicketResult;
+        try {
+            jsTicketResult = jsonUrlRequester.request(jsTicketRequestParam, JSTicketResult.class);
+        } catch (RequestException e) {
+            logger.error(e);
+            throw new BizException(e);
+        }
+
+        JSChooseWXPay.Builder builder = new JSChooseWXPay.Builder()
+                .setPackageSrt("prepay_id=" + wxPayResult.getPrepayId())
+                .setJsapiTicket(jsTicketResult.getTicket())
+                .setTimestamp(Math.toIntExact(new Date().getTime() / 1000))
+                .setUrl(payUrl);
+        try {
+            return builder.build();
+        } catch (CryptoException e) {
+            logger.error(e);
             throw new BizException(e);
         }
     }

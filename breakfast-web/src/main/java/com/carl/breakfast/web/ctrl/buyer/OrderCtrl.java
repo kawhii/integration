@@ -19,6 +19,7 @@ import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.core.execption.BizException;
 import com.carl.framework.core.page.PageParam;
 import com.carl.framework.core.pay.wx.DefaultWXPayResult;
+import com.carl.framework.core.third.wx.pay.js.JSChooseWXPay;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import com.carl.framework.util.MapBuilder;
 import com.carl.framework.util.StringUtil;
@@ -287,23 +288,17 @@ public class OrderCtrl extends BaseCtrl {
 
             //创建订单成功
 
-            /*returnParam.p("wx", MapBuilder.build()
-                    .p("appid",result.getAppid())
-                    .p("prepayId", result.getPrepayId())
-                    .p("nonceStr", result.getNonceStr()));*/
-
             //1. 进行微信统一下单接口
-//            DefaultWXPayResult result = wechatOrderService.createOrder(pojo);
-//
-//            //统一下单接口成功
-//            if(!StringUtil.isNull(result.getTradeType())) {
-//               /* returnParam.p("wx", MapBuilder.build()
-//                        .p("appid",result.getAppid())
-//                        .p("prepayId", result.getPrepayId())
-//                        .p("nonceStr", result.getNonceStr()));*/
-//            } else {
-//                return fail(result.getReturnMsg());
-//            }
+            DefaultWXPayResult result = wechatOrderService.createOrder(pojo);
+            returnParam.p("app", MapBuilder.<String, String>build().p("appId", result.getAppid()));
+
+            //统一下单接口成功
+            if (!StringUtil.isNull(result.getTradeType())) {
+                JSChooseWXPay pay = wechatOrderService.createJSPayParam(result);
+                returnParam.p("payData", pay);
+            } else {
+                return fail(result.getReturnMsg());
+            }
 
             //TODO 2. 把购物车的商品删除
         } catch (Exception e) {

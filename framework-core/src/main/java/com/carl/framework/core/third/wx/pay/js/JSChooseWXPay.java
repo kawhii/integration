@@ -2,6 +2,7 @@ package com.carl.framework.core.third.wx.pay.js;
 
 import com.carl.framework.core.pay.crypto.CryptoException;
 import com.carl.framework.util.MapBuilder;
+import com.carl.framework.util.UUID;
 
 /**
  * @author Carl
@@ -44,7 +45,7 @@ public class JSChooseWXPay {
     }
 
     public static class Builder {
-        private String noncestr;
+        private String noncestr = UUID.get();
         private String jsapiTicket;
         private int timestamp;
         private String url;

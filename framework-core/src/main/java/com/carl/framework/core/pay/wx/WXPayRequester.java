@@ -114,7 +114,7 @@ public class WXPayRequester extends BaseRequester<WXRequestParam> {
         //获取到xml内容
         byte[] content = XmlUtils.obj2xmlByte(param.getBody());
 
-        logger.debug(IOUtils.toString(new ByteArrayInputStream(content)));
+        logger.debug(IOUtils.toString(new ByteArrayInputStream(content), "UTF-8"));
         return content;
     }
 }

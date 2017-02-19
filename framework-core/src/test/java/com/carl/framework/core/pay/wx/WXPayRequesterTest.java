@@ -26,7 +26,7 @@ public class WXPayRequesterTest {
         payParam.setSignType("MD5");
         payParam.setSpbillCreateIp("123.12.12.1");
         WXRequestParam requestParam = new WXRequestParam(payParam, url);
-        requestParam.setSecKey("91440113MA59AQRF4W1425675902OPOP");
+        requestParam.setSecKey("");
         DefaultWXPayResult result = wxPayRequester.request(requestParam, DefaultWXPayResult.class);
         System.out.println(result);
     }

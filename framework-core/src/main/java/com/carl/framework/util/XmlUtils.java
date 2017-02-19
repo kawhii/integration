@@ -47,7 +47,7 @@ public abstract class XmlUtils {
      */
     public static String obj2xmlStr(Object obj) throws JAXBException, IOException {
         byte[] bytes = obj2xmlByte(obj);
-        return IOUtils.toString(new ByteArrayInputStream(bytes));
+        return IOUtils.toString(new ByteArrayInputStream(bytes) , "UTF-8");
     }
 
     /**
