@@ -9,9 +9,8 @@
         <a href="/order/myOrders.html">
             <li><i class="fa fa-star fa-lg"></i><p>订单</p></li>
         </a>
-        <a href="person.html">
+        <a href="/user/person.html">
             <li><i class="fa fa-user fa-lg"></i><p>我的</p></li>
-
         </a>
     </ul>
 </footer>

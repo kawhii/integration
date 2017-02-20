@@ -188,4 +188,14 @@ public class UserCtrl extends BaseCtrl {
         view.addObject("data", detailBean);
         return view;
     }
+
+    /**
+     * 个人页面
+     * @return
+     */
+    @RequestMapping("/person.html")
+    public ModelAndView personPage() {
+        ModelAndView view = new ModelAndView(freemarker("person"));
+        return view;
+    }
 }
