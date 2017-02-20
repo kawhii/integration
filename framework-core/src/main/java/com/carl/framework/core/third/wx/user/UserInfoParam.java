@@ -68,9 +68,8 @@ public class UserInfoParam extends AbsRequestParam {
         this.accessToken = accessToken;
         this.openid = openid;
     }
-
-    public static String getURL() {
-        return URL;
+    {
+        setUrl(URL);
     }
 
     public String getAccessToken() {

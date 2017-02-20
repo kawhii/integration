@@ -1,29 +1,23 @@
 package com.carl.breakfast.web.ctrl.user;
 
+import com.alibaba.fastjson.JSON;
 import com.carl.breakfast.dao.pojo.user.AddressExt;
-import com.carl.breakfast.dao.sys.pojo.UserInfo;
 import com.carl.breakfast.web.bean.AddressDetailBean;
 import com.carl.breakfast.web.bean.AddressParamBean;
-import com.carl.breakfast.web.ctrl.buyer.OrderCtrl;
 import com.carl.breakfast.web.service.IAddressService;
 import com.carl.breakfast.web.service.ICommonAddressService;
-import com.carl.breakfast.web.service.IUserService;
 import com.carl.breakfast.web.service.impl.CommonAddressService;
 import com.carl.breakfast.web.utils.UserUtils;
-import com.carl.framework.core.third.wx.auth.WXAuthenticationToken;
-import com.carl.framework.core.third.wx.token.AccessTokenParam;
-import com.carl.framework.core.third.wx.token.AccessTokenResult;
+import com.carl.framework.core.pay.RequestException;
+import com.carl.framework.core.third.wx.token.ITokenProvider;
+import com.carl.framework.core.third.wx.user.UserInfoParam;
+import com.carl.framework.core.third.wx.user.UserInfoResult;
 import com.carl.framework.ui.ctrl.BaseCtrl;
-import com.carl.framework.util.request.IRequester;
 import com.carl.framework.util.request.JsonUrlRequester;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,10 +36,13 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 @Controller
 public class UserCtrl extends BaseCtrl {
+    protected static final Log logger = LogFactory.getLog(UserCtrl.class);
     @Autowired
     private IAddressService addressService;
     @Autowired
     private CommonAddressService commonAddressService;
+    @Autowired
+    private ITokenProvider tokenProvider;
 
     @Override
     protected String getModuleName() {
@@ -142,8 +139,8 @@ public class UserCtrl extends BaseCtrl {
     @RequestMapping(value = "/addressUpdate", method = RequestMethod.POST)
     @ResponseBody
     public Object addressUpdate(@Valid @RequestBody
-                                     AddressParamBean paramBean,
-                             BindingResult result) {
+                                        AddressParamBean paramBean,
+                                BindingResult result) {
         if (result.hasErrors()) {
             return fail("非法输入");
         }
@@ -191,11 +188,30 @@ public class UserCtrl extends BaseCtrl {
 
     /**
      * 个人页面
+     *
      * @return
      */
     @RequestMapping("/person.html")
     public ModelAndView personPage() {
         ModelAndView view = new ModelAndView(freemarker("person"));
+        JsonUrlRequester<UserInfoParam> urlRequester = new JsonUrlRequester<>();
+        String token = tokenProvider.token().getAccessToken();
+        String openId = UserUtils.currUser().getUsername();
+        UserInfoParam param = new UserInfoParam(token, openId);
+        try {
+            logger.debug(String.format("获取微信个人信息：%s", openId));
+            UserInfoResult result = urlRequester.request(param, UserInfoResult.class);
+            if (result.getErrcode() != 0) {
+                logger.warn(String.format("openId：【%s】获取信息失败，结果：【%s】", openId, JSON.toJSONString(result)));
+                //TODO 获取失败跳转到其他页面
+            } else {
+                logger.debug(String.format("获取微信个人信息：【%s】成功，呢成为：%s", openId, result.getNickname()));
+                view.addObject(result);
+            }
+        } catch (RequestException e) {
+            logger.error(e);
+            e.printStackTrace();
+        }
         return view;
     }
 }

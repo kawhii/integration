@@ -8,9 +8,9 @@
     <main class="person">
         <div class="person-top">
             <div class="person-img">
-                <img src="img/goods.jpg" alt=""/>
+                <img src="${userInfoResult.headimgurl}" alt=""/>
             </div>
-            <div class="person-name">一言既出驷马难追</div>
+            <div class="person-name">${userInfoResult.nickname}</div>
         </div>
         <div class="person-main">
             <ul>
