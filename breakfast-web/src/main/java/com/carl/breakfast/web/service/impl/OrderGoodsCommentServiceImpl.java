@@ -6,6 +6,8 @@ import com.carl.breakfast.dao.pojo.order.GoodsComment;
 import com.carl.breakfast.web.service.IOrderGoodsCommentService;
 import com.carl.breakfast.web.service.IOrderService;
 import com.carl.framework.core.execption.BizException;
+import com.carl.framework.core.page.PageBean;
+import com.carl.framework.core.page.PageParam;
 import com.carl.framework.util.MapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +41,7 @@ public class OrderGoodsCommentServiceImpl implements IOrderGoodsCommentService {
         if (res == null)
             throw new BizException("请求错误，数据不是该用户的");
         int updated = orderItemDao.update(MapBuilder.<String, Object>build().p("orderId", comment.getOrderId()).p("goodsId", comment.getGoodsId()));
-        if(updated != 1) {
+        if (updated != 1) {
             throw new BizException("请求错误，没有数据需要更新");
         }
         return true;
@@ -48,5 +50,10 @@ public class OrderGoodsCommentServiceImpl implements IOrderGoodsCommentService {
     @Override
     public List<GoodsComment> queryByGoodsId(int goodsId) {
         return goodsCommentDao.listBy(MapBuilder.<String, Object>build().p("goodsId", goodsId));
+    }
+
+    @Override
+    public PageBean<GoodsComment> queryByGoodsId(int goodsId, PageParam pageParam) {
+        return goodsCommentDao.listPage(pageParam, MapBuilder.<String, Object>build().p("goodsId", goodsId));
     }
 }

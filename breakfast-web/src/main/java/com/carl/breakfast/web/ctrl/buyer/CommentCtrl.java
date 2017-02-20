@@ -1,10 +1,12 @@
 package com.carl.breakfast.web.ctrl.buyer;
 
 import com.carl.breakfast.web.service.IOrderGoodsCommentService;
+import com.carl.framework.core.page.PageParam;
 import com.carl.framework.ui.ctrl.BaseCtrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,7 +28,9 @@ public class CommentCtrl extends BaseCtrl {
     }
 
     @RequestMapping("/goods/{goodsId}")
-    public Object goodsComment(@PathVariable("goodsId") int goodsId) {
-        return success(orderGoodsCommentService.queryByGoodsId(goodsId));
+    public Object goodsComment(@PathVariable("goodsId") int goodsId,
+                               @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                               @RequestParam(value = "pageSize", required = false, defaultValue = "15") int pageSize) {
+        return success(orderGoodsCommentService.queryByGoodsId(goodsId, new PageParam(page, pageSize)));
     }
 }

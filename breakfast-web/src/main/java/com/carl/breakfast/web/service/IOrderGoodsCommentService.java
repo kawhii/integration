@@ -1,6 +1,8 @@
 package com.carl.breakfast.web.service;
 
 import com.carl.breakfast.dao.pojo.order.GoodsComment;
+import com.carl.framework.core.page.PageBean;
+import com.carl.framework.core.page.PageParam;
 
 import java.util.List;
 
@@ -26,4 +28,12 @@ public interface IOrderGoodsCommentService {
      * @return
      */
     List<GoodsComment> queryByGoodsId(int goodsId);
+
+    /**
+     * 分页查询
+     * @param goodsId
+     * @param pageParam
+     * @return
+     */
+    PageBean<GoodsComment> queryByGoodsId(int goodsId, PageParam pageParam);
 }

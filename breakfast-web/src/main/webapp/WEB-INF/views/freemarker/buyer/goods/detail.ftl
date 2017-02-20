@@ -37,17 +37,17 @@
                 </div>
                 <div class="clearfix"></div>
                 <p>剩余<span>${data.goods.stock!''}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已售<span>${data.goods.sales!''}</span></p>
-                <#--<div class="details-main-detailsName">商品详情</div>-->
-                <#--<div class="details-main-details">-->
-                    <#--<p>文字描述：</p>-->
-                    <#--<!--<img src="img/banner1.jpg" alt=""/>&ndash;&gt;-->
-                <#--</div>-->
+                <div class="details-main-detailsName">商品详情</div>
+                <div class="details-main-details">
+                    <p>${data.goods.note!''}</p>
+                    <!--<img src="img/banner1.jpg" alt=""/>-->
+                </div>
             </div>
 
             <div class="details-main-comment">
                 <div class="details-main-commentTop">
-                    <a href="comment.html">
-                        <p>评价（{{comment.length}}）</p>
+                    <a href="javascript:void()">
+                        <p>评价（{{commentCount}}）</p>
                         <p><#--五星度：<span class="red">100%</span><i class="fa fa-chevron-right fa-1x"></i>--></p>
                     </a>
                 </div>
@@ -72,6 +72,7 @@
                     <p>评价内容：<span>{{item.content}}</span></p>
                 </div>
             </div>
+            <div class="loadmore" @click="loadMore">{{commentLoadTitle}}</div>
         </div>
 
         <div class="details-foot">
