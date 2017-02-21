@@ -52,7 +52,7 @@ $(function () {
     $(".carts-goodsLeft").on("touchmove", function (event) {
         var e = event.originalEvent.changedTouches[0];
         if (event.originalEvent.changedTouches.length == 1) {
-            event.preventDefault();
+            // event.preventDefault();
 
             x1 = e.clientX;
             y1 = e.clientY;
@@ -75,15 +75,14 @@ $(function () {
         var e = event.originalEvent.changedTouches[0];
         if (event.originalEvent.changedTouches.length == 1) {
             // event.preventDefault();
-
-            if (xDiffer < 0) {
+            if (xDiffer < -50) {
                 $(this).animate({
                     left: "-50px"
                 });
                 $(this).parent().find(".carts-goodsRight").animate({
                     right: "0"
                 });
-            } else if (xDiffer > 0) {
+            } else if (xDiffer > 30) {
                 $(this).animate({
                     left: "0"
                 });
