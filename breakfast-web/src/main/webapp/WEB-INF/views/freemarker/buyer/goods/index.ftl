@@ -5,16 +5,16 @@
     </header>
 
     <!-- home -->
-    <main class="home">
+    <main class="home" id="ID_goodsApp">
         <div class="home-plusHint">添加成功</div>
 
         <div class="home-search">
             <div class="search">
                 <i class="fa fa-search fa-1x"></i>
-                <input type="text" placeholder="搜索" value=""/>
+                <input type="text" v-on:keyup.enter="search" v-model="searchTx" placeholder="搜索" value=""/>
             </div>
         </div>
-        <div class="home-main" id="ID_goodsApp">
+        <div class="home-main">
 
             <div class="home-goods" v-for="item in items">
                 <a v-bind:href="'/goods/detail/' + item.id">

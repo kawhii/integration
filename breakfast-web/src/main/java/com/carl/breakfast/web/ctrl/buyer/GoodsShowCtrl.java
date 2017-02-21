@@ -62,7 +62,7 @@ public class GoodsShowCtrl extends BaseCtrl {
     ) {
         GoodsPojo goodsPojo = new GoodsPojo();
         goodsPojo.setStatus(1);
-        goodsPojo.setTitle(name);
+        goodsPojo.setName(name);
         PageBean data = goodsService.listPage(new PageParam(page, pageSize), goodsPojo);
         return success(data);
     }

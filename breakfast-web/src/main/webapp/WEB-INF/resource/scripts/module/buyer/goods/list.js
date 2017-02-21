@@ -15,7 +15,9 @@
         el: '#ID_goodsApp',
         data: {
             items: [],
-            loadMoreTitle : ""
+            loadMoreTitle: "",
+            //搜索数据
+            searchTx: ""
         }, methods: {
             //添加到购物车
             addStopCart: function (item) {
@@ -26,17 +28,25 @@
                         }
                     }, {get: false});
             },
-            loadMore : function () {
-                if($scope.haveNextPage) {
+            loadMore: function () {
+                if ($scope.haveNextPage) {
                     $scope.loadMore();
-                } else {
-                    app.loadMoreTitle = "已经看完所有商品啦~";
                 }
+            },
+            //搜索
+            search: function () {
+                $scope.clickSearch = true;
+                app.items = [];
+                $scope.haveNextPage = true;
+                $scope.page = 0;
+                $scope.loadMore();
             }
         }
     });
 
     var $scope = {
+        //是否点击搜索
+        clickSearch : false,
         //当前页码
         page: 1
     };
@@ -50,11 +60,17 @@
         function pullData() {
             carl.request("/goods/list.json", {
                 page: $scope.page,
-                pageSize : 15
+                pageSize: 15,
+                name: app.searchTx
             }, function (data) {
                 $scope.haveNextPage = (data.body.endPageIndex - data.body.currentPage) >= 1;
                 app.items = app.items.concat(data.body.recordList);
-                app.loadMoreTitle = "点击加载更多...";
+                if ($scope.haveNextPage) {
+                    app.loadMoreTitle = "点击加载更多...";
+                } else {
+                    app.loadMoreTitle = (data.body.endPageIndex == 0 && $scope.clickSearch && data.body.totalCount == 0) ?
+                        '很抱歉我们还没提供你想要的~' : '已经看完所有商品啦~';
+                }
             });
         }
 
