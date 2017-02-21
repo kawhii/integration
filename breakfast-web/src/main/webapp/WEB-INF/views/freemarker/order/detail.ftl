@@ -43,7 +43,7 @@
             </div>
         </#list>
             <div class="guestbook">
-                <textarea placeholder="选填：给商家留言（45字以内）"></textarea>
+                <textarea placeholder="选填：给商家留言（45字以内）" readonly="readonly">${order.message!''}</textarea>
             </div>
 
             <div class="orders-money">
