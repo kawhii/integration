@@ -11,7 +11,7 @@
         <div class="home-search">
             <div class="search">
                 <i class="fa fa-search fa-1x"></i>
-                <input type="text" v-on:keyup.enter="search" v-model="searchTx" placeholder="搜索" value=""/>
+                <input type="search" autofocus x-webkit-speech v-on:keyup.enter="search" v-model="searchTx" placeholder="搜索"/>
             </div>
         </div>
         <div class="home-main">
