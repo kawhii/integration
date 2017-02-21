@@ -399,9 +399,11 @@
                         $scope.countImpatient++;
                     }
                     if (obj.totalPrice) {
-                        price += obj.totalPrice;
+                        price = (parseFloat(price) + parseFloat(obj.totalPrice)).toFixed(2);
+                        // price = price.toFixed(4);
                     }
                 }
+
                 $scope.countPrice = price;
             }
 
@@ -411,7 +413,7 @@
                 for (var i in newObj) {
                     var obj = newObj[i];
                     if (obj.totalPrice) {
-                        price += obj.totalPrice;
+                        price = (parseFloat(price) + parseFloat(obj.totalPrice)).toFixed(2);
                     }
                 }
                 $scope.salesCountPrice = price;

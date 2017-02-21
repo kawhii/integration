@@ -323,5 +323,22 @@ $(function () {
         }
     });
 
+    /*
+     //手工全选所有商品时，将底部的全选选中
+     var goodsLength = $(".carts-goods").length;
+     var goodsChecked = 0;
+     for(var i=0;i<goodsLength;i++){
+     if($(".carts-goods:eq("+ i +")").find(".carts-choosebox").hasClass("carts-chooseboxBg")){
+     goodsChecked++;
+     }
+     }
+     if(goodsLength == goodsChecked){
+     $(".carts-chooseAllbox").parent().find("input").prop("checked", true);
+     $(".carts-chooseAllbox").addClass("carts-chooseboxBg");
+     }else{
+     $(".carts-chooseAllbox").parent().find("input").prop("checked", false);
+     $(".carts-chooseAllbox").removeClass("carts-chooseboxBg");
+     }
 
+     */
 });

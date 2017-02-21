@@ -1,11 +1,11 @@
 <#include "freemarker/base/mallBase.ftl">
 <section class="contain">
     <header class="header">
-        <p>早餐供应平台</p>
+        <p>包将军金品质</p>
     </header>
 
     <!-- home -->
-    <main class="home" id="ID_goodsApp">
+    <main class="home" id="ID_goodsApp" v-cloak>
         <div class="home-plusHint">添加成功</div>
 
         <div class="home-search">
