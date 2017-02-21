@@ -19,7 +19,7 @@
             cartCount: 0,
             commentNext: true,
             //评论总数
-            commentCount : '',
+            commentCount: '',
             commentLoadTitle: '',
             page: 1,
             //评论
@@ -65,6 +65,11 @@
                     app.commentLoadTitle = "点击查看更多评论";
                     app.commentCount = data.body.totalCount;
                     app.page++;
+                    if (data.body.endPageIndex == 0) {
+                        app.commentNext = false;
+                        app.commentLoadTitle = "";
+                        return;
+                    }
                     if (data.body.currentPage == data.body.endPageIndex) {
                         app.commentNext = false;
                         app.commentLoadTitle = "已经看完所有评论啦~";
