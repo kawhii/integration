@@ -11,6 +11,10 @@ import com.carl.framework.core.entity.BaseEntity;
  */
 public class OrderStatistics extends BaseEntity {
     private String orderId;
+    //订单编号
+    private String orderNo;
+    //备注
+    private String note;
     //楼层
     private String floorCode;
     //栋
@@ -105,6 +109,24 @@ public class OrderStatistics extends BaseEntity {
 
     public OrderStatistics setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
+        return this;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public OrderStatistics setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+        return this;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public OrderStatistics setNote(String note) {
+        this.note = note;
         return this;
     }
 }

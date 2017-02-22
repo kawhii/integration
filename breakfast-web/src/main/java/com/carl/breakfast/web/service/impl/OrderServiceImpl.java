@@ -54,10 +54,10 @@ public class OrderServiceImpl implements IOrderService {
         AddressDetailBean addressDetailBean = addressService.queryAddressById(createBean.getAddressId());
         if (addressDetailBean != null) {
             try {
-                orderPojo.setAddCode1(addressDetailBean.getFlow().getVal())
-                        .setAddCode2(addressDetailBean.getBuild().getVal())
-                        .setAddName1(commonAddressService.findById(addressDetailBean.getFlow().getVal()).getInfo())
-                        .setAddName2(commonAddressService.findById(addressDetailBean.getBuild().getVal()).getInfo());
+                orderPojo.setAddCode1(addressDetailBean.getBuild().getVal())
+                        .setAddCode2(addressDetailBean.getFlow().getVal())
+                        .setAddName1(commonAddressService.findById(addressDetailBean.getBuild().getVal()).getInfo())
+                        .setAddName2(commonAddressService.findById(addressDetailBean.getFlow().getVal()).getInfo());
             } catch (Exception e) {
                 LOG.warn("创建订单设置地址异常");
                 LOG.warn(e);

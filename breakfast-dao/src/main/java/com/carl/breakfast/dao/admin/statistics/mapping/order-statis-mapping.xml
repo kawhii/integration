@@ -8,6 +8,8 @@
         <id column="orderId" property="orderId" jdbcType="VARCHAR"/>
         <result column="floorCode" property="floorCode" jdbcType="VARCHAR"/>
         <result column="unitCode" property="unitCode" jdbcType="VARCHAR"/>
+        <result column="message" property="note" jdbcType="VARCHAR"/>
+        <result column="orderNo" property="orderNo" jdbcType="VARCHAR"/>
         <result column="floorName" property="floorName" jdbcType="VARCHAR"/>
         <result column="unitName" property="unitName" jdbcType="VARCHAR"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
@@ -22,6 +24,7 @@
         <if test="orderId != null">and co.id = #{orderId,jdbcType=VARCHAR}</if>
         <if test="createTime != null and createTime != ''">co.create_time between #{createTime,jdbcType=VARCHAR} and  DATE_ADD(#{createTime,jdbcType=VARCHAR}, INTERVAL 1 DAY)</if>
         <if test="unitCode != null and unitCode != ''">and co.add_code1 = #{unitCode,jdbcType=VARCHAR}</if>
+        and co.pay_state = 1
     </sql>
 
 
@@ -31,6 +34,8 @@
      -->
     <select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
         select co.id as orderid,
+        co.order_no as orderNo,
+        co.message as message,
         co.add_code1 as unitcode,
         co.add_code2 as floorcode,
         co.add_name1 as unitname,
@@ -39,7 +44,7 @@
         co.price as totalPrice,
         co.is_impatient as isImpatient,
         co.create_time as createTime,
-        co.address as address
+        substring_index(co.address,'楼层',-1) as address
         from core_order co
         left join core_order_goods og
         on og.order_id = co.id

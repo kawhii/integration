@@ -43,23 +43,27 @@
             <thead>
             <tr>
                 <th>序号</th>
+                <th>订单号</th>
                 <th>楼栋</th>
                 <th>楼层</th>
                 <th>房号</th>
                 <th>商品名称*数量</th>
                 <th>是否加急</th>
                 <th>总价（元）</th>
+                <th>备注</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="item in data.recordList">
                 <td>{{$index+1}}</td>
-                <td>{{item.floorName}}</td>
+                <td>{{item.orderNo}}</td>
                 <td>{{item.unitName}}</td>
+                <td>{{item.floorName}}</td>
                 <td>{{item.address}}</td>
                 <td>{{item.goodsInfo}}</td>
                 <td>{{item.impatient?'是':'否'}}</td>
                 <td>{{item.totalPrice}}</td>
+                <td>{{item.note}}</td>
             </tr>
             <tr>
                 <td></td>
@@ -67,8 +71,10 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td>{{countImpatient}}</td>
                 <td>{{countPrice}}</td>
+                <td></td>
             </tr>
             </tbody>
         </table>

@@ -46,6 +46,8 @@ public class StatisticsServiceImpl implements IStatisticsService {
             for(OrderStatistics order : orderStatistics) {
                 data.add(MapBuilder.<String, Object>build()
                         .p("orderId", order.getOrderId())
+                        .p("orderNo", order.getOrderNo())
+                        .p("note", order.getNote())
                         .p("floorCode", order.getFloorCode())
                         .p("unitCode", order.getUnitCode())
                         .p("floorName", order.getFloorName())
