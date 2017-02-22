@@ -3,7 +3,9 @@ package com.carl.breakfast.web.service.impl;
 import com.carl.breakfast.dao.order.IOrderDao;
 import com.carl.breakfast.dao.pojo.order.OrderGoodsItem;
 import com.carl.breakfast.dao.pojo.order.OrderPojo;
+import com.carl.breakfast.web.bean.AddressDetailBean;
 import com.carl.breakfast.web.bean.OrderCreateBean;
+import com.carl.breakfast.web.service.IAddressService;
 import com.carl.breakfast.web.service.IOrderIdGenerator;
 import com.carl.breakfast.web.service.IOrderService;
 import com.carl.framework.core.page.PageBean;
@@ -29,6 +31,8 @@ public class OrderServiceImpl implements IOrderService {
     protected static final Log LOG = LogFactory.getLog(OrderServiceImpl.class);
     @Autowired
     private IOrderDao orderDao;
+    @Autowired
+    private IAddressService addressService;
 
     @Override
     public IOrderDao getDao() {
@@ -43,6 +47,17 @@ public class OrderServiceImpl implements IOrderService {
         OrderPojo orderPojo = new OrderPojo();
         orderPojo.setOrderNo(idGenerator.create());
         float price = getTotalPrice(createBean);
+        //查询地址
+        AddressDetailBean addressDetailBean = addressService.queryAddressById(createBean.getAddressId());
+        if (addressDetailBean != null) {
+            try {
+                orderPojo.setAddCode1(addressDetailBean.getBuild().getVal())
+                        .setAddCode2(addressDetailBean.getFlow().getVal());
+            } catch (Exception e) {
+                LOG.warn("创建订单设置地址异常");
+                LOG.warn(e);
+            }
+        }
         orderPojo.setAddress(createBean.getAddress())
                 .setItems(createBean.getItems())
                 .setContactName(createBean.getContactName())

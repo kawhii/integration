@@ -23,6 +23,16 @@ public class OrderCreateBean {
     private float price;
     //ADDRESS
     private String address;
+    private int addressId;
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public OrderCreateBean setAddressId(int addressId) {
+        this.addressId = addressId;
+        return this;
+    }
 
     //MESSAGE
     private String message;

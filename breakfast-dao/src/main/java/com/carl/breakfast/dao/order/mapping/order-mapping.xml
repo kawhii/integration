@@ -39,8 +39,8 @@
         </selectKey>
         insert into
         <include refid="table_name"/>
-        (id, order_no, username, contact_name, contact_number, price, address, message)
-        values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{username}, #{contactName}, #{contactNumber}, #{price},#{address}, #{message})
+        (id, order_no, username, contact_name, contact_number, price, address, message, add_name1, add_name2, add_code1, add_code2)
+        values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{username}, #{contactName}, #{contactNumber}, #{price},#{address}, #{message}, #{addName1}, #{addName2}, #{addCode1}, #{addCode2})
     </insert>
 
     <!--交易结果-->
@@ -123,7 +123,7 @@
 
     <!--修改订单状态-->
     <update id="updateStatePay" parameterType="java.util.Map">
-        update <include refid="table_name"/> set PAY_STATE = 1
+        update <include refid="table_name"/> set pay_state = 1, pay_time = now()
         where 1=1
         <include refid="condition_sql"/>
     </update>

@@ -256,7 +256,7 @@ public class OrderCtrl extends BaseCtrl {
         try {
             SendAddress address = addressService.querySimpleAddressById(orderCreateParam.getAddressId());
             //地址信息设置
-            orderCreate.setAddress(address.getDetail())
+            orderCreate.setAddress(address.getDetail()).setAddressId(address.getId())
                     .setContactName(address.getContactsName())
                     .setContactNumber(address.getContactsPhone())
                     .setUsername(userInfo.getUsername())
