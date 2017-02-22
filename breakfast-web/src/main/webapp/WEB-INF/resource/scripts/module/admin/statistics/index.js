@@ -24,7 +24,7 @@
         return fmt;
     };
 
-    angular.module('StatisticsApp', ['App', 'ngMaterial', 'ngMessages'])
+    angular.module('StatisticsApp', ['App', 'ngMaterial', 'ngMessages', 'ngMaterialDatePicker'])
         .controller('StatisticsCtrl', ['$scope', '$toast', '$request', function ($scope, $toast, $request) {
             //标签页索引
             $scope.tabIndex = 1;//1-订单，2销售量
@@ -50,7 +50,6 @@
 
                 return function filterFn(contact) {
                     return (contact.name.indexOf(lowercaseQuery) != -1);
-                    ;
                 };
 
             }
