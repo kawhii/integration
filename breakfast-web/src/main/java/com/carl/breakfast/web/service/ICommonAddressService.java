@@ -14,6 +14,8 @@ import java.util.List;
 public interface ICommonAddressService {
     List<CommonAddress> listByType(Type type);
 
+    CommonAddress findById(String id);
+
     enum Type {
         FLOW("F"),
         BUILD("D");

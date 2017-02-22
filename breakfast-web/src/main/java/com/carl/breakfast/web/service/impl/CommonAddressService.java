@@ -25,4 +25,9 @@ public class CommonAddressService implements ICommonAddressService {
     public List<CommonAddress> listByType(Type type) {
         return commonAddressDao.listBy(MapBuilder.<String, Object>build().p("typeId", type.getName()));
     }
+
+    @Override
+    public CommonAddress findById(String id) {
+        return commonAddressDao.getById(id);
+    }
 }

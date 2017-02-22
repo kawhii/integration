@@ -6,6 +6,7 @@ import com.carl.breakfast.dao.pojo.order.OrderPojo;
 import com.carl.breakfast.web.bean.AddressDetailBean;
 import com.carl.breakfast.web.bean.OrderCreateBean;
 import com.carl.breakfast.web.service.IAddressService;
+import com.carl.breakfast.web.service.ICommonAddressService;
 import com.carl.breakfast.web.service.IOrderIdGenerator;
 import com.carl.breakfast.web.service.IOrderService;
 import com.carl.framework.core.page.PageBean;
@@ -33,6 +34,8 @@ public class OrderServiceImpl implements IOrderService {
     private IOrderDao orderDao;
     @Autowired
     private IAddressService addressService;
+    @Autowired
+    private ICommonAddressService commonAddressService;
 
     @Override
     public IOrderDao getDao() {
@@ -51,8 +54,10 @@ public class OrderServiceImpl implements IOrderService {
         AddressDetailBean addressDetailBean = addressService.queryAddressById(createBean.getAddressId());
         if (addressDetailBean != null) {
             try {
-                orderPojo.setAddCode1(addressDetailBean.getBuild().getVal())
-                        .setAddCode2(addressDetailBean.getFlow().getVal());
+                orderPojo.setAddCode1(addressDetailBean.getFlow().getVal())
+                        .setAddCode2(addressDetailBean.getBuild().getVal())
+                        .setAddName1(commonAddressService.findById(addressDetailBean.getFlow().getVal()).getInfo())
+                        .setAddName2(commonAddressService.findById(addressDetailBean.getBuild().getVal()).getInfo());
             } catch (Exception e) {
                 LOG.warn("创建订单设置地址异常");
                 LOG.warn(e);
