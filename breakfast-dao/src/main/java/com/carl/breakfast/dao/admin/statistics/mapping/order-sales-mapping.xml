@@ -30,7 +30,9 @@
             <when test="endTime != null and endTime != ''">
                 and DATE_ADD(#{endTime,jdbcType=VARCHAR}, INTERVAL +1 day)
             </when>
-
+            <when test="endDayTime != null and endDayTime != ''">
+                and #{endDayTime}
+            </when>
             <otherwise>
                 and DATE_ADD(curdate(), INTERVAL +1 day)
             </otherwise>

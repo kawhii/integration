@@ -346,7 +346,11 @@
             };
             //时间
             $scope.createTime = new Date();
-            $scope.startDate = new Date(new Date() - 24 * 60 * 60 * 1000);
+            var countDay = new Date(/*new Date() - 24 * 60 * 60 * 1000*/);
+            var year = countDay.format('yyyy');
+            var month = countDay.format('MM');
+            var day = countDay.format('dd');
+            $scope.startDate = new Date(year, parseInt(month) - 1, day);
             $scope.endDate = new Date();
             //楼层编码
             $scope.unitCode = '';
@@ -471,8 +475,8 @@
                 $request.get("/admin/statistics/sales.json"
                     , {
                         unitCode: $scope.unitCode ? $scope.unitCode.ID : '',
-                        startTime: $scope.startDate ? $scope.startDate.format("yyyy-MM-dd") : '',
-                        endTime: $scope.endDate ? $scope.endDate.format("yyyy-MM-dd") : '',
+                        startTime: $scope.startDate ? $scope.startDate.format("yyyy-MM-dd hh:mm") : '',
+                        endTime: $scope.endDate ? $scope.endDate.format("yyyy-MM-dd hh:mm") : '',
                         codes: getGoodsId()
                     }
                     , function (data) {

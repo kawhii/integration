@@ -115,12 +115,12 @@ public class StatisticsCtrl extends BaseCtrl {
     ) {
         //为空默认当天
         if (StringUtil.isNull(endTime)) {
-            SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             endTime = dateFm.format(new Date());
         }
         String[] cs = codes.length() <= 0 ? new String[]{} : codes.split(",");
         Object res = statisticsService.querySales(
-                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("endTime", endTime).p("startTime", startTime).p("codes", cs.length > 0 ? cs : null)
+                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("endDayTime", endTime).p("startTime", startTime).p("codes", cs.length > 0 ? cs : null)
         );
         return success(res);
     }
