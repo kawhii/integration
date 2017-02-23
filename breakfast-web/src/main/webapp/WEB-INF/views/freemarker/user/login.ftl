@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>欢迎登录-包将军金品质</title>
+    <title>欢迎登录-包将军 金品质</title>
 <#include "freemarker/base/base.ftl">
 </head>
 
