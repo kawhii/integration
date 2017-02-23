@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#">${title!'包将军'}</a>
+            <a class="navbar-brand" href="#">${title!'包将军黄金品质'}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

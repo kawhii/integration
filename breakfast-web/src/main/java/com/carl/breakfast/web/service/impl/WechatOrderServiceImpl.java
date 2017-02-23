@@ -110,6 +110,6 @@ public class WechatOrderServiceImpl implements IWechatOrderService {
     }
 
     private String getOrderBody(OrderPojo param) {
-        return "包将军早餐";
+        return "包将军黄金品质";
     }
 }
