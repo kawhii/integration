@@ -39,8 +39,8 @@
         </selectKey>
         insert into
         <include refid="table_name"/>
-        (id, order_no, username, contact_name, contact_number, price, address, message, add_name1, add_name2, add_code1, add_code2)
-        values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{username}, #{contactName}, #{contactNumber}, #{price},#{address}, #{message}, #{addName1}, #{addName2}, #{addCode1}, #{addCode2})
+        (id, order_no, username, contact_name, contact_number, price, address, message, add_name1, add_name2, add_code1, add_code2,is_impatient)
+        values (#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{username}, #{contactName}, #{contactNumber}, #{price},#{address}, #{message}, #{addName1}, #{addName2}, #{addCode1}, #{addCode2},#{isImpatient,jdbcType=TINYINT})
     </insert>
 
     <!--交易结果-->

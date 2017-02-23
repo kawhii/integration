@@ -50,6 +50,7 @@
                 and co.add_code1 = #{unitCode,jdbcType=VARCHAR}
             </when>
         </choose>
+        and co.pay_state = 1
     </sql>
 
 

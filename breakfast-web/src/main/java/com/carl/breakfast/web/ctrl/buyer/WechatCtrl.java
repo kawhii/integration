@@ -25,6 +25,7 @@ public class WechatCtrl extends BaseCtrl {
 
     @Value("${wx.appid}")
     private String appId;
+
     @Override
     protected String getModuleName() {
         return "wechart";
@@ -38,10 +39,10 @@ public class WechatCtrl extends BaseCtrl {
         if ("SUCCESS".equals(payNotifyParam.getReturnCode())) {
             logger.info("微信支付回调，用户【" + payNotifyParam.getOpenid() + "】完成对订单【" + payNotifyParam.getOutTradeNo() + "】的支付。");
 
-            if(isWechat(payNotifyParam)) {
+            if (isWechat(payNotifyParam)) {
                 event = new PayNotifyEvent(PayEventName.ON_PAY_SUCCESS, this, payNotifyParam);
                 publisherEvent(event);
-                return new PayNotifyResult().setResultCode("SUCCESS").setReturnMsg("OK");
+                return new PayNotifyResult().setReturnCode("SUCCESS").setReturnMsg("OK");
             }
             event = new PayNotifyEvent(PayEventName.ON_PAY_ILLEGAL, this, payNotifyParam);
             logger.warn("非法请求微信回调");
@@ -55,6 +56,7 @@ public class WechatCtrl extends BaseCtrl {
 
     /**
      * 校验是否是微信回调的
+     *
      * @param payNotifyParam
      * @return
      */

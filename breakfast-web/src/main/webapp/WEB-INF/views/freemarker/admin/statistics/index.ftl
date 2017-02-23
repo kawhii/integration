@@ -140,7 +140,7 @@
             <thead>
             <tr>
                 <th>序号</th>
-                <th></th>
+                <th>商品名称</th>
                 <th>楼栋</th>
                 <th>单价（元）</th>
                 <th>货存</th>
