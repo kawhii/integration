@@ -365,7 +365,7 @@
             //导出当前数据
             $scope.orderExport = function () {
                 window.open("/admin/statistics/exportOrder?unitCode=" + ($scope.unitCode ? $scope.unitCode.ID : '') + "&" +
-                    "createTime=" + ($scope.createTime ? $scope.createTime.format("yyyy-MM-dd") : '') + "&" +
+                    "createTime=" + ($scope.createTime ? $scope.createTime.format("yyyy-MM-dd hh:mm") : '') + "&" +
                     "unitName=" + ($scope.unitCode ? $scope.unitCode.INFO : '')
                 )
             };
@@ -373,8 +373,8 @@
             //导出当前数据
             $scope.salesExport = function () {
                 window.open("/admin/statistics/exportSales?unitCode=" + ($scope.unitCode ? $scope.unitCode.ID : '') + "&" +
-                    "startTime=" + ($scope.startDate ? $scope.startDate.format("yyyy-MM-dd") : '') + "&" +
-                    "endTime=" + ($scope.endDate ? $scope.endDate.format("yyyy-MM-dd") : '') + "&" +
+                    "startTime=" + ($scope.startDate ? $scope.startDate.format("yyyy-MM-dd hh:mm") : '') + "&" +
+                    "endTime=" + ($scope.endDate ? $scope.endDate.format("yyyy-MM-dd hh:mm") : '') + "&" +
                     "unitName=" + ($scope.unitCode ? $scope.unitCode.INFO : '') + "&" +
                     "codes=" + getGoodsId()
                 )
