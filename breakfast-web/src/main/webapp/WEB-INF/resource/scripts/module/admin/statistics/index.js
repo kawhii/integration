@@ -345,7 +345,6 @@
                 goodsList: []
             };
             //时间
-            $scope.createTime = new Date();
             var countDay = new Date(/*new Date() - 24 * 60 * 60 * 1000*/);
             var year = countDay.format('yyyy');
             var month = countDay.format('MM');
@@ -365,7 +364,8 @@
             //导出当前数据
             $scope.orderExport = function () {
                 window.open("/admin/statistics/exportOrder?unitCode=" + ($scope.unitCode ? $scope.unitCode.ID : '') + "&" +
-                    "createTime=" + ($scope.createTime ? $scope.createTime.format("yyyy-MM-dd hh:mm") : '') + "&" +
+                    "startTime=" + ($scope.startDate ? $scope.startDate.format("yyyy-MM-dd hh:mm") : '') + "&" +
+                    "endTime=" + ($scope.endDate ? $scope.endDate.format("yyyy-MM-dd hh:mm") : '') + "&" +
                     "unitName=" + ($scope.unitCode ? $scope.unitCode.INFO : '')
                 )
             };
@@ -445,7 +445,8 @@
                 $request.get("/admin/statistics/order.json"
                     , {
                         unitCode: $scope.unitCode ? $scope.unitCode.ID : '',
-                        createTime: $scope.createTime ? $scope.createTime.format("yyyy-MM-dd") : ''
+                        startTime: $scope.startDate ? $scope.startDate.format("yyyy-MM-dd hh:mm") : '',
+                        endTime: $scope.endDate ? $scope.endDate.format("yyyy-MM-dd hh:mm") : ''
                     }
                     , function (data) {
                         if (data.header.code == 0) {

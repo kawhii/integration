@@ -40,20 +40,21 @@ public class StatisticsCtrl extends BaseCtrl {
     @RequestMapping("/exportOrder")
     public void exportOrder(
             @RequestParam(required = false, value = "unitCode") String unitCode,
-            @RequestParam(required = false, value = "createTime") String createTime,
+            @RequestParam(required = false, name = "startTime") String startTime,
+            @RequestParam(required = false, name = "endTime") String endTime,
             @RequestParam(required = false, value = "unitName") String unitName,
             HttpServletResponse response
     ) {
         //为空默认当天
-        if (StringUtil.isNull(createTime)) {
-            SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd");
-            createTime = dateFm.format(new Date());
+        if (StringUtil.isNull(startTime)) {
+            SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            startTime = dateFm.format(new Date());
         }
 
         List<OrderStatistics> data = statisticsService.queryOrder(
                 MapBuilder.<String, Object>build()
                         .p("unitCode", unitCode)
-                        .p("createTime", createTime)
+                        .p("startTime", startTime).p("endTime", endTime)
         );
 
         //问号名字
@@ -61,10 +62,10 @@ public class StatisticsCtrl extends BaseCtrl {
 
         //空导出名字格式
         if (StringUtil.isNull(unitCode)) {
-            fileName = "订单统计-" + createTime;
+            fileName = "订单统计";
         } else {
             //栋名订单统计-时间
-            fileName = unitName + "-订单统计-" + createTime;
+            fileName = unitName + "-订单统计";
         }
 
         try {
@@ -90,14 +91,15 @@ public class StatisticsCtrl extends BaseCtrl {
      * createTime 楼层编码
      */
     public Object order(@RequestParam(required = false, name = "unitCode") String unitCode,
-                        @RequestParam(required = false, name = "createTime") String createTime) {
+                        @RequestParam(required = false, name = "startTime") String startTime,
+                        @RequestParam(required = false, name = "endTime") String endTime) {
         //为空默认当天
-        if (StringUtil.isNull(createTime)) {
-            SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd");
-            createTime = dateFm.format(new Date());
+        if (StringUtil.isNull(startTime)) {
+            SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            startTime = dateFm.format(new Date());
         }
         Object res = statisticsService.queryOrder(
-                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("createTime", createTime)
+                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("startTime", startTime).p("endTime", endTime)
         );
         return success(res);
     }

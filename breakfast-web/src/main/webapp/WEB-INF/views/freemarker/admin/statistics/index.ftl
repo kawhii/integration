@@ -33,8 +33,23 @@
                         </md-not-found>
                     </md-autocomplete>
                 </div>
+                </br>
             <#--<input type="text" class="form-control" ng-model="unitCode" placeholder="楼层">-->
-                <md-datepicker ng-model="createTime" md-placeholder="日期"></md-datepicker>
+                <md-input-container flex-gt-md="30">
+                    <label>开始日期</label>
+                    <input mdc-datetime-picker="" date="true" format="YYYY-MM-DD HH:mm" time="true" type="text"
+                           id="startDate"
+                           placeholder="Date" show-todays-date="" min-date="date" ng-model="startDate" class=" md-input"
+                           readonly="readonly">
+                </md-input-container>
+                <md-input-container flex-gt-md="30">
+                    <label>开始日期</label>
+                    <input mdc-datetime-picker="" date="true" format="YYYY-MM-DD HH:mm" time="true" type="text"
+                           id="endDate"
+                           placeholder="Date" show-todays-date="" min-date="date" ng-model="endDate" class=" md-input"
+                           readonly="readonly">
+                </md-input-container>
+            <#--<md-datepicker ng-model="createTime" md-placeholder="日期"></md-datepicker>-->
                 <button type="button" class="btn btn-default" ng-click="search()">查询</button>
                 <button type="button" class="btn btn-default" ng-click="orderExport()">导出</button>
             </div>
@@ -120,18 +135,20 @@
                 </br>
                 <md-input-container flex-gt-md="30">
                     <label>开始日期</label>
-                    <input mdc-datetime-picker="" date="true" format="YYYY-MM-DD HH:mm" time="true" type="text" id="startDate"
+                    <input mdc-datetime-picker="" date="true" format="YYYY-MM-DD HH:mm" time="true" type="text"
+                           id="startDate"
                            placeholder="Date" show-todays-date="" min-date="date" ng-model="startDate" class=" md-input"
                            readonly="readonly">
                 </md-input-container>
                 <md-input-container flex-gt-md="30">
                     <label>开始日期</label>
-                    <input mdc-datetime-picker="" date="true" format="YYYY-MM-DD HH:mm" time="true" type="text" id="endDate"
+                    <input mdc-datetime-picker="" date="true" format="YYYY-MM-DD HH:mm" time="true" type="text"
+                           id="endDate"
                            placeholder="Date" show-todays-date="" min-date="date" ng-model="endDate" class=" md-input"
                            readonly="readonly">
                 </md-input-container>
-                <#--<md-datepicker ng-model="startDate" md-placeholder="开始日期"></md-datepicker>-->
-                <#--<md-datepicker ng-model="endDate" md-placeholder="结束"></md-datepicker>-->
+            <#--<md-datepicker ng-model="startDate" md-placeholder="开始日期"></md-datepicker>-->
+            <#--<md-datepicker ng-model="endDate" md-placeholder="结束"></md-datepicker>-->
                 <button type="button" class="btn btn-default" ng-click="searchSales()">查询</button>
                 <button type="button" class="btn btn-default" ng-click="salesExport()">导出</button>
             </div>

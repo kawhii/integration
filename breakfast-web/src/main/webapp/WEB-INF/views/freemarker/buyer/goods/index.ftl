@@ -1,7 +1,7 @@
 <#include "freemarker/base/mallBase.ftl">
 <section class="contain">
     <header class="header">
-        <p>包将军金品质</p>
+        <p>包将军 金品质</p>
     </header>
 
     <!-- home -->

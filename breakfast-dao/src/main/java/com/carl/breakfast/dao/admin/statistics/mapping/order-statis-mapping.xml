@@ -22,7 +22,23 @@
     <!-- 根据搜索条件获取数据 -->
     <sql id="condition_sql">
         <if test="orderId != null">and co.id = #{orderId,jdbcType=VARCHAR}</if>
-        <if test="createTime != null and createTime != ''">co.create_time between #{createTime,jdbcType=VARCHAR} and  DATE_ADD(#{createTime,jdbcType=VARCHAR}, INTERVAL 1 DAY)</if>
+        <choose>
+            <when test="startTime != null and startTime != ''">
+                co.create_time between #{startTime,jdbcType=VARCHAR}
+            </when>
+
+            <otherwise>
+                co.create_time between DATE_ADD(curdate(), INTERVAL -7 day)
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="endTime != null and endTime != ''">
+                and #{endTime}
+            </when>
+            <otherwise>
+                and DATE_ADD(curdate(), INTERVAL +1 day)
+            </otherwise>
+        </choose>
         <if test="unitCode != null and unitCode != ''">and co.add_code1 = #{unitCode,jdbcType=VARCHAR}</if>
         and co.pay_state = 1
     </sql>
