@@ -91,6 +91,8 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td></td>
                 <td>{{countImpatient}}</td>
                 <td>{{countPrice}}</td>
                 <td></td>
