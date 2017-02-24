@@ -49,6 +49,8 @@ public class StatisticsServiceImpl implements IStatisticsService {
                         .p("orderNo", order.getOrderNo())
                         .p("note", order.getNote())
                         .p("floorCode", order.getFloorCode())
+                        .p("contactNumber", order.getContactPhone())
+                        .p("contactName", order.getContactName())
                         .p("unitCode", order.getUnitCode())
                         .p("floorName", order.getFloorName())
                         .p("unitName", order.getUnitName())

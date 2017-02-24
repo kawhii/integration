@@ -62,6 +62,8 @@
                 <th>楼栋</th>
                 <th>楼层</th>
                 <th>房号</th>
+                <th>联系人</th>
+                <th>联系电话</th>
                 <th>商品名称*数量</th>
                 <th>是否加急</th>
                 <th>总价（元）</th>
@@ -75,6 +77,8 @@
                 <td>{{item.unitName}}</td>
                 <td>{{item.floorName}}</td>
                 <td>{{item.address}}</td>
+                <td>{{item.contactName}}</td>
+                <td>{{item.contactPhone}}</td>
                 <td>{{item.goodsInfo}}</td>
                 <td>{{item.impatient?'是':'否'}}</td>
                 <td>{{item.totalPrice}}</td>

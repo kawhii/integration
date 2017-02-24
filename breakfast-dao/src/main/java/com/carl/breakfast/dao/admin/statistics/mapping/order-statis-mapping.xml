@@ -13,6 +13,8 @@
         <result column="floorName" property="floorName" jdbcType="VARCHAR"/>
         <result column="unitName" property="unitName" jdbcType="VARCHAR"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="contactName" property="contactName" jdbcType="VARCHAR"/>
+        <result column="contactPhone" property="contactPhone" jdbcType="VARCHAR"/>
         <result column="goodsInfo" property="goodsInfo" jdbcType="VARCHAR"/>
         <result column="totalPrice" property="totalPrice" jdbcType="FLOAT"/>
         <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
@@ -56,6 +58,8 @@
         co.add_code2 as floorcode,
         co.add_name1 as unitname,
         co.add_name2 as floorname,
+        co.contact_name as contactName,
+        co.contact_number as contactPhone,
         group_concat(concat(og.goods_title,'*',og.quantity)) as goodsinfo,
         co.price as totalPrice,
         co.is_impatient as isImpatient,

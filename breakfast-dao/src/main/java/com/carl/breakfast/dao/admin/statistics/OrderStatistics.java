@@ -30,6 +30,28 @@ public class OrderStatistics extends BaseEntity {
     private boolean isImpatient;
     //总价
     private float totalPrice;
+    //联系人
+    private String contactName;
+    //联系电话
+    private String contactPhone;
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public OrderStatistics setContactName(String contactName) {
+        this.contactName = contactName;
+        return this;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public OrderStatistics setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+        return this;
+    }
 
     public String getOrderId() {
         return orderId;
