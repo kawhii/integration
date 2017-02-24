@@ -58,4 +58,10 @@ public interface GoodsFortifiedDao extends BaseDao<GoodsPojo> {
      * @return
      */
     GoodsDetail queryDetail(int goodsId);
+
+    /**
+     * 更新销售数量
+     * @return
+     */
+    int updateSales();
 }

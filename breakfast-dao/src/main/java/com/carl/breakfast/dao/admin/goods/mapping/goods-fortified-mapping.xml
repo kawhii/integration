@@ -157,4 +157,14 @@
         NOTE = #{note}
         WHERE ID = #{id}
     </update>
+
+    <!--更新销售状态-->
+    <update id="updateSales">
+        update mall_goods mg ,(select og.goods_id, sum(og.quantity) as qt from core_order co
+        inner join core_order_goods og on co.id = og.order_id
+        where co.pay_state = 1
+        group by og.goods_id) t
+        set mg.sales = t.qt
+        where mg.id = t.goods_id and mg.status = 1
+    </update>
 </mapper>

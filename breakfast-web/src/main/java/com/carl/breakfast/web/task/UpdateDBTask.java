@@ -1,5 +1,6 @@
 package com.carl.breakfast.web.task;
 
+import com.carl.breakfast.dao.admin.goods.GoodsFortifiedDao;
 import com.carl.breakfast.dao.order.IGoodsCommentDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,9 +22,18 @@ public class UpdateDBTask {
     @Autowired
     private IGoodsCommentDao commentDao;
 
+    @Autowired
+    private GoodsFortifiedDao goodsFortifiedDao;
+
     @Scheduled(cron = "0 0 */3 * * ?")
     public void commentGradeCount() {
         logger.debug("开始计算及更新评分分数。");
         commentDao.updateCommentGrade(null);
+    }
+
+    @Scheduled(cron = "0 30 */3 * * ?")
+    public void updateSales() {
+        logger.debug("开始计算销售量及更新数据库");
+        goodsFortifiedDao.updateSales();
     }
 }

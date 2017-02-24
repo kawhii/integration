@@ -60,4 +60,9 @@ public class GoodsFortifiedDaoImpl extends BaseDaoImpl<GoodsPojo> implements Goo
     public GoodsDetail queryDetail(int goodsId) {
         return getSessionTemplate().getMapper(GoodsDao.class).findDetailById(goodsId);
     }
+
+    @Override
+    public int updateSales() {
+        return getSessionTemplate().update(getStatement("updateSales"));
+    }
 }
