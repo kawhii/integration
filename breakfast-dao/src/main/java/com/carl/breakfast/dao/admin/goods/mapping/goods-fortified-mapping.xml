@@ -22,6 +22,7 @@
         <result column="GOODS_TYPE" property="goodsType" jdbcType="INTEGER"/>
         <result column="MAIN_IMG_ID" property="mainImgId" jdbcType="INTEGER"/>
         <result column="MAIN_IMG_PATH" property="mainImgPath" jdbcType="VARCHAR"/>
+        <result column="GRADE" property="grade" jdbcType="VARCHAR"/>
         <result column="NOTE" property="note" jdbcType="VARCHAR"/>
         <result column="USE_DATE" property="useDate" jdbcType="TIMESTAMP"/>
         <result column="ON_SALE_TIME" property="onSaleTime" jdbcType="TIMESTAMP"/>
@@ -79,7 +80,7 @@
     <!-- 列表查询 -->
     <select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
-          ID,NAME,TITLE,SUB_TITLE,STOCK,SALES,PRICE,GOODS_TYPE,MAIN_IMG_ID,MAIN_IMG_PATH,NOTE,ON_SALE_TIME
+          ID,NAME,TITLE,SUB_TITLE,STOCK,SALES,PRICE,GOODS_TYPE,MAIN_IMG_ID,MAIN_IMG_PATH,NOTE,ON_SALE_TIME,GRADE
         from
         <include refid="table_name"/>
         <where>

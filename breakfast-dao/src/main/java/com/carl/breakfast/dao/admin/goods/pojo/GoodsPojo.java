@@ -42,6 +42,16 @@ public class GoodsPojo extends BaseEntity {
     private String note;
     //使用时间
     private Date useDate;
+    private int grade;
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public GoodsPojo setGrade(int grade) {
+        this.grade = grade;
+        return this;
+    }
 
     public int getId() {
         return id;
