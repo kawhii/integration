@@ -4,6 +4,8 @@ import com.carl.breakfast.dao.pojo.order.GoodsComment;
 import com.carl.framework.core.dao.BaseDaoImpl;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 /**
  * 商品数据源操作
  *
@@ -13,4 +15,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("goodsCommentDao")
 public class GoodsCommentDaoImpl extends BaseDaoImpl<GoodsComment> implements IGoodsCommentDao {
+    @Override
+    public int updateCommentGrade(Map<String, Object> param) {
+        return getSessionTemplate().update(getStatement("updateCommentGrade"), param);
+    }
 }

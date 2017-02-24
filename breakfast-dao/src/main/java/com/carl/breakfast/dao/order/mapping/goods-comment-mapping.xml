@@ -63,4 +63,19 @@
             <include refid="condition_sql"/>
         </where>
     </select>
+
+    <!--更新分数-->
+    <update id="updateCommentGrade" parameterType="java.util.Map">
+        update mall_goods g,
+        (select grade,goods_id from (
+        select round((sum(gc.grade)/count(1)) * 2,2) * 1000 as grade ,
+        goods_id from mall_goods_comment gc
+        where gc.goods_id in(
+            select id from mall_goods mg where mg.status = 1
+        )
+        group by gc.goods_id)t)ta
+        set g.grade = ta.grade
+        where ta.goods_id = g.id
+
+    </update>
 </mapper>
