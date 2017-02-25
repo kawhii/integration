@@ -26,7 +26,7 @@
                                 <input type="checkbox" name="carts-choose[]" value="${item.id}"/>
                             </div>
                             <div class="carts-img">
-                                <a href="#"><img src="${var_domain_url}/file/img/~/${item.mainImgPath!''}" alt=""/></a>
+                                <a href="javascript:void(0)"><img src="${var_domain_url}/file/img/~/${item.mainImgPath!''}" alt=""/></a>
                             </div>
                             <div class="carts-info">
                                 <p class="carts-goods-name">${item.name}</p>
@@ -59,7 +59,7 @@
             </div>
             <div class="carts-price">
                 <p><span>合计：</span><span class="priceTotal red">￥0.00</span><br/><span>不含运费</span></p>
-                <a href="#">
+                <a href="javascript:void(0)">
                     <div class="carts-count" @click="editChoose()">结算( <span class="cartsNum">0</span> )</div>
                 </a>
             </div>

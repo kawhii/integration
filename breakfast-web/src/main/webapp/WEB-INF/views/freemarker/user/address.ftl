@@ -7,13 +7,23 @@
     <!-- address -->
     <main class="address">
         <div class="address-main">
-
+        <#if submitOrder>
+            <form action="/order/fill" method="post" id="ID_form">
+                <#list goodsId as id>
+                    <input type="hidden" name="carts-choose[]" value="${id}"/>
+                </#list>
+                <input type="hidden" name="addressId" id="ID_addressId"/>
+            </form>
+        </#if>
         <#list address as item>
             <div class="address-main-info  ${item.default?string('address-main-infoBg','')}">
-                <input type="hidden" value="${item.id}"/>
-                <p>
-                    收货人：<span>${item.contactsName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话：<span>${item.contactsPhone}</span>
-                </p>
+
+                <div class="clickable">
+                    <input type="hidden" class="addressId" value="${item.id}"/>
+                    <p>
+                        收货人：<span>${item.contactsName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话：<span>${item.contactsPhone}</span>
+                    </p>
+                </div>
                 <p>收货地址：<span>${item.detail}</span></p>
                 <div class="address-main-edit">
                     <div class="address-choose">
@@ -32,7 +42,7 @@
                             </div>
                         </a>
                         <div class="address-trash">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <i class="fa fa-trash-o fa-lg"></i>
                                 <p>删除</p>
                             </a>
@@ -50,6 +60,18 @@
                     <p>新增地址</p></button>
             </a>
         </div>
+        <script>
+            (function () {
+                var submitOrder = ${submitOrder?string('true', 'false')};
+                if (submitOrder) {
+                    $(".address-main .address-main-info .clickable").click(function () {
+                        var addressId = $(this).find('.addressId').val();
+                        $('#ID_addressId').val(addressId);
+                        $('#ID_form').submit();
+                    });
+                }
+            })();
+        </script>
         <script src="/js/~/user/address.js"></script>
     </main>
     <!-- address -->

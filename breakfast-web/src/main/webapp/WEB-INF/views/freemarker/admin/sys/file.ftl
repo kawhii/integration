@@ -5,8 +5,8 @@
      filters="queueLimit, customFilter" ng-cloak>
     <div class="container">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="{{isUpload?'active':''}}" ng-click="isUpload = true"><a href="javascript:void(0)">文件上传区</a></li>
-            <li role="presentation" class="{{isUpload?'':'active'}}" ng-click="isUpload = false"><a href="javascript:void(0)">文件信息</a></li>
+            <li role="presentation" class="{{isUpload?'active':''}}" ng-click="isUpload = true"><a href="javascript:void(0)">图片上传区</a></li>
+            <li role="presentation" class="{{isUpload?'':'active'}}" ng-click="isUpload = false"><a href="javascript:void(0)">图片信息</a></li>
         </ul>
     </div>
 

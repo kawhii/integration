@@ -49,6 +49,8 @@ import java.util.Map;
 @Controller
 public class OrderCtrl extends BaseCtrl {
     protected static final Log logger = LogFactory.getLog(OrderCtrl.class);
+    //为了下单方便改地址，把数据添加上
+    public static final String ORDER_DATA_KEY = "_orderData";
 
     @Autowired
     private IGoodsService goodsService;
@@ -212,11 +214,14 @@ public class OrderCtrl extends BaseCtrl {
 
     //订单详情
     @RequestMapping(value = "/fill", method = RequestMethod.POST)
-    public ModelAndView orderFill(HttpServletRequest request, @RequestParam("carts-choose[]") Integer goodsId[]) {
+    public ModelAndView orderFill(HttpServletRequest request,
+                                  @RequestParam("carts-choose[]") Integer goodsId[],
+                                  @RequestParam(required = false, defaultValue = "-1", name = "addressId") int addressId) {
         StopCart stopCart = stopCartService.obtainCart(request);
         //返回订单数据
         List<Map<String, Object>> data = new ArrayList<>();
         float totalPrice = 0f;
+        List<Integer> goodsIdSessionStore = new ArrayList<>();
         if (stopCart != null) {
             List<CartGoods> goodsList = stopCart.getGoodsById(goodsId);
             List<GoodsPojo> goodsPojos = goodsService.listGoods(goodsId);
@@ -224,6 +229,7 @@ public class OrderCtrl extends BaseCtrl {
             for (GoodsPojo goodsPojo : goodsPojos) {
                 for (CartGoods goods : goodsList) {
                     if (goods.getGoodsId() == goodsPojo.getId()) {
+                        goodsIdSessionStore.add(goodsPojo.getId());
                         data.add(MapBuilder.<String, Object>build().p("goods", goodsPojo).p("qat", goods));
                         //计算价格
                         totalPrice += goods.getQuantity() * goodsPojo.getPrice();
@@ -236,8 +242,16 @@ public class OrderCtrl extends BaseCtrl {
         view.addObject("title", "填写订单");
         view.addObject("data", data);
         view.addObject("totalPrice", String.format("%.2f", totalPrice));
+
+        if (addressId != -1) {
+            //直接跳转到购物车
+            view.addObject("goCart", true);
+        }
         try {
-            SendAddress address = addressService.queryDefaultAddress(UserUtils.currUser().getUsername());
+            SendAddress address = addressId == -1 ? addressService.queryDefaultAddress(UserUtils.currUser().getUsername()) :
+                    addressService.querySimpleAddressById(addressId);
+            //添加数据到会话里，方便购物车更改
+            request.getSession().setAttribute(ORDER_DATA_KEY, goodsIdSessionStore);
             view.addObject("address", address);
         } catch (BizException e) {
             e.printStackTrace();

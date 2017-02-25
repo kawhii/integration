@@ -26,7 +26,7 @@
                 carl.toast("新增地址成功");
                 location.href = "/user/address.html";
             } else {
-                carl.toast(data.header.message);
+                carl.toast("请填写正确的电话号码");
             }
         }, {get: false});
     });

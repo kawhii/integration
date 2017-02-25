@@ -8,6 +8,9 @@ import com.carl.breakfast.web.service.SysFileService;
 import com.carl.framework.core.page.PageBean;
 import com.carl.framework.core.page.PageParam;
 import com.carl.framework.util.MapBuilder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("sysFileService")
 @Transactional
 public class SysFileServiceImpl implements SysFileService {
+    protected static final Log logger = LogFactory.getLog(WechatOrderServiceImpl.class);
+
     @Autowired
     private SysFileDao sysFileDao;
     @Autowired
@@ -40,6 +45,7 @@ public class SysFileServiceImpl implements SysFileService {
 
     @Override
     public int deleteById(int id) throws DaoException {
+        logger.info(String.format("用户【%s】申请删除图片【%s】", SecurityUtils.getSubject().getPrincipal().toString(), String.valueOf(id)));
         return sysFileDao.deleteById(id);
     }
 

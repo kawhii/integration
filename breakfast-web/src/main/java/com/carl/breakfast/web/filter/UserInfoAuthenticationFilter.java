@@ -1,6 +1,7 @@
 package com.carl.breakfast.web.filter;
 
 import com.carl.breakfast.web.service.IUserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -26,6 +27,7 @@ public class UserInfoAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
         String username = (String)subject.getPrincipal();
         subject.getSession().setAttribute(USER_INFO_ATTR_KEY, userService.findByUsername(username));
+        SecurityUtils.getSubject().getSession().setTimeout(-1l);
         return super.onLoginSuccess(token, subject, request, response);
     }
 }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.carl.breakfast.dao.pojo.user.AddressExt;
 import com.carl.breakfast.web.bean.AddressDetailBean;
 import com.carl.breakfast.web.bean.AddressParamBean;
+import com.carl.breakfast.web.ctrl.buyer.OrderCtrl;
 import com.carl.breakfast.web.service.IAddressService;
 import com.carl.breakfast.web.service.ICommonAddressService;
 import com.carl.breakfast.web.service.impl.CommonAddressService;
@@ -21,8 +22,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户控制器
@@ -50,15 +55,27 @@ public class UserCtrl extends BaseCtrl {
     }
 
     @RequestMapping("/address.html")
-    public ModelAndView address() {
+    public ModelAndView address(HttpServletRequest request) {
+        //选择的订单id
+        List<Integer> data = (List<Integer>) request.getSession().getAttribute(OrderCtrl.ORDER_DATA_KEY);
         ModelAndView view = new ModelAndView(freemarker("address"));
         try {
             String username = UserUtils.currUser().getUsername();
             view.addObject("address", addressService.queryAddressByUsername(username));
+            view.addObject("goodsId", data);
+            view.addObject("submitOrder", data != null);
             view.addObject("title", "收货地址");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return view;
+    }
+
+    //这个控制器为了删除订单属性，然后在转发到地址里
+    @RequestMapping("/goAddress.html")
+    public ModelAndView goAddress(HttpServletRequest request) {
+        request.getSession().removeAttribute(OrderCtrl.ORDER_DATA_KEY);
+        ModelAndView view = new ModelAndView(new RedirectView("/user/address.html"));
         return view;
     }
 

@@ -105,6 +105,7 @@ public class LoginCtrl extends BaseCtrl {
         WXAuthenticationToken wxAuthenticationToken = new WXAuthenticationToken(accessTokenResult);
         SecurityUtils.getSubject().login(wxAuthenticationToken);
         SecurityUtils.getSubject().getSession().setAttribute(USER_INFO_ATTR_KEY, userInfo);
+        SecurityUtils.getSubject().getSession().setTimeout(-1l);
         logger.info("【" + code + "】登陆成功");
     }
 }
