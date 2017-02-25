@@ -1,9 +1,10 @@
 <#include "freemarker/base/mallBase.ftl">
-<section class="contain" id="ID_myOrdersApp">
+<section class="contain">
     <header class="header">
         <p>我的订单</p>
     </header>
 
+    <div id="ID_myOrdersApp">
     <!-- orders -->
     <main class="orders" v-if="orders.length>0" v-cloak>
         <div class="popupHint" id="deleteHint">
@@ -51,6 +52,7 @@
         <i class="fa fa-star fa-2x"></i>
         <p>你还没有下过订单呦</p>
     </main>
+    </div>
     <script src="/js/~/order/myOrders.js"></script>
     <!-- orders -->
 <#include "freemarker/base/mallFooter.ftl">
