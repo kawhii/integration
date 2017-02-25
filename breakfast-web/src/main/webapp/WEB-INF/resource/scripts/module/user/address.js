@@ -18,7 +18,7 @@
         var _this = this;
         carl.request("/user/removeAddress", {addressId: id}, function (d) {
             if (d.header.code == 0) {
-                idInput.parent().remove();
+                idInput.parent().parent().remove();
             }
         });
     });

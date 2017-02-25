@@ -70,7 +70,7 @@
             (function () {
                 var submitOrder = ${submitOrder?string('true', 'false')};
                 if (submitOrder) {
-                    $(".address-main .address-main-info .clickable").click(function () {
+                    $(".address-main-info .clickable").click(function () {
                         var addressId = $(this).find('.addressId').val();
                         $('#ID_addressId').val(addressId);
                         $('#ID_form').submit();

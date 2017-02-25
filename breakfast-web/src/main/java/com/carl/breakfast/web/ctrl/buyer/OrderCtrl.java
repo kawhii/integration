@@ -274,12 +274,12 @@ public class OrderCtrl extends BaseCtrl {
             SendAddress address = addressId == -1 ? addressService.queryDefaultAddress(UserUtils.currUser().getUsername()) :
                     addressService.querySimpleAddressById(addressId);
             //添加数据到会话里，方便购物车更改
-            request.getSession().setAttribute(ORDER_DATA_KEY, MapBuilder.<String, Object>build().
-                    p("rebuy", !StringUtil.isNull(orderId)).p("data", (!StringUtil.isNull(orderId) ? orderId : goodsIdSessionStore)));
-            view.addObject("address", address);
+           view.addObject("address", address);
         } catch (BizException e) {
             e.printStackTrace();
         }
+        request.getSession().setAttribute(ORDER_DATA_KEY, MapBuilder.<String, Object>build().
+                p("rebuy", !StringUtil.isNull(orderId)).p("data", (!StringUtil.isNull(orderId) ? orderId : goodsIdSessionStore)));
         return view;
     }
 
