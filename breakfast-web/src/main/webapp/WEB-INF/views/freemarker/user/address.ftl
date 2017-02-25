@@ -9,9 +9,15 @@
         <div class="address-main">
         <#if submitOrder>
             <form action="/order/fill" method="post" id="ID_form">
-                <#list goodsId as id>
-                    <input type="hidden" name="carts-choose[]" value="${id}"/>
-                </#list>
+            <#--再次购买以及直接购买的区别-->
+                <#if order.rebuy>
+                    <input type="hidden" name="orderId" value="${order.data}"/>
+                <#else>
+                    <#list order.data as id>
+                        <input type="hidden" name="carts-choose[]" value="${id}"/>
+                    </#list>
+                </#if>
+
                 <input type="hidden" name="addressId" id="ID_addressId"/>
             </form>
         </#if>

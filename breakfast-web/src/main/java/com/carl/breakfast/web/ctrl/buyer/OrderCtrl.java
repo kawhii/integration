@@ -215,7 +215,8 @@ public class OrderCtrl extends BaseCtrl {
     //订单详情
     @RequestMapping(value = "/fill", method = RequestMethod.POST)
     public ModelAndView orderFill(HttpServletRequest request,
-                                  @RequestParam("carts-choose[]") Integer goodsId[],
+                                  @RequestParam(required = false, name = "carts-choose[]") Integer goodsId[],
+                                  @RequestParam(required = false, name = "orderId") String orderId,
                                   @RequestParam(required = false, defaultValue = "-1", name = "addressId") int addressId) {
         StopCart stopCart = stopCartService.obtainCart(request);
         //返回订单数据
@@ -223,7 +224,24 @@ public class OrderCtrl extends BaseCtrl {
         float totalPrice = 0f;
         List<Integer> goodsIdSessionStore = new ArrayList<>();
         if (stopCart != null) {
-            List<CartGoods> goodsList = stopCart.getGoodsById(goodsId);
+            List<CartGoods> orderGoodsList = new ArrayList<>();
+
+            //如果传入订单id代表再此购买
+            if (!StringUtil.isNull(orderId)) {
+                List<Integer> orderGoodsId = new ArrayList<>();
+                OrderPojo orderPojo = orderService.findByIdAndOthers(orderId,
+                        MapBuilder.<String, Object>build().p("username",
+                                UserUtils.currUser().getUsername()));
+                for (OrderGoodsItem item : orderPojo.getItems()) {
+                    orderGoodsList.add(new CartGoods(item.getGoodsId(), item.getQuantity()));
+                    orderGoodsId.add(item.getGoodsId());
+                }
+                goodsId = orderGoodsId.toArray(new Integer[]{});
+            }
+
+
+            List<CartGoods> goodsList = !StringUtil.isNull(orderId) ? orderGoodsList : stopCart.getGoodsById(goodsId);
+
             List<GoodsPojo> goodsPojos = goodsService.listGoods(goodsId);
 
             for (GoodsPojo goodsPojo : goodsPojos) {
@@ -251,7 +269,8 @@ public class OrderCtrl extends BaseCtrl {
             SendAddress address = addressId == -1 ? addressService.queryDefaultAddress(UserUtils.currUser().getUsername()) :
                     addressService.querySimpleAddressById(addressId);
             //添加数据到会话里，方便购物车更改
-            request.getSession().setAttribute(ORDER_DATA_KEY, goodsIdSessionStore);
+            request.getSession().setAttribute(ORDER_DATA_KEY, MapBuilder.<String, Object>build().
+                    p("rebuy", !StringUtil.isNull(orderId)).p("data", (!StringUtil.isNull(orderId) ? orderId : goodsIdSessionStore)));
             view.addObject("address", address);
         } catch (BizException e) {
             e.printStackTrace();
@@ -402,7 +421,8 @@ public class OrderCtrl extends BaseCtrl {
             for (OrderCreateParam.OrderGoodsParam goodsParam : orderCreateParam.getGoods()) {
                 logger.debug(String.format("购物车处理商品，id：%s，qt：%s", goodsParam.getId(), goodsParam.getQt()));
                 try {
-                    stopCartService.removeGoodsInCookie(request, response, goodsParam.getId(), goodsParam.getQt());
+                    stopCartService.removeGoodsInCookie(request, response, new Integer[]{goodsParam.getId()});
+//                    stopCartService.removeGoodsInCookie(request, response, goodsParam.getId(), goodsParam.getQt());
                 } catch (Exception e) {
                     logger.error(e);
                     e.printStackTrace();

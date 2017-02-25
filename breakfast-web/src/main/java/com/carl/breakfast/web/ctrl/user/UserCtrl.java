@@ -57,12 +57,12 @@ public class UserCtrl extends BaseCtrl {
     @RequestMapping("/address.html")
     public ModelAndView address(HttpServletRequest request) {
         //选择的订单id
-        List<Integer> data = (List<Integer>) request.getSession().getAttribute(OrderCtrl.ORDER_DATA_KEY);
+        Object data = request.getSession().getAttribute(OrderCtrl.ORDER_DATA_KEY);
         ModelAndView view = new ModelAndView(freemarker("address"));
         try {
             String username = UserUtils.currUser().getUsername();
             view.addObject("address", addressService.queryAddressByUsername(username));
-            view.addObject("goodsId", data);
+            view.addObject("order", data);
             view.addObject("submitOrder", data != null);
             view.addObject("title", "收货地址");
         } catch (Exception e) {

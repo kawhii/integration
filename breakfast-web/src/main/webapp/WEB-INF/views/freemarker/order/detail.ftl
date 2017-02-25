@@ -27,21 +27,27 @@
             </div>
         </div>
         <div class="orders-details-main">
-        <#list order.items as item>
-            <div class="orders-details-goods">
-                <div class="orders-details-img">
-                    <a href="javascript:void(0)"><img src="${var_domain_url}/file/img/~/${item.goodsImgPath}" alt=""/></a>
+
+            <form method="post" action="/order/fill" id="ID_submitFill">
+                <input name="orderId" type="hidden" value="${order.id}"/>
+            </form>
+            <#list order.items as item>
+                <div class="orders-details-goods">
+                    <div class="orders-details-img">
+                        <a href="javascript:void(0)"><img src="${var_domain_url}/file/img/~/${item.goodsImgPath}"
+                                                          alt=""/></a>
+                    </div>
+                    <div class="orders-details-info">
+                        <p class="orders-details-goods-name">${item.goodsTitle}</p>
+                        <p class="orders-details-goods-price">￥${item.unitPrice}</p>
+                    </div>
+                    <div class="carts-number">
+                        <p>x<span>1</span></p>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="orders-details-info">
-                    <p class="orders-details-goods-name">${item.goodsTitle}</p>
-                    <p class="orders-details-goods-price">￥${item.unitPrice}</p>
-                </div>
-                <div class="carts-number">
-                    <p>x<span>1</span></p>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </#list>
+            </#list>
+            </form>
             <div class="guestbook">
                 <textarea placeholder="选填：给商家留言（45字以内）" readonly="readonly">${order.message!''}</textarea>
             </div>
@@ -55,18 +61,26 @@
         </div>
 
         <div class="orders-details-foot">
-            <#--<div class="orders-details-footLeft ordersDeleteBtn">删除订单</div>-->
+        <#--<div class="orders-details-footLeft ordersDeleteBtn">删除订单</div>-->
             <div class="orders-details-footRight">
                 <a href="comment">
                     <button type="button" value="" class="review">评论晒单</button>
                 </a>
-                <a href="carts.html">
-                    <button type="button" value="" class="buyAgain">再次购买</button>
+                <a href="javascript:void(0)">
+                    <button type="button" id="ID_rebuyBtn" value="" class="buyAgain">再次购买</button>
                 </a>
             </div>
         </div>
     </main>
     <!-- orders-details -->
+    <script>
+        (function () {
+            //再此购买
+            $('#ID_rebuyBtn').click(function () {
+                $('#ID_submitFill').submit();
+            });
 
+        })();
+    </script>
 </section>
 <#include "freemarker/base/mallEnd.ftl">
