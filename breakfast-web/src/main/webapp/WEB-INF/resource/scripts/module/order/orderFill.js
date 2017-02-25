@@ -39,6 +39,10 @@
         orderJson.vexedly = $('#orders-fill-choose').parent().find('.orders-fill-choosebox').hasClass('carts-chooseboxBg');
         orderJson.message = $('#ID_message').val();
         //请求创建订单
+        if(!orderJson.goods || orderJson.goods.length <=0) {
+            alert("还没有选购商品哦，是不是下架了？");
+            return;
+        }
         carl.request("/order/create.action", orderJson, function (data) {
             //配置
             wx.config({

@@ -233,8 +233,11 @@ public class OrderCtrl extends BaseCtrl {
                         MapBuilder.<String, Object>build().p("username",
                                 UserUtils.currUser().getUsername()));
                 for (OrderGoodsItem item : orderPojo.getItems()) {
-                    orderGoodsList.add(new CartGoods(item.getGoodsId(), item.getQuantity()));
-                    orderGoodsId.add(item.getGoodsId());
+                    //正在销售才进行再次购买
+                    if (item.getGoodsStatus() == 1) {
+                        orderGoodsList.add(new CartGoods(item.getGoodsId(), item.getQuantity()));
+                        orderGoodsId.add(item.getGoodsId());
+                    }
                 }
                 goodsId = orderGoodsId.toArray(new Integer[]{});
             }
@@ -244,14 +247,16 @@ public class OrderCtrl extends BaseCtrl {
 
             List<GoodsPojo> goodsPojos = goodsService.listGoods(goodsId);
 
-            for (GoodsPojo goodsPojo : goodsPojos) {
-                for (CartGoods goods : goodsList) {
-                    if (goods.getGoodsId() == goodsPojo.getId()) {
-                        goodsIdSessionStore.add(goodsPojo.getId());
-                        data.add(MapBuilder.<String, Object>build().p("goods", goodsPojo).p("qat", goods));
-                        //计算价格
-                        totalPrice += goods.getQuantity() * goodsPojo.getPrice();
-                        break;
+            if (goodsPojos != null) {
+                for (GoodsPojo goodsPojo : goodsPojos) {
+                    for (CartGoods goods : goodsList) {
+                        if (goods.getGoodsId() == goodsPojo.getId()) {
+                            goodsIdSessionStore.add(goodsPojo.getId());
+                            data.add(MapBuilder.<String, Object>build().p("goods", goodsPojo).p("qat", goods));
+                            //计算价格
+                            totalPrice += goods.getQuantity() * goodsPojo.getPrice();
+                            break;
+                        }
                     }
                 }
             }

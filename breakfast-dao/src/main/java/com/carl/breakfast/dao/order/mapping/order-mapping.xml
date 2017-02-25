@@ -22,11 +22,11 @@
 
     <!-- 根据搜索条件获取数据 -->
     <sql id="condition_sql">
-        <if test="orderId != null">and id = #{orderId,jdbcType=VARCHAR}</if>
-        <if test="orderNo != null">and ORDER_NO = #{orderNo,jdbcType=VARCHAR}</if>
+        <if test="orderId != null">and co.id = #{orderId,jdbcType=VARCHAR}</if>
+        <if test="orderNo != null">and co.order_no = #{orderNo,jdbcType=VARCHAR}</if>
         <if test="goodsId != null and goodsId > 0">and goods_id = #{goodsId,jdbcType=INTEGER}</if>
-        <if test="payState != null and payState >= 0">and PAY_STATE = #{payState,jdbcType=INTEGER}</if>
-        <if test="username != null and username != ''">and username = #{username,jdbcType=VARCHAR}</if>
+        <if test="payState != null and payState >= 0">and pay_state = #{payState,jdbcType=INTEGER}</if>
+        <if test="username != null and username != ''">and co.username = #{username,jdbcType=VARCHAR}</if>
         <if test="goodsTitle != null and goodsTitle != ''">and goods_title LIKE CONCAT('%','${goodsTitle}','%' )</if>
         and is_remove = 0
     </sql>
@@ -46,7 +46,7 @@
     <!--交易结果-->
     <select id="exchangeSuccess" resultType="java.util.HashMap">
         select price, create_time, '商品数量' as c from
-        <include refid="table_name"/>
+        <include refid="table_name"/> as co
     </select>
 
     <resultMap type="com.carl.breakfast.dao.pojo.order.OrderPojo" id="pageResult">
@@ -70,6 +70,7 @@
             <id property="orderId" column="order_id"/>
             <id property="goodsId" column="goods_id"/>
             <result property="quantity" column="quantity" jdbcType="INTEGER"/>
+            <result property="goodsStatus" column="goods_status" jdbcType="INTEGER"/>
             <result property="unitPrice" column="unit_price" jdbcType="FLOAT"/>
             <result property="goodsTitle" column="goods_title" jdbcType="VARCHAR"/>
             <result property="goodsImgPath" column="goods_img_path" jdbcType="VARCHAR"/>
@@ -95,9 +96,11 @@
         select co.id,co.message,co.create_time,co.order_no,co.pay_time,co.username,co.contact_name,co.contact_number,co.price,
         co.pay_state,co.order_state,co.end_opera_time,co.address,co.is_impatient,
         cog.order_id,cog.goods_id,cog.quantity,cog.unit_price,cog.goods_title,cog.goods_img_path,cog.goods_img_id,
-        cog.is_comment
+        cog.is_comment, mg.status as goods_status
         from <include refid="table_name"/> as co
         inner join core_order_goods cog on co.id = cog.order_id
+        inner join mall_goods mg
+        on mg.id = cog.goods_id
         <include refid="condition_sql"/>
         and pay_state = 1
     </select>
@@ -106,7 +109,7 @@
     <select id="listPageCount" parameterType="java.util.Map"
             resultType="java.lang.Long">
         select count(1) from
-        <include refid="table_name"/>
+        <include refid="table_name"/> as co
         <where>
             <include refid="condition_sql"/>
         </where>
@@ -114,7 +117,7 @@
     </select>
 
     <update id="removeOrder" parameterType="java.util.Map">
-        update <include refid="table_name"/>
+        update <include refid="table_name"/> as co
         set is_remove = 1
         <where>
             <include refid="condition_sql"/>
@@ -123,7 +126,7 @@
 
     <!--修改订单状态-->
     <update id="updateStatePay" parameterType="java.util.Map">
-        update <include refid="table_name"/> set pay_state = 1, pay_time = now()
+        update <include refid="table_name"/> as co set pay_state = 1, pay_time = now()
         where 1=1
         <include refid="condition_sql"/>
     </update>

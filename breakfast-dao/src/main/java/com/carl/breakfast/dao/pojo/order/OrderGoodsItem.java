@@ -16,6 +16,8 @@ public class OrderGoodsItem extends BaseEntity {
     private int goodsId;
     //QUANTITY
     private int quantity = 0;
+    //1-正在销售，2-下架
+    private int goodsStatus;
     //UNIT_PRICE
 //    @JsonSerialize(using = CustomDoubleSerialize.class, contentUsing = CustomDoubleSerialize.class)
     private float unitPrice = 0;
@@ -103,6 +105,15 @@ public class OrderGoodsItem extends BaseEntity {
 
     public OrderGoodsItem setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
+        return this;
+    }
+
+    public int getGoodsStatus() {
+        return goodsStatus;
+    }
+
+    public OrderGoodsItem setGoodsStatus(int goodsStatus) {
+        this.goodsStatus = goodsStatus;
         return this;
     }
 }
