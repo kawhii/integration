@@ -65,6 +65,7 @@ public class LoginCtrl extends BaseCtrl {
 
     @RequestMapping(value = "/logout")
     public Object logout(@Value("${url.index}") String indexUrl) {
+        SecurityUtils.getSubject().logout();
         return new ModelAndView(new RedirectView(indexUrl));
     }
 
