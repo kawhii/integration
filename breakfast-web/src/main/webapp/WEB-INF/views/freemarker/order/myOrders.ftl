@@ -10,7 +10,7 @@
             <div class="popupHint-top">确认删除此订单？</div>
             <ul>
                 <li>取消</li>
-                <a href="#">
+                <a href="javascript:void(0)">
                     <li id="ordersDelete">删除</li>
                 </a>
             </ul>

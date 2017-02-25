@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#">${title!'包将军 金品质'}</a>
+            <a class="navbar-brand" href="javascript:void(0)">${title!'包将军 金品质'}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,8 +20,8 @@
                 <li><a href="/goods/index.html">我要选购</a></li>
                 <li><a href="/order/myOrders.html">订单</a></li>
                 <li><a href="/cart/listGoods.html">购物车</a></li>
-                <li><a href="#">我的评论</a></li>
-                <li><a href="#">地址</a></li>
+                <li><a href="javascript:void(0)">我的评论</a></li>
+                <li><a href="javascript:void(0)">地址</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

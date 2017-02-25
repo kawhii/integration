@@ -11,7 +11,7 @@
             <div class="popupHint-top">确认删除此订单？</div>
             <ul>
                 <li>取消</li>
-                <a href="#">
+                <a href="javascript:void(0)">
                     <li id="ordersDelete">删除</li>
                 </a>
             </ul>
@@ -30,7 +30,7 @@
         <#list order.items as item>
             <div class="orders-details-goods">
                 <div class="orders-details-img">
-                    <a href="#"><img src="${var_domain_url}/file/img/~/${item.goodsImgPath}" alt=""/></a>
+                    <a href="javascript:void(0)"><img src="${var_domain_url}/file/img/~/${item.goodsImgPath}" alt=""/></a>
                 </div>
                 <div class="orders-details-info">
                     <p class="orders-details-goods-name">${item.goodsTitle}</p>

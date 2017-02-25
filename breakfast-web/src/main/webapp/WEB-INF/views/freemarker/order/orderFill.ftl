@@ -30,7 +30,7 @@
             <#list data as item>
                 <div class="orders-details-goods">
                     <div class="orders-details-img">
-                        <a href="#"><img src="${var_domain_url}/file/img/~/${item.goods.mainImgPath!''}"</a>
+                        <a href="javascript:void(0)"><img src="${var_domain_url}/file/img/~/${item.goods.mainImgPath!''}"</a>
                     </div>
                     <div class="orders-details-info">
                         <p class="orders-details-goods-name">${item.goods.name}</p>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="orders-fill-price">
                     <p><span>实付款：</span><span class="red">￥${totalPrice}</span><br/><span>不含运费</span></p>
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <button type="button" id="ID_submitBtn" value="" class="orders-submit">提交订单</button>
                     </a>
                 </div>
