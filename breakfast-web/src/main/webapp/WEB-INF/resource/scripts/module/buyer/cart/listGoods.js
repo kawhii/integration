@@ -13,7 +13,10 @@
 
     var app = new Vue({
         el: '#ID_CartGoodsApp',
-        data: {}, methods: {
+
+        data: {
+            showNoGoods : false
+        }, methods: {
             //编辑选中的，1-提交，0-删除
             editChoose: function () {
                 var type = $('.carts-edit').val();
@@ -35,7 +38,8 @@
                 carl.request("/cart/operateGoods", {type: 3, goods: {goodsId: id}},
                     function (data) {
                         if (data.header.code == 0) {
-                            $(event.target).parent().remove()
+                            $(event.target).parent().remove();
+                            app.showNoGoods = $(".carts-goods").length <= 0;
                         }
                     }, {get: false});
             },
@@ -86,6 +90,7 @@
             function (data) {
                 if (data.header.code == 0) {
                     targets.parent().parent().parent().remove();
+                    app.showNoGoods = $(".carts-goods").length <= 0;
                     cartsNum();
                 }
             }, {get: false});
@@ -125,4 +130,7 @@
         }
     }
 
+
+    //显示是否为空
+    app.showNoGoods = $(".carts-goods").length <= 0;
 }());

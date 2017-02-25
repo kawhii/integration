@@ -67,7 +67,7 @@ function FileChipCtrl($q, $timeout, $request, $rootScope) {
      * Create filter function for a query string
      */
     function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
+        var lowercaseQuery = query;
 
         return function filterFn(contact) {
             return (contact.uploadName.indexOf(lowercaseQuery) != -1);

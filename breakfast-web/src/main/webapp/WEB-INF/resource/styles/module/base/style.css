@@ -322,3 +322,10 @@ p{ margin:0; padding:0;}
 @media ( min-width:640px){
     .contain,.nav{ width:640px;}
 }
+
+.no-carts{ text-align:center; padding-top:100px;}
+.no-carts i{ position:absolute; margin:-5px 0 0 -100px; color:#FB7F05;}
+.no-carts p{ font-size:1.8rem;}
+.no-orders{ text-align:center; padding-top:100px;}
+.no-orders i{ position:absolute; margin:-3px 0 0 -110px; color:#FB7F05;}
+.no-orders p{ font-size:1.8rem;}

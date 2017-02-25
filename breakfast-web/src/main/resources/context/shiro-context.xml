@@ -40,7 +40,7 @@
         <property name="filterChainDefinitions">
             <value>
                 # some example chain definitions:
-                #/admin/** = authc, roles[admin]
+                /admin/** = authc, roles[admin]
                 /u/test = rememberRequest
                 /order/** = rememberRequest
                 /u/login = authc

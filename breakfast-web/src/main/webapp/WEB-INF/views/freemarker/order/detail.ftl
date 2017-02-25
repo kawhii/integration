@@ -60,9 +60,9 @@
                 <a href="comment">
                     <button type="button" value="" class="review">评论晒单</button>
                 </a>
-               <#-- <a href="carts.html">
+                <a href="carts.html">
                     <button type="button" value="" class="buyAgain">再次购买</button>
-                </a>-->
+                </a>
             </div>
         </div>
     </main>

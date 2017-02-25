@@ -1,8 +1,6 @@
 package com.carl.breakfast.dao.pojo.order;
 
-import com.carl.breakfast.dao.json.CustomDoubleSerialize;
 import com.carl.framework.core.entity.BaseEntity;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * 订单商品信息

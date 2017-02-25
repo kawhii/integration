@@ -2,6 +2,6 @@
 <html>
 <title>包将军金品质</title>
 <body>
-<h2>包将军金品质系统</h2>
+<h1>没有访问权限</h1>
 </body>
 </html>

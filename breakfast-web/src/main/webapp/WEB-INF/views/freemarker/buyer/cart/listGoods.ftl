@@ -12,9 +12,12 @@
             <div class="popupHint-top">删除成功！</div>
             <div class="popupHintBtn"><button type="button">确定</button></div>
         </div>-->
+        <div class="no-carts" v-cloak v-if="showNoGoods">
+            <i class="fa fa-shopping-cart fa-2x"></i>
+            <p>购物车空空的呦</p >
+        </div>
 
-
-            <form method="post" action="/order/fill" id="ID_submitFill">
+            <form method="post" action="/order/fill" id="ID_submitFill" v-if="!showNoGoods">
             <#list data.goods as item>
                 <#if data.goodsRel[item.id + ""] gt 0>
                 <div class="carts-main">

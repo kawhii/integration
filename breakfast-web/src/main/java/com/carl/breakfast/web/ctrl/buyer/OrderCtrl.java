@@ -401,7 +401,12 @@ public class OrderCtrl extends BaseCtrl {
         if (orderCreateParam.getGoods() != null) {
             for (OrderCreateParam.OrderGoodsParam goodsParam : orderCreateParam.getGoods()) {
                 logger.debug(String.format("购物车处理商品，id：%s，qt：%s", goodsParam.getId(), goodsParam.getQt()));
-                stopCartService.removeGoodsInCookie(request, response, goodsParam.getId(), goodsParam.getQt());
+                try {
+                    stopCartService.removeGoodsInCookie(request, response, goodsParam.getId(), goodsParam.getQt());
+                } catch (Exception e) {
+                    logger.error(e);
+                    e.printStackTrace();
+                }
             }
         }
         return success();
