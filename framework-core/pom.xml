@@ -15,6 +15,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <cglib.version>3.2.2</cglib.version>
+        <aspectjrt.version>1.5.4</aspectjrt.version>
+        <aspectjweaver.version>1.8.9</aspectjweaver.version>
     </properties>
 
     <name>framework-core Maven</name>
@@ -41,9 +44,18 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.8.10</version>
+            <version>${aspectjweaver.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectjrt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>${cglib.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>framework-core</finalName>

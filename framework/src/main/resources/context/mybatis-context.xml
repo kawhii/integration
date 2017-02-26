@@ -11,8 +11,10 @@
         <property name="mapperLocations" value="classpath*:com/carl/**/mapping/*.xml"/>
     </bean>
 
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="close">
-        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    <!-- SqlSession模板类实例 -->
+    <bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+          destroy-method="close">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
     </bean>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
