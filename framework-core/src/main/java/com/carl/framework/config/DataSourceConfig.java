@@ -16,18 +16,20 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:jdbc.properties")
 public class DataSourceConfig {
 
-    @Bean(destroyMethod = "close")
+    /*@Bean(destroyMethod = "close")
     public BasicDataSource dataSource(
             @Value("${jdbc.driverClassName}") String driverClassName,
             @Value("${jdbc.url}") String url,
             @Value("${jdbc.username}") String username,
             @Value("${jdbc.password}") String password
             ) {
+
+
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;
-    }
+    }*/
 }

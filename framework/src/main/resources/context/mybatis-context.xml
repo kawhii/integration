@@ -5,14 +5,34 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd ">
-    <mybatis:scan base-package="com.carl" annotation="org.springframework.stereotype.Repository"/>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="${mybatis.mapperLocations}" />
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:com/carl/**/mapping/*.xml"/>
     </bean>
 
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory" />
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="close">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="clone">
+        <!-- 基本属性driverClassName、 url、user、password -->
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <!-- 通常来说，只需要修改initialSize、minIdle、maxActive -->
+        <!-- 初始化时建立物理连接的个数，缺省值为0 -->
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <!-- 最小连接池数量 -->
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <!-- 最大连接池数量，缺省值为8 -->
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+
+        <!-- 获取连接时最大等待时间，单位毫秒。配置了maxWait之后，缺省启用公平锁，并发效率会有所下降，如果需要可以通过配置useUnfairLock属性为true使用非公平锁。 -->
+        <property name="maxWait" value="${jdbc.maxWait}"/>
     </bean>
 </beans>

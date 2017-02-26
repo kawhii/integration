@@ -27,7 +27,6 @@ public class UserInfoAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
         String username = (String)subject.getPrincipal();
         subject.getSession().setAttribute(USER_INFO_ATTR_KEY, userService.findByUsername(username));
-        SecurityUtils.getSubject().getSession().setTimeout(-1l);
         return super.onLoginSuccess(token, subject, request, response);
     }
 }

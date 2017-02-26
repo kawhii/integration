@@ -7,20 +7,23 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!--配置文件-->
-    <!--事务-->
-    <tx:annotation-driven transaction-manager="transactionManager" order="200"/>
+
+
+
 
     <!--事务-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
+    <!--事务-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!-- 配置事务异常封装 -->
     <bean id="persistenceExceptionTranslationPostProcessor"
           class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-    <!--  声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager -->
-    <!--TODO 事务加上-->
+      <!--声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager
+    TODO 事务加上-->
     <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="add*" propagation="REQUIRED" />
@@ -31,9 +34,9 @@
     </tx:advice>
 
     <aop:config expose-proxy="true">
-        &lt;!&ndash; 只对业务逻辑层实施事务 &ndash;&gt;
+         &lt;!&ndash;只对业务逻辑层实施事务 &ndash;&gt;
         <aop:pointcut id="txPointcut" expression="execution(* com.carl..service..*.*(..))" />
-        &lt;!&ndash; Advisor定义，切入点和通知分别为txPointcut、txAdvice &ndash;&gt;
+         &lt;!&ndash;Advisor定义，切入点和通知分别为txPointcut、txAdvice &ndash;&gt;
         <aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
     </aop:config>-->
 </beans>

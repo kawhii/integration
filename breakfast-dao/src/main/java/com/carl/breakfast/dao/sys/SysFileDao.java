@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
  * @date 2016/11/27
  * © 2016 - 2020 , all rights reserved .卡尔工作室
  */
-@Repository
 public interface SysFileDao {
     /**
      * 保存文件
