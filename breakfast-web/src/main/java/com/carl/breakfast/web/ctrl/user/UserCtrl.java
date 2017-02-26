@@ -45,7 +45,7 @@ public class UserCtrl extends BaseCtrl {
     @Autowired
     private IAddressService addressService;
     @Autowired
-    private CommonAddressService commonAddressService;
+    private ICommonAddressService commonAddressService;
     @Autowired
     private ITokenProvider tokenProvider;
 

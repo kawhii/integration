@@ -24,6 +24,8 @@
 
       <!--声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager
     TODO 事务加上-->
+    <!--  声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager -->
+    <!--TODO 事务加上-->
     <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="add*" propagation="REQUIRED" />
@@ -33,10 +35,10 @@
         </tx:attributes>
     </tx:advice>
 
-    <aop:config expose-proxy="true">
-         &lt;!&ndash;只对业务逻辑层实施事务 &ndash;&gt;
+    <aop:config proxy-target-class="true">
+        &lt;!&ndash; 只对业务逻辑层实施事务 &ndash;&gt;
         <aop:pointcut id="txPointcut" expression="execution(* com.carl..service..*.*(..))" />
-         &lt;!&ndash;Advisor定义，切入点和通知分别为txPointcut、txAdvice &ndash;&gt;
+        &lt;!&ndash; Advisor定义，切入点和通知分别为txPointcut、txAdvice &ndash;&gt;
         <aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
     </aop:config>-->
 </beans>

@@ -36,6 +36,14 @@
             <artifactId>druid</artifactId>
             <version>1.0.22</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.10</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>framework-core</finalName>
