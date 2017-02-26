@@ -182,7 +182,7 @@ public class OrderCtrl extends BaseCtrl {
                     .setGoodsImgPath(goodsPojo.getMainImgPath())
                     .setQuantity(goodsMap.get(goodsPojo.getId()).getQuantity())
                     .setGoodsId(goodsPojo.getId())
-                    .setGoodsTitle(goodsPojo.getTitle());
+                    .setGoodsTitle(goodsPojo.getName());
             //添加到数组
             items.add(item);
         }
