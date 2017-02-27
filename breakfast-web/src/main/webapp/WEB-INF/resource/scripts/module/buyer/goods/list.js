@@ -60,7 +60,7 @@
         function pullData() {
             carl.request("/goods/list.json", {
                 page: $scope.page,
-                pageSize: 15,
+                pageSize: 10,
                 name: app.searchTx
             }, function (data) {
                 $scope.haveNextPage = (data.body.endPageIndex - data.body.currentPage) >= 1;
