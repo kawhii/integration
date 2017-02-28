@@ -14,7 +14,7 @@
         try {
             val = eval('(' + obj.value + ')');
         } catch (e) {
-            alert("请确认收货地址");
+            carl.toast("请确认收货地址");
             return;
         }
         var cont = orderJson[obj.name];
