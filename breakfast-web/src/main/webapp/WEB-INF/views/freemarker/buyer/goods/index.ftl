@@ -1,7 +1,7 @@
 <#include "freemarker/base/mallBase.ftl">
 <section class="contain">
     <header class="header">
-        <p>包将军 金品质</p>
+        <p>包将军&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金品质</p>
     </header>
 
     <!-- home -->
@@ -11,7 +11,7 @@
         <div class="home-search">
             <div class="search">
                 <i class="fa fa-search fa-1x"></i>
-                <input type="search" autofocus x-webkit-speech v-on:keyup.enter="search" v-model="searchTx" placeholder="搜索"/>
+                <input type="search" autofocus x-webkit-speech v-on:keyup.enter="search" v-model="searchTx" placeholder="搜索（送餐时间：7:30-8:30）"/>
             </div>
         </div>
         <div class="home-main">
