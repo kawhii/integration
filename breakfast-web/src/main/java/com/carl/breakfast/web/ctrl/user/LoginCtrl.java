@@ -77,7 +77,7 @@ public class LoginCtrl extends BaseCtrl {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e);
-            //todo 微信登陆异常处理
+            return new ModelAndView(freemarker("loginError"));
         }
         return new ModelAndView(new RedirectView("/goods/index.html"));
     }

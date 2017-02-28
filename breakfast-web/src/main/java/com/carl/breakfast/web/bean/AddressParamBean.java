@@ -16,7 +16,7 @@ public class AddressParamBean {
     private int id;
     //联系人名
     @NotNull
-    @Size(min=2,max = 20)
+    @Size(min=1,max = 20)
     private String cName;
     //联系电话
     @NotNull
