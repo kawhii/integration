@@ -72,6 +72,6 @@
             <include refid="condition_sql"/>
         </where>
         group by co.id
-        order by co.create_time desc
+        order by co.add_code1,co.add_code2
     </select>
 </mapper>

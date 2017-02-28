@@ -3,6 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
     http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!-- 配置 Druid 监控信息显示页面 -->
+    <servlet>
+        <servlet-name>DruidStatView</servlet-name>
+        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+        <init-param>
+            <!-- 允许清空统计数据 -->
+            <param-name>resetEnable</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <!-- 用户名 -->
+            <param-name>loginUsername</param-name>
+            <param-value>bkadmin</param-value>
+        </init-param>
+        <init-param>
+            <!-- 密码 -->
+            <param-name>loginPassword</param-name>
+            <param-value>bk123admin</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DruidStatView</servlet-name>
+        <url-pattern>/druid/*</url-pattern>
+    </servlet-mapping>
+
     <!--权限-->
     <listener>
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
