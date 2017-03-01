@@ -357,7 +357,9 @@
             $scope.pageInfo = {
                 curr: 1,
                 haveNext: true,
-                pageSize: 10
+                pageSize: 20,
+                havePre: false,
+                dataLen: 0
             };
 
 
@@ -446,14 +448,31 @@
                     , {
                         unitCode: $scope.unitCode ? $scope.unitCode.ID : '',
                         startTime: $scope.startDate ? $scope.startDate.format("yyyy-MM-dd hh:mm") : '',
-                        endTime: $scope.endDate ? $scope.endDate.format("yyyy-MM-dd hh:mm") : ''
+                        endTime: $scope.endDate ? $scope.endDate.format("yyyy-MM-dd hh:mm") : '',
+                        page: $scope.pageInfo.curr,
+                        pageSize: $scope.pageInfo.pageSize
                     }
                     , function (data) {
+                        $scope.pageInfo.dataLen = data.body.totalCount;
                         if (data.header.code == 0) {
-
                             //有数据才计算页码
-                            if (data.body.length >= 0) {
-                                $scope.data.recordList = data.body;
+
+                            if ($scope.pageInfo.curr < data.body.endPageIndex) {
+                                $scope.pageInfo.haveNext = true;
+                            } else {
+                                $scope.pageInfo.haveNext = false;
+                            }
+
+                            if (data.body.recordList.length > 0) {
+                                if($scope.pageInfo.curr > 1) {
+                                $scope.pageInfo.havePre = true;
+                                } else {
+                                    $scope.pageInfo.havePre = false;
+                                }
+                            }
+
+                            if (data.body.recordList.length >= 0) {
+                                $scope.data.recordList = data.body.recordList;
                             } else {
                                 $scope.data.recordList = [];
                             }
@@ -498,6 +517,16 @@
             renderList();
             loadSalesList();
             loadGoods();
+
+            //订单统计上一页
+            $scope.orderPre = function () {
+                $scope.pageInfo.curr = $scope.pageInfo.curr - 1;
+                renderList();
+            };
+            $scope.orderNext = function () {
+                $scope.pageInfo.curr = $scope.pageInfo.curr + 1;
+                renderList();
+            };
 
 
             //重新查询

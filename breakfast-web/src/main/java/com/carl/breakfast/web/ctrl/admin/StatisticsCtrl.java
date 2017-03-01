@@ -4,6 +4,7 @@ import com.carl.breakfast.dao.admin.statistics.OrderStatistics;
 import com.carl.breakfast.dao.admin.statistics.SalesStatistics;
 import com.carl.breakfast.web.service.IStatisticsService;
 import com.carl.framework.core.functional.WriterException;
+import com.carl.framework.core.page.PageParam;
 import com.carl.framework.core.pio.ExportRealInfo;
 import com.carl.framework.core.pio.IniExportInfoExtractor;
 import com.carl.framework.ui.ctrl.BaseCtrl;
@@ -92,15 +93,20 @@ public class StatisticsCtrl extends BaseCtrl {
      */
     public Object order(@RequestParam(required = false, name = "unitCode") String unitCode,
                         @RequestParam(required = false, name = "startTime") String startTime,
-                        @RequestParam(required = false, name = "endTime") String endTime) {
+                        @RequestParam(required = false, name = "endTime") String endTime,
+                        @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                        @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize
+                        ) {
         //为空默认当天
         if (StringUtil.isNull(startTime)) {
             SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             startTime = dateFm.format(new Date());
         }
-        Object res = statisticsService.queryOrder(
+        Object res = statisticsService.queryOrder(new PageParam(page, pageSize),
+                MapBuilder.<String, Object>build().p("unitCode", unitCode).p("startTime", startTime).p("endTime", endTime));
+        /*Object res = statisticsService.queryOrder(
                 MapBuilder.<String, Object>build().p("unitCode", unitCode).p("startTime", startTime).p("endTime", endTime)
-        );
+        );*/
         return success(res);
     }
 

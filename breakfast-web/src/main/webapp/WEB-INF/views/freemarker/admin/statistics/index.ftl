@@ -13,7 +13,7 @@
 <#--上传表单 start-->
     <div class="container" ng-show="tabIndex == 1">
         <div class="md-toolbar-tools">
-            <h2 class="md-flex">总记录数：{{data.recordList.length}}</h2>
+            <h2 class="md-flex">总记录数：{{pageInfo.dataLen}}</h2>
         </div>
         <div>
             <div class="form-group form-inline">
@@ -87,14 +87,23 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
                 <td>{{countImpatient}}</td>
                 <td>{{countPrice}}</td>
                 <td></td>
             </tr>
             </tbody>
         </table>
+        <nav>
+            <ul class="pager">
+                <li ng-if="pageInfo.havePre"><a href="javascript:void(0)"
+                                                ng-click="orderPre()">上一页({{pageInfo.curr-1}})</a>
+                </li>
+                <li ng-if="pageInfo.haveNext"><a href="javascript:void(0)"
+                                                 ng-click="orderNext()">下一页({{pageInfo.curr+1}})</a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
 
 <#--上传表单 end-->

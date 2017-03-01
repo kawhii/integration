@@ -2,6 +2,8 @@ package com.carl.breakfast.web.service;
 
 import com.carl.breakfast.dao.admin.statistics.OrderStatistics;
 import com.carl.breakfast.dao.admin.statistics.SalesStatistics;
+import com.carl.framework.core.page.PageBean;
+import com.carl.framework.core.page.PageParam;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,7 @@ public interface IStatisticsService {
 
     /**
      * 查询销售量
+     *
      * @param paramMap
      * @return
      */
@@ -32,9 +35,18 @@ public interface IStatisticsService {
 
     /**
      * 转换数据去map
+     *
      * @param orderStatistics
      * @return
      */
     List<Map<String, Object>> convertOrder2Map(List<OrderStatistics> orderStatistics);
 
+
+    /**
+     *  分页查询订单
+     * @param pageParam
+     * @param param
+     * @return
+     */
+    PageBean<OrderStatistics> queryOrder(PageParam pageParam, Map<String, Object> param);
 }

@@ -72,6 +72,46 @@
             <include refid="condition_sql"/>
         </where>
         group by co.id
-        order by co.add_code1,co.add_code2
+        order by co.add_code1,co.add_code2,substring_index(co.address,'楼层',-1)
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select co.id as orderid,
+        co.order_no as orderNo,
+        co.message as message,
+        co.add_code1 as unitcode,
+        co.add_code2 as floorcode,
+        co.add_name1 as unitname,
+        co.add_name2 as floorname,
+        co.contact_name as contactName,
+        co.contact_number as contactPhone,
+        group_concat(concat(og.goods_title,'*',og.quantity)) as goodsinfo,
+        co.price as totalPrice,
+        co.is_impatient as isImpatient,
+        co.create_time as createTime,
+        substring_index(co.address,'楼层',-1) as address
+        from core_order co
+        left join core_order_goods og
+        on og.order_id = co.id
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+        group by co.id
+        order by co.add_code1,co.add_code2,substring_index(co.address,'楼层',-1) limit #{pageFirst}, #{pageSize}
+    </select>
+
+    <!-- 分页查询时要用到的总数统计 -->
+    <select id="listPageCount" parameterType="java.util.Map"
+            resultType="java.lang.Long">
+        select count(1) from (select 1
+        from core_order co
+        left join core_order_goods og
+        on og.order_id = co.id
+        <where>
+            <include refid="condition_sql"/>
+        </where>
+        group by co.id
+        )a
     </select>
 </mapper>

@@ -5,6 +5,8 @@ import com.carl.breakfast.dao.admin.statistics.SalesStatistics;
 import com.carl.breakfast.dao.admin.statistics.StatisticsOrderDao;
 import com.carl.breakfast.dao.admin.statistics.StatisticsSalesDao;
 import com.carl.breakfast.web.service.IStatisticsService;
+import com.carl.framework.core.page.PageBean;
+import com.carl.framework.core.page.PageParam;
 import com.carl.framework.util.MapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +44,8 @@ public class StatisticsServiceImpl implements IStatisticsService {
     @Override
     public List<Map<String, Object>> convertOrder2Map(List<OrderStatistics> orderStatistics) {
         List<Map<String, Object>> data = new ArrayList<>();
-        if(orderStatistics != null && orderStatistics.size() > 0) {
-            for(OrderStatistics order : orderStatistics) {
+        if (orderStatistics != null && orderStatistics.size() > 0) {
+            for (OrderStatistics order : orderStatistics) {
                 data.add(MapBuilder.<String, Object>build()
                         .p("orderId", order.getOrderId())
                         .p("orderNo", order.getOrderNo())
@@ -63,5 +65,10 @@ public class StatisticsServiceImpl implements IStatisticsService {
             }
         }
         return data;
+    }
+
+    @Override
+    public PageBean<OrderStatistics> queryOrder(PageParam pageParam, Map<String, Object> param) {
+        return statisticsOrderDao.listPage(pageParam, param);
     }
 }
