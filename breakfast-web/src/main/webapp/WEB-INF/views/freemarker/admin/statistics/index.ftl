@@ -57,15 +57,15 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>序号</th>
-                <th>楼栋</th>
-                <th>楼层</th>
-                <th>房号</th>
-                <th>联系人</th>
-                <th>商品名称*数量</th>
-                <th>是否加急</th>
-                <th>总价（元）</th>
-                <th>备注</th>
+                <th style="width: 5%">序号</th>
+                <th style="width: 6%">楼栋</th>
+                <th style="width: 6%">楼层</th>
+                <th style="width: 6%">房号</th>
+                <th style="width: 6%">联系人</th>
+                <th style="width: 30%">商品名称*数量</th>
+                <th style="width: 5%">加急</th>
+                <th style="width: 7%">总价(元)</th>
+                <th style="width: 28%">备注</th>
             </tr>
             </thead>
             <tbody>
