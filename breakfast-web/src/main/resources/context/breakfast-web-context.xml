@@ -15,4 +15,6 @@
     </mvc:resources>
     <mvc:resources mapping="/*.txt" location="/"/>
 
+
+    <alias name="bkWXAuthService" alias="wxAuthService" />
 </beans>

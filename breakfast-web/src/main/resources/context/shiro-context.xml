@@ -97,6 +97,7 @@
         <property name="authenticationCachingEnabled" value="true"></property>
         <property name="cachingEnabled" value="true"></property>
         <property name="cacheManager" ref="shiroCacheManager"></property>
+        <property name="iwxAuthService" ref="wxAuthService"></property>
     </bean>
 
     <!--校验缓存-->
