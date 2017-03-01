@@ -11,7 +11,7 @@ import com.carl.framework.util.request.JsonUrlRequester;
  */
 public class DefaultJSTicketProvider implements IJSTicketProvider {
     private IRequester<JSTicketRequestParam> jsonUrlRequester = new JsonUrlRequester();
-    private JSTicketResult result;
+    private volatile JSTicketResult result;
 
     @Override
     public JSTicketResult ticket() {

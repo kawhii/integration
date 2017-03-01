@@ -15,7 +15,7 @@ public class DefaultTokenProvider implements ITokenProvider {
     protected final Log logger = LogFactory.getLog(DefaultTokenProvider.class);
     private AccessTokenTradeParam param;
 
-    private AccessTokenResult token;
+    private volatile AccessTokenResult token;
 
     private IRequester<AccessTokenTradeParam> urlRequester = new JsonUrlRequester();
 
