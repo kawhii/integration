@@ -13,7 +13,7 @@
 <#--上传表单 start-->
     <div class="container" ng-show="tabIndex == 1">
         <div class="md-toolbar-tools">
-            <h2 class="md-flex">总记录数：{{pageInfo.dataLen}}</h2>
+            <h2 class="md-flex">总记录数：{{pageInfo.dataLen}}，当前页：{{pageInfo.curr}}</h2>
         </div>
         <div>
             <div class="form-group form-inline">
@@ -62,10 +62,10 @@
                 <th style="width: 6%">楼层</th>
                 <th style="width: 6%">房号</th>
                 <th style="width: 6%">联系人</th>
-                <th style="width: 30%">商品名称*数量</th>
+                <th style="width: 40%">商品名称*数量</th>
                 <th style="width: 5%">加急</th>
                 <th style="width: 7%">总价(元)</th>
-                <th style="width: 28%">备注</th>
+                <th style="width: 18%">备注</th>
             </tr>
             </thead>
             <tbody>
