@@ -42,7 +42,7 @@
                         <p class="orders-details-goods-price">￥${item.unitPrice}</p>
                     </div>
                     <div class="carts-number">
-                        <p>x<span>1</span></p>
+                        <p>x<span>${item.quantity}</span></p>
                     </div>
                     <div class="clearfix"></div>
                 </div>
