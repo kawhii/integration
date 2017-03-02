@@ -47,6 +47,7 @@
                 <div class="clearfix"></div>
             </div>
         </div>
+        <div class="loadmore" @click="loadMore">{{loadMoreTitle}}</div>
     </main>
     <main class="no-orders" v-if="orders.length==0 && loaded" v-cloak>
         <i class="fa fa-star fa-2x"></i>
