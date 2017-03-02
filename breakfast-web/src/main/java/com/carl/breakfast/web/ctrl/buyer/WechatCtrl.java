@@ -32,17 +32,44 @@ public class WechatCtrl extends BaseCtrl {
     }
 
     //支付完成回调
-    @RequestMapping("/payNotify")
+   /* @RequestMapping("/payNotify")
     @ResponseBody
     public WXPayBaseResult payNotify(@RequestBody PayNotifyParam payNotifyParam) {
         PayNotifyEvent event;
         if ("SUCCESS".equals(payNotifyParam.getReturnCode())) {
-            logger.info("微信支付回调，用户【" + payNotifyParam.getOpenid() + "】完成对订单【" + payNotifyParam.getOutTradeNo() + "】的支付。");
+            logger.info(String.format("微信支付回调，用户【%s】完成对订单【%s】的支付。", payNotifyParam.getOpenid(), payNotifyParam.getOutTradeNo()));
 
             if (isWechat(payNotifyParam)) {
                 event = new PayNotifyEvent(PayEventName.ON_PAY_SUCCESS, this, payNotifyParam);
                 publisherEvent(event);
+                logger.info(String.format("告知微信订【%s】单已处理成功。", payNotifyParam.getOutTradeNo()));
+
                 return new PayNotifyResult().setReturnCode("SUCCESS").setReturnMsg("OK");
+            }
+            event = new PayNotifyEvent(PayEventName.ON_PAY_ILLEGAL, this, payNotifyParam);
+            logger.warn("非法请求微信回调");
+        } else {
+            event = new PayNotifyEvent(PayEventName.ON_PAY_FAIL, this, payNotifyParam);
+            logger.debug("微信支付回调【" + payNotifyParam.getReturnMsg() + "】");
+        }
+        publisherEvent(event);
+        return null;
+    }*/
+
+    //支付完成回调
+    @RequestMapping("/payNotify")
+    @ResponseBody
+    public String payNotify(@RequestBody PayNotifyParam payNotifyParam) {
+        PayNotifyEvent event;
+        if ("SUCCESS".equals(payNotifyParam.getReturnCode())) {
+            logger.info(String.format("微信支付回调，用户【%s】完成对订单【%s】的支付。", payNotifyParam.getOpenid(), payNotifyParam.getOutTradeNo()));
+
+            if (isWechat(payNotifyParam)) {
+                event = new PayNotifyEvent(PayEventName.ON_PAY_SUCCESS, this, payNotifyParam);
+                publisherEvent(event);
+                logger.info(String.format("告知微信订【%s】单已处理成功。", payNotifyParam.getOutTradeNo()));
+
+                return "SUCCESS";
             }
             event = new PayNotifyEvent(PayEventName.ON_PAY_ILLEGAL, this, payNotifyParam);
             logger.warn("非法请求微信回调");
