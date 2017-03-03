@@ -168,23 +168,23 @@
             <thead>
             <tr>
                 <th>序号</th>
-                <th>商品名称</th>
                 <th>楼栋</th>
-                <th>单价（元）</th>
-                <th>货存</th>
+                <th>商品名称</th>
                 <th>销量</th>
+                <th>单价（元）</th>
                 <th>销售额（元）</th>
+                <th>货存</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="item in data.salesList">
                 <td>{{$index+1}}</td>
-                <td>{{item.goodsName}}</td>
                 <td>{{item.unitName}}</td>
-                <td>{{item.unitPrice}}</td>
-                <td>{{item.stock}}</td>
+                <td>{{item.goodsName}}</td>
                 <td>{{item.sales}}</td>
+                <td>{{item.unitPrice}}</td>
                 <td>{{item.totalPrice}}</td>
+                <td>{{item.stock}}</td>
             </tr>
             <tr>
                 <td></td>
@@ -192,8 +192,8 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
                 <td>{{salesCountPrice}}</td>
+                <td></td>
             </tr>
             </tbody>
         </table>
