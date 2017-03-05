@@ -57,15 +57,16 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th style="width: 5%">序号</th>
-                <th style="width: 6%">楼栋</th>
+                <th style="width: 3%"></th>
+                <th style="width: 7%">楼栋</th>
                 <th style="width: 6%">楼层</th>
                 <th style="width: 6%">房号</th>
-                <th style="width: 6%">联系人</th>
-                <th style="width: 40%">商品名称*数量</th>
+                <th style="width: 35%">商品名称*数量</th>
                 <th style="width: 5%">加急</th>
                 <th style="width: 7%">总价(元)</th>
                 <th style="width: 18%">备注</th>
+                <th style="width: 6%">联系人</th>
+                <th style="width: 6%">电话</th>
             </tr>
             </thead>
             <tbody>
@@ -74,11 +75,12 @@
                 <td>{{item.unitName}}</td>
                 <td>{{item.floorName}}</td>
                 <td>{{item.address}}</td>
-                <td>{{item.contactName}}</td>
                 <td>{{item.goodsInfo}}</td>
                 <td>{{item.impatient?'是':'否'}}</td>
                 <td>{{item.totalPrice}}</td>
                 <td>{{item.note}}</td>
+                <td>{{item.contactName}}</td>
+                <td>{{item.contactPhone}}</td>
             </tr>
             <tr>
                 <td></td>
