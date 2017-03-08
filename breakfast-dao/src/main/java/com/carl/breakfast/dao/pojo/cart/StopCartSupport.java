@@ -79,7 +79,11 @@ public abstract class StopCartSupport<H> implements StopCart<H> {
                             new CartGoods().setGoodsId(goods.getGoodsId()).setQuantity(q),
                             goods.getQuantity());
                 }
-                goodsListMap.put(goods.getGoodsId(), res);
+                if(res == 0) {
+                    goodsListMap.remove(goods.getGoodsId());
+                } else {
+                    goodsListMap.put(goods.getGoodsId(), res);
+                }
             }
         }
         reset();
