@@ -82,7 +82,7 @@
 
 
     loadCardGoodsCount(goodsId);
-    loadComment();
+    //loadComment();
 
     //由于高度的问题重写设
     function setHeight() {

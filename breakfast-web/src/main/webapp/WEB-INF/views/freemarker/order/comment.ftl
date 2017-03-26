@@ -15,9 +15,9 @@
             <div class="comment-orders-goods-name">${item.goodsTitle}</div>
             <div class="comment-orders-goods-btn">
                 <#if item.comment == false>
-                    <a href="/order/${order.id}/${item.goodsId}/commentOrder">
+                    <#--<a href="/order/${order.id}/${item.goodsId}/commentOrder">
                         <button type="button">评价晒单</button>
-                    </a>
+                    </a>-->
                 </#if>
             </div>
             <div class="clearfix"></div>

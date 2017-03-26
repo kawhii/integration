@@ -24,7 +24,7 @@
                     <div class="home-info">
                         <p class="home-goods-name">{{item.name}}</p>
                         <p class="home-goods-price">￥{{item.price}}</p>
-                        <p class="home-goods-sales">销量：<span>{{item.sales}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好评：<span>{{item.grade/100}}%</span></p>
+                        <p class="home-goods-sales">销量：<span>{{item.sales}}</span><#--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好评：<span>{{item.grade/100}}%</span>--></p>
                     </div>
                 </a>
                 <div class="home-plus" @click="addStopCart(item)">

@@ -44,11 +44,11 @@
                 </div>
             </div>
 
-            <div class="details-main-comment">
+            <#--<div class="details-main-comment">
                 <div class="details-main-commentTop">
                     <a href="javascript:void()">
-                        <p>评价（{{commentCount}}）</p>
-                        <p><#--五星度：<span class="red">100%</span><i class="fa fa-chevron-right fa-1x"></i>--></p>
+                        &lt;#&ndash;<p>评价（{{commentCount}}）</p>&ndash;&gt;
+                        <p>&lt;#&ndash;五星度：<span class="red">100%</span><i class="fa fa-chevron-right fa-1x"></i>&ndash;&gt;</p>
                     </a>
                 </div>
                 <div class="clearfix"></div>
@@ -72,7 +72,7 @@
                     <p>评价内容：<span>{{item.content}}</span></p>
                 </div>
             </div>
-            <div class="loadmore" @click="loadMore">{{commentLoadTitle}}</div>
+            <div class="loadmore" @click="loadMore">{{commentLoadTitle}}</div>-->
         </div>
 
         <div class="details-foot">
