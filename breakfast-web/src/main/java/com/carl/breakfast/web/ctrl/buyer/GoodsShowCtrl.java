@@ -3,6 +3,7 @@ package com.carl.breakfast.web.ctrl.buyer;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsDetail;
 import com.carl.breakfast.dao.admin.goods.pojo.GoodsPojo;
 import com.carl.breakfast.dao.sys.pojo.UserInfo;
+import com.carl.breakfast.web.ctrl.util.SleepUtil;
 import com.carl.breakfast.web.service.IGoodsService;
 import com.carl.breakfast.web.service.IUserService;
 import com.carl.framework.core.page.PageBean;
@@ -64,6 +65,7 @@ public class GoodsShowCtrl extends BaseCtrl {
         goodsPojo.setStatus(1);
         goodsPojo.setName(name);
         PageBean data = goodsService.listPage(new PageParam(page, pageSize), goodsPojo);
+        SleepUtil.sleep(2, 5);
         return success(data);
     }
 
@@ -83,6 +85,7 @@ public class GoodsShowCtrl extends BaseCtrl {
         } else {
             view.addObject("data", dg);
         }
+        SleepUtil.sleep(2, 5);
         return view;
     }
 
@@ -103,6 +106,7 @@ public class GoodsShowCtrl extends BaseCtrl {
             view.addObject("data", dg);
             view.addObject("isCart", isCart);
         }
+        SleepUtil.sleep(2, 5);
         return view;
     }
 

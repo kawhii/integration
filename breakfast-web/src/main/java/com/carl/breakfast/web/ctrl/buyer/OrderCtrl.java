@@ -14,6 +14,7 @@ import com.carl.breakfast.web.ctrl.buyer.param.CommentSubmitParam;
 import com.carl.breakfast.web.ctrl.buyer.param.OrderCreateParam;
 import com.carl.breakfast.web.ctrl.buyer.param.OrderGoodsParam;
 import com.carl.breakfast.web.ctrl.buyer.param.OrderParam;
+import com.carl.breakfast.web.ctrl.util.SleepUtil;
 import com.carl.breakfast.web.service.*;
 import com.carl.breakfast.web.utils.UserUtils;
 import com.carl.framework.core.execption.BizException;
@@ -104,6 +105,7 @@ public class OrderCtrl extends BaseCtrl {
 
         ModelAndView view = new ModelAndView(freemarker("orderConfirm"));
         view.addObject("data", JSON.toJSONString(data));
+        SleepUtil.sleep(1, 3);
         return view;
     }
 
@@ -280,6 +282,7 @@ public class OrderCtrl extends BaseCtrl {
         }
         request.getSession().setAttribute(ORDER_DATA_KEY, MapBuilder.<String, Object>build().
                 p("rebuy", !StringUtil.isNull(orderId)).p("data", (!StringUtil.isNull(orderId) ? orderId : goodsIdSessionStore)));
+        SleepUtil.sleep(1, 3);
         return view;
     }
 
@@ -362,6 +365,7 @@ public class OrderCtrl extends BaseCtrl {
                 MapBuilder.<String, Object>build().p("username", UserUtils.currUser().getUsername()));
         view.addObject("order", orderPojo);
         view.addObject("title", "订单详情");
+        SleepUtil.sleep(1, 4);
         return view;
     }
 
