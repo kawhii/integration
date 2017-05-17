@@ -65,7 +65,7 @@ public class GoodsShowCtrl extends BaseCtrl {
         goodsPojo.setStatus(1);
         goodsPojo.setName(name);
         PageBean data = goodsService.listPage(new PageParam(page, pageSize), goodsPojo);
-        SleepUtil.sleep(2, 5);
+        SleepUtil.sleep(0, 4);
         return success(data);
     }
 
@@ -85,7 +85,7 @@ public class GoodsShowCtrl extends BaseCtrl {
         } else {
             view.addObject("data", dg);
         }
-        SleepUtil.sleep(2, 5);
+        SleepUtil.sleep(1, 3);
         return view;
     }
 
@@ -106,7 +106,7 @@ public class GoodsShowCtrl extends BaseCtrl {
             view.addObject("data", dg);
             view.addObject("isCart", isCart);
         }
-        SleepUtil.sleep(2, 5);
+        SleepUtil.sleep(0, 5);
         return view;
     }
 
