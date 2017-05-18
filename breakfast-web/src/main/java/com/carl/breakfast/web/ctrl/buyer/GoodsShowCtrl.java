@@ -50,6 +50,7 @@ public class GoodsShowCtrl extends BaseCtrl {
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView view = new ModelAndView(freemarker("index"));
+        SleepUtil.sleep(0, 3);
         return view;
     }
 
@@ -65,7 +66,7 @@ public class GoodsShowCtrl extends BaseCtrl {
         goodsPojo.setStatus(1);
         goodsPojo.setName(name);
         PageBean data = goodsService.listPage(new PageParam(page, pageSize), goodsPojo);
-        SleepUtil.sleep(0, 4);
+        SleepUtil.sleep(0, 6);
         return success(data);
     }
 
@@ -85,7 +86,7 @@ public class GoodsShowCtrl extends BaseCtrl {
         } else {
             view.addObject("data", dg);
         }
-        SleepUtil.sleep(1, 3);
+        SleepUtil.sleep(0, 5);
         return view;
     }
 
@@ -106,7 +107,7 @@ public class GoodsShowCtrl extends BaseCtrl {
             view.addObject("data", dg);
             view.addObject("isCart", isCart);
         }
-        SleepUtil.sleep(0, 5);
+        SleepUtil.sleep(0, 6);
         return view;
     }
 
